@@ -5,106 +5,162 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parts of a Line Graph – Matching Activity</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;600&display=swap');
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: 'Inter', system-ui, sans-serif;
-    background: #ffffff;
-    color: #292929;
     min-height: 100vh;
-    padding: 24px 16px 40px;
+    background-color: #fdf6f0;
+    background-image:
+      radial-gradient(circle, #f88b4822 1.5px, transparent 1.5px),
+      radial-gradient(circle, #5fb27b18 1.5px, transparent 1.5px);
+    background-size: 28px 28px, 56px 56px;
+    background-position: 0 0, 14px 14px;
+    padding: 0 0 48px;
   }
 
+  /* ── Header ───────────────────────────────────────── */
   .header {
+    background: linear-gradient(135deg, #292929 0%, #3d2e20 100%);
+    padding: 28px 20px 32px;
     text-align: center;
-    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, #f88b4815 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+  }
+
+  .header img {
+    height: 64px;
+    margin-bottom: 14px;
+    position: relative;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
   }
 
   .header .tag {
     display: inline-block;
-    background: #EDF7F1;
-    color: #5FB27B;
-    font-size: 11px;
+    background: #5FB27B;
+    color: white;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    padding: 4px 12px;
+    padding: 4px 14px;
     border-radius: 20px;
     margin-bottom: 10px;
+    position: relative;
   }
 
   .header h1 {
     font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 800;
-    color: #292929;
-    margin-bottom: 6px;
+    color: #ffffff;
+    margin-bottom: 8px;
+    position: relative;
   }
 
   .header p {
     font-size: 13px;
-    color: #6B7280;
+    color: #c4a882;
+    position: relative;
+  }
+
+  /* ── Main area ────────────────────────────────────── */
+  .main {
+    max-width: 780px;
+    margin: 28px auto 0;
+    padding: 0 16px;
   }
 
   .activity-area {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr;
     gap: 20px;
-    max-width: 760px;
-    margin: 0 auto 24px;
+    margin-bottom: 24px;
+    align-items: center;
   }
 
+  /* ── Word bank ────────────────────────────────────── */
   .word-bank {
-    background: #FEF0E6;
-    border-radius: 12px;
-    padding: 16px;
+    background: white;
+    border-radius: 16px;
+    padding: 14px 12px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(248,139,72,0.12);
+    border: 1.5px solid #f9d0b0;
   }
 
   .word-bank h2 {
     font-family: 'Montserrat', system-ui, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 10px;
+    font-weight: 800;
     color: #F88B48;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #FEF0E6;
+    text-align: center;
   }
 
   .word-bank-items {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    min-height: 200px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    
   }
 
   .drag-item {
-    background: #ffffff;
-    border: 2px solid #F88B48;
-    border-radius: 8px;
-    padding: 9px 14px;
-    font-size: 13px;
+    background: linear-gradient(135deg, #F88B48, #f9a066);
+    border-radius: 10px;
+    padding: 12px 10px;
+    font-size: 17px;
     font-weight: 700;
-    color: #292929;
+    color: white;
     cursor: grab;
-    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s;
     user-select: none;
     touch-action: none;
+    box-shadow: 0 3px 10px rgba(248,139,72,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .drag-item::after {
+    content: '⠿';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    font-size: 14px;
   }
 
   .drag-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(248,139,72,0.25);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(248,139,72,0.45);
   }
+
+  .drag-item:active { cursor: grabbing; }
 
   .drag-item.dragging {
-    opacity: 0.4;
-    transform: scale(0.97);
+    opacity: 0.35;
+    transform: scale(0.96);
   }
 
-  .drag-item.placed {
-    display: none;
-  }
+  .drag-item.placed { display: none; }
 
+  /* ── Definitions ──────────────────────────────────── */
   .definitions {
     display: flex;
     flex-direction: column;
@@ -113,234 +169,261 @@
 
   .definition-row {
     display: flex;
-    align-items: stretch;
+    align-items: center;
     gap: 10px;
-    min-height: 56px;
+    min-height: 58px;
   }
 
   .drop-zone {
-    width: 110px;
+    width: 108px;
     flex-shrink: 0;
-    border: 2px dashed #D1D5DB;
-    border-radius: 8px;
+    border: 2.5px dashed #D1D5DB;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 11px;
     color: #9CA3AF;
-    transition: border-color 0.2s, background 0.2s;
-    min-height: 44px;
+    transition: all 0.2s;
+    min-height: 48px;
     position: relative;
+    background: white;
   }
 
   .drop-zone.over {
     border-color: #F88B48;
     background: #FEF0E6;
+    transform: scale(1.03);
   }
 
   .drop-zone.correct {
     border-color: #5FB27B;
-    background: #EDF7F1;
+    background: linear-gradient(135deg, #EDF7F1, #d4f0e0);
+    border-style: solid;
   }
 
   .drop-zone.incorrect {
     border-color: #E64A3C;
     background: #FEF0EE;
+    border-style: solid;
+    animation: shake 0.4s ease;
+  }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
   }
 
   .drop-zone .placed-item {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     color: #292929;
     text-align: center;
-    padding: 4px;
+    padding: 4px 6px;
     cursor: grab;
     width: 100%;
-    text-align: center;
+    line-height: 1.3;
   }
 
-  .definition-text {
-    flex: 1;
-    background: #F9FAFB;
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 13px;
-    color: #292929;
-    line-height: 1.4;
-    display: flex;
-    align-items: center;
-  }
+  .drop-zone.correct .placed-item { color: #2d7a52; }
+  .drop-zone.incorrect .placed-item { color: #c0392b; }
 
   .feedback-icon {
     position: absolute;
-    right: -8px;
-    top: -8px;
-    width: 20px;
-    height: 20px;
+    right: -9px;
+    top: -9px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     display: none;
     align-items: center;
     justify-content: center;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 800;
     color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   }
 
-  .drop-zone.correct .feedback-icon {
-    display: flex;
-    background: #5FB27B;
+  .drop-zone.correct .feedback-icon { display: flex; background: #5FB27B; }
+  .drop-zone.incorrect .feedback-icon { display: flex; background: #E64A3C; }
+
+  .definition-text {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 10px 13px;
+    font-size: 12.5px;
+    color: #374151;
+    line-height: 1.45;
+    display: block;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1.5px solid #F3F4F6;
+    transition: border-color 0.2s;
   }
 
-  .drop-zone.incorrect .feedback-icon {
-    display: flex;
-    background: #E64A3C;
+  .definition-row:hover .definition-text {
+    border-color: #f9d0b0;
   }
 
+  /* ── Controls ─────────────────────────────────────── */
   .controls {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
-    max-width: 760px;
-    margin: 0 auto 20px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
   }
 
   .btn {
-    padding: 10px 24px;
-    border-radius: 8px;
+    padding: 12px 28px;
+    border-radius: 50px;
     font-size: 13px;
     font-weight: 700;
     border: none;
     cursor: pointer;
     font-family: 'Montserrat', system-ui, sans-serif;
-    transition: transform 0.1s, box-shadow 0.1s;
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s;
+    letter-spacing: 0.5px;
   }
 
-  .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
-  .btn:active { transform: translateY(0); }
+  .btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  }
 
   .btn-check {
-    background: #F88B48;
+    background: linear-gradient(135deg, #F88B48, #f97316);
     color: white;
+    box-shadow: 0 4px 14px rgba(248,139,72,0.4);
   }
 
   .btn-reset {
-    background: #F3F4F6;
+    background: white;
     color: #292929;
+    border: 2px solid #E5E7EB;
   }
 
+  /* ── Result bar ───────────────────────────────────── */
   .result-bar {
-    max-width: 760px;
+    max-width: 780px;
     margin: 0 auto;
-    border-radius: 10px;
-    padding: 14px 18px;
-    font-size: 14px;
-    font-weight: 600;
-    text-align: center;
+    padding: 0 16px;
     display: none;
   }
 
   .result-bar.show { display: block; }
-  .result-bar.pass { background: #EDF7F1; color: #5FB27B; }
-  .result-bar.fail { background: #FEF0EE; color: #E64A3C; }
-  .result-bar.partial { background: #FEF0E6; color: #F88B48; }
 
-  .branding {
+  .result-inner {
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 14px;
+    font-weight: 600;
     text-align: center;
-    margin-top: 28px;
-    font-size: 11px;
-    color: #D1D5DB;
-    letter-spacing: 0.5px;
+    font-family: 'Montserrat', system-ui, sans-serif;
   }
 
-  @media (max-width: 520px) {
-    .activity-area { grid-template-columns: 1fr; }
-    .drop-zone { width: 90px; }
+  .result-bar.pass .result-inner { background: linear-gradient(135deg, #EDF7F1, #d4f0e0); color: #2d7a52; }
+  .result-bar.partial .result-inner { background: linear-gradient(135deg, #FEF0E6, #fde0c8); color: #c45e1a; }
+  .result-bar.fail .result-inner { background: #FEF0EE; color: #c0392b; }
+
+  .result-emoji { font-size: 24px; display: block; margin-bottom: 6px; }
+
+  /* ── Mobile ───────────────────────────────────────── */
+  @media (max-width: 540px) {
+    .activity-area {
+      grid-template-columns: 1fr;
+    }
+    .drop-zone { width: 88px; }
+    .header h1 { font-size: 21px; }
   }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <img src="https://orangeenglishielts.github.io/linegraphs/logo_transparent.png" alt="Orange English" style="height:60px; margin-bottom:10px;">
+  <img src="https://orangeenglishielts.github.io/linegraphs/logo_transparent.png" alt="Orange English">
   <div class="tag">Lesson 1 · Activity</div>
   <h1>Parts of a Line Graph</h1>
   <p>Drag each term to match the correct definition.</p>
 </div>
 
-<div class="activity-area">
-  <div class="word-bank">
-    <h2>Terms</h2>
-    <div class="word-bank-items" id="wordBank">
-      <div class="drag-item" draggable="true" data-term="Units" id="term-units">Units</div>
-      <div class="drag-item" draggable="true" data-term="X-axis" id="term-xaxis">X-axis</div>
-      <div class="drag-item" draggable="true" data-term="Legend" id="term-legend">Legend / Key</div>
-      <div class="drag-item" draggable="true" data-term="Title" id="term-title">Title</div>
-      <div class="drag-item" draggable="true" data-term="Y-axis" id="term-yaxis">Y-axis</div>
-      <div class="drag-item" draggable="true" data-term="Data points" id="term-data">Data points</div>
+<div class="main">
+  <div class="activity-area">
+    <div class="word-bank">
+      <h2>Terms</h2>
+      <div class="word-bank-items" id="wordBank">
+        <div class="drag-item" draggable="true" data-term="Units" id="term-units">Units</div>
+        <div class="drag-item" draggable="true" data-term="X-axis" id="term-xaxis">X-axis</div>
+        <div class="drag-item" draggable="true" data-term="Legend" id="term-legend">Legend / Key</div>
+        <div class="drag-item" draggable="true" data-term="Title" id="term-title">Title</div>
+        <div class="drag-item" draggable="true" data-term="Y-axis" id="term-yaxis">Y-axis</div>
+        <div class="drag-item" draggable="true" data-term="Data points" id="term-data">Data points</div>
+      </div>
+    </div>
+
+    <div class="definitions" id="definitions">
+      <div class="definition-row">
+        <div class="drop-zone" data-answer="Title" id="drop-0">
+          <span class="placeholder" style="font-size:11px;color:#9CA3AF;">drop here</span>
+          <span class="feedback-icon">✓</span>
+        </div>
+        <div class="definition-text">States what is being <strong>measured</strong> and where the <strong>data comes from</strong>. <strong>Paraphrase</strong> this for your introduction.</div>
+      </div>
+      <div class="definition-row">
+        <div class="drop-zone" data-answer="X-axis" id="drop-1">
+          <span class="placeholder" style="font-size:11px;color:#9CA3AF;">drop here</span>
+          <span class="feedback-icon">✓</span>
+        </div>
+        <div class="definition-text">Shows the <strong>time period</strong>: years, months, or decades.</div>
+      </div>
+      <div class="definition-row">
+        <div class="drop-zone" data-answer="Y-axis" id="drop-2">
+          <span class="placeholder" style="font-size:11px;color:#9CA3AF;">drop here</span>
+          <span class="feedback-icon">✓</span>
+        </div>
+        <div class="definition-text">Shows the <strong>quantity being measured</strong>, such as <strong>percentage</strong>, millions, or kilograms.</div>
+      </div>
+      <div class="definition-row">
+        <div class="drop-zone" data-answer="Legend" id="drop-3">
+          <span class="placeholder" style="font-size:11px;color:#9CA3AF;">drop here</span>
+          <span class="feedback-icon">✓</span>
+        </div>
+        <div class="definition-text">Identifies what <strong>each line represents</strong>. Essential when there are <strong>multiple lines</strong>.</div>
+      </div>
+      <div class="definition-row">
+        <div class="drop-zone" data-answer="Data points" id="drop-4">
+          <span class="placeholder" style="font-size:11px;color:#9CA3AF;">drop here</span>
+          <span class="feedback-icon">✓</span>
+        </div>
+        <div class="definition-text">The <strong>specific values</strong> plotted at each <strong>time interval</strong> on the graph.</div>
+      </div>
+      <div class="definition-row">
+        <div class="drop-zone" data-answer="Units" id="drop-5">
+          <span class="placeholder" style="font-size:11px;color:#9CA3AF;">drop here</span>
+          <span class="feedback-icon">✓</span>
+        </div>
+        <div class="definition-text">The <strong>measurement used</strong>. Always include this when <strong>describing values</strong> in your answer.</div>
+      </div>
     </div>
   </div>
 
-  <div class="definitions" id="definitions">
-    <div class="definition-row">
-      <div class="drop-zone" data-answer="Title" id="drop-0">
-        <span class="placeholder">drop here</span>
-        <span class="feedback-icon">✓</span>
-      </div>
-      <div class="definition-text">States what is being measured and where the data comes from. Paraphrase this for your introduction.</div>
-    </div>
-    <div class="definition-row">
-      <div class="drop-zone" data-answer="X-axis" id="drop-1">
-        <span class="placeholder">drop here</span>
-        <span class="feedback-icon">✓</span>
-      </div>
-      <div class="definition-text">Shows the time period; years, months, or decades.</div>
-    </div>
-    <div class="definition-row">
-      <div class="drop-zone" data-answer="Y-axis" id="drop-2">
-        <span class="placeholder">drop here</span>
-        <span class="feedback-icon">✓</span>
-      </div>
-      <div class="definition-text">Shows the quantity being measured, such as percentage, millions, or kilograms.</div>
-    </div>
-    <div class="definition-row">
-      <div class="drop-zone" data-answer="Legend" id="drop-3">
-        <span class="placeholder">drop here</span>
-        <span class="feedback-icon">✓</span>
-      </div>
-      <div class="definition-text">Identifies what each line represents. Essential when there are multiple lines.</div>
-    </div>
-    <div class="definition-row">
-      <div class="drop-zone" data-answer="Data points" id="drop-4">
-        <span class="placeholder">drop here</span>
-        <span class="feedback-icon">✓</span>
-      </div>
-      <div class="definition-text">The specific values plotted at each time interval on the graph.</div>
-    </div>
-    <div class="definition-row">
-      <div class="drop-zone" data-answer="Units" id="drop-5">
-        <span class="placeholder">drop here</span>
-        <span class="feedback-icon">✓</span>
-      </div>
-      <div class="definition-text">The measurement used; always include these when describing values in your answer.</div>
-    </div>
+  <div class="controls">
+    <button class="btn btn-check" onclick="checkAnswers()">Check answers</button>
+    <button class="btn btn-reset" onclick="resetActivity()">Start again</button>
+  </div>
+
+  <div class="result-bar" id="resultBar">
+    <div class="result-inner" id="resultInner"></div>
   </div>
 </div>
-
-<div class="controls">
-  <button class="btn btn-check" onclick="checkAnswers()">Check answers</button>
-  <button class="btn btn-reset" onclick="resetActivity()">Start again</button>
-</div>
-
-<div class="result-bar" id="resultBar"></div>
-
-<div class="branding">orangeenglish.nl</div>
 
 <script>
   let draggedItem = null;
-  let draggedFrom = null; // 'bank' or drop zone id
+  let draggedFrom = null;
 
-  // ── Drag events on items ──────────────────────────────────────────
   document.querySelectorAll('.drag-item').forEach(item => {
     item.addEventListener('dragstart', e => {
       draggedItem = item;
@@ -353,42 +436,36 @@
     });
   });
 
-  // ── Drop zone events ──────────────────────────────────────────────
   document.querySelectorAll('.drop-zone').forEach(zone => {
-    zone.addEventListener('dragover', e => {
-      e.preventDefault();
-      zone.classList.add('over');
-    });
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
     zone.addEventListener('dragleave', () => zone.classList.remove('over'));
     zone.addEventListener('drop', e => {
       e.preventDefault();
       zone.classList.remove('over');
       if (!draggedItem) return;
 
-      // If zone already has an item, send it back to bank
       const existing = zone.querySelector('.placed-item');
       if (existing) {
-        const termId = existing.dataset.termId;
-        const origItem = document.getElementById(termId);
+        const origItem = document.getElementById(existing.dataset.termId);
         if (origItem) origItem.classList.remove('placed');
         zone.removeChild(existing);
-        zone.querySelector('.placeholder') && (zone.querySelector('.placeholder').style.display = '');
+        const ph = zone.querySelector('.placeholder');
+        if (ph) ph.style.display = '';
       }
 
-      // If dragged from another drop zone, clear that zone
       if (draggedFrom && draggedFrom !== 'bank') {
         const prevZone = document.getElementById(draggedFrom);
         if (prevZone) {
           const prevPlaced = prevZone.querySelector('.placed-item');
           if (prevPlaced) prevZone.removeChild(prevPlaced);
-          prevZone.querySelector('.placeholder') && (prevZone.querySelector('.placeholder').style.display = '');
+          const ph = prevZone.querySelector('.placeholder');
+          if (ph) ph.style.display = '';
           prevZone.classList.remove('correct', 'incorrect');
-          const prevIcon = prevZone.querySelector('.feedback-icon');
-          if (prevIcon) prevIcon.textContent = '✓';
+          const icon = prevZone.querySelector('.feedback-icon');
+          if (icon) icon.textContent = '✓';
         }
       }
 
-      // Place item in zone
       draggedItem.classList.add('placed');
       const placeholder = zone.querySelector('.placeholder');
       if (placeholder) placeholder.style.display = 'none';
@@ -398,34 +475,27 @@
       placedSpan.textContent = draggedItem.textContent;
       placedSpan.dataset.term = draggedItem.dataset.term;
       placedSpan.dataset.termId = draggedItem.id;
-
-      // Allow dragging from drop zone back
       placedSpan.draggable = true;
-      placedSpan.addEventListener('dragstart', e => {
-        draggedItem = draggedItem || draggedItem; 
-        // Re-use the original item
+      placedSpan.addEventListener('dragstart', () => {
         const origItem = document.getElementById(placedSpan.dataset.termId);
         draggedItem = origItem;
         draggedFrom = zone.id;
-        setTimeout(() => { if(origItem) origItem.classList.add('dragging'); }, 0);
+        setTimeout(() => { if (origItem) origItem.classList.add('dragging'); }, 0);
       });
 
       zone.appendChild(placedSpan);
       zone.classList.remove('correct', 'incorrect');
       const icon = zone.querySelector('.feedback-icon');
       if (icon) icon.textContent = '✓';
-
       resetResultBar();
     });
   });
 
-  // ── Word bank accepts drops back ──────────────────────────────────
   const wordBank = document.getElementById('wordBank');
   wordBank.addEventListener('dragover', e => e.preventDefault());
   wordBank.addEventListener('drop', e => {
     e.preventDefault();
     if (!draggedItem || draggedFrom === 'bank') return;
-    // Return item to bank
     if (draggedFrom) {
       const prevZone = document.getElementById(draggedFrom);
       if (prevZone) {
@@ -442,43 +512,36 @@
     resetResultBar();
   });
 
-  // ── Check answers ─────────────────────────────────────────────────
   function checkAnswers() {
     let correct = 0;
-    let total = 0;
     document.querySelectorAll('.drop-zone').forEach(zone => {
       const placed = zone.querySelector('.placed-item');
       const icon = zone.querySelector('.feedback-icon');
       if (placed) {
-        total++;
         if (placed.dataset.term === zone.dataset.answer) {
-          zone.classList.remove('incorrect');
-          zone.classList.add('correct');
-          if (icon) icon.textContent = '✓';
-          correct++;
+          zone.classList.remove('incorrect'); zone.classList.add('correct');
+          if (icon) icon.textContent = '✓'; correct++;
         } else {
-          zone.classList.remove('correct');
-          zone.classList.add('incorrect');
+          zone.classList.remove('correct'); zone.classList.add('incorrect');
           if (icon) icon.textContent = '✗';
         }
       }
     });
-
     const bar = document.getElementById('resultBar');
+    const inner = document.getElementById('resultInner');
     bar.classList.add('show');
     if (correct === 6) {
       bar.className = 'result-bar show pass';
-      bar.textContent = '✓ Well done — all 6 correct! You know your line graph parts.';
+      inner.innerHTML = '<span class="result-emoji">🎉</span>All 6 correct! You know your line graph parts.';
     } else if (correct >= 4) {
       bar.className = 'result-bar show partial';
-      bar.textContent = `${correct}/6 correct. Nearly there — check the highlighted ones and try again.`;
+      inner.innerHTML = `<span class="result-emoji">💪</span>${correct}/6 correct. Nearly there — check the red ones and try again.`;
     } else {
       bar.className = 'result-bar show fail';
-      bar.textContent = `${correct}/6 correct. Go back over the lesson and try again.`;
+      inner.innerHTML = `<span class="result-emoji">📖</span>${correct}/6 correct. Go back over the lesson and try again.`;
     }
   }
 
-  // ── Reset ─────────────────────────────────────────────────────────
   function resetActivity() {
     document.querySelectorAll('.drop-zone').forEach(zone => {
       const placed = zone.querySelector('.placed-item');
@@ -495,27 +558,32 @@
 
   function resetResultBar() {
     const bar = document.getElementById('resultBar');
-    bar.classList.remove('show', 'pass', 'fail', 'partial');
+    bar.className = 'result-bar';
   }
 
-  // ── Touch support ─────────────────────────────────────────────────
-  let touchItem = null;
-  let touchClone = null;
-  let touchOriginZone = null;
+  // Touch support
+  let touchItem = null, touchClone = null, touchOriginZone = null;
 
   document.querySelectorAll('.drag-item').forEach(item => {
     item.addEventListener('touchstart', e => {
       touchItem = item;
       touchOriginZone = item.parentElement.id === 'wordBank' ? 'bank' : item.parentElement.id;
-      createTouchClone(item, e.touches[0]);
+      const t = e.touches[0];
+      touchClone = item.cloneNode(true);
+      touchClone.style.cssText = `position:fixed;z-index:9999;pointer-events:none;opacity:0.9;
+        left:${t.clientX - 55}px;top:${t.clientY - 22}px;width:120px;
+        background:linear-gradient(135deg,#F88B48,#f9a066);border-radius:10px;
+        padding:10px 14px;font-size:13px;font-weight:700;color:white;
+        box-shadow:0 8px 20px rgba(248,139,72,0.5);`;
+      document.body.appendChild(touchClone);
     }, { passive: true });
   });
 
   document.addEventListener('touchmove', e => {
     if (!touchClone) return;
     const t = e.touches[0];
-    touchClone.style.left = (t.clientX - 50) + 'px';
-    touchClone.style.top = (t.clientY - 20) + 'px';
+    touchClone.style.left = (t.clientX - 55) + 'px';
+    touchClone.style.top = (t.clientY - 22) + 'px';
   }, { passive: true });
 
   document.addEventListener('touchend', e => {
@@ -524,34 +592,10 @@
     const el = document.elementFromPoint(t.clientX, t.clientY);
     const zone = el ? el.closest('.drop-zone') : null;
     const bank = el ? el.closest('#wordBank') : null;
-
-    if (zone) {
-      // simulate drop
-      draggedItem = touchItem;
-      draggedFrom = touchOriginZone;
-      zone.dispatchEvent(new Event('drop'));
-    } else if (bank && touchOriginZone !== 'bank') {
-      draggedItem = touchItem;
-      draggedFrom = touchOriginZone;
-      wordBank.dispatchEvent(new Event('drop'));
-    }
-
-    touchClone.remove();
-    touchClone = null;
-    touchItem = null;
-    touchOriginZone = null;
+    if (zone) { draggedItem = touchItem; draggedFrom = touchOriginZone; zone.dispatchEvent(new Event('drop')); }
+    else if (bank && touchOriginZone !== 'bank') { draggedItem = touchItem; draggedFrom = touchOriginZone; wordBank.dispatchEvent(new Event('drop')); }
+    touchClone.remove(); touchClone = null; touchItem = null; touchOriginZone = null;
   });
-
-  function createTouchClone(item, touch) {
-    touchClone = item.cloneNode(true);
-    touchClone.style.cssText = `
-      position: fixed; z-index: 9999; pointer-events: none; opacity: 0.85;
-      left: ${touch.clientX - 50}px; top: ${touch.clientY - 20}px;
-      width: 110px; background: white; border: 2px solid #F88B48;
-      border-radius: 8px; padding: 8px 12px; font-size: 13px; font-weight: 700;
-    `;
-    document.body.appendChild(touchClone);
-  }
 </script>
 </body>
 </html>
