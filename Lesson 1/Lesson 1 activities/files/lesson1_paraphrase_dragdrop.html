@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -259,6 +260,17 @@
     border-radius: 6px;
     background: var(--green-light);
     color: var(--green-dark);
+    cursor: pointer;
+  }
+
+  .blank.filled:hover {
+    border-color: var(--orange);
+    background: #FEF0E6;
+    color: var(--orange);
+  }
+
+  .blank.filled:hover::after {
+    content: ' ✕';
   }
 
   .blank.drag-over {
@@ -376,7 +388,7 @@ const TASKS = [
       },
       { 
         label: 'PERIOD / YEARS',
-        synonyms: ['decade', 'ten-year span', 'the following years'],
+        synonyms: ['decade', 'span', 'period'],
         blanks: 2
       }
     ],
@@ -469,7 +481,7 @@ function renderTask() {
     </div>
 
     <div class="instructions">
-      <strong>How to use:</strong> Drag a synonym from the colored groups below and drop it into a blank in the response. Try to use variety—don't use the same word twice!
+      <strong>How to use:</strong> Drag a synonym from the coloured groups below and drop it into a blank in the response. Try to use variety—don't use the same word twice!
     </div>
   `;
 
@@ -514,9 +526,11 @@ function renderTask() {
     let newPara = para.replace(/___blank_(\d+)___/g, (match, idx) => {
       return `<span class="blank" 
                     data-blank-id="${idx}" 
+                    title="Click to remove"
                     ondragover="dragOver(event)" 
                     ondragleave="dragLeave(event)" 
-                    ondrop="drop(event, ${idx})">drop here</span>`;
+                    ondrop="drop(event, ${idx})"
+                    onclick="clearBlank(this, ${idx})">drop here</span>`;
     });
     return `<p>${newPara}</p>`;
   }).join('');
@@ -560,6 +574,24 @@ function drop(e, blankId) {
   blank.classList.add('filled');
   draggedElement.classList.add('placed');
   
+  updateProgress();
+}
+
+function clearBlank(blankEl, blankId) {
+  if (!blankEl.classList.contains('filled')) return;
+
+  const synonymText = filledBlanks[blankId];
+  delete filledBlanks[blankId];
+  blankEl.textContent = 'drop here';
+  blankEl.classList.remove('filled');
+
+  // Free up the matching synonym chip so it can be dragged again
+  document.querySelectorAll('.synonym-chip.placed').forEach(c => {
+    if (c.textContent.trim() === synonymText) {
+      c.classList.remove('placed');
+    }
+  });
+
   updateProgress();
 }
 
