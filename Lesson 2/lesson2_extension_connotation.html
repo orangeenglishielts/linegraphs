@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Connotation Check | Orange English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F88B48;
+    --orange-dark: #E8762F;
+    --orange-light: #FEF0E6;
+    --green: #5FB27B;
+    --green-dark: #4A9863;
+    --green-light: #EDF7F1;
+    --dark: #292929;
+    --mid-grey: #6B7280;
+    --white: #FFFFFF;
+    --red: #D9534F;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FAF8F3;
+    color: var(--dark);
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+
+  header {
+    background: #FAF8F3;
+    color: var(--dark);
+    padding: 32px 20px 24px;
+    text-align: center;
+    border-bottom: 1px solid #E5E1D8;
+  }
+
+  header .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--orange);
+    text-transform: uppercase;
+  }
+
+  header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    margin-top: 8px;
+  }
+
+  header p {
+    font-size: 14px;
+    color: var(--mid-grey);
+    margin-top: 6px;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 18px;
+  }
+
+  .top-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .top-row h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .count {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mid-grey);
+    background: var(--white);
+    border: 1px solid #E5E1D8;
+    border-radius: 20px;
+    padding: 4px 12px;
+    white-space: nowrap;
+  }
+
+  .count.done {
+    color: var(--green-dark);
+    border-color: var(--green);
+    background: var(--green-light);
+  }
+
+  .instructions {
+    font-size: 13px;
+    color: var(--mid-grey);
+    margin-bottom: 24px;
+  }
+
+  .round {
+    background: var(--white);
+    border: 2px solid #E5E1D8;
+    border-radius: 14px;
+    padding: 20px 20px 18px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s ease;
+  }
+
+  .round.solved { border-color: var(--green); }
+
+  .round-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--mid-grey);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .sentence {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .sentence .gap {
+    display: inline-block;
+    min-width: 86px;
+    text-align: center;
+    border-bottom: 2px dashed var(--mid-grey);
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--orange);
+  }
+
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .opt {
+    background: var(--white);
+    border: 2px solid #E5E1D8;
+    border-radius: 20px;
+    padding: 9px 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .opt:hover { border-color: var(--orange); }
+
+  .opt.is-mismatch-found {
+    border-color: var(--green);
+    background: var(--green-light);
+    color: var(--green-dark);
+  }
+
+  .opt.is-fits-picked {
+    border-color: var(--red);
+    animation: shake 0.4s ease;
+  }
+
+  .round.solved .opt:not(.is-mismatch-found) { opacity: 0.55; cursor: default; }
+  .round.solved .opt { cursor: default; }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+
+  .explain {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--orange);
+    background: var(--orange-light);
+    border-radius: 0 10px 10px 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    display: none;
+  }
+
+  .explain.show { display: block; }
+
+  .explain .tag {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .explain.correct { border-left-color: var(--green); background: var(--green-light); }
+  .explain.correct .tag { color: var(--green-dark); }
+  .explain.fits .tag { color: var(--orange-dark); }
+
+  .banner {
+    margin-top: 28px;
+    text-align: center;
+    background: var(--orange);
+    color: var(--white);
+    border-radius: 16px;
+    padding: 28px 20px;
+    display: none;
+  }
+
+  .banner.show { display: block; animation: pop 0.4s ease; }
+
+  @keyframes pop {
+    0% { transform: scale(0.92); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .banner h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .banner p { font-size: 14px; opacity: 0.95; }
+
+  .reset-link {
+    display: block;
+    text-align: center;
+    margin-top: 28px;
+    font-size: 13px;
+    color: var(--mid-grey);
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+  }
+
+  .site-footer {
+    max-width: 720px;
+    margin: 48px auto 0;
+    padding: 24px 18px 0;
+    border-top: 1px solid #E5E1D8;
+    text-align: center;
+  }
+
+  .site-footer img { height: 46px; width: auto; display: block; margin: 0 auto 8px; }
+  .site-footer p { font-size: 12px; color: var(--mid-grey); letter-spacing: 0.5px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Orange English &middot; IELTS Writing Task 1</div>
+  <h1>Quiz: Connotation Check</h1>
+  <p>Module 2 Extension &middot; Choosing vocabulary with the right tone</p>
+</header>
+
+<div class="wrap">
+  <div class="top-row">
+    <h2>Spot the mismatch</h2>
+    <span class="count" id="score">0 / 6 found</span>
+  </div>
+  <p class="instructions">Each sentence has three verbs that could all fit grammatically. Two suit the tone of the subject, one clashes. Tap the one that sounds wrong.</p>
+
+  <div id="rounds"></div>
+
+  <div class="banner" id="banner">
+    <h3>Well done</h3>
+    <p>You've spotted every mismatch. Connotation is what separates a band 6 answer from a band 8 one.</p>
+  </div>
+
+  <button class="reset-link" id="resetBtn">Start again</button>
+</div>
+
+<div class="site-footer">
+  <p>orangeenglish.nl</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script>
+  const ROUNDS = [
+    {
+      sentence: "Profits at the firm ___ last year.",
+      options: [
+        { word: "soared", fits: true, note: "\u201cSoared\u201d captures a strong, positive rise, a great fit for profits doing well." },
+        { word: "boomed", fits: true, note: "\u201cBoomed\u201d suggests a thriving business. This fits profits naturally." },
+        { word: "escalated", fits: false, note: "\u201cEscalated\u201d sounds like a crisis, not good news. Profits rising is something to celebrate, so this is the mismatch." }
+      ]
+    },
+    {
+      sentence: "Death rates ___ during the famine.",
+      options: [
+        { word: "escalated", fits: true, note: "\u201cEscalated\u201d captures the alarm appropriately for a tragic, worsening situation." },
+        { word: "climbed", fits: true, note: "\u201cClimbed\u201d is a neutral verb that works fine here." },
+        { word: "boomed", fits: false, note: "\u201cBoomed\u201d sounds upbeat and celebratory, completely wrong for a tragedy. This is the mismatch." }
+      ]
+    },
+    {
+      sentence: "Tourism revenue ___ after the new airport opened.",
+      options: [
+        { word: "soared", fits: true, note: "\u201cSoared\u201d captures strong, positive growth, a natural fit here." },
+        { word: "flourished", fits: true, note: "\u201cFlourished\u201d suggests healthy, sustained growth, a great fit for tourism doing well." },
+        { word: "spiralled", fits: false, note: "\u201cSpiralled\u201d implies losing control, as in spiralling debt or costs. Wrong tone for good news, this is the mismatch." }
+      ]
+    },
+    {
+      sentence: "Pollution levels ___ in the city's industrial district.",
+      options: [
+        { word: "spiked", fits: true, note: "\u201cSpiked\u201d suits a sudden rise in something undesirable." },
+        { word: "climbed", fits: true, note: "\u201cClimbed\u201d is neutral and works fine here." },
+        { word: "boomed", fits: false, note: "\u201cBoomed\u201d frames it as good news, but rising pollution is bad news. This is the mismatch." }
+      ]
+    },
+    {
+      sentence: "Crime rates ___ following the new policing initiative.",
+      options: [
+        { word: "eased", fits: true, note: "\u201cEased\u201d has a calm, welcome tone that fits a steady policy win." },
+        { word: "subsided", fits: true, note: "\u201cSubsided\u201d is also calm and gradual, a good fit here." },
+        { word: "nosedived", fits: false, note: "\u201cNosedived\u201d suggests a sudden, dramatic crash, more fitting for something like a stock price collapsing. This is the mismatch." }
+      ]
+    },
+    {
+      sentence: "Exports ___ sharply after the trade agreement collapsed.",
+      options: [
+        { word: "plummeted", fits: true, note: "\u201cPlummeted\u201d captures the alarm a damaging, sharp drop deserves." },
+        { word: "slumped", fits: true, note: "\u201cSlumped\u201d also captures a worrying decline well." },
+        { word: "eased", fits: false, note: "\u201cEased\u201d sounds mild, almost welcome, wrong for a sharp, damaging decline. This is the mismatch." }
+      ]
+    }
+  ];
+
+  const roundsEl = document.getElementById('rounds');
+  const scoreEl = document.getElementById('score');
+  const bannerEl = document.getElementById('banner');
+  let solvedCount = 0;
+
+  function shuffled(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function buildRound(round, idx) {
+    const wrap = document.createElement('div');
+    wrap.className = 'round';
+    wrap.dataset.solved = 'false';
+
+    const label = document.createElement('div');
+    label.className = 'round-label';
+    label.textContent = 'Round ' + (idx + 1);
+    wrap.appendChild(label);
+
+    const sentence = document.createElement('div');
+    sentence.className = 'sentence';
+    sentence.innerHTML = round.sentence.replace('___', '<span class="gap">___</span>');
+    wrap.appendChild(sentence);
+
+    const opts = document.createElement('div');
+    opts.className = 'options';
+
+    const explainEl = document.createElement('div');
+    explainEl.className = 'explain';
+
+    shuffled(round.options).forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.textContent = opt.word;
+      btn.addEventListener('click', () => {
+        if (wrap.dataset.solved === 'true') return;
+
+        if (!opt.fits) {
+          btn.classList.add('is-mismatch-found');
+          wrap.dataset.solved = 'true';
+          wrap.classList.add('solved');
+          explainEl.className = 'explain show correct';
+          explainEl.innerHTML = '<span class="tag">Correct \u2014 that\u2019s the mismatch</span>' + opt.note;
+          solvedCount++;
+          updateScore();
+        } else {
+          btn.classList.add('is-fits-picked');
+          setTimeout(() => btn.classList.remove('is-fits-picked'), 420);
+          explainEl.className = 'explain show fits';
+          explainEl.innerHTML = '<span class="tag">Not quite \u2014 this one fits</span>' + opt.note;
+        }
+      });
+      opts.appendChild(btn);
+    });
+
+    wrap.appendChild(opts);
+    wrap.appendChild(explainEl);
+    return wrap;
+  }
+
+  function render() {
+    roundsEl.innerHTML = '';
+    solvedCount = 0;
+    ROUNDS.forEach((r, i) => roundsEl.appendChild(buildRound(r, i)));
+    updateScore();
+    bannerEl.classList.remove('show');
+  }
+
+  function updateScore() {
+    scoreEl.textContent = solvedCount + ' / ' + ROUNDS.length + ' found';
+    scoreEl.classList.toggle('done', solvedCount === ROUNDS.length);
+    if (solvedCount === ROUNDS.length) {
+      bannerEl.classList.add('show');
+      orangeConfettiExplosion();
+    }
+  }
+
+  function orangeConfettiExplosion() {
+    if (typeof confetti !== 'function') return;
+    const colors = ['#F88B48', '#F97316', '#FDBA74', '#5FB27B', '#FAF8F3'];
+    confetti({ particleCount: 120, spread: 75, startVelocity: 34, origin: { x: 0.5, y: 0.58 }, colors });
+    setTimeout(() => {
+      confetti({ particleCount: 55, spread: 95, startVelocity: 32, origin: { x: 0.22, y: 0.70 }, colors: ['#F88B48', '#F97316', '#FDBA74'] });
+      confetti({ particleCount: 55, spread: 95, startVelocity: 32, origin: { x: 0.78, y: 0.70 }, colors: ['#F88B48', '#5FB27B', '#FDBA74'] });
+    }, 220);
+  }
+
+  document.getElementById('resetBtn').addEventListener('click', render);
+
+  render();
+</script>
+
+</body>
+</html>
