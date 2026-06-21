@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parts of a Line Graph – Matching Activity</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #F88B48;
+    --orange-deep: #F97316;
+    --ink: #292929;
+    --paper: #FAF8F3;
+    --writing: #5FB27B;
+    --reading: #E64A3C;
+    --muted: #6B625B;
+    --line: #E6DDD2;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    background-color: var(--paper);
+    color: var(--ink);
+    padding: 28px 16px 48px;
+    position: relative;
+  }
+
+  /* subtle paper grain */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image:
+      radial-gradient(circle at 10px 20px, #292929 0.4px, transparent 0.6px),
+      radial-gradient(circle at 28px 7px, #292929 0.3px, transparent 0.6px);
+    background-size: 42px 42px, 55px 55px;
+    mix-blend-mode: multiply;
+  }
+
+  .page {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .header {
+    padding: 18px 8px 28px;
+    position: relative;
+  }
+
+  .top-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .brand-mark {
+    height: 50px;
+    width: auto;
+    opacity: 0.96;
+  }
+
+  .lesson-tag {
+    display: inline-block;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 8px 18px;
+    margin-bottom: 12px;
+    background:
+      linear-gradient(90deg, rgba(95,178,123,0.22), rgba(95,178,123,0.08));
+    border-radius: 48% 42% 54% 45%;
+  }
+
+  .header h1 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: clamp(34px, 5.2vw, 60px);
+    line-height: 1.02;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.055em;
+    max-width: 740px;
+  }
+
+  .header p {
+    margin-top: 14px;
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .main {
+    margin: 12px auto 0;
+  }
+
+  .activity-area {
+    display: grid;
+    grid-template-columns: minmax(250px, 310px) 1fr;
+    gap: 34px;
+    align-items: start;
+  }
+
+  .word-bank {
+    background: rgba(255,255,255,0.50);
+    border-radius: 14px;
+    padding: 24px 22px 24px;
+    box-shadow: 0 16px 38px rgba(41,41,41,0.07);
+    border: 1px solid rgba(230,221,210,0.72);
+    position: sticky;
+    top: 20px;
+  }
+
+  .word-bank h2 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    color: #244C33;
+    margin-bottom: 18px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .word-bank h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 60px;
+    height: 10px;
+    background: rgba(95,178,123,0.20);
+    border-radius: 45% 56% 48% 52%;
+    z-index: -1;
+    transform: rotate(-1.8deg);
+  }
+
+  .word-bank-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .drag-item {
+    background: rgba(255,253,249,0.88);
+    border: 1.5px solid #EADFD3;
+    border-radius: 10px;
+    padding: 15px 40px 15px 18px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+    cursor: grab;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    user-select: none;
+    touch-action: none;
+    box-shadow: 0 5px 14px rgba(41,41,41,0.045);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .drag-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.35;
+    background: rgba(95,178,123,0.16);
+    pointer-events: none;
+  }
+
+  .drag-item:nth-child(even)::before {
+    background: rgba(248,139,72,0.16);
+  }
+
+  .drag-item::after {
+    content: '⠿';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--orange-deep);
+    opacity: 0.78;
+    font-size: 17px;
+    letter-spacing: 2px;
+  }
+
+  .drag-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(41,41,41,0.075);
+    border-color: rgba(248,139,72,0.45);
+  }
+
+  .drag-item:active { cursor: grabbing; }
+
+  .drag-item.dragging {
+    opacity: 0.35;
+    transform: scale(0.96);
+  }
+
+  .drag-item.placed { display: none; }
+
+  .definitions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .definition-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .drop-zone {
+    border: 1.8px dashed var(--orange);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #77706A;
+    transition: all 0.18s ease;
+    min-height: 68px;
+    position: relative;
+    background: rgba(255,255,255,0.42);
+  }
+
+  .drop-zone.over {
+    border-color: var(--orange-deep);
+    background: rgba(248,139,72,0.08);
+    transform: scale(1.015);
+  }
+
+  .drop-zone.correct {
+    border-color: var(--writing);
+    background: rgba(95,178,123,0.10);
+    border-style: solid;
+  }
+
+  .drop-zone.incorrect {
+    border-color: var(--reading);
+    background: rgba(230,74,60,0.075);
+    border-style: solid;
+    animation: shake 0.35s ease;
+  }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(-2px); }
+  }
+
+  .drop-zone .placed-item {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--ink);
+    text-align: center;
+    padding: 7px 8px;
+    cursor: grab;
+    width: calc(100% - 10px);
+    line-height: 1.25;
+    background: rgba(255,255,255,0.86);
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(41,41,41,0.04);
+  }
+
+  .drop-zone.correct .placed-item { color: #2d7a52; }
+  .drop-zone.incorrect .placed-item { color: #b93d32; }
+
+  .feedback-icon {
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+    color: white;
+    box-shadow: 0 2px 8px rgba(41,41,41,0.12);
+  }
+
+  .drop-zone.correct .feedback-icon { display: flex; background: var(--writing); }
+  .drop-zone.incorrect .feedback-icon { display: flex; background: var(--reading); }
+
+  .definition-text {
+    background: rgba(255,255,255,0.42);
+    border-radius: 10px;
+    padding: 17px 22px;
+    font-size: 16px;
+    color: #262626;
+    line-height: 1.45;
+    border: 1px solid rgba(230,221,210,0.72);
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .definition-text strong {
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .definition-row:hover .definition-text {
+    border-color: rgba(248,139,72,0.35);
+    transform: translateY(-1px);
+  }
+
+  .controls {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    margin: 30px 0 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    min-width: 190px;
+    padding: 15px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 9px 20px rgba(41,41,41,0.11);
+  }
+
+  .btn-check {
+    background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+    color: white;
+    box-shadow: 0 8px 20px rgba(248,139,72,0.28);
+  }
+
+  .btn-reset {
+    background: rgba(255,255,255,0.58);
+    color: var(--ink);
+    border: 1.5px solid #292929;
+  }
+
+  .result-bar {
+    max-width: 900px;
+    margin: 0 auto;
+    display: none;
+  }
+
+  .result-bar.show { display: block; }
+
+  .result-inner {
+    border-radius: 18px;
+    padding: 18px 22px;
+    font-size: 15px;
+    font-weight: 800;
+    text-align: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.68);
+    box-shadow: 0 10px 24px rgba(41,41,41,0.045);
+  }
+
+  .result-bar.pass .result-inner { color: #2d7a52; border-color: rgba(95,178,123,0.35); }
+  .result-bar.partial .result-inner { color: #B65D1F; border-color: rgba(248,139,72,0.35); }
+  .result-bar.fail .result-inner { color: #b93d32; border-color: rgba(230,74,60,0.32); }
+
+  .result-emoji { font-size: 22px; display: block; margin-bottom: 6px; }
+
+  .success-pop {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+  }
+
+  .success-pop.show {
+    display: flex;
+  }
+
+  .success-card {
+    background: rgba(255,253,249,0.94);
+    border: 1px solid rgba(248,139,72,0.35);
+    border-radius: 22px;
+    max-width: 460px;
+    padding: 32px 38px;
+    text-align: center;
+    box-shadow: 0 28px 70px rgba(41,41,41,0.18);
+    animation: successPop 2.8s ease forwards;
+  }
+
+  .success-logo {
+    margin-bottom: 18px;
+  }
+
+  .success-logo img {
+    height: 52px;
+    width: auto;
+    opacity: 0.95;
+  }
+
+  .success-card .big {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .success-card .small {
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  @keyframes successPop {
+    0% { opacity: 0; transform: translateY(12px) scale(0.94); }
+    12% { opacity: 1; transform: translateY(0) scale(1); }
+    82% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  }
+
+  @media (max-width: 760px) {
+    body { padding: 18px 12px 40px; }
+    .activity-area { grid-template-columns: 1fr; }
+    .word-bank { position: static; }
+    .word-bank-items { grid-template-columns: 1fr 1fr; }
+    .definition-row { grid-template-columns: 100px 1fr; }
+    .brand-mark { height: 42px; }
+    .definition-text { font-size: 14px; padding: 14px 15px; }
+  }
+
+  @media (max-width: 460px) {
+    .word-bank-items { grid-template-columns: 1fr; }
+    .definition-row { grid-template-columns: 1fr; }
+    .drop-zone { min-height: 48px; }
+    .btn { min-width: 100%; }
+  }
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="top-line">
+      <div>
+        <div class="lesson-tag">Lesson 1 · Activity</div>
+        <h1>Parts of a Line Graph</h1>
+        <p>Drag each term to match the correct definition.</p>
+      </div>
+      <img class="brand-mark" src="https://orangeenglishielts.github.io/linegraphs/logo_transparent.png" alt="Orange English">
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="activity-area">
+      <div class="word-bank">
+        <h2>Terms</h2>
+        <div class="word-bank-items" id="wordBank">
+          <div class="drag-item" draggable="true" data-term="Units" id="term-units">Units</div>
+          <div class="drag-item" draggable="true" data-term="X-axis" id="term-xaxis">X-axis</div>
+          <div class="drag-item" draggable="true" data-term="Legend" id="term-legend">Legend / Key</div>
+          <div class="drag-item" draggable="true" data-term="Title" id="term-title">Title</div>
+          <div class="drag-item" draggable="true" data-term="Y-axis" id="term-yaxis">Y-axis</div>
+          <div class="drag-item" draggable="true" data-term="Data points" id="term-data">Data points</div>
+        </div>
+      </div>
+
+      <div class="definitions" id="definitions">
+        <div class="definition-row">
+          <div class="drop-zone" data-answer="Title" id="drop-0">
+            <span class="placeholder">drop here</span>
+            <span class="feedback-icon">✓</span>
+          </div>
+          <div class="definition-text">States what is being <strong>measured</strong> and where the <strong>data comes from</strong>. <strong>Paraphrase</strong> this for your introduction.</div>
+        </div>
+        <div class="definition-row">
+          <div class="drop-zone" data-answer="X-axis" id="drop-1">
+            <span class="placeholder">drop here</span>
+            <span class="feedback-icon">✓</span>
+          </div>
+          <div class="definition-text">Shows the <strong>time period</strong>: years, months, or decades.</div>
+        </div>
+        <div class="definition-row">
+          <div class="drop-zone" data-answer="Y-axis" id="drop-2">
+            <span class="placeholder">drop here</span>
+            <span class="feedback-icon">✓</span>
+          </div>
+          <div class="definition-text">Shows the <strong>quantity being measured</strong>, such as <strong>percentage</strong>, millions, or kilograms.</div>
+        </div>
+        <div class="definition-row">
+          <div class="drop-zone" data-answer="Legend" id="drop-3">
+            <span class="placeholder">drop here</span>
+            <span class="feedback-icon">✓</span>
+          </div>
+          <div class="definition-text">Identifies what <strong>each line represents</strong>. Essential when there are <strong>multiple lines</strong>.</div>
+        </div>
+        <div class="definition-row">
+          <div class="drop-zone" data-answer="Data points" id="drop-4">
+            <span class="placeholder">drop here</span>
+            <span class="feedback-icon">✓</span>
+          </div>
+          <div class="definition-text">The <strong>specific values</strong> plotted at each <strong>time interval</strong> on the graph.</div>
+        </div>
+        <div class="definition-row">
+          <div class="drop-zone" data-answer="Units" id="drop-5">
+            <span class="placeholder">drop here</span>
+            <span class="feedback-icon">✓</span>
+          </div>
+          <div class="definition-text">The <strong>measurement used</strong>. Always include this when <strong>describing values</strong> in your answer.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn btn-check" onclick="checkAnswers()">Check answers</button>
+      <button class="btn btn-reset" onclick="resetActivity()">Start again</button>
+    </div>
+
+    <div class="result-bar" id="resultBar">
+      <div class="result-inner" id="resultInner"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="success-pop" id="successPop">
+  <div class="success-card">
+    <div class="success-logo">
+      <img src="https://orangeenglishielts.github.io/linegraphs/logo_transparent.png" alt="Orange English">
+    </div>
+
+    <div class="big">Perfect score</div>
+
+    <div class="small">
+      You identified all the key parts of a line graph.
+      <br><br>
+      Let’s move on to trends and comparisons.
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<script>
+  let draggedItem = null;
+  let draggedFrom = null;
+
+  document.querySelectorAll('.drag-item').forEach(item => {
+    item.addEventListener('dragstart', e => {
+      draggedItem = item;
+      draggedFrom = item.parentElement.id === 'wordBank' ? 'bank' : item.parentElement.id;
+      setTimeout(() => item.classList.add('dragging'), 0);
+    });
+    item.addEventListener('dragend', () => {
+      item.classList.remove('dragging');
+      draggedItem = null;
+    });
+  });
+
+  document.querySelectorAll('.drop-zone').forEach(zone => {
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      zone.classList.remove('over');
+      if (!draggedItem) return;
+
+      const existing = zone.querySelector('.placed-item');
+      if (existing) {
+        const origItem = document.getElementById(existing.dataset.termId);
+        if (origItem) origItem.classList.remove('placed');
+        zone.removeChild(existing);
+        const ph = zone.querySelector('.placeholder');
+        if (ph) ph.style.display = '';
+      }
+
+      if (draggedFrom && draggedFrom !== 'bank') {
+        const prevZone = document.getElementById(draggedFrom);
+        if (prevZone) {
+          const prevPlaced = prevZone.querySelector('.placed-item');
+          if (prevPlaced) prevZone.removeChild(prevPlaced);
+          const ph = prevZone.querySelector('.placeholder');
+          if (ph) ph.style.display = '';
+          prevZone.classList.remove('correct', 'incorrect');
+          const icon = prevZone.querySelector('.feedback-icon');
+          if (icon) icon.textContent = '✓';
+        }
+      }
+
+      draggedItem.classList.add('placed');
+      const placeholder = zone.querySelector('.placeholder');
+      if (placeholder) placeholder.style.display = 'none';
+
+      const placedSpan = document.createElement('span');
+      placedSpan.className = 'placed-item';
+      placedSpan.textContent = draggedItem.textContent;
+      placedSpan.dataset.term = draggedItem.dataset.term;
+      placedSpan.dataset.termId = draggedItem.id;
+      placedSpan.draggable = true;
+      placedSpan.addEventListener('dragstart', () => {
+        const origItem = document.getElementById(placedSpan.dataset.termId);
+        draggedItem = origItem;
+        draggedFrom = zone.id;
+        setTimeout(() => { if (origItem) origItem.classList.add('dragging'); }, 0);
+      });
+
+      zone.appendChild(placedSpan);
+      zone.classList.remove('correct', 'incorrect');
+      const icon = zone.querySelector('.feedback-icon');
+      if (icon) icon.textContent = '✓';
+      resetResultBar();
+    });
+  });
+
+  const wordBank = document.getElementById('wordBank');
+  wordBank.addEventListener('dragover', e => e.preventDefault());
+  wordBank.addEventListener('drop', e => {
+    e.preventDefault();
+    if (!draggedItem || draggedFrom === 'bank') return;
+    if (draggedFrom) {
+      const prevZone = document.getElementById(draggedFrom);
+      if (prevZone) {
+        const prevPlaced = prevZone.querySelector('.placed-item');
+        if (prevPlaced) prevZone.removeChild(prevPlaced);
+        const ph = prevZone.querySelector('.placeholder');
+        if (ph) ph.style.display = '';
+        prevZone.classList.remove('correct', 'incorrect');
+        const icon = prevZone.querySelector('.feedback-icon');
+        if (icon) icon.textContent = '✓';
+      }
+    }
+    draggedItem.classList.remove('placed');
+    resetResultBar();
+  });
+
+  function orangeConfettiExplosion() {
+    if (typeof confetti !== 'function') return;
+
+    const colors = ['#F88B48', '#F97316', '#FDBA74', '#5FB27B', '#FAF8F3'];
+
+    confetti({
+      particleCount: 120,
+      spread: 75,
+      startVelocity: 34,
+      origin: { x: 0.5, y: 0.58 },
+      colors
+    });
+
+    setTimeout(() => {
+      confetti({
+        particleCount: 55,
+        spread: 95,
+        startVelocity: 32,
+        origin: { x: 0.22, y: 0.70 },
+        colors: ['#F88B48', '#F97316', '#FDBA74']
+      });
+
+      confetti({
+        particleCount: 55,
+        spread: 95,
+        startVelocity: 32,
+        origin: { x: 0.78, y: 0.70 },
+        colors: ['#F88B48', '#5FB27B', '#FDBA74']
+      });
+    }, 220);
+  }
+
+  function showSuccessPop() {
+    const pop = document.getElementById('successPop');
+    pop.classList.remove('show');
+    void pop.offsetWidth;
+    pop.classList.add('show');
+    setTimeout(() => pop.classList.remove('show'), 2900);
+  }
+
+  function checkAnswers() {
+    let correct = 0;
+    document.querySelectorAll('.drop-zone').forEach(zone => {
+      const placed = zone.querySelector('.placed-item');
+      const icon = zone.querySelector('.feedback-icon');
+      if (placed) {
+        if (placed.dataset.term === zone.dataset.answer) {
+          zone.classList.remove('incorrect'); zone.classList.add('correct');
+          if (icon) icon.textContent = '✓'; correct++;
+        } else {
+          zone.classList.remove('correct'); zone.classList.add('incorrect');
+          if (icon) icon.textContent = '✗';
+        }
+      }
+    });
+
+    const bar = document.getElementById('resultBar');
+    const inner = document.getElementById('resultInner');
+    bar.classList.add('show');
+
+    if (correct === 6) {
+      bar.className = 'result-bar show pass';
+      inner.innerHTML = 'Perfect score. Ready for the next activity.';
+      orangeConfettiExplosion();
+      showSuccessPop();
+    } else if (correct >= 4) {
+      bar.className = 'result-bar show partial';
+      inner.innerHTML = `<span class="result-emoji">💪</span>${correct}/6 correct. Nearly there — check the red ones and try again.`;
+    } else {
+      bar.className = 'result-bar show fail';
+      inner.innerHTML = `<span class="result-emoji">📖</span>${correct}/6 correct. Go back over the lesson and try again.`;
+    }
+  }
+
+  function resetActivity() {
+    document.querySelectorAll('.drop-zone').forEach(zone => {
+      const placed = zone.querySelector('.placed-item');
+      if (placed) zone.removeChild(placed);
+      const ph = zone.querySelector('.placeholder');
+      if (ph) ph.style.display = '';
+      zone.classList.remove('correct', 'incorrect', 'over');
+      const icon = zone.querySelector('.feedback-icon');
+      if (icon) icon.textContent = '✓';
+    });
+    document.querySelectorAll('.drag-item').forEach(item => item.classList.remove('placed', 'dragging'));
+    resetResultBar();
+  }
+
+  function resetResultBar() {
+    const bar = document.getElementById('resultBar');
+    bar.className = 'result-bar';
+  }
+
+  // Touch support
+  let touchItem = null, touchClone = null, touchOriginZone = null;
+
+  document.querySelectorAll('.drag-item').forEach(item => {
+    item.addEventListener('touchstart', e => {
+      touchItem = item;
+      touchOriginZone = item.parentElement.id === 'wordBank' ? 'bank' : item.parentElement.id;
+      const t = e.touches[0];
+      touchClone = item.cloneNode(true);
+      touchClone.style.cssText = `position:fixed;z-index:9999;pointer-events:none;opacity:0.95;
+        left:${t.clientX - 55}px;top:${t.clientY - 22}px;width:120px;
+        background:#FFFDF9;border:1.5px solid #EADFD3;border-radius:10px;
+        padding:11px 14px;font-size:13px;font-weight:800;color:#292929;
+        box-shadow:0 10px 22px rgba(41,41,41,0.16);`;
+      document.body.appendChild(touchClone);
+    }, { passive: true });
+  });
+
+  document.addEventListener('touchmove', e => {
+    if (!touchClone) return;
+    const t = e.touches[0];
+    touchClone.style.left = (t.clientX - 55) + 'px';
+    touchClone.style.top = (t.clientY - 22) + 'px';
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    if (!touchClone || !touchItem) return;
+    const t = e.changedTouches[0];
+    const el = document.elementFromPoint(t.clientX, t.clientY);
+    const zone = el ? el.closest('.drop-zone') : null;
+    const bank = el ? el.closest('#wordBank') : null;
+    if (zone) { draggedItem = touchItem; draggedFrom = touchOriginZone; zone.dispatchEvent(new Event('drop')); }
+    else if (bank && touchOriginZone !== 'bank') { draggedItem = touchItem; draggedFrom = touchOriginZone; wordBank.dispatchEvent(new Event('drop')); }
+    touchClone.remove(); touchClone = null; touchItem = null; touchOriginZone = null;
+  });
+</script>
+</body>
+</html>
