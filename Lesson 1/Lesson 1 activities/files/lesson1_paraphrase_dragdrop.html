@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,13 +11,20 @@
 <style>
   :root {
     --orange: #F88B48;
+    --orange-light: #FEF0E6;
+    --orange-dark: #C2660E;
     --green: #5FB27B;
     --green-dark: #4A9863;
     --green-light: #EDF7F1;
+    --red: #D9534F;
+    --red-light: #FBEAE9;
+    --red-dark: #B23A36;
+    --grey-tint: #6B7280;
+    --grey-light: #EEF0F2;
+    --grey-dark: #4B5563;
     --dark: #292929;
     --mid-grey: #6B7280;
     --white: #FFFFFF;
-    --red: #D9534F;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -202,6 +211,11 @@
     opacity: 0.6;
   }
 
+  .synonym-chip.group-0 { background: var(--orange-light); border-color: var(--orange); color: var(--orange-dark); }
+  .synonym-chip.group-1 { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+  .synonym-chip.group-2 { background: var(--red-light); border-color: var(--red); color: var(--red-dark); }
+  .synonym-chip.group-3 { background: var(--grey-light); border-color: var(--grey-tint); color: var(--grey-dark); }
+
   .synonym-chip.placed {
     border-color: var(--green);
     background: var(--green-light);
@@ -259,6 +273,22 @@
     border-radius: 6px;
     background: var(--green-light);
     color: var(--green-dark);
+    cursor: pointer;
+  }
+
+  .blank.filled.group-0 { border-color: var(--orange); background: var(--orange-light); color: var(--orange-dark); }
+  .blank.filled.group-1 { border-color: var(--green); background: var(--green-light); color: var(--green-dark); }
+  .blank.filled.group-2 { border-color: var(--red); background: var(--red-light); color: var(--red-dark); }
+  .blank.filled.group-3 { border-color: var(--grey-tint); background: var(--grey-light); color: var(--grey-dark); }
+
+  .blank.filled:hover {
+    border-color: var(--orange);
+    background: #FEF0E6;
+    color: var(--orange);
+  }
+
+  .blank.filled:hover::after {
+    content: ' ✕';
   }
 
   .blank.drag-over {
@@ -376,7 +406,7 @@ const TASKS = [
       },
       { 
         label: 'PERIOD / YEARS',
-        synonyms: ['decade', 'ten-year span', 'the following years'],
+        synonyms: ['decade', 'span', 'period'],
         blanks: 2
       }
     ],
@@ -469,7 +499,7 @@ function renderTask() {
     </div>
 
     <div class="instructions">
-      <strong>How to use:</strong> Drag a synonym from the colored groups below and drop it into a blank in the response. Try to use variety—don't use the same word twice!
+      <strong>How to use:</strong> Drag a synonym from the coloured groups below and drop it into a blank in the response. Try to use variety—don't use the same word twice!
     </div>
   `;
 
@@ -480,7 +510,7 @@ function renderTask() {
         <div class="section-title">${group.label}</div>
         <div class="synonyms-grid">
           ${group.synonyms.map((syn, synIdx) => `
-            <div class="synonym-chip" 
+            <div class="synonym-chip group-${groupIdx % 4}" 
                  draggable="true" 
                  data-group="${groupIdx}" 
                  data-synonym="${synIdx}"
@@ -514,9 +544,11 @@ function renderTask() {
     let newPara = para.replace(/___blank_(\d+)___/g, (match, idx) => {
       return `<span class="blank" 
                     data-blank-id="${idx}" 
+                    title="Click to remove"
                     ondragover="dragOver(event)" 
                     ondragleave="dragLeave(event)" 
-                    ondrop="drop(event, ${idx})">drop here</span>`;
+                    ondrop="drop(event, ${idx})"
+                    onclick="clearBlank(this, ${idx})">drop here</span>`;
     });
     return `<p>${newPara}</p>`;
   }).join('');
@@ -553,13 +585,34 @@ function drop(e, blankId) {
   if (!draggedElement) return;
   
   const synonym = draggedElement.textContent;
+  const colorClass = `group-${draggedElement.dataset.group % 4}`;
   const blank = document.querySelector(`[data-blank-id="${blankId}"]`);
   
-  filledBlanks[blankId] = synonym;
+  blank.className = blank.className.replace(/group-\d/g, '').trim();
+  
+  filledBlanks[blankId] = { synonym, colorClass };
   blank.textContent = synonym;
-  blank.classList.add('filled');
+  blank.classList.add('filled', colorClass);
   draggedElement.classList.add('placed');
   
+  updateProgress();
+}
+
+function clearBlank(blankEl, blankId) {
+  if (!blankEl.classList.contains('filled')) return;
+
+  const entry = filledBlanks[blankId];
+  delete filledBlanks[blankId];
+  blankEl.textContent = 'drop here';
+  blankEl.classList.remove('filled', entry?.colorClass);
+
+  // Free up the matching synonym chip so it can be dragged again
+  document.querySelectorAll('.synonym-chip.placed').forEach(c => {
+    if (c.textContent.trim() === entry?.synonym) {
+      c.classList.remove('placed');
+    }
+  });
+
   updateProgress();
 }
 
@@ -592,7 +645,7 @@ function resetTask() {
   filledBlanks = {};
   document.querySelectorAll('.blank').forEach(b => {
     b.textContent = 'drop here';
-    b.classList.remove('filled');
+    b.className = 'blank';
   });
   document.querySelectorAll('.synonym-chip').forEach(c => c.classList.remove('placed'));
   document.getElementById('feedback').className = 'feedback';
