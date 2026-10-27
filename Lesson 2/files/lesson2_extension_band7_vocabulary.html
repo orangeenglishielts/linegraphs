@@ -260,7 +260,7 @@
 <header>
   <div class="eyebrow">Orange English &middot; IELTS Writing Task 1</div>
   <h1>Quiz: Near-Synonyms</h1>
-  <p>Module 2 Extension &middot; Band 7-9 precision vocabulary</p>
+  <p>Lesson 2 Extension &middot; Precise vocabulary for describing data</p>
 </header>
 
 <div class="wrap">
@@ -268,13 +268,13 @@
     <h2>Pick the most precise word</h2>
     <span class="count" id="score">0 / 6 correct</span>
   </div>
-  <p class="instructions">Each sentence has three options that could all fit grammatically. One is the most precise choice for the context. Tap it.</p>
+  <p class="instructions">Each sentence has three options that could all fit grammatically. One matches the data most precisely. Tap it.</p>
 
   <div id="rounds"></div>
 
   <div class="banner" id="banner">
     <h3>Excellent</h3>
-    <p>You're thinking like a band 8 student: choosing the exact word, not just a synonym that fits.</p>
+    <p>You chose the word that matches the data, not just a synonym that fits the grammar.</p>
   </div>
 
   <button class="reset-link" id="resetBtn">Start again</button>
@@ -288,51 +288,51 @@
 <script>
   const ROUNDS = [
     {
-      sentence: "Revenue ___ sharply but briefly in the first quarter.",
+      sentence: "Ticket sales ___ in the week before the festival, then returned to normal.",
       options: [
-        { word: "surged", correct: true, note: "Surge suggests sudden and temporary—exactly what this sentence describes." },
-        { word: "soared", correct: false, note: "Soar implies sustained upward movement over time, not a brief spike." },
-        { word: "climbed", correct: false, note: "Climb is too neutral; it doesn't capture the temporary nature of the change." }
+        { word: "surged", correct: true, note: "“Surged” means rose suddenly and strongly. The sentence itself tells us it was short: “then returned to normal”." },
+        { word: "edged up", correct: false, note: "“Edged up” describes a very small rise, not a sudden, strong one." },
+        { word: "climbed steadily", correct: false, note: "“Climbed steadily” describes an even rise over time, not a sudden jump." }
       ]
     },
     {
-      sentence: "Stock prices ___ 45% in a single trading session.",
+      sentence: "The share price ___ by 45% in a single day.",
       options: [
-        { word: "declined", correct: false, note: "Declined is too mild for a 45% drop in one day." },
-        { word: "plummeted", correct: true, note: "Plummeted captures the extreme steepness of a 45% fall." },
-        { word: "slumped", correct: false, note: "Slumped is sharp but less extreme than plummeted." }
+        { word: "declined", correct: false, note: "“Declined” is neutral and often gradual. It undersells a 45% fall in one day." },
+        { word: "plummeted", correct: true, note: "“Plummeted” means fell very quickly and by a large amount: 45% in a day." },
+        { word: "dipped", correct: false, note: "“Dipped” describes a small, short fall." }
       ]
     },
     {
-      sentence: "Political tensions ___ following the failed negotiations.",
+      sentence: "After rising for a decade, sales ___ at around 60,000 units a year.",
       options: [
-        { word: "accelerated", correct: false, note: "Accelerate means speed up a process, not suitable for worsening conflict." },
-        { word: "escalated", correct: true, note: "Escalate means intensify or worsen—exactly what tensions do." },
-        { word: "mounted", correct: false, note: "Mounted suggests building up, but escalate is the stronger choice for conflict." }
+        { word: "levelled off", correct: true, note: "“Levelled off” means stopped rising and stayed at about the same level. It is neutral and exact." },
+        { word: "stagnated", correct: false, note: "“Stagnated” adds a negative judgement, as if this was a failure. Task 1 should stay neutral." },
+        { word: "regressed", correct: false, note: "“Regressed” means went back to an earlier, worse state. It isn't a trend word for data." }
       ]
     },
     {
-      sentence: "New species ___ rapidly after the ecosystem was protected.",
+      sentence: "The number of users ___ from 2 million to 9 million in three years.",
       options: [
-        { word: "accumulated", correct: false, note: "Accumulate means gathering more of the same, not rapid increase in variety." },
-        { word: "proliferated", correct: true, note: "Proliferate is perfect for rapid increase and spread of multiple species." },
-        { word: "multiplied", correct: false, note: "Multiply is weaker; it suggests simple numbers growing, not biological spread." }
+        { word: "rose dramatically", correct: true, note: "More than four times as many users in three years: a very large, fast rise." },
+        { word: "rose slightly", correct: false, note: "“Slightly” is for small changes. 2 million to 9 million is not small." },
+        { word: "fluctuated", correct: false, note: "Fluctuating means going up and down. This figure only went up." }
       ]
     },
     {
-      sentence: "After two decades of decline, productivity ___ at 62% of its peak.",
+      sentence: "Between 2015 and 2020, the figure ___ around 40%, never moving more than two points either way.",
       options: [
-        { word: "stagnated", correct: false, note: "Stagnate has a negative tone, suggesting stuck or dead—wrong for a recovery point." },
-        { word: "plateaued", correct: true, note: "Plateau is neutral and natural, describing a levelling off after change." },
-        { word: "regressed", correct: false, note: "Regress means going backwards, not stabilizing." }
+        { word: "hovered", correct: true, note: "“Hovered around” means stayed close to one level with small movements. It matches “never moving more than two points”." },
+        { word: "fluctuated wildly", correct: false, note: "Two points either way is not wild. “Wildly” exaggerates the data." },
+        { word: "plateaued", correct: false, note: "Close, but “plateaued” suggests the figure stopped rising after a rise. This sentence describes small movements around one level." }
       ]
     },
     {
-      sentence: "Public trust in institutions ___ steadily throughout the 2010s.",
+      sentence: "Exports fell by about 1% a year for ten years: a ___ decline.",
       options: [
-        { word: "diminished", correct: false, note: "Diminish is quicker/broader; erode better captures gradual wearing away." },
-        { word: "eroded", correct: true, note: "Erode is perfect for slow, sustained loss of trust over time." },
-        { word: "declined", correct: false, note: "Decline is neutral but doesn't capture the slow, wearing-away nature." }
+        { word: "gradual", correct: true, note: "Small, even falls over a long time: a gradual decline." },
+        { word: "precipitous", correct: false, note: "“Precipitous” means extremely steep and sudden. 1% a year is neither." },
+        { word: "dramatic", correct: false, note: "A dramatic decline is large and noticeable. This one was small and slow." }
       ]
     }
   ];

@@ -124,8 +124,7 @@
     <div class="section-title">Section 1: The 20 Minutes</div>
     <div class="section-subtitle">A simple time budget &mdash; and what happens when you skip it</div>
     <div class="reference-link">
-      &#128229; <strong>Download Reference Guide PDF</strong><br>
-      <a href="lesson6_reference_guide.html" target="_blank">&rarr; Click to view/print</a>
+      &#128424; <a href="lesson6_reference_guide.html" target="_blank" rel="noopener"><strong>Open printable reference guide</strong></a>
     </div>
     <div class="comparison-card">
       <div class="budget-row">
@@ -135,7 +134,7 @@
       </div>
     </div>
     <div class="comparison-card">
-      <div class="critical-rule" style="margin-bottom:14px;"><strong>Aim for 150+ words, not a word less.</strong> Underlength answers are penalised regardless of quality.</div>
+      <div class="critical-rule" style="margin-bottom:14px;"><strong>Write at least 150 words.</strong> A short answer may not develop the key features enough, and it gives the examiner less evidence of your language. These paragraph lengths add up to at least 155 words:</div>
       
       <div class="wt-row"><span class="wt-part">Introduction</span><span class="wt-words">25–30 words</span></div>
 
@@ -164,7 +163,7 @@
         <path d="M44,4 C30,2 10,10 4,28" fill="none" stroke="#C2660E" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1,4"/>
         <path d="M4,28 L9,22 M4,28 L11,29" fill="none" stroke="#C2660E" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
-      <div class="hw-text">Keep planning notes to single words, not full sentences &mdash; you don't have time to write twice.</div>
+      <div class="hw-text">Keep planning notes to single words. When it's time to check, finish your current sentence, then check. Avoid starting a detail you can't complete.</div>
     </div>
     <button class="next-btn" onclick="goToSection('timed')">Next &rarr;</button>
   </div>
@@ -191,7 +190,8 @@
   <!-- SECTION 3: SELF-ASSESSMENT -->
   <div class="section" data-section="assess">
     <div class="section-title">Section 3: Self-Assessment</div>
-    <div class="section-subtitle">Score yourself against all four real IELTS criteria</div>
+    <div class="section-subtitle">Review your answer against the four marking criteria</div>
+    <p style="font-size:14.5px;margin:0 0 14px">This checklist is for self-review. It helps you notice what to work on; it isn't a way to calculate an IELTS band.</p>
     
     <div class="assess-card" style="border-left-color:#F88B48;">
       <div class="assess-title" style="color:#F88B48;">Task Achievement</div>
@@ -209,7 +209,7 @@
       
         <label class="ac-check"><input type="checkbox"><span>Clear four-part structure (intro, overview, two body paragraphs)</span></label>
     
-        <label class="ac-check"><input type="checkbox"><span>Linking words used to connect ideas</span></label>
+        <label class="ac-check"><input type="checkbox"><span>The connections between sentences make sense</span></label>
     
     </div>
     
@@ -218,7 +218,7 @@
       
         <label class="ac-check"><input type="checkbox"><span>Varied verbs and adverbs</span></label>
     
-        <label class="ac-check"><input type="checkbox"><span>No repeated vocabulary for the same idea</span></label>
+        <label class="ac-check"><input type="checkbox"><span>Words are precise, with a range where it helps</span></label>
     
     </div>
     
@@ -242,14 +242,14 @@
     <div class="section-subtitle">Get expert feedback on your response, or review it yourself with fresh eyes</div>
     <div class="comparison-card">
       <ol class="peer-steps">
-        <li><strong>Get it marked by me.</strong> If your course includes marked answers, send this response using the feedback link in your course. If not, you can <a href="https://orangeenglish.nl/ielts-writing-course" target="_blank" rel="noopener">add personal feedback from a former IELTS examiner</a>. Or put it aside for a few hours so you can review it yourself with fresh eyes.</li>
+        <li><strong>Get it marked by me.</strong> Finishing this activity does not send your answer anywhere. Use <em>Copy my answer</em> or <em>Download</em> under the writing box to keep it. If your course includes marked answers, send it using the submission instructions in your course. If not, you can <a href="https://orangeenglish.nl/ielts-writing-course" target="_blank" rel="noopener">add personal feedback from a former IELTS examiner</a>. Or put it aside for a few hours so you can review it yourself with fresh eyes.</li>
         <li>Reread your response slowly, as if an examiner were reading it.</li>
         <li>Check the four things below and write one specific comment on what to improve next time.</li>
       </ol>
       <div class="feedback-checks">
         <strong style="color:var(--green-dark);">When reviewing your response, check:</strong>
         <ul style="margin-top:8px; margin-left:18px;">
-          <li>Does the introduction paraphrase the question (not copy it)?</li><li>Is the overview free of numbers?</li><li>Are the body paragraphs grouped logically?</li><li>Is the tense appropriate for the time frame shown?</li>
+          <li>Does the introduction paraphrase the question (not copy it)?</li><li>Does the overview summarise the pattern rather than recount detail?</li><li>Are the body paragraphs grouped logically?</li><li>Is the tense appropriate for the time frame shown?</li>
         </ul>
       </div>
       <div class="critical-rule" style="margin-bottom:10px;"><strong>Useful starters for your comment:</strong></div>
@@ -298,11 +298,14 @@ function goToSection(sectionId) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// --- TIMER ---
+// --- TIMER (measures real elapsed time; survives a sleeping tab or a reload) ---
 const TOTAL_SECONDS = 20 * 60;
-let remaining = TOTAL_SECONDS;
+const TKEY = 'oe-lesson6-timer';
+let tState = { rem: TOTAL_SECONDS, end: null, done: false };
+try { tState = JSON.parse(localStorage.getItem(TKEY)) || tState; } catch (e) {}
 let timerInterval = null;
-let timerRunning = false;
+const saveT = () => { try { localStorage.setItem(TKEY, JSON.stringify(tState)); } catch (e) {} };
+const remainingNow = () => tState.end ? Math.max(0, Math.ceil((tState.end - Date.now()) / 1000)) : tState.rem;
 
 function formatTime(s) {
   const m = Math.floor(s / 60);
@@ -314,66 +317,104 @@ function updateTimerDisplay() {
   const display = document.getElementById('timerDisplay');
   const fill = document.getElementById('timerFill');
   const phase = document.getElementById('timerPhase');
+  const btn = document.getElementById('timerStartBtn');
+  const remaining = remainingNow();
+  if (tState.end && remaining <= 0) { tState = { rem: 0, end: null, done: true }; saveT(); clearInterval(timerInterval); timerInterval = null; }
   display.textContent = formatTime(remaining);
   const elapsed = TOTAL_SECONDS - remaining;
   fill.style.width = `${(elapsed / TOTAL_SECONDS) * 100}%`;
-
-  if (remaining <= 180 && remaining > 0) {
-    display.classList.add('urgent');
-    fill.style.background = 'var(--red)';
-  } else {
-    display.classList.remove('urgent');
-    fill.style.background = 'var(--green)';
-  }
-
-  if (!timerRunning && remaining === TOTAL_SECONDS) {
-    phase.textContent = 'Ready to start';
-  } else if (remaining <= 0) {
-    phase.textContent = "Time's up!";
-  } else if (elapsed < 120) {
-    phase.textContent = 'Plan';
-  } else if (elapsed < 1020) {
-    phase.textContent = 'Write';
-  } else {
-    phase.textContent = 'Check';
-  }
+  const urgent = remaining <= 180 && remaining > 0;
+  display.classList.toggle('urgent', urgent);
+  fill.style.background = urgent ? 'var(--red)' : 'var(--green)';
+  const stage = elapsed < 120 ? 'Plan' : (elapsed < 1020 ? 'Write' : 'Check');
+  if (tState.done) phase.textContent = "Time's up. Stop writing, then go to Section 3 to review your answer. Select Reset to try again.";
+  else if (!tState.end && remaining === TOTAL_SECONDS) phase.textContent = 'Ready to start';
+  else if (!tState.end) phase.textContent = `Paused · ${stage}`;
+  else phase.textContent = stage;
+  btn.textContent = tState.done ? 'Finished' : (tState.end ? 'Running…' : (remaining < TOTAL_SECONDS ? 'Resume' : 'Start 20:00'));
+  btn.disabled = tState.done || !!tState.end;
 }
 
 function startTimer() {
-  if (timerRunning) return;
-  timerRunning = true;
-  document.getElementById('timerStartBtn').textContent = 'Running...';
-  timerInterval = setInterval(() => {
-    remaining--;
-    updateTimerDisplay();
-    if (remaining <= 0) {
-      clearInterval(timerInterval);
-      timerRunning = false;
-      document.getElementById('timerStartBtn').textContent = 'Start 20:00';
-      alert("Time's up! Stop writing and move to Section 3 to self-assess.");
-    }
-  }, 1000);
-}
-
-function pauseTimer() {
+  if (tState.end || tState.done) return;
+  tState = { rem: remainingNow(), end: Date.now() + remainingNow() * 1000, done: false };
+  saveT();
   clearInterval(timerInterval);
-  timerRunning = false;
-  document.getElementById('timerStartBtn').textContent = 'Resume';
-}
-
-function resetTimer() {
-  clearInterval(timerInterval);
-  timerRunning = false;
-  remaining = TOTAL_SECONDS;
-  document.getElementById('timerStartBtn').textContent = 'Start 20:00';
+  timerInterval = setInterval(updateTimerDisplay, 250);
   updateTimerDisplay();
 }
 
+function pauseTimer() {
+  if (!tState.end) return;
+  tState = { rem: remainingNow(), end: null, done: false };
+  saveT();
+  clearInterval(timerInterval); timerInterval = null;
+  updateTimerDisplay();
+}
+
+function resetTimer() {
+  clearInterval(timerInterval); timerInterval = null;
+  tState = { rem: TOTAL_SECONDS, end: null, done: false };
+  saveT();
+  updateTimerDisplay();
+}
+
+if (tState.end && remainingNow() > 0) timerInterval = setInterval(updateTimerDisplay, 250);
+
+/* ===== Orange English self-review (shared by Lessons 3 to 6) =====
+   selfReview(host, {id, prompt, rows, placeholder, model, checks, minWords, note})
+   Saves the draft in this browser, counts words, shows a model answer on request with a
+   self-review checklist, and offers Copy and Download. It does not mark the writing. */
+(function(){
+  if(!document.getElementById('sr-css')){const st=document.createElement('style');st.id='sr-css';st.textContent=`
+.sr textarea{width:100%;min-height:140px;font:inherit;font-size:15px;line-height:1.6;border:1.5px solid #E4DED1;border-radius:8px;padding:12px;background:#fff;resize:vertical;display:block}
+.sr textarea:focus{border-color:#292929;outline:none}
+.sr .sr-meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:12.5px;color:#6E6B64;margin:6px 0 10px}
+.sr .sr-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.sr button{font-family:'Montserrat',system-ui,sans-serif;font-weight:700;font-size:13.5px;border-radius:8px;padding:9px 14px;border:1.5px solid #292929;background:#292929;color:#fff;cursor:pointer;min-height:42px}
+.sr button.gh{background:transparent;color:#292929}
+.sr .sr-out{margin-top:14px;display:none}.sr .sr-out.show{display:block}
+.sr .sr-model{background:#E7F2EB;border-left:4px solid #5FB27B;border-radius:0 8px 8px 0;padding:12px 14px;font-size:15px;line-height:1.65}
+.sr .sr-model p+p{margin-top:8px}.sr .sr-lab{font-family:'Montserrat',system-ui,sans-serif;font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#2B6E43;display:block;margin-bottom:4px}
+.sr .sr-checks{list-style:none;display:grid;gap:8px;margin-top:12px;padding:0}
+.sr .sr-checks label{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;cursor:pointer;background:#FAF8F3;border-radius:8px;padding:9px 11px}
+.sr .sr-checks input{width:19px;height:19px;margin-top:2px;accent-color:#2B6E43;flex:none}
+.sr .sr-note{font-size:13px;color:#55534E;background:#FCE9DD;border-left:4px solid #F88B48;border-radius:0 8px 8px 0;padding:9px 12px;margin-top:12px}
+.sr .sr-ready{font-size:14.5px;font-weight:600;margin:12px 0 4px}`;document.head.appendChild(st)}
+  const K=id=>'oe-sr-'+location.pathname.split('/').pop()+'-'+id;
+  const get=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}};
+  const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+  const wc=t=>(String(t).match(/[A-Za-z0-9€£%'’.,-]+/g)||[]).filter(w=>/[A-Za-z0-9]/.test(w)).length;
+  window.selfReview=function(host,o){
+    const st=get(K(o.id),{t:'',c:{},shown:false});
+    host.classList.add('sr');
+    host.innerHTML=`${o.prompt?`<div class="sr-prompt">${o.prompt}</div>`:''}<textarea rows="${o.rows||6}" placeholder="${o.placeholder||'Write here…'}" aria-label="Your answer"></textarea>
+    <div class="sr-meta"><span class="sr-wc">0 words</span><span>Saved in this browser as you type.</span></div>
+    <div class="sr-row"><button type="button" class="sr-show">Show a model answer</button><button type="button" class="gh sr-copy">Copy my answer</button><button type="button" class="gh sr-dl">Download</button><span class="sr-msg" aria-live="polite" style="font-size:13px;color:#55534E"></span></div>
+    <div class="sr-out"><p class="sr-ready">Your draft is ready for self-review.</p><div class="sr-model"><span class="sr-lab">Model answer</span>${o.model}</div>
+    <p style="font-size:14px;margin-top:12px"><b>Check your own writing.</b> Compare it with the model, then tick what is true.</p>
+    <ul class="sr-checks">${o.checks.map((c,i)=>`<li><label><input type="checkbox" data-i="${i}"><span>${c}</span></label></li>`).join('')}</ul>
+    <div class="sr-note">${o.note||'This page does not mark your writing or send it anywhere. If your course includes personal feedback, follow the submission instructions in your course.'}</div></div>`;
+    const ta=host.querySelector('textarea'),out=host.querySelector('.sr-out'),msg=host.querySelector('.sr-msg');
+    ta.value=st.t||'';
+    const upd=()=>{const n=wc(ta.value);host.querySelector('.sr-wc').textContent=n+(n===1?' word':' words')+(o.minWords?` · aim for at least ${o.minWords}`:'')};
+    ta.addEventListener('input',()=>{st.t=ta.value;put(K(o.id),st);upd()});upd();
+    const show=()=>{out.classList.add('show');st.shown=true;put(K(o.id),st)};
+    host.querySelector('.sr-show').onclick=()=>{show();out.scrollIntoView({behavior:'smooth',block:'nearest'})};
+    if(st.shown)show();
+    host.querySelectorAll('.sr-checks input').forEach(c=>{c.checked=!!st.c[c.dataset.i];c.onchange=()=>{st.c[c.dataset.i]=c.checked;put(K(o.id),st)}});
+    const text=()=>(o.title?o.title+'\n\n':'')+ta.value.trim();
+    host.querySelector('.sr-copy').onclick=()=>{const t=text();const fb=()=>{ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}msg.textContent=ok?'Copied.':'Select your text and copy it with your keyboard.'};
+      try{navigator.clipboard.writeText(t).then(()=>msg.textContent='Copied.',fb)}catch(e){fb()}};
+    host.querySelector('.sr-dl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text()],{type:'text/plain;charset=utf-8'}));a.download='orange-english-'+o.id+'.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);msg.textContent='Downloaded.'};
+  };
+})();
+
 function renderFull() {
   const container = document.getElementById('fullContainer');
-  container.innerHTML = `
-    <div class="sentence-builder">
-      <div class="task-prompt">The graph below shows the percentage of people who shop online at least once a week in the UK, South Korea, and Brazil between 2008 and 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</div>
+  container.innerHTML = `<div class="sentence-builder">
+      <div class="comparison-card" style="margin-bottom:14px"><strong>Before you begin.</strong> Allow about 20 minutes and write at least 150 words. Try spending roughly two minutes planning, fifteen minutes writing and three minutes checking. Adjust this practice routine as you learn what works for you.<br><br>Finishing this activity does not send your answer for marking. Use the self-review checklist afterwards. If your purchase includes personal feedback, follow the submission instructions provided in your course.</div>
+      <div class="task-prompt">The graph below shows the percentage of people who shop online at least once a week in the UK, South Korea and Brazil between 2008 and 2024. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</div>
       <svg viewBox="0 0 600 300" style="width: 100%; max-width: 600px; display: block; margin: 0 auto 20px; background: white; border-radius: 8px;">
         <line x1="60" y1="20" x2="60" y2="260" stroke="#292929" stroke-width="1.5"/>
         <line x1="60" y1="260" x2="580" y2="260" stroke="#292929" stroke-width="1.5"/>
@@ -401,21 +442,9 @@ function renderFull() {
         <line x1="80" y1="52" x2="105" y2="52" stroke="#F88B48" stroke-width="3"/><text x="110" y="56" font-size="12" fill="#292929">UK</text>
         <line x1="80" y1="70" x2="105" y2="70" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/><text x="110" y="74" font-size="12" fill="#292929">Brazil</text>
       </svg>
-      <textarea id="full-answer" style="min-height: 240px;" placeholder="Write your complete response here, in real time..."></textarea>
-      <div id="full-wordcount" style="font-size: 12px; color: var(--mid-grey); margin-top: -8px; margin-bottom: 12px;">0 words</div>
-      <button class="submit-btn" onclick="submitFull()">Submit</button>
-    </div>
-  `;
-  document.getElementById('full-answer').addEventListener('input', () => {
-    const words = document.getElementById('full-answer').value.trim().split(/\s+/).filter(Boolean).length;
-    document.getElementById('full-wordcount').textContent = `${words} words`;
-  });
-}
-
-function submitFull() {
-  const ans = document.getElementById('full-answer').value;
-  const words = ans.trim().split(/\s+/).filter(Boolean).length;
-  alert(words >= 150 ? `\u2713 ${words} words. Well done! Head to Section 3 to self-assess, then Section 4 for feedback and review.` : `You have ${words} words \u2014 aim for 150+. If time's up, that's useful data for next time.`);
+      <div id="sr-full"></div></div>`;
+  selfReview(document.getElementById('sr-full'), { id: 'full', rows: 14, minWords: 150, title: 'Timed task: online shopping', model: "<p>The line graph illustrates what percentage of people in the UK, South Korea and Brazil bought something online at least weekly from 2008 to 2024.</p><p>Overall, weekly online shopping became far more common in all three countries. South Korea had the highest proportion throughout, while Brazil's figure remained the lowest, although it grew the fastest in the final four years.</p><p>In 2008, 20% of South Koreans shopped online every week, slightly more than the 15% recorded in the UK. Both figures rose steeply over the next twelve years, reaching 70% and 55% respectively in 2020. Growth then slowed, and by 2024 the figures stood at 80% in South Korea and 68% in the UK.</p><p>Brazil started from a much lower level, with only 5% of people shopping online weekly in 2008. This figure tripled to 15% by 2014 and doubled again to 30% in 2020. Unlike in the other two countries, growth in Brazil did not slow down: it climbed by a further 15 percentage points to 45% in 2024, although it was still well below the UK's figure.</p>", checks: ["Every country in the task is covered, and my figures match the graph.", "My overview is clear and summarises the main patterns.", "My paragraphs are organised logically, and the connections between sentences make sense.", "My vocabulary is precise and my tense matches the time reference.", "I wrote at least 150 words."],
+    note: 'Finishing this activity does not send your answer for marking. If your purchase includes personal feedback, follow the submission instructions provided in your course.' });
 }
 
 initNav();

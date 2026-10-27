@@ -415,7 +415,7 @@
 <header>
   <div class="eyebrow">Orange English • Lesson 3</div>
   <h1>Workbook: Task 1 Adjectives</h1>
-  <p>Learn the precise vocabulary examiners want to see when comparing data</p>
+  <p>Learn precise vocabulary for comparing data</p>
 </header>
 
 <div class="wrap">
@@ -428,7 +428,7 @@
     <div class="section-title">Why This Matters</div>
     
     <div class="intro-box">
-      In Task 1, you don't describe "hot" or "beautiful" things. You describe <strong>how data changes</strong>. The adjectives below are what examiners expect to see. They show you understand the data and can use sophisticated vocabulary precisely.
+      In Task 1, you don't describe "hot" or "beautiful" things. You describe <strong>how data changes</strong>. The adjectives below help you describe data precisely. They show you understand the data and can use sophisticated vocabulary precisely.
     </div>
 
     <p style="margin-bottom: 28px; font-size: 14px; line-height: 1.7;">
@@ -475,15 +475,15 @@
     <div class="exercise">
       <div class="exercise-title">Exercise: Complete these sentences</div>
       <div class="sentence">
-        Sales barely moved. There was only a <input type="text" class="blank-input" data-id="g1" data-answer="slight"> increase in the period.
+        Sales barely moved. There was only a <input type="text" class="blank-input" data-id="g1" data-answer="slight|small|marginal|modest"> increase in the period.
         <div class="feedback" data-id="g1"></div>
       </div>
       <div class="sentence">
-        Visitor numbers exploded. A <input type="text" class="blank-input" data-id="g2" data-answer="sharp"> rise occurred from 1 million to 8 million in just two years.
+        Visitor numbers exploded. A <input type="text" class="blank-input" data-id="g2" data-answer="sharp|dramatic|rapid|steep"> rise occurred from 1 million to 8 million in just two years.
         <div class="feedback" data-id="g2"></div>
       </div>
       <div class="sentence">
-        Over the entire decade, tourism climbed reliably. It showed <input type="text" class="blank-input" data-id="g3" data-answer="steady"> growth year after year.
+        Over the entire decade, tourism climbed reliably. It showed <input type="text" class="blank-input" data-id="g3" data-answer="steady|consistent"> growth year after year.
         <div class="feedback" data-id="g3"></div>
       </div>
       <button class="check-btn" onclick="checkExercise('g')">Check answers</button>
@@ -539,7 +539,7 @@
     </div>
 
     <div class="teacher-note">
-      <strong>Key rule:</strong> Superlatives always need THE. "The highest point," "The most significant change," "The largest increase."
+      <strong>Key rule:</strong> Use <em>the</em> in phrases such as "the highest point", "the most significant change" and "the largest increase". A possessive can replace it: "Spain's highest figure".
     </div>
 
     <div class="exercise">
@@ -549,11 +549,11 @@
         <div class="feedback" data-id="m1"></div>
       </div>
       <div class="sentence">
-        <strong>The</strong> <input type="text" class="blank-input" data-id="m2" data-answer="most significant"> change in sales happened between 2015 and 2016.
+        <strong>The</strong> <input type="text" class="blank-input" data-id="m2" data-answer="most significant|largest|biggest|most dramatic|sharpest"> change in sales happened between 2015 and 2016.
         <div class="feedback" data-id="m2"></div>
       </div>
       <div class="sentence">
-        <strong>The</strong> <input type="text" class="blank-input" data-id="m3" data-answer="most considerable"> increase was in urban areas.
+        <strong>The</strong> <input type="text" class="blank-input" data-id="m3" data-answer="largest|biggest|most significant|sharpest"> increase was in urban areas.
         <div class="feedback" data-id="m3"></div>
       </div>
       <button class="check-btn" onclick="checkExercise('m')">Check answers</button>
@@ -606,15 +606,15 @@
     <div class="exercise">
       <div class="exercise-title">Exercise: Complete these sentences</div>
       <div class="sentence">
-        The data showed a <input type="text" class="blank-input" data-id="p1" data-answer="volatile"> pattern, with unpredictable jumps up and down.
+        The data showed a <input type="text" class="blank-input" data-id="p1" data-answer="volatile|erratic|fluctuating|irregular"> pattern, with unpredictable jumps up and down.
         <div class="feedback" data-id="p1"></div>
       </div>
       <div class="sentence">
-        Coffee consumption remained <input type="text" class="blank-input" data-id="p2" data-answer="stable"> at around 3kg per capita throughout the decade.
+        Coffee consumption remained <input type="text" class="blank-input" data-id="p2" data-answer="stable|steady|constant"> at around 3kg per capita throughout the decade.
         <div class="feedback" data-id="p2"></div>
       </div>
       <div class="sentence">
-        Sales showed <input type="text" class="blank-input" data-id="p3" data-answer="consistent"> growth every single year with no dips.
+        Sales showed <input type="text" class="blank-input" data-id="p3" data-answer="consistent|steady"> growth every single year with no dips.
         <div class="feedback" data-id="p3"></div>
       </div>
       <button class="check-btn" onclick="checkExercise('p')">Check answers</button>
@@ -646,7 +646,7 @@
 
     <div class="reference-card">
       <h3>Task 1 Adjectives — Quick Reference</h3>
-      <p>The precise vocabulary examiners expect to see</p>
+      <p>Precise vocabulary for describing data</p>
 
       <div class="reference-grid">
         <div class="ref-item">
@@ -668,7 +668,7 @@
       </div>
 
       <div class="key-rule">
-        ⚠️ Always use THE with superlatives: "The highest," "The most significant," "The fastest," "The most considerable"
+        ⚠️ Superlatives usually take <em>the</em>: "the highest", "the most significant", "the fastest". A possessive can replace it: "Spain's highest figure".
       </div>
     </div>
 
@@ -704,11 +704,12 @@ function checkExercise(prefix) {
   const inputs = document.querySelectorAll(`input[data-id^="${prefix}"]`);
   let correct = 0;
   inputs.forEach(input => {
-    const answer = input.getAttribute('data-answer').toLowerCase().trim();
-    const userAnswer = input.value.toLowerCase().trim();
+    const answers = input.getAttribute('data-answer').toLowerCase().split('|').map(a => a.trim());
+    const answer = answers[0];
+    const userAnswer = input.value.toLowerCase().trim().replace(/\s+/g, ' ');
     const feedback = document.querySelector(`.feedback[data-id="${input.getAttribute('data-id')}"]`);
     
-    if (userAnswer === answer) {
+    if (answers.includes(userAnswer)) {
       input.classList.add('correct');
       input.classList.remove('incorrect');
       feedback.classList.add('show', 'correct');
@@ -718,7 +719,7 @@ function checkExercise(prefix) {
       input.classList.add('incorrect');
       input.classList.remove('correct');
       feedback.classList.add('show', 'incorrect');
-      feedback.textContent = `Try: ${answer}`;
+      feedback.textContent = answers.length > 1 ? `Try: ${answers.slice(0, 2).join(' or ')}` : `Try: ${answer}`;
     }
   });
   updateProgress();
