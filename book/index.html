@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Line Graph Success · Chapters 1 to 4 · Orange English</title>
-<meta name="description" content="Interactive book prototype: Understanding Line Graphs, Describing Trends and Grammar for Data Description and Making Comparisons, for IELTS Academic Writing Task 1.">
+<title>Line Graph Success · Orange English</title>
+<meta name="description" content="Line Graph Success, an interactive book for IELTS Academic Writing Task 1 in six chapters: Understanding Line Graphs, Describing Trends, Grammar for Data Description, Making Comparisons, Structuring the Response and Writing a Complete Answer.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 <style>
@@ -430,14 +430,28 @@ body.printing{background:#fff}
 .fixin{resize:vertical;line-height:1.5;display:block}
 @media (max-width:819px){.ribbon{right:8px}.pghead{padding-right:26px}}
 
+/* timer (timed task) */
+.oe-timer .tm{display:flex;align-items:baseline;gap:6px 14px;flex-wrap:wrap}
+.tm-clock{font-family:var(--head);font-weight:800;font-size:44px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.tm-clock.urgent{color:var(--orange-ink)}
+.tm-phase{font-size:14.5px;font-weight:600;color:var(--mid);flex:1;min-width:180px}
+.tm-bar{display:flex;gap:4px;margin-top:14px}
+.tm-bar i{display:block;height:8px;border-radius:4px;background:var(--line);overflow:hidden;position:relative;min-width:24px}
+.tm-bar i b{position:absolute;inset:0 auto 0 0;width:0;background:var(--green)}
+.tm-bar i:last-child b{background:var(--orange)}
+.tm-labs{display:flex;justify-content:space-between;gap:8px;margin-top:4px;font-size:11px;font-weight:700;color:var(--soft);font-family:var(--head)}
+.tm-labs span{flex:none!important;white-space:nowrap}
+
 </style>
 <script>
 /* VIDEO_LINKS: paste a Loom or YouTube link between the quotes. The script note disappears once a link is set.
    0 Ch1 Spread 1 Meet the line graph · 1 Ch1 Spread 2 Read the axes · 2 Ch1 Spread 4 Find the overall trend
    3 Ch2 Spread 1 Up, down or stable? · 4 Ch2 Spread 3 Choosing the precise word · 5 Ch2 Spread 4 Building a description
    6 Ch3 Spread 1 Which tense? · 7 Ch3 Spread 2 Prepositions for amounts · 8 Ch3 Spread 4 Linking two trends
-   9 Ch4 Spread 1 Like with like · 10 Ch4 Spread 2 Multiples and fractions · 11 Ch4 Spread 4 Crossovers and turning points */
-window.VIDEO_LINKS=['','','','','','','','','','','',''];
+   9 Ch4 Spread 1 Like with like · 10 Ch4 Spread 2 Multiples and fractions · 11 Ch4 Spread 4 Crossovers and turning points
+   12 Ch5 Spread 1 The four-part shape · 13 Ch5 Spread 3 Writing the overview
+   14 Ch6 Spread 2 Planning in two minutes · 15 Ch6 Spread 5 The 20-minute budget */
+window.VIDEO_LINKS=['','','','','','','','','','','','','','','',''];
 </script>
 </head>
 <body>
@@ -460,7 +474,7 @@ window.VIDEO_LINKS=['','','','','','','','','','','',''];
   </div></nav>
 </main>
 <footer class="bk-foot">
-  <p>Line Graph Success · Orange English · Prototype of Chapters 1 to 4</p>
+  <p>Line Graph Success · Orange English · Chapters 1 to 6</p>
   <p>Orange English is an independent IELTS preparation provider and is not affiliated with the official IELTS partners.</p>
   <p><a href="#" id="simulate">Simulate a return visit</a> (for testing)</p>
 </footer>
@@ -543,10 +557,10 @@ const GLOSS={
   'legend':{term:'legend',def:'The key that tells you what each line represents. Read it before you write anything.',path:'M20,24 L60,24 M20,48 L60,48 M90,64 L130,52 L170,58 L225,30',ex:'“According to the legend, the solid line shows online readers.”'},
   'overall trend':{term:'the overall trend',def:'The general direction of the data from the start of the period to the end, ignoring small ups and downs.',path:'M15,70 L45,55 L70,62 L100,45 L130,50 L160,32 L190,38 L225,20',ex:'“Overall, online news reading increased over the period, while print reading declined.”'},
   'peaked':{term:'peaked',def:'Reached its highest point before falling again.',path:'M15,70 L80,50 L120,15 L160,50 L225,62',ex:'“Visitor numbers peaked at 12,000 a day in August.”'},
-  'plateaued':{term:'plateaued',def:'Stopped rising and stayed at about the same level.',path:'M15,76 L90,30 L225,30',ex:'“Sales rose steadily and then plateaued at around 60 cups an hour.”'},
+  'plateaued':{term:'plateaued',def:'Stopped rising and stayed at about the same level.',path:'M15,76 L90,30 L225,30',ex:'“Sales rose sharply and then plateaued at 60 cups an hour.”'},
   'fluctuated':{term:'fluctuated',def:'Went up and down repeatedly, with no clear single direction.',path:'M15,50 L45,28 L75,62 L105,24 L135,58 L165,30 L195,60 L225,40',ex:'“Between September and December, visitor numbers fluctuated between 7,000 and 9,000.”'},
   'overtook':{term:'overtook',def:'Went above another line that had been higher. Look for the point where two lines cross.',path:'M15,72 L225,20 M15,24 L225,66',ex:'“Online reading overtook print reading between 2012 and 2016.”'},
-  'surged':{term:'surged',def:'Rose suddenly and strongly, often for a short time.',path:'M15,72 L140,68 L165,15 L225,12',ex:'“Ticket sales surged in the week before the festival.”'},
+  'surged':{term:'surged',def:'Rose suddenly and strongly. The graph, not the word, tells you how long the rise lasted.',path:'M15,72 L140,68 L165,15 L225,12',ex:'“Ticket sales surged in the week before the festival.”'},
   'plummeted':{term:'plummeted',def:'Fell very quickly and by a large amount.',path:'M15,15 L140,18 L165,75 L225,78',ex:'“Passenger numbers plummeted from 72,000 to 40,000 in June.”'},
   'gradually':{term:'gradually',def:'Slowly and steadily over a long time. It describes speed, not size.',path:'M15,74 L225,30',ex:'“Time spent watching television fell gradually over the period.”'},
   'sharply':{term:'sharply',def:'Quickly and by a large amount, so the line is steep.',path:'M15,75 L100,72 L130,18 L225,15',ex:'“Passenger numbers rose sharply between March and April.”'}
@@ -558,7 +572,7 @@ const VIDEOS=[
   {title:'Read the axes',len:'75 seconds',script:['Trace the horizontal axis: this is time.','Trace the vertical axis: this is the quantity, and here is its unit.','Show the legend and read one data point aloud with its unit: 45% of adults in 2012.','Tip: check title, axes, units and legend before you write a word.']},
   {title:'Find the overall trend',len:'2 minutes',script:['Show the café graph. Cover the middle with your hand: compare only the start and the end.','Walk through the three steps on this page.','Say why the overview has no numbers.','Hand over to the museum activity on the right page.']},
   {title:'Up, down or stable?',len:'90 seconds',script:['Sketch four lines: up, down, flat, zigzag.','Say three verbs for each, from small to large change.','Explain the trick word: fluctuated is not an increase or a decrease.','Hand over to the sorting activity.']},
-  {title:'Choosing the precise word',len:'2 minutes',script:['Read the weak sentence aloud and ask what is missing.','Build the strong version on screen in four steps.','Contrast surged, soared and climbed with one quick sketch each.','Warn about connotation: boomed and flourished sound positive.']},
+  {title:'Choosing the precise word',len:'2 minutes',script:['Read the weak sentence aloud and ask what is missing.','Build the strong version on screen in four steps.','Contrast climbed steadily with surged or soared: one quick sketch each.','Warn about connotation: boomed and flourished sound positive.']},
   {title:'Building a description',len:'2 minutes',script:['Show the ferry graph and the March to April jump.','Build the verb pattern sentence piece by piece.','Transform it into the noun pattern: there was a sharp rise in.','Remind students: rose, not rised.']}
 ];
 const vid=k=>`<div data-video="${k}"></div>`;
@@ -570,11 +584,11 @@ const illus=(d1,d2)=>`<svg class="illus" viewBox="0 0 400 150" aria-hidden="true
 
 const SPREADS=[
 /* 0 */ {id:'c1-open',ch:1,chLabel:P1,chTitle:CT1,title:'Chapter 1 opening',
- left:`<div class="opening"><div class="bignum">1</div><p class="chap">Chapter 1</p><h1>Understanding Line Graphs</h1><p class="lede">Before you can describe a graph well, you need to read it well. In this chapter I'll show you how examiners read a line graph, and you'll write your first introduction and overview.</p><h3>What you'll learn</h3><ul class="clean"><li>What a ${T('line graph')} shows and why it is the most common Task 1 type</li><li>How to read the title, axes, ${T('units')} and ${T('legend')}</li><li>Which five features are worth reporting</li><li>How to find ${T('overall trend','the overall trend')} and write an overview</li></ul>${illus('M20,112 L90,96 L160,74 L230,54 L300,34 L380,28','M20,36 L90,42 L160,54 L230,72 L300,88 L380,96')}</div>`,
+ left:`<div class="opening"><div class="bignum">1</div><p class="chap">Chapter 1</p><h1>Understanding Line Graphs</h1><p class="lede">Before you can describe a graph well, you need to read it well. In this chapter I'll show you how examiners read a line graph, and you'll write your first introduction and overview.</p><h3>What you'll learn</h3><ul class="clean"><li>What a ${T('line graph')} shows and why it is one of the most common Task 1 types</li><li>How to read the title, axes, ${T('units')} and ${T('legend')}</li><li>Which five features are worth reporting</li><li>How to find ${T('overall trend','the overall trend')} and write an overview</li></ul>${illus('M20,112 L90,96 L160,74 L230,54 L300,34 L380,28','M20,36 L90,42 L160,54 L230,72 L300,88 L380,96')}</div>`,
  right:`<div class="opening">${head('In this chapter','Contents')}<h2>Five spreads, one skill each</h2>${contents([[1,1,'Meet the line graph','Start with a challenge','Discover'],[2,2,'Read the axes','Find the parts of a graph','Understand'],[3,3,'Identify the key features','Select what matters','Understand'],[4,4,'Spot the overall trend','Worked example and practice','Practise'],[5,5,'Chapter challenge','Write an introduction and overview','Apply'],['R',6,'Chapter review','Your results and your two drafts','Improve']])}<h3>How this book works</h3><div class="howto"><div><b>Left page · Learn.</b> A short video or illustration, one idea and a key takeaway.</div><div><b>Right page · Explore.</b> An activity with feedback on every answer.</div><div><b>Orange notes.</b> Examiner's notes in the margin give you exam technique.</div><div><b>Dotted words.</b> Select them to open the glossary without leaving the page.</div></div><p class="small" style="margin-top:12px">Use the arrows below or your keyboard's arrow keys to turn the page. Select the ribbon at the top of a page to bookmark it.</p></div>`},
 
 /* 1 */ {id:'c1-s1',ch:1,chLabel:P1,chTitle:CT1,title:'Meet the line graph',exploreFirst:true,
- left:`${head('Spread 1 · Discover','Learn')}<h2>Meet the line graph</h2>${vid(0)}<p>A ${T('line graph')} shows how something changes, usually over time. It is the most common graph in Academic Task 1, so it is the best place to start.</p>${note('Most line graphs have more than one line. The comparison between the lines is usually the main story.')}<p>Some graphs have a single line, which tells one story: <i>“Sales rose steadily, then ${T('plateaued')}, before climbing sharply.”</i> Others have several lines, so you can compare them: <i>“Tea sales overtook coffee sales in 2015.”</i></p><p>Your job in Task 1 is to <b>select</b> the important information, <b>describe</b> it accurately and <b>compare</b> where relevant. You are not asked to explain why it happened.</p><div class="clear"></div>${take('A line graph tells a story of change. Find the story first, then the words.')}`,
+ left:`${head('Spread 1 · Discover','Learn')}<h2>Meet the line graph</h2>${vid(0)}<p>A ${T('line graph')} shows how something changes, usually over time. It is one of the most common graphs in Academic Task 1, so it is the best place to start.</p>${note('Most line graphs have more than one line. The comparison between the lines is usually the main story.')}<p>Some graphs have a single line, which tells one story: <i>“Sales rose steadily, then ${T('plateaued')}, before climbing sharply.”</i> Others have several lines, so you can compare them: <i>“Tea sales overtook coffee sales in 2015.”</i></p><p>Your job in Task 1 is to <b>select</b> the important information, <b>describe</b> it accurately and <b>compare</b> where relevant. You are not asked to explain why it happened.</p><div class="clear"></div>${take('A line graph tells a story of change. Find the story first, then the words.')}`,
  right:`${head('Start here · Challenge','Explore')}<h2>What is the main story?</h2><p class="small">Try this before you watch the video. Getting it wrong is part of learning.</p>${chart('news')}<p class="legend-note">Move over or tab to a point to see its value.</p><div data-act="c1-story" style="margin-top:14px"></div><div data-gate="c1-story" hidden style="margin-top:16px"><div data-act="c1-rewrite"></div></div>`},
 
 /* 2 */ {id:'c1-s2',ch:1,chLabel:P1,chTitle:CT1,title:'Read the axes',
@@ -595,7 +609,7 @@ const SPREADS=[
 
 /* 6 */ {id:'c1-review',ch:1,chLabel:P1,chTitle:CT1,title:'Chapter 1 review',
  left:`${head('Chapter 1 · Improve','Review')}<h2>Chapter 1 review</h2><h3>What you learned</h3><ul class="clean"><li>A line graph shows change over time. The comparison between lines is often the main story.</li><li>Read the title, axes, units and legend before you write.</li><li>Report five features: overall trend, start and end points, significant changes, peaks and troughs, comparisons.</li><li>An overview starts with “Overall,” and has no figures.</li></ul><h3>Your results</h3><div data-review="1"></div>`,
- right:`${head('Chapter 1 · Portfolio','Review')}<h2>Your two drafts</h2><p class="small">Compare your first attempt with your revision. What did you change, and why?</p><div data-portfolio="c1-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="28">Open it</a></p><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="7">Start Chapter 2 →</button></div>`},
+ right:`${head('Chapter 1 · Portfolio','Review')}<h2>Your two drafts</h2><p class="small">Compare your first attempt with your revision. What did you change, and why?</p><div data-portfolio="c1-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="7">Start Chapter 2 →</button></div>`},
 
 /* 7 */ {id:'c2-open',ch:2,chLabel:P2,chTitle:CT2,title:'Chapter 2 opening',
  left:`<div class="opening"><div class="bignum">2</div><p class="chap">Chapter 2</p><h1>Describing Trends</h1><p class="lede">Lexical resource is a quarter of your Task 1 score. In this chapter you'll learn to choose the word that matches the data exactly, not the first word that comes to mind.</p><h3>What you'll learn</h3><ul class="clean"><li>Verbs for increases, decreases, stability and ${T('fluctuated','fluctuation')}</li><li>How to show speed and size: slightly, ${T('gradually')}, ${T('sharply')}, dramatically</li><li>Why some verbs sound wrong for some topics</li><li>Two sentence patterns, with figures and time</li></ul>${illus('M20,110 L100,104 L160,100 L200,40 L290,34 L380,30')}</div>`,
@@ -627,9 +641,9 @@ const SPREADS=[
 
 /* 13 */ {id:'c2-review',ch:2,chLabel:P2,chTitle:CT2,title:'Chapter 2 review',
  left:`${head('Chapter 2 · Improve','Review')}<h2>Chapter 2 review</h2><h3>What you learned</h3><ul class="clean"><li>Decide the direction first, then the size and speed of the change.</li><li>Calculate the change before you choose “slightly” or “dramatically”.</li><li>Keep Task 1 neutral: avoid verbs like boomed, flourished and spiralled.</li><li>Use both patterns: “rose sharply” and “a sharp rise in”.</li></ul><h3>Your results</h3><div data-review="2"></div>`,
- right:`${head('Chapter 2 · Portfolio','Review')}<h2>Your two drafts</h2><div data-portfolio="c2-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="28">Open it</a></p><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="14">Start Chapter 3 →</button></div>`},
+ right:`${head('Chapter 2 · Portfolio','Review')}<h2>Your two drafts</h2><div data-portfolio="c2-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="14">Start Chapter 3 →</button></div>`},
 
-/* 14 */ {id:'dict',ch:5,chLabel:'My error dictionary',chTitle:'',title:'My error dictionary',
+/* 14 */ {id:'dict',ch:0,chLabel:'My error dictionary',chTitle:'',title:'My error dictionary',
  left:`${head('Your notebook','Learn')}<h2>My error dictionary</h2><p>Every time you made a mistake and selected <b>Save to my journal</b>, the mistake was saved here with a better expression and the reason.</p><p>Read it before you write a practice answer. Mistakes you have already noticed are the easiest marks to win back.</p><div class="oe-insight"><span class="lab">How to use it</span>Cover the “Better” column and try to correct each mistake yourself. Then check.</div><div class="row" style="margin-top:16px"><button type="button" class="btn dict-print">Print my error dictionary</button></div><p class="small" style="margin-top:10px">Your entries are saved in this browser on this device.</p>`,
  right:`${head('Your entries','Explore')}<div id="dict-list" class="rows"></div><div class="row" style="margin-top:16px"><button type="button" class="btn ghost dict-print">Print my error dictionary</button></div>`}
 ];
@@ -693,12 +707,12 @@ const ACTS={
           {t:'Your introduction gives the period.',fix:'Give the period: 2008 to 2024.',fn:v=>/2008/.test(v.intro)&&/2024/.test(v.intro)},
           {t:'You paraphrased the task rather than copying it.',fix:'You copied eight or more words in a row from the task. Change some words and the word order.',fn:v=>v.intro.trim()&&!copied(v.intro,TASK_C1,8)},
           {t:'Your overview starts with “Overall,” or a similar phrase.',fix:'Start your overview with “Overall,” so the examiner can find it.',fn:v=>/^\s*(overall|in general|in summary|generally)/i.test(v.ov)},
-          {t:'Your overview has no figures.',fix:'Remove the figures from your overview. Keep them for the body paragraphs.',fn:v=>v.ov.trim()&&!/\d/.test(v.ov)},
+          {t:'Your overview has no detailed figures.',fix:'Your overview includes figures. Check whether it summarises a pattern or recounts detail. Detailed figures usually belong in the body paragraphs; years as time references are fine.',fn:v=>v.ov.trim()&&!/\d/.test(v.ov.replace(/\b(19|20)\d\d\b/g,''))},
           {t:'Your overview mentions both lines.',fix:'Mention both trends in the overview: TV and streaming.',fn:v=>/(tv|television)/i.test(v.ov)&&/stream/i.test(v.ov)},
           {t:'Your overview reports the crossover.',fix:'Report the key comparison: streaming overtook TV.',fn:v=>/(overt(ook|ake|aken|aking)|surpass|exceed|more (time )?than|overtaken)/i.test(v.ov)}],
   modelTitle:'My model answer',
-  model:`<p><span class="plabel">Introduction</span><button type="button" class="hl" data-n="0">The line graph compares</button> how many hours a week <button type="button" class="hl" data-n="1">young people aged 16 to 24 in one country</button> spent watching television and streaming video <button type="button" class="hl" data-n="2">from 2008 to 2024</button>.</p><p><span class="plabel">Overview</span><button type="button" class="hl" data-n="3">Overall,</button> time spent watching television fell steadily over the period, while streaming rose sharply and <button type="button" class="hl" data-n="4">overtook television between 2016 and 2020</button>. By the end of the period, streaming took up <button type="button" class="hl" data-n="5">far more of their time</button> than television.</p>`,
-  notes:['“Compares” suits a graph with two lines. It also replaces “shows” from the task, which is part of paraphrasing.','I kept the age group because it is essential, but I changed “people aged 16 to 24” into “young people aged 16 to 24”.','“From… to” replaces “between… and” from the task. A small change, but it shows range.','The examiner looks for a clear overview. “Overall,” signals it immediately.','The years here are a time reference, not data figures, so the overview stays free of numbers. This is the key comparison.','I compared the end points without figures: 16 hours against 8 hours becomes “far more”.'],
+  model:`<p><span class="plabel">Introduction</span><button type="button" class="hl" data-n="0">The line graph compares</button> how many hours a week <button type="button" class="hl" data-n="1">16- to 24-year-olds in one country</button> spent watching television and streaming video <button type="button" class="hl" data-n="2">from 2008 to 2024</button>.</p><p><span class="plabel">Overview</span><button type="button" class="hl" data-n="3">Overall,</button> time spent watching television fell steadily over the period, while streaming rose sharply and <button type="button" class="hl" data-n="4">overtook television between 2016 and 2020</button>. By the end of the period, streaming took up <button type="button" class="hl" data-n="5">far more of their time</button> than television.</p>`,
+  notes:['“Compares” suits a graph with two lines. It also replaces “shows” from the task, which is part of paraphrasing.','I kept the age group because it is essential, but I changed “people aged 16 to 24” into “16- to 24-year-olds”. That also stops me copying eight words in a row from the task.','“From… to” replaces “between… and” from the task. A small change, but it shows range.','The examiner looks for a clear overview. “Overall,” signals it immediately.','The years here are a time reference, not data figures, so the overview stays free of numbers. This is the key comparison.','I compared the end points without figures: 16 hours against 8 hours becomes “far more”.'],
   self:['My introduction says what, who, where and when.','I changed at least some of the task\'s words and word order.','My overview starts with “Overall,” and has no data figures.','My overview describes both lines and the crossover.'],revise:1},
 
 'c2-sort':{type:'sort',level:'Guided',skill:'Trend verbs',decision:'What kind of movement does each word describe?',prompt:'Choose a category for each word. One word is a trick.',cats:['Increase','Decrease','Stability','Fluctuation'],
@@ -711,8 +725,8 @@ const ACTS={
   opts:[{t:'rose sharply',ok:1,why:'From 51,000 to 70,000 in one month: a rise of about 37%. The line is steep.'},{t:'rose slightly',why:'An increase of 19,000 passengers, about 37%, is not slight.'},{t:'fluctuated',why:'The line moves in one direction here. Fluctuation needs ups and downs.'}]},
 'c2-ferry3':{type:'choice',level:'Supported',skill:'Choosing the adverb',decision:'Between May and June, passenger numbers…',
   opts:[{t:'fell dramatically',ok:1,why:'From 72,000 to 40,000 in one month: a fall of about 44%, the largest change on the graph.'},{t:'dipped slightly',why:'A fall of 32,000 passengers is not slight. “Dipped” suggests a small, short fall.'},{t:'fell gradually',why:'The fall happened within a single month, so it was sudden, not gradual.'}]},
-'c2-prec1':{type:'choice',level:'Supported',skill:'Precise verbs',decision:'Ticket sales rose very quickly for one week, then returned to normal. Which verb fits best?',
-  opts:[{t:'surged',ok:1,why:'“Surged” describes a sudden, strong rise, often a short one. That matches one busy week.'},{t:'soared',why:'“Soared” suggests rising to a high level and staying high. Here sales returned to normal.'},{t:'climbed',why:'“Climbed” suggests a steady rise, not a sudden one.'}]},
+'c2-prec1':{type:'choice',level:'Supported',skill:'Precise verbs',decision:'Sales rose slowly and steadily every year for ten years. Which description fits best?',
+  opts:[{t:'climbed steadily',ok:1,why:'“Climbed steadily” matches a rise that was regular and not sudden.'},{t:'surged',why:'“Surged” describes a sudden, strong rise. This rise was slow and regular.'},{t:'soared',why:'“Soared” describes a large, rapid rise. Ten years of slow growth is neither.'}]},
 'c2-prec2':{type:'choice',level:'Supported',skill:'Precise verbs',decision:'A share price lost 45% of its value in a single day. Which verb fits best?',
   opts:[{t:'plummeted',ok:1,why:'“Plummeted” means fell very quickly and by a large amount: 45% in a day.'},{t:'declined',why:'“Declined” is neutral and often gradual. It undersells a 45% fall in one day.'},{t:'slumped',why:'Possible, but “slumped” suggests falling and then staying low for a while. It says less about the speed.'}]},
 'c2-prec3':{type:'choice',level:'Supported',skill:'Precise verbs',decision:'Sales stopped growing and stayed at the same level for three years. Which verb fits best?',
@@ -740,7 +754,7 @@ const ACTS={
           {t:'You used at least two time expressions.',fix:'Add time expressions: in 2020, between 2016 and 2018, by 2024.',fn:v=>(v.a.match(/\b(in|by|from|between|after|until|over|for)\s+(20\d\d|the next|the following|the period|the last)/gi)||[]).length>=2},
           {t:'You gave at least two prices in euros.',fix:'Give at least two prices with the unit: €2.20, €3.40.',fn:v=>(v.a.match(/€\s?\d|\d(\.\d+)?\s?euros?/gi)||[]).length>=2},
           {t:'You avoided vague phrases.',fix:'Replace “went up”, “went down” or “a lot” with a precise verb and adverb.',fn:v=>v.a.trim()&&!/went up|went down|a lot/i.test(v.a)},
-          {t:'You wrote three or four sentences.',fix:'Aim for three or four sentences: group the movements.',fn:v=>{const n=(v.a.trim().match(/[^.!?]+[.!?]+/g)||[]).filter(s=>/[a-z]{3}/i.test(s)).length;return n>=3&&n<=4}}],
+          {t:'You wrote three or four sentences.',fix:'Aim for three or four sentences: group the movements.',fn:v=>{const n=(v.a.trim().replace(/(\d)\.(\d)/g,'$1,$2').match(/[^.!?]+[.!?]+/g)||[]).filter(s=>/[a-z]{3}/i.test(s)).length;return n>=3&&n<=4}}],
   modelTitle:'My model paragraph',
   model:`<p>The average price of a cup of coffee <button type="button" class="hl" data-n="0">rose slightly</button> from €2.20 in 2014 to €2.30 in 2016, and then <button type="button" class="hl" data-n="1">remained stable for the next two years</button>. In 2020, it <button type="button" class="hl" data-n="2">dipped to €2.10, the lowest point in the period</button>. After that, the price <button type="button" class="hl" data-n="3">rose sharply</button>, reaching €3.00 in 2022, and it <button type="button" class="hl" data-n="4">continued to climb</button> to €3.40 <button type="button" class="hl" data-n="5">by 2024</button>.</p>`,
   notes:['Ten cents is a small change, so “slightly” is accurate.','A time expression for a period, so I didn\'t need to repeat the years.','“Dipped” suits a small, short fall. I also named the lowest point, which is a key feature.','From €2.10 to €3.00 in two years is a rise of over 40%. “Sharply” matches the steep line.','A new verb, so I avoid repeating “rose”.','“By” marks the endpoint of the trend.'],
@@ -763,7 +777,7 @@ const RETRIEVAL={
  'c2-s2':[{q:'Numbers rose from 50,000 to 51,000. Which adverb fits?',opts:[{t:'slightly',ok:1,why:'About 2%: a small change.'},{t:'dramatically',why:'That is for very large changes.'}]},
           {q:'What does “gradually” describe?',opts:[{t:'Speed: slow and steady',ok:1,why:'Gradually is about how fast, not how much.'},{t:'A very large change',why:'Size of change is shown with words like dramatically or significantly.'}]}],
  'c2-s3':[{q:'Which verb suits rising pollution?',opts:[{t:'increased significantly',ok:1,why:'Neutral and accurate.'},{t:'boomed',why:'Boomed is positive; it doesn\'t suit pollution.'}]},
-          {q:'A sudden, short rise is best described as…',opts:[{t:'surged',ok:1,why:'Surged means a sudden, strong rise, often short.'},{t:'climbed',why:'Climbed suggests a steady rise.'}]}],
+          {q:'A sudden, strong rise is best described as…',opts:[{t:'surged',ok:1,why:'Surged means rose suddenly and strongly.'},{t:'edged up',why:'Edged up describes a small rise.'}]}],
  'c2-s4':[{q:'Which is correct?',opts:[{t:'There was a sharp rise in sales.',ok:1,why:'Adjective + noun in the noun pattern.'},{t:'There was a sharply rise in sales.',why:'After “a” you need an adjective: sharp.'}]},
           {q:'What is the past tense of “rise”?',opts:[{t:'rose',ok:1,why:'Rise, rose, risen.'},{t:'rised',why:'Rise is irregular; “rised” is not a word.'}]}],
  'c2-s5':[{q:'How many sentences for one body paragraph about four movements?',opts:[{t:'Three or four, grouping the movements',ok:1,why:'Grouping keeps the paragraph clear.'},{t:'One long sentence',why:'One sentence would be hard to follow.'}]}]
@@ -859,7 +873,7 @@ const S3=[
 
 /* 20 */ {id:'c3-review',ch:3,chLabel:'Chapter 3',chTitle:'Grammar for Data Description',title:'Chapter 3 review',
  left:`${head('Chapter 3 · Improve','Review')}<h2>Chapter 3 review</h2><h3>What you learned</h3><ul class="clean"><li>Past simple for recorded data, future forms for projections, past perfect with “by” and a past point.</li><li>By for the size of a change, to for the end, from… to for both, at for a level, of after a noun.</li><li>Comparatives for two things, superlatives for the whole set. Compare like with like.</li><li>While and whereas join two trends in one sentence; however and in contrast start a new one.</li></ul><h3>Your results</h3><div data-review="3"></div>`,
- right:`${head('Chapter 3 · Portfolio','Review')}<h2>Your two drafts</h2><div data-portfolio="c3-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="28">Open it</a></p><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="21">Start Chapter 4 →</button></div>`}
+ right:`${head('Chapter 3 · Portfolio','Review')}<h2>Your two drafts</h2><div data-portfolio="c3-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="21">Start Chapter 4 →</button></div>`}
 ];
 B.SPREADS.splice(B.SPREADS.length-1,0,...S3);
 
@@ -901,10 +915,10 @@ Object.assign(B.ACTS,{
           {t:'You used a comparative or superlative.',fix:'Add a comparison: higher than, more common than, the sharpest rise.',fn:v=>/\b(higher|lower|more|fewer|less|greater|smaller|larger|sharper|steeper)\b.*?\bthan\b|\bthe (highest|lowest|sharpest|largest|biggest|steepest|most|greatest)\b|\bat (its|their) (highest|lowest)\b/i.test(v.a)},
           {t:'You linked the contrasting trends.',fix:'Link the trends with while, whereas, in contrast or however.',fn:v=>/\b(while|whereas|in contrast|by contrast|however|although)\b/i.test(v.a)},
           {t:'You gave at least two percentages.',fix:'Give at least two figures with %.',fn:v=>(v.a.match(/\d+\s?(%|per ?cent)/gi)||[]).length>=2},
-          {t:'You wrote three or four sentences.',fix:'Aim for three or four sentences.',fn:v=>{const n=(v.a.trim().match(/[^.!?]+[.!?]+/g)||[]).filter(s=>/[a-z]{3}/i.test(s)).length;return n>=3&&n<=4}}],
+          {t:'You wrote three or four sentences.',fix:'Aim for three or four sentences.',fn:v=>{const n=(v.a.trim().replace(/(\d)\.(\d)/g,'$1,$2').match(/[^.!?]+[.!?]+/g)||[]).filter(s=>/[a-z]{3}/i.test(s)).length;return n>=3&&n<=4}}],
   modelTitle:'My model paragraph',
   model:`<p>In 2000, 58% of journeys to work in the city were made by car, <button type="button" class="hl" data-n="0">compared with only 12%</button> by bicycle. Over the next twenty years, car use <button type="button" class="hl" data-n="1">fell to 37%</button>, <button type="button" class="hl" data-n="2">whereas</button> cycling <button type="button" class="hl" data-n="3">rose by 22 percentage points</button> to 34%. <button type="button" class="hl" data-n="4">The sharpest changes</button> for both came between 2010 and 2015, when cycling grew by 7 points and car use dropped by 8. Although car journeys remained <button type="button" class="hl" data-n="5">more common than cycling</button> in every year shown, the gap <button type="button" class="hl" data-n="6">had narrowed</button> to just three points by 2020.</p>`,
-  notes:['Like with like: a percentage of journeys compared with a percentage of journeys.','“To” gives the end point, 37%.','“Whereas” joins two contrasting trends in one sentence, after a comma.','“By” gives the size of the change: 12% to 34% is 22 percentage points.','A superlative for the whole period. The car fell by 8 points and cycling rose by 7 in those five years, more than in any other period.','A comparative across the whole graph: the car figure was higher in every year.','The past perfect with “by 2020”: the gap went from 46 points to 3, and the narrowing was complete by the end of the period.'],
+  notes:['Like with like: a percentage of journeys compared with a percentage of journeys.','“To” gives the end point, 37%.','“Whereas” joins two contrasting trends in one sentence, after a comma.','“By” gives the size of the change: 12% to 34% is 22 percentage points.','A superlative for the whole period. Car use fell by 8 points and cycling rose by 7 in those five years, more than in any other period.','A comparative across the whole graph: the car figure was higher in every year.','The past perfect with “by 2020”: the gap went from 46 points to 3, and the narrowing was complete by the end of the period.'],
   self:['Every verb about recorded data is in the past simple.','I used by for a change and to for an end point correctly.','My comparisons compare figures with figures.','I linked the two trends with while, whereas or in contrast.'],revise:1}
 });
 
@@ -1021,7 +1035,7 @@ const S4=[
 
 /* 27 */ sp({id:'c4-review',title:'Chapter 4 review',
  left:`${head('Chapter 4 · Improve','Review')}<h2>Chapter 4 review</h2><h3>What you learned</h3><ul class="clean"><li>Compare like with like: a figure with a figure.</li><li>At one point, order the lines and size the differences. Divide before you write a multiple or fraction.</li><li>Over time, compare the size of each change and say whether the gap widened or narrowed.</li><li>Report crossovers, peaks and lowest points with the year or period.</li><li>Only compare what matters: the key features, not every pair of figures.</li></ul><h3>Your results</h3><div data-review="4"></div>`,
- right:`${head('Chapter 4 · Portfolio','Review')}<h2>Your two drafts</h2><div data-portfolio="c4-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="28">Open it</a></p><div class="oe-insight" style="margin-top:14px"><span class="lab">Next</span>Chapter 5: Structuring the Response (coming soon)</div>`})
+ right:`${head('Chapter 4 · Portfolio','Review')}<h2>Your two drafts</h2><div data-portfolio="c4-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="c5-open">Start Chapter 5 →</button></div>`})
 ];
 B.SPREADS.splice(B.SPREADS.length-1,0,...S4);
 
@@ -1066,7 +1080,7 @@ Object.assign(B.ACTS,{
           {t:'You described the gap.',fix:'Say what happened to the gap: it widened from €200 to €700.',fn:v=>/\b(gap|difference)\b/i.test(v.a)},
           {t:'Your multiple or fraction matches the data.',fix:'Check your arithmetic: in 2012 Harbourton was a third higher (800 ÷ 600 = 1.33); in 2024 it was twice as high (1,400 ÷ 700 = 2).',fn:v=>v.a.trim()&&!/(three|four|five) times|triple|quadruple/i.test(v.a)&&!(v.a.match(/[^.!?]+/g)||[]).some(s=>/twice|double/i.test(s)&&/2012/.test(s)&&!/2024/.test(s))},
           {t:'You gave at least two figures in euros.',fix:'Give at least two figures with €.',fn:v=>(v.a.match(/€\s?\d|\d[\d,]*\s?euros?/gi)||[]).length>=2},
-          {t:'You wrote three or four sentences.',fix:'Aim for three or four sentences.',fn:v=>{const n=(v.a.trim().match(/[^.!?]+[.!?]+/g)||[]).filter(s=>/[a-z]{3}/i.test(s)).length;return n>=3&&n<=4}}],
+          {t:'You wrote three or four sentences.',fix:'Aim for three or four sentences.',fn:v=>{const n=(v.a.trim().replace(/(\d)\.(\d)/g,'$1,$2').match(/[^.!?]+[.!?]+/g)||[]).filter(s=>/[a-z]{3}/i.test(s)).length;return n>=3&&n<=4}}],
   modelTitle:'My model paragraph',
   model:`<p>In 2012, the average monthly rent for a one-bedroom flat in Harbourton was €800, <button type="button" class="hl" data-n="0">a third higher than</button> the figure for Millbridge, at €600. Over the next twelve years, rents in Harbourton rose continuously to €1,400, <button type="button" class="hl" data-n="1">whereas those in Millbridge</button> increased by only €100, <button type="button" class="hl" data-n="2">levelling off at €700</button> from 2021. As a result, the gap between the two cities <button type="button" class="hl" data-n="3">widened</button> from €200 to €700. By 2024, rent in Harbourton was <button type="button" class="hl" data-n="4">twice as high as in Millbridge</button>.</p>`,
   notes:['800 ÷ 600 = 1.33, so a third higher. I compared rent with “the figure for Millbridge”: like with like.','“Those” stands for “rents”, so rents are compared with rents.','Millbridge was €700 in 2021 and in 2024. That flat section is worth reporting.','I subtracted: 800 minus 600 is 200; 1,400 minus 700 is 700. The gap is a comparison of change over time.','1,400 ÷ 700 = 2. A precise multiple to finish, and “in Millbridge” keeps it like with like.'],
@@ -1088,10 +1102,373 @@ Object.assign(B.RETRIEVAL,{
 </script>
 <script>
 /* ==========================================================================
+   CHAPTER 5 · STRUCTURING THE RESPONSE  (spreads 28 to 34; dictionary moves to the end)
+   Source: Lesson 4 (Structuring the Response) and its reference guide.
+   ACTIVITY IDS  (type · level)
+     c5-sort        binary    Guided       Spread 1  Which part does each sentence belong to?
+     c5-para1..3    choice    Supported    Spread 2  Paraphrasing the task
+     c5-spot        binary    Supported    Spread 3  Strong or weak overview?
+     c5-ovpick      choice    Independent  Spread 3  Choose the overview
+     c5-group       choice    Supported    Spread 4  Choose the grouping
+     c5-order       binary    Supported    Spread 4  Which body paragraph?
+     c5-write       write     Independent  Spread 5  A complete answer in four parts
+   VIDEO SLOTS: 12 c5 Spread 1 · 13 c5 Spread 3
+   Corrected from the sources: "the overview must come straight after the
+   introduction" (it is the clearest place, not the only accepted one);
+   overview "no numbers" (it should summarise rather than recount detail; years as time
+   references are fine); the four paragraphs are this course's method, not an IELTS rule.
+   ARITHMETIC CHECKS
+     Social media (hours a week): 16 to 24: 3, 7, 13, 18 (x6; 3 to 7 more than doubled);
+       25 to 44: 1, 3, 6, 10 (x10); 45+: 0.5, 1, 2.5, 4 (x8). 2022: 4/18 = 0.22 (less than a
+       quarter); 10/18 = 0.56 (just over half). Youngest highest in every year.
+     Commuting (minutes): Oakhaven 20, 26, 33, 40, 45 (+25, more than doubled, x2.25);
+       Tarnbridge 25, 27, 29, 31, 32 (+7); Stellmoor 30, 31, 33, 34, 35 (+5).
+       Oakhaven shortest in 2000, overtook Tarnbridge 2005 to 2010 (26<27, 33>29),
+       level with Stellmoor in 2010 (33), ahead of both by 2015 and longest in 2020.
+   ========================================================================== */
+(function(){
+const B=window.BOOK;
+const T=(k,label)=>`<button type="button" class="term" data-term="${k}">${label||k}</button>`;
+const head=(eb,side)=>`<div class="pghead"><span class="eyebrow">${eb}</span><span class="side">${side}</span></div>`;
+const note=t=>`<aside class="mnote"><b>Examiner's note</b>${t}</aside>`;
+const take=t=>`<div class="takeaway"><b>Key takeaway</b>${t}</div>`;
+const chart=id=>`<div data-chartph="${id}"></div>`;
+const vid=k=>`<div data-video="${k}"></div>`;
+const NAVY='#292929',GREEN='#2B6E43',LAV='#4E4178';
+const CH='Chapter 5',CT='Structuring the Response';
+const words=t=>(String(t).match(/[A-Za-z0-9€£%'’.,-]+/g)||[]).filter(w=>/[A-Za-z0-9]/.test(w)).length;
+const lw=t=>(String(t).match(/[A-Za-z']+/g)||[]).map(w=>w.toLowerCase());
+const copied=(text,src,n)=>{const a=lw(text),b=lw(src).join(' ');for(let i=0;i+n<=a.length;i++){if(b.includes(a.slice(i,i+n).join(' ')))return true}return false};
+const noFig=t=>String(t).trim()&&!/\d/.test(String(t).replace(/\b(19|20)\d\d\b/g,''));
+const hrs=v=>v===1?'1 hour':v+' hours';
+const mins=v=>v+' minutes';
+
+/* original data */
+const SM={x:['2010','2014','2018','2022'],y:[3,7,13,18],m:[1,3,6,10],o:[0.5,1,2.5,4]};
+const SM_T=['Average hours per week spent on social media by three','age groups in Australia, 2010 to 2022'];
+const smSeries=[{name:'Aged 16 to 24',vals:SM.y,color:GREEN},{name:'Aged 25 to 44',vals:SM.m,color:LAV,dash:'2 5'},{name:'Aged 45+',vals:SM.o,color:NAVY,dash:1}];
+const CM={x:['2000','2005','2010','2015','2020'],o:[20,26,33,40,45],t:[25,27,29,31,32],s:[30,31,33,34,35]};
+const CM_T=['Average one-way commuting time in three cities','(minutes), 2000 to 2020'];
+const cmSeries=[{name:'Oakhaven',vals:CM.o,color:GREEN},{name:'Tarnbridge',vals:CM.t,color:NAVY,dash:1},{name:'Stellmoor',vals:CM.s,color:LAV,dash:'2 5'}];
+Object.assign(B.CHARTS,{
+  social:{id:'ch-social',title:SM_T,x:SM.x,series:smSeries,ymax:20,ystep:5,ylab:'Hours per week',xlab:'Year',points:1,fmt:hrs},
+  commute:{id:'ch-commute',title:CM_T,x:CM.x,series:cmSeries,ymin:15,ymax:50,ystep:5,ylab:'Minutes',xlab:'Year',points:1,fmt:mins},
+  commute2:{id:'ch-commute2',title:CM_T,x:CM.x,series:cmSeries,ymin:15,ymax:50,ystep:5,ylab:'Minutes',xlab:'Year',points:1,fmt:mins}
+});
+
+Object.assign(B.GLOSS,{
+  'paraphrase':{term:'paraphrase',def:'Say the same thing in your own words and with a different structure, without changing the meaning or losing any detail.',path:'M15,30 L225,30 M15,62 L60,62 L90,52 L130,70 L225,62',ex:'“The graph shows the number of visitors to three museums” becomes “The line graph illustrates how many people visited three museums”.'},
+  'overview':{term:'overview',def:'One or two sentences that sum up the main trends, differences or stages, with no detailed figures. In this course it comes straight after the introduction.',path:'M15,72 L60,60 L100,64 L140,44 L180,40 L225,22',ex:'“Overall, all three museums became more popular, and the British Museum attracted far more visitors than the other two.”'},
+  'body paragraph':{term:'body paragraph',def:'A paragraph that supports the overview with specific figures. Most Task 1 answers have two, each covering one logical group of data.',path:'M20,22 L220,22 M20,38 L200,38 M20,54 L215,54 M20,70 L150,70',ex:'“Specifically, the 16 to 24 age group spent 18 hours a week on social media by 2022, up from 3 hours in 2010.”'},
+  'grouping':{term:'grouping',def:'Deciding which data goes in which body paragraph: by category, by time period or by trend. Choose the grouping that makes the comparison clearest.',path:'M15,70 L225,18 M15,64 L225,52 M15,74 L225,62',ex:'“Body paragraph 1: the city with the sharp rise. Body paragraph 2: the two cities that changed gradually.”'}
+});
+
+B.VIDEOS.push(
+  {title:'The four-part shape',len:'90 seconds',script:['Hold up a finished Task 1 answer and point to four blocks.','Name each part and its job: paraphrase, big picture, figures, more figures.','Show an answer with the overview buried in body paragraph 2 and ask: where is it?','Finish: the same four parts, in the same order, for every line graph.']},
+  {title:'Writing the overview',len:'2 minutes',script:['Show the commuting graph and cover the numbers on the axis.','Ask: what is true of all three lines? Then: which line is different?','Turn the two answers into one “Overall,” sentence with no figures.','Read a weak overview with numbers and move each number to where it belongs: the body.']}
+);
+
+const sp=(o)=>Object.assign({ch:5,chLabel:CH,chTitle:CT},o);
+const S5=[
+/* 28 */ sp({id:'c5-open',title:'Chapter 5 opening',
+ left:`<div class="opening"><div class="bignum">5</div><p class="chap">Chapter 5</p><h1>Structuring the Response</h1><p class="lede">Strong vocabulary and grammar can't rescue an answer the examiner can't follow. In this chapter I'll show you the four-part shape that works for every line graph, and you'll write your first complete answer.</p><h3>What you'll learn</h3><ul class="clean"><li>The four parts of a Task 1 answer, and what goes in each</li><li>How to ${T('paraphrase')} the task in your introduction</li><li>How to write an ${T('overview')} with no figures</li><li>How to choose the ${T('grouping','grouping')} for your two ${T('body paragraph','body paragraphs')}</li></ul><svg class="illus" viewBox="0 0 400 150" aria-hidden="true" style="width:100%;height:auto"><rect x="20" y="14" width="360" height="18" rx="4" fill="#FCE9DD"/><rect x="20" y="40" width="360" height="24" rx="4" fill="#F88B48" opacity=".55"/><rect x="20" y="72" width="360" height="30" rx="4" fill="#E7F2EB"/><rect x="20" y="110" width="360" height="30" rx="4" fill="#E7F2EB"/><text x="30" y="27" font-size="11" font-family="Montserrat,sans-serif" font-weight="700" fill="#292929">1 Introduction</text><text x="30" y="56" font-size="11" font-family="Montserrat,sans-serif" font-weight="700" fill="#292929">2 Overview</text><text x="30" y="91" font-size="11" font-family="Montserrat,sans-serif" font-weight="700" fill="#292929">3 Body paragraph 1</text><text x="30" y="129" font-size="11" font-family="Montserrat,sans-serif" font-weight="700" fill="#292929">4 Body paragraph 2</text></svg></div>`,
+ right:`<div class="opening">${head('In this chapter','Contents')}<h2>Five spreads, one skill each</h2><ul class="contents">${[[1,'c5-s1','The four-part shape','Sort the sentences','Discover'],[2,'c5-s2','The introduction','Paraphrase the task','Understand'],[3,'c5-s3','The overview','The big picture, no figures','Understand'],[4,'c5-s4','The body paragraphs','Group the data','Practise'],[5,'c5-s5','Chapter challenge','Write a complete answer','Apply'],['R','c5-review','Chapter review','Your results and drafts','Improve']].map(([n,go,t,sub,ph])=>`<li><button type="button" data-go="${go}"><span class="n">${n}</span><span class="t">${t}<small>${sub}</small></span><span class="ph">${ph}</span></button></li>`).join('')}</ul><div class="oe-insight" style="margin-top:14px"><span class="lab">From Chapter 4</span>You can describe and compare lines precisely. Now you'll organise those sentences into a complete answer.</div></div>`}),
+
+/* 29 */ sp({id:'c5-s1',title:'The four-part shape',
+ left:`${head('Spread 1 · Discover','Learn')}<h2>The four-part shape</h2>${vid(12)}<p>In this course we practise four paragraphs, in this order. It is a reliable starting structure, not a compulsory IELTS format: what matters is that the information is clear.</p><table style="width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0 12px"><tbody>
+<tr><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">1 Introduction</th><td style="padding:7px 0">One sentence. ${T('paraphrase','Paraphrase')} the task: what, who, where and when.</td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">2 Overview</th><td style="padding:7px 0">One or two sentences. The main trends only, no figures.</td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">3 Body 1</th><td style="padding:7px 0">The first group of data, with figures.</td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">4 Body 2</th><td style="padding:7px 0">The rest of the data, with figures, grouped in the same way.</td></tr></tbody></table>${note('Task Achievement and Coherence and Cohesion both reward a clear structure. An overview hidden in the middle of a body paragraph is easy for the examiner to miss.')}<div class="clear"></div>${take('Four paragraphs: a reliable shape for any line graph. Choose the arrangement that makes the information clearest.')}`,
+ right:`${head('Spread 1 · Activity','Explore')}<div data-act="c5-sort"></div>`}),
+
+/* 30 */ sp({id:'c5-s2',title:'The introduction',
+ left:`${head('Spread 2 · Understand','Learn')}<h2>The introduction</h2><p>Your introduction ${T('paraphrase','paraphrases')} the task in one sentence. Change the structure and some of the words, and keep every detail.</p><div class="oe-workshop" style="padding:0;border:0;background:none"><div class="taskbox">The graph below shows the number of visitors to three museums in London between 1990 and 2020.</div></div><div class="oe-insight"><span class="lab">My paraphrase</span>The line graph illustrates how many people visited three London museums over the 30-year period from 1990 to 2020.</div><ol style="padding-left:20px;margin:12px 0;display:grid;gap:6px;font-size:15px"><li><b>Change the verb:</b> <i>shows</i> becomes <i>illustrates</i>. <i>Compares</i> and <i>gives information about</i> also work.</li><li><b>Change the structure:</b> <i>the number of visitors to</i> becomes <i>how many people visited</i>.</li><li><b>Change the time phrase:</b> <i>between 1990 and 2020</i> becomes <i>over the 30-year period from 1990 to 2020</i>.</li><li><b>Keep every detail:</b> three museums, London, 1990 to 2020.</li></ol>${note('Don\'t force a synonym where none fits. “Households” or “adults” may have no good synonym, so change the structure around them instead.')}<div class="clear"></div><div class="oe-mistake"><span class="lab">Common mistakes</span>Copying the task word for word, adding a trend (that belongs in the overview) or adding figures (they belong in the body).</div>`,
+ right:`${head('Spread 2 · Activity','Explore')}<div data-act="c5-para1"></div><div data-act="c5-para2" style="margin-top:12px"></div><div data-act="c5-para3" style="margin-top:12px"></div>`}),
+
+/* 31 */ sp({id:'c5-s3',title:'The overview',
+ left:`${head('Spread 3 · Understand','Learn')}<h2>The overview</h2>${vid(13)}<p>The ${T('overview')} sums up the two or three biggest patterns in one or two sentences. In this course it comes straight after the introduction. IELTS also accepts an overview at the end, but putting it early means you won't run out of time before you write it.</p><ul class="clean" style="font-size:15px"><li>The overall direction of the lines: did they rise, fall or both?</li><li>Which line was highest or lowest, and whether that changed</li><li>A crossover, or one line that changed much faster than the others</li></ul><p>Save the detailed figures for the body paragraphs. An overview that lists figures recounts detail instead of summarising the pattern. Years used as time references, such as “after 2015”, are fine.</p><div class="oe-mistake"><span class="lab">Common mistake</span><s>Overall, museum A had 1.2 million visitors in 2020, while museum C only had 300,000.</s> These are body paragraph details.</div><div class="oe-insight" style="margin-top:12px"><span class="lab">Stronger</span>Overall, museum A consistently attracted far more visitors than the other two, and all three venues saw long-term growth.</div>${note('Band 7 for Task Achievement asks for a clear overview of the main trends, differences or stages. It is one of the first things the examiner looks for.')}<div class="clear"></div>${take('Overall, plus two or three main patterns. Summarise; don\'t recount detail.')}`,
+ right:`${head('Spread 3 · Activity','Explore')}<div data-act="c5-spot"></div><div style="margin-top:16px">${chart('commute')}</div><p class="legend-note">Move over or tab to a point to see its value.</p><div data-act="c5-ovpick" style="margin-top:12px"></div>`}),
+
+/* 32 */ sp({id:'c5-s4',title:'The body paragraphs',
+ left:`${head('Spread 4 · Practise','Learn')}<h2>The body paragraphs</h2><p>The two ${T('body paragraph','body paragraphs')} give the figures that support your overview. Don't describe the lines one by one in a list. ${T('grouping','Group')} the data so that each paragraph makes a comparison.</p><table style="width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0 12px"><tbody>
+<tr><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">By category</th><td style="padding:7px 0">Lines with a similar pattern together, the one that stands apart on its own.</td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">By time period</th><td style="padding:7px 0">Before and after a point where the lines change direction or cross.</td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">By trend</th><td style="padding:7px 0">Lines that rose in one paragraph, lines that fell in the other.</td></tr></tbody></table><h3>Useful phrases</h3><ul class="clean" style="font-size:15px"><li><i>Specifically,</i> the 18 to 30 age group reached 95% by 2020.</li><li><i>In contrast,</i> the 65+ age group grew far more slowly.</li><li><i>Meanwhile,</i> Chain C grew only modestly.</li><li><i>By the end of the period,</i> both cities had passed their 2000 figures.</li></ul>${take('Choose the grouping that makes the comparison clearest for this graph. Then keep to it.')}`,
+ right:`${head('Spread 4 · Activity','Explore')}${chart('commute2')}<div data-act="c5-group" style="margin-top:14px"></div><div data-gate="c5-group" hidden style="margin-top:14px"><div data-act="c5-order"></div></div>`}),
+
+/* 33 */ sp({id:'c5-s5',title:'Chapter challenge: a complete answer',
+ left:`${head('Spread 5 · Apply','Learn')}<h2>Chapter challenge</h2><p>Now write a complete answer in four parts. There is no time limit yet. Focus on the shape.</p><div class="oe-workshop" style="padding:0;border:0;background:none"><div class="taskbox">The graph below shows the average number of hours per week that three age groups in Australia spent on social media between 2010 and 2022.<br><br>Summarise the information by selecting and reporting the main features, and make comparisons where relevant.<br><br>Write at least 150 words.</div></div>${chart('social')}${note('Before you write, decide your grouping. One age group stands apart from the other two.')}<div class="clear"></div>`,
+ right:`${head('Spread 5 · Writing task','Explore')}<div data-act="c5-write"></div>`}),
+
+/* 34 */ sp({id:'c5-review',title:'Chapter 5 review',
+ left:`${head('Chapter 5 · Improve','Review')}<h2>Chapter 5 review</h2><h3>What you learned</h3><ul class="clean"><li>Every answer has four parts: introduction, overview, body paragraph 1, body paragraph 2.</li><li>The introduction paraphrases the task in one sentence and keeps every detail.</li><li>The overview sums up the main patterns without recounting detail. In this course it comes second, so you never leave it out.</li><li>The body paragraphs give the figures, grouped by category, time period or trend.</li></ul><h3>Your results</h3><div data-review="5"></div>`,
+ right:`${head('Chapter 5 · Portfolio','Review')}<h2>Your two drafts</h2><div data-portfolio="c5-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="c6-open">Start Chapter 6 →</button></div>`})
+];
+B.SPREADS.splice(B.SPREADS.length-1,0,...S5);
+
+const TASK_C5='The graph below shows the average number of hours per week that three age groups in Australia spent on social media between 2010 and 2022';
+Object.assign(B.ACTS,{
+'c5-sort':{type:'binary',level:'Guided',skill:'The four-part shape',decision:'Which part of the answer does each sentence belong to?',prompt:'The sentences come from two answers, one about smartphones and one about coffee shops.',labels:['Introduction','Overview','Body paragraph'],
+  items:[{t:'The line graph illustrates the percentage of people in three age groups in the UK who owned a smartphone from 2010 to 2020.',a:0,right:'It paraphrases the task: what, who, where and when, with no trends or figures.',wrong:'It only says what the graph shows: what, who, where and when. No trends, no figures. That makes it the introduction.'},
+         {t:'Ownership among 18- to 30-year-olds reached 95% by 2020, up from just 20% in 2010.',a:2,right:'Specific figures belong in a body paragraph.',wrong:'It gives specific figures, 20% and 95%. Figures belong in the body paragraphs, not the introduction or overview.'},
+         {t:'Overall, smartphone ownership rose in all three age groups, and younger people adopted the technology fastest.',a:1,right:'It starts with “Overall,” and gives the big picture with no figures.',wrong:'It starts with “Overall,” and sums up the main trends with no figures. That is the overview.'},
+         {t:'In contrast, ownership among people aged 65 and over grew more slowly, from 5% to 45%.',a:2,right:'More figures, continuing the comparison. Body paragraph.',wrong:'It gives figures, 5% and 45%, and continues a comparison. That is body paragraph detail.'},
+         {t:'Chain A\'s revenue rose from £2 million to £8 million, the most dramatic increase of the three.',a:2,right:'Specific revenue figures: a body paragraph.',wrong:'It gives specific figures for one chain. That is body paragraph detail.'},
+         {t:'The line graph compares the revenue of three coffee shop chains between 2015 and 2023.',a:0,right:'One sentence saying what the graph compares and when.',wrong:'It only says what the graph compares and when. No trend, no figures: the introduction.'},
+         {t:'Chain C, meanwhile, grew only modestly, from £3 million to £4.5 million.',a:2,right:'Figures for the second group. Body paragraph.',wrong:'It gives the figures for Chain C, so it belongs in a body paragraph.'},
+         {t:'In general, all three chains grew their revenue, although the rate of growth varied considerably.',a:1,right:'The main pattern, with no figures. Overview.',wrong:'It sums up all three chains with no figures. That is the overview.'}]},
+'c5-para1':{type:'choice',level:'Supported',skill:'Paraphrasing the task',decision:'Task: “The graph below shows the percentage of households with broadband internet access in four regions from 2010 to 2022.” Which is the best introduction?',
+  opts:[{t:'The line graph illustrates what proportion of households in four regions had broadband internet access over the twelve-year period from 2010 to 2022.',ok:1,why:'A new verb, a new structure and a new time phrase, and nothing is lost: households, broadband, four regions, 2010 to 2022.'},
+        {t:'The graph shows the percentage of households with broadband internet access in four regions from 2010 to 2022.',why:'This copies the task word for word. The examiner can\'t credit language that isn\'t yours.'},
+        {t:'The line graph illustrates how broadband access changed between 2010 and 2022.',why:'It loses two details: households and the four regions. Keep every detail from the task.'},
+        {t:'The line graph illustrates that broadband access in four regions rose sharply from 2010 to 2022.',why:'It describes a trend, which belongs in the overview. The introduction only says what the graph shows.'}]},
+'c5-para2':{type:'choice',level:'Supported',skill:'Time phrases',decision:'Which phrase can replace “between 1995 and 2015”?',
+  opts:[{t:'over the twenty-year period from 1995 to 2015',ok:1,why:'Same start, same end, new structure. 2015 minus 1995 is twenty years.'},
+        {t:'over the last twenty years',why:'“The last twenty years” runs up to now. The graph ends in 2015.'},
+        {t:'since 1995',why:'“Since” also runs up to the present, and it loses the end year.'}]},
+'c5-para3':{type:'choice',level:'Supported',skill:'Replacing “shows”',decision:'Which verb can replace “shows” in your introduction?',
+  opts:[{t:'illustrates',ok:1,why:'Neutral and accurate. “Compares” and “gives information about” also work.'},
+        {t:'proves',why:'A graph presents data. It doesn\'t prove anything.'},
+        {t:'explains',why:'A graph doesn\'t explain anything, and Task 1 asks you to describe, not to give reasons.'}]},
+'c5-spot':{type:'binary',level:'Supported',skill:'Writing the overview',decision:'Is each overview strong or weak?',prompt:'Look for figures, missing lines and sentences that describe the graph instead of the data.',labels:['Strong','Weak'],
+  items:[{t:'Overall, City A had 1.2 million visitors in 2020, while City C only had 300,000.',a:1,right:'Weak: it recounts two details instead of summarising the pattern. It says nothing about the trend.',wrong:'It recounts two details, 1.2 million and 300,000, instead of summarising the pattern. It doesn\'t say what happened over time.'},
+         {t:'Overall, City A consistently attracted far more visitors than the other two cities, and all three saw long-term growth.',a:0,right:'The main comparison and the overall trend, with no figures.',wrong:'This is a strong overview: the main comparison and the overall trend, with no figures.'},
+         {t:'In general, smartphone ownership rose from 20% to 95% among young adults.',a:1,right:'Weak: it recounts one group\'s figures and leaves out the other two groups.',wrong:'It recounts the detail for one group and leaves out two of the three. An overview sums up all of them.'},
+         {t:'In general, smartphone ownership increased in all age groups, with younger people adopting the technology fastest.',a:0,right:'All the groups, the key difference and no figures.',wrong:'This is strong: it covers every group and the main difference without a single figure.'},
+         {t:'Overall, revenue increased by £6 million for Chain A and by £1.5 million for Chain C.',a:1,right:'Weak: it recounts two chains\' figures, and Chain B is missing.',wrong:'It recounts exact changes for two chains and leaves out Chain B. The overview should sum up the pattern for all three.'},
+         {t:'Overall, the graph shows revenue for three coffee shop chains.',a:1,right:'Weak: it describes the graph, not the data. An overview reports the main trends.',wrong:'This repeats the introduction. It doesn\'t say what happened to revenue.'}]},
+'c5-ovpick':{type:'choice',level:'Independent',skill:'Writing the overview',decision:'Which is the best overview of the commuting graph?',
+  opts:[{t:'Overall, commuting times rose in all three cities, and Oakhaven saw by far the sharpest increase, going from the shortest commute to the longest.',ok:1,why:'It gives the trend for all three cities and the feature that stands out, with no figures. Oakhaven was lowest in 2000 and highest in 2020.'},
+        {t:'Overall, the commute in Oakhaven rose from 20 to 45 minutes.',why:'It gives figures and leaves out Tarnbridge and Stellmoor.'},
+        {t:'Overall, commuting times rose in Oakhaven.',why:'True, but it ignores the other two cities and the key comparison.'},
+        {t:'Overall, commuting times fluctuated in all three cities.',why:'All three lines rose every five years. Fluctuating means going up and down.'}]},
+'c5-group':{type:'choice',level:'Supported',skill:'Grouping the data',decision:'Which grouping makes the comparison clearest for the commuting graph?',
+  opts:[{t:'Body 1: Oakhaven. Body 2: Tarnbridge and Stellmoor.',ok:1,why:'Oakhaven stands apart: by far the sharpest rise, and it overtook both other cities. Tarnbridge and Stellmoor both rose gradually, by 7 and 5 minutes, so they belong together.'},
+        {t:'Body 1: 2000 to 2010. Body 2: 2010 to 2020.',why:'This is possible, but none of the lines changes direction in 2010. Splitting by time breaks up the main story: one city rising much faster than the other two.'},
+        {t:'Body 1: the cities that rose. Body 2: the cities that fell.',why:'All three cities rose, so the second paragraph would be empty.'}]},
+'c5-order':{type:'binary',level:'Supported',skill:'Grouping the data',decision:'With that grouping, which paragraph does each sentence go in?',labels:['Body 1','Body 2'],
+  items:[{t:'Oakhaven\'s average commute more than doubled, from 20 minutes to 45.',a:0,right:'Oakhaven has a paragraph of its own.',wrong:'This is about Oakhaven, the city that stands apart, so it goes in Body 1.'},
+         {t:'Commuting times in Tarnbridge and Stellmoor rose only gradually.',a:1,right:'The topic sentence for the second group.',wrong:'Tarnbridge and Stellmoor are grouped together in Body 2.'},
+         {t:'By 2015, the commute in Oakhaven was longer than in both other cities.',a:0,right:'Oakhaven\'s crossovers belong with the rest of its story.',wrong:'This describes Oakhaven\'s rise, so it goes in Body 1. 40 minutes against 34 and 31 in 2015.'},
+         {t:'Stellmoor had the longest commute in 2000, at 30 minutes, but it only rose to 35.',a:1,right:'Stellmoor is in the second group.',wrong:'Stellmoor is grouped with Tarnbridge, so it goes in Body 2.'},
+         {t:'Tarnbridge\'s figure edged up from 25 to 32 minutes.',a:1,right:'Tarnbridge is in the second group.',wrong:'Tarnbridge is grouped with Stellmoor in Body 2.'}]},
+'c5-write':{type:'write',level:'Independent',skill:'A complete answer',decision:'Write a complete answer in four parts.',prompt:'One box for each part. Aim for at least 150 words in total. Then check your writing.',
+  fields:[{k:'intro',label:'Introduction',rows:3,ph:'The line graph compares…'},{k:'ov',label:'Overview',rows:3,ph:'Overall,…'},{k:'b1',label:'Body paragraph 1',rows:5,ph:'In 2010,…'},{k:'b2',label:'Body paragraph 2',rows:5,ph:'In contrast,…'}],
+  checks:[{t:'Your introduction says what was measured and who: social media use by three age groups.',fix:'Say what and who in your introduction: time spent on social media by three age groups.',fn:v=>/social media/i.test(v.intro)&&/(age|year-olds|aged|groups?)/i.test(v.intro)},
+          {t:'Your introduction gives the place and the period.',fix:'Give the place and the period: Australia, 2010 to 2022.',fn:v=>/australia/i.test(v.intro)&&/2010/.test(v.intro)&&/2022/.test(v.intro)},
+          {t:'You paraphrased the task rather than copying it.',fix:'You copied eight or more words in a row from the task. Change some words and the word order.',fn:v=>v.intro.trim()&&!copied(v.intro,TASK_C5,8)},
+          {t:'Your overview starts with “Overall,” or a similar phrase.',fix:'Start your overview with “Overall,” so the examiner can find it.',fn:v=>/^\s*(overall|in general|it is clear|generally)/i.test(v.ov)},
+          {t:'Your overview has no detailed figures.',fix:'Your overview includes figures. Check whether it summarises a pattern or recounts detail. Detailed figures usually belong in the body paragraphs.',fn:v=>noFig(v.ov)},
+          {t:'Your overview compares the age groups.',fix:'Compare the groups in the overview: the youngest group spent the most time, and its figure rose the most.',fn:v=>/(young|16|old|45|all three|each|every|than)/i.test(v.ov)},
+          {t:'Both body paragraphs give figures in hours.',fix:'Support each body paragraph with figures and the unit: 3 hours, 18 hours a week.',fn:v=>/\d/.test(v.b1)&&/\d/.test(v.b2)&&/hours?/i.test(v.b1+' '+v.b2)},
+          {t:'You wrote at least 150 words.',fix:'Write at least 150 words. Add a comparison to each body paragraph.',fn:v=>words([v.intro,v.ov,v.b1,v.b2].join(' '))>=150}],
+  modelTitle:'My model answer',
+  model:`<p><span class="plabel">Introduction</span><button type="button" class="hl" data-n="0">The line graph compares</button> how much time Australians in three age groups spent on social media each week <button type="button" class="hl" data-n="1">over the twelve-year period from 2010 to 2022</button>.</p><p><span class="plabel">Overview</span>Overall, weekly use of social media rose in all three groups, and <button type="button" class="hl" data-n="2">the younger the group, the more time it spent on these platforms</button> in every year shown. The youngest group also saw by far the largest increase.</p><p><span class="plabel">Body paragraph 1</span><button type="button" class="hl" data-n="3">In 2010, people aged 16 to 24 spent an average of 3 hours a week on social media.</button> This figure more than doubled to 7 hours by 2014 and then rose sharply, reaching 18 hours in 2022, <button type="button" class="hl" data-n="4">six times the starting figure</button>.</p><p><span class="plabel">Body paragraph 2</span><button type="button" class="hl" data-n="5">The two older groups started from much lower levels and grew more slowly.</button> Among 25- to 44-year-olds, weekly use climbed from just 1 hour to 10 hours, <button type="button" class="hl" data-n="6">while</button> the figure for people aged 45 and over rose from half an hour to 4 hours. By 2022, the oldest group still spent <button type="button" class="hl" data-n="7">less than a quarter as much time</button> on social media as the youngest.</p>`,
+  notes:['“Compares” replaces “shows” and suits a graph with three lines.','A new time phrase. 2022 minus 2010 is twelve years.','The main comparison, with no figures. The 16 to 24 line was above the other two in every year, and the 45+ line was always lowest.','I grouped by category: the youngest group stands apart, so it has a paragraph of its own. The first sentence gives its starting point.','18 ÷ 3 = 6. A multiple shows the size of the change more clearly than another figure.','A topic sentence that tells the examiner how this paragraph is grouped.','“While” links the two older groups in one sentence and keeps the comparison going.','4 ÷ 18 is about 0.22, so “less than a quarter” is accurate. Like with like: time compared with time.'],
+  self:['My introduction paraphrases the task and keeps every detail.','My overview is second, starts with “Overall,” and has no data figures.','My body paragraphs are grouped, not a list of three lines.','Every figure has its unit: hours.'],revise:1}
+});
+
+Object.assign(B.RETRIEVAL,{
+ 'c5-s1':[{q:'In this course\'s four-paragraph shape, what comes after the introduction?',opts:[{t:'The overview',ok:1,why:'Introduction, overview, then two body paragraphs. An overview at the end is also accepted, but early is safer.'},{t:'The first body paragraph',why:'We put the overview first, so the big picture comes before the detail and never gets left out.'}]},
+          {q:'Where do the figures go?',opts:[{t:'In the body paragraphs',ok:1,why:'The body paragraphs support the overview with figures.'},{t:'In the introduction',why:'The introduction only paraphrases the task.'}]}],
+ 'c5-s2':[{q:'Which phrase can replace “between 2005 and 2020”?',opts:[{t:'over the fifteen-year period from 2005 to 2020',ok:1,why:'Same start and end, new structure.'},{t:'over the last fifteen years',why:'“The last fifteen years” runs up to now.'}]},
+          {q:'Should your introduction describe a trend?',opts:[{t:'No, only what the graph shows',ok:1,why:'Trends belong in the overview.'},{t:'Yes, the main one',why:'The main trend belongs in the overview, straight after.'}]}],
+ 'c5-s3':[{q:'“Overall, sales rose from 20 to 45 units.” What is wrong?',opts:[{t:'It has data figures',ok:1,why:'Keep figures for the body paragraphs.'},{t:'It starts with “Overall,”',why:'“Overall,” is the right way to start an overview.'}]}],
+ 'c5-s4':[{q:'One line rises sharply and two rise slowly. How do you group them?',opts:[{t:'The sharp rise alone, the two slow ones together',ok:1,why:'Group lines with a similar pattern.'},{t:'One paragraph per line',why:'That turns the answer into a list, and Task 1 asks for comparisons.'}]}],
+ 'c5-s5':[{q:'How many words should a Task 1 answer have?',opts:[{t:'At least 150',ok:1,why:'Task 1 asks for at least 150 words. A short answer may not cover the key features fully.'},{t:'About 100',why:'Task 1 asks for at least 150 words.'}]}]
+});
+})();
+</script>
+<script>
+/* ==========================================================================
+   CHAPTER 6 · WRITING A COMPLETE ANSWER  (spreads 35 to 41; dictionary after)
+   Source: Lesson 5 (Writing Practice), Lesson 6 (Timed Task) and their reference guides.
+   ACTIVITY IDS  (type · level)
+     c6-read1..2    choice    Guided       Spread 1  Read the question: units, categories
+     c6-read3       binary    Supported    Spread 1  True or false about the task
+     c6-plan        write     Supported    Spread 2  Plan in two minutes (reveals the annotated model)
+     c6-edit        binary    Supported    Spread 3  Which checklist rule does it break?
+     c6-practice    write     Independent  Spread 4  Untimed complete answer
+     c6-timer       timer     Challenge    Spread 5  20-minute clock: plan 2, write 15, check 3
+     c6-timed       write     Challenge    Spread 5  Timed complete answer, self-assessment
+   VIDEO SLOTS: 14 c6 Spread 2 · 15 c6 Spread 5
+   Corrected from the sources: the Lesson 5 model said "around 2 million" and
+   "roughly 6 million" for exact figures (now exact); two self-editing sentences
+   broke two rules at once (now one each); the online shopping graph had unevenly
+   spaced years (2008, 2014, 2020, 2024) drawn on an even axis; the book uses
+   2009, 2014, 2019, 2024 with the same values. The Lesson 6 slide gives body
+   paragraphs 40 to 50 words, which adds up to less than 150; the book uses the
+   reference guide's 50 to 60.
+   ARITHMETIC CHECKS
+     Museums (millions): BM 2.0 2.6 3.4 4.1 4.9 5.5 6.0 (x3); Tate 0.8 1.1 1.5 1.8 2.2 2.6 3.0;
+       Science 0.6 1.3 0.9 1.6 1.2 2.0 2.5. 1995: 1.3 > 1.1 (overtook Tate), 2000: 0.9 < 1.5.
+       0.6 to 1.3 more than doubled. 2020: 3.0 minus 2.5 = 0.5 (half a million behind).
+     Books per adult a year: Norway 12 14 16 19; Japan 10 11 11.5 12; Brazil 3 4 5.5 8.
+       Brazil 8/3 = 2.67 (more than doubled); gap Japan to Brazil 7 to 4 (narrowed);
+       Norway highest and Brazil lowest every year.
+     Weekly online shoppers (%): South Korea 20 45 70 80; UK 15 35 55 68; Brazil 5 15 30 45.
+       Brazil x3 then x2; last period: Brazil +15, UK +13, Korea +10 (Brazil fastest);
+       Korea highest every year; Brazil lowest every year.
+     Books gap Norway to Japan: 2 to 7 (widened).
+     Word targets: 25 to 30 + 30 to 40 + 50 to 60 + 50 to 60 = 155 to 190.
+   Review changes (27 Oct): overview checks give guidance instead of failing any number;
+   checklist is self-review (no fixed linking-word or repeated-verb rules); museum model
+   compares figures with figures; under-length advice without a fixed penalty;
+   answers can be copied or downloaded; nothing is sent anywhere.
+   ========================================================================== */
+(function(){
+const B=window.BOOK;
+const T=(k,label)=>`<button type="button" class="term" data-term="${k}">${label||k}</button>`;
+const head=(eb,side)=>`<div class="pghead"><span class="eyebrow">${eb}</span><span class="side">${side}</span></div>`;
+const note=t=>`<aside class="mnote"><b>Examiner's note</b>${t}</aside>`;
+const take=t=>`<div class="takeaway"><b>Key takeaway</b>${t}</div>`;
+const chart=id=>`<div data-chartph="${id}"></div>`;
+const vid=k=>`<div data-video="${k}"></div>`;
+const NAVY='#292929',GREEN='#2B6E43',LAV='#4E4178',pct=v=>v+'%';
+const CH='Chapter 6',CT='Writing a Complete Answer';
+const words=t=>(String(t).match(/[A-Za-z0-9€£%'’.,-]+/g)||[]).filter(w=>/[A-Za-z0-9]/.test(w)).length;
+const lw=t=>(String(t).match(/[A-Za-z']+/g)||[]).map(w=>w.toLowerCase());
+const copied=(text,src,n)=>{const a=lw(text),b=lw(src).join(' ');for(let i=0;i+n<=a.length;i++){if(b.includes(a.slice(i,i+n).join(' ')))return true}return false};
+const noFig=t=>String(t).trim()&&!/\d/.test(String(t).replace(/\b(19|20)\d\d\b/g,''));
+const paras=t=>String(t).split(/\n+/).map(s=>s.trim()).filter(s=>/[a-z]{3}/i.test(s));
+const PRESENT=/\b(increases|rises|grows|falls|decreases|declines|climbs|drops|is (rising|increasing|growing|falling|decreasing))\b/i;
+const PLURAL=/\d\s*(millions|thousands|hundreds)\b/i;
+
+/* original data */
+const MU={x:['1990','1995','2000','2005','2010','2015','2020'],bm:[2.0,2.6,3.4,4.1,4.9,5.5,6.0],ta:[0.8,1.1,1.5,1.8,2.2,2.6,3.0],sc:[0.6,1.3,0.9,1.6,1.2,2.0,2.5]};
+const BK={x:['2005','2010','2015','2020'],no:[12,14,16,19],ja:[10,11,11.5,12],br:[3,4,5.5,8]};
+const SH={x:['2009','2014','2019','2024'],kr:[20,45,70,80],uk:[15,35,55,68],br:[5,15,30,45]};
+const mil=v=>v.toFixed(1)+' million';
+Object.assign(B.CHARTS,{
+  museum:{id:'ch-museums',title:['Visitors to three London museums (millions),','1990 to 2020'],x:MU.x,series:[{name:'British Museum',vals:MU.bm,color:GREEN},{name:'Tate',vals:MU.ta,color:NAVY,dash:1},{name:'Science Museum',vals:MU.sc,color:LAV,dash:'2 5'}],ymax:7,ystep:1,ylab:'Visitors (millions)',xlab:'Year',points:1,fmt:mil},
+  books:{id:'ch-books',title:['Average number of books read per year by adults in','Norway, Japan and Brazil, 2005 to 2020'],x:BK.x,series:[{name:'Norway',vals:BK.no,color:GREEN},{name:'Japan',vals:BK.ja,color:NAVY,dash:1},{name:'Brazil',vals:BK.br,color:LAV,dash:'2 5'}],ymax:20,ystep:5,ylab:'Books per adult',xlab:'Year',points:1,fmt:v=>v+' books'},
+  shop:{id:'ch-shop',title:['Percentage of people who shop online at least once a week','in the UK, South Korea and Brazil, 2009 to 2024'],x:SH.x,series:[{name:'South Korea',vals:SH.kr,color:GREEN},{name:'UK',vals:SH.uk,color:NAVY,dash:1},{name:'Brazil',vals:SH.br,color:LAV,dash:'2 5'}],ymax:100,ystep:25,ylab:'% of people',xlab:'Year',points:1,fmt:pct}
+});
+
+Object.assign(B.GLOSS,{
+  'Task Achievement':{term:'Task Achievement',def:'One of the four marking criteria for Task 1, each worth a quarter of the score. It rewards a clear overview, well-selected key features and accurate figures. Task 1 asks for at least 150 words.',path:'M15,74 L70,62 L120,48 L170,36 L225,20',ex:'“Every category covered, an overview included, 150 words or more.”'},
+  'self-editing':{term:'self-editing',def:'Reviewing your own answer before you finish: the main features, the overview, comparisons, grouping, vocabulary and tense, and how the sentences connect.',path:'M20,46 L40,66 L80,22 M110,46 L130,66 L170,22',ex:'When you check your number forms, “5 millions” becomes “5 million”.'}
+});
+
+B.VIDEOS.push(
+  {title:'Planning in two minutes',len:'2 minutes',script:['Show the museum graph and set a two-minute timer on screen.','Write the overview idea in five words: all up, British Museum far ahead.','Choose the grouping and say why: the British Museum stands apart.','Jot three or four figures for each paragraph, then stop. That is the whole plan.']},
+  {title:'The 20-minute budget',len:'90 seconds',script:['Draw a bar split into 2, 15 and 3 minutes.','Explain what happens in each part, and why the last 3 minutes are protected.','Show the paragraph word targets adding up to more than 150.','Finish: start the clock on the right page when you are ready.']}
+);
+
+const sp=(o)=>Object.assign({ch:6,chLabel:CH,chTitle:CT},o);
+const TASK_B='The graph below shows the average number of books read per year by adults in Norway, Japan and Brazil between 2005 and 2020';
+const TASK_S='The graph below shows the percentage of people who shop online at least once a week in the UK, South Korea and Brazil between 2009 and 2024';
+const S6=[
+/* 35 */ sp({id:'c6-open',title:'Chapter 6 opening',
+ left:`<div class="opening"><div class="bignum">6</div><p class="chap">Chapter 6</p><h1>Writing a Complete Answer</h1><p class="lede">This is where everything comes together. First you'll write a complete answer without a timer, focusing on accuracy. Then you'll do it again in 20 minutes, under exam conditions.</p><h3>What you'll learn</h3><ul class="clean"><li>How to read the question before you write a word</li><li>How to plan in two minutes</li><li>A ${T('self-editing')} checklist for reviewing your own answer</li><li>How to spend your 20 minutes, and how long each part should be</li><li>How to assess your answer against the four marking criteria, starting with ${T('Task Achievement')}</li></ul><svg class="illus" viewBox="0 0 400 150" aria-hidden="true" style="width:100%;height:auto"><rect x="20" y="58" width="36" height="34" rx="4" fill="#FCE9DD"/><rect x="60" y="58" width="270" height="34" rx="4" fill="#E7F2EB"/><rect x="334" y="58" width="46" height="34" rx="4" fill="#F88B48" opacity=".55"/><text x="38" y="80" text-anchor="middle" font-size="11" font-family="Montserrat,sans-serif" font-weight="800" fill="#292929">2</text><text x="195" y="80" text-anchor="middle" font-size="11" font-family="Montserrat,sans-serif" font-weight="800" fill="#292929">15 minutes</text><text x="357" y="80" text-anchor="middle" font-size="11" font-family="Montserrat,sans-serif" font-weight="800" fill="#292929">3</text><text x="38" y="110" text-anchor="middle" font-size="10.5" fill="#55534E">Plan</text><text x="195" y="110" text-anchor="middle" font-size="10.5" fill="#55534E">Write</text><text x="357" y="110" text-anchor="middle" font-size="10.5" fill="#55534E">Check</text></svg></div>`,
+ right:`<div class="opening">${head('In this chapter','Contents')}<h2>Five spreads, one skill each</h2><ul class="contents">${[[1,'c6-s1','Read the question','Type, period, units, categories','Discover'],[2,'c6-s2','Plan in two minutes','And see a full model answer','Understand'],[3,'c6-s3','Self-editing','Six questions for self-review','Practise'],[4,'c6-s4','Writing practice','A complete answer, no timer','Apply'],[5,'c6-s5','The timed task','20 minutes, exam conditions','Apply'],['R','c6-review','Course review','Your drafts and next steps','Improve']].map(([n,go,t,sub,ph])=>`<li><button type="button" data-go="${go}"><span class="n">${n}</span><span class="t">${t}<small>${sub}</small></span><span class="ph">${ph}</span></button></li>`).join('')}</ul><div class="oe-insight" style="margin-top:14px"><span class="lab">From Chapter 5</span>You know the four-part shape. Now you'll make it automatic, first without the clock and then with it.</div></div>`}),
+
+/* 36 */ sp({id:'c6-s1',title:'Read the question',
+ left:`${head('Spread 1 · Discover','Learn')}<h2>Read the question</h2><p>Before you write a word, read the task the way the examiner will read your answer. Check four things.</p><ol style="padding-left:20px;margin:8px 0 12px;display:grid;gap:6px;font-size:15px"><li><b>Graph type:</b> a line graph, and how many lines.</li><li><b>Time period:</b> the start year, the end year and the span.</li><li><b>Units:</b> %, thousands, millions, litres, hours. The unit is often right after the number in the task.</li><li><b>Categories:</b> count every line. Each one must appear in your answer.</li></ol>${note('Missing a category is one of the fastest ways to lose Task Achievement marks. Count the lines, then count them again in your plan.')}<div class="clear"></div>${take('Type, period, units, categories. Thirty seconds, every time.')}`,
+ right:`${head('Spread 1 · Activity','Explore')}<div data-act="c6-read1"></div><div data-act="c6-read2" style="margin-top:12px"></div><div data-act="c6-read3" style="margin-top:12px"></div>`}),
+
+/* 37 */ sp({id:'c6-s2',title:'Plan in two minutes',
+ left:`${head('Spread 2 · Understand','Learn')}<h2>Plan in two minutes</h2>${vid(14)}<p>Two minutes of planning saves ten minutes of rewriting. Your plan is notes, not sentences.</p><ol style="padding-left:20px;margin:8px 0 12px;display:grid;gap:6px;font-size:15px"><li><b>The overview:</b> the one or two biggest patterns.</li><li><b>The grouping:</b> by category, time period or trend (Chapter 5).</li><li><b>The figures:</b> three or four for each body paragraph, so you're not hunting for numbers mid-sentence.</li></ol>${chart('museum')}<p class="legend-note">Move over or tab to a point to see its value.</p><div class="clear"></div>${take('Plan the overview, the grouping and the figures. Then write.')}`,
+ right:`${head('Spread 2 · Activity','Explore')}<div data-act="c6-plan"></div>`}),
+
+/* 38 */ sp({id:'c6-s3',title:'Self-editing',
+ left:`${head('Spread 3 · Practise','Learn')}<h2>Self-editing</h2><p>Run through these questions every time you finish an answer. They are for self-review, not for working out a band score.</p><ol style="padding-left:20px;margin:6px 0 12px;display:grid;gap:6px;font-size:14.5px"><li><b>Selection:</b> have I covered the main features, and are my figures accurate?</li><li><b>Overview:</b> is it clear, and does it summarise rather than recount detail?</li><li><b>Comparisons:</b> do I compare equivalent things, figures with figures?</li><li><b>Grouping:</b> is each line or period described in one logical place?</li><li><b>Vocabulary and tense:</b> are the words precise, and does the tense match the time reference? (5 million, not 5 millions.)</li><li><b>Connections:</b> do the links between sentences make sense?</li></ol><div class="oe-mistake"><span class="lab">Weak</span>Visitors increased to 6 million. It increased to 3 million. It increased to 2.5 million.</div><div class="oe-insight" style="margin-top:10px"><span class="lab">Stronger</span>Visitor numbers at the British Museum climbed to 6 million, twice the Tate's figure, while the Science Museum reached only 2.5 million.</div>${take('A precise verb, a comparison of equivalent figures and a clear connection turn a list into a description.')}`,
+ right:`${head('Spread 3 · Activity','Explore')}<div data-act="c6-edit"></div>`}),
+
+/* 39 */ sp({id:'c6-s4',title:'Writing practice',
+ left:`${head('Spread 4 · Apply','Learn')}<h2>Writing practice</h2><p>Write a complete answer. There is no time limit: focus on accuracy, not speed. Plan first, then run the checklist before you check your writing.</p><div class="oe-workshop" style="padding:0;border:0;background:none"><div class="taskbox">The graph below shows the average number of books read per year by adults in Norway, Japan and Brazil between 2005 and 2020.<br><br>Summarise the information by selecting and reporting the main features, and make comparisons where relevant.<br><br>Write at least 150 words.</div></div>${chart('books')}${note('Look at the gap between Japan and Brazil at the start and at the end. That is a comparison worth making.')}<div class="clear"></div>`,
+ right:`${head('Spread 4 · Writing task','Explore')}<div data-act="c6-practice"></div>`}),
+
+/* 40 */ sp({id:'c6-s5',title:'The timed task',
+ left:`${head('Spread 5 · Apply','Learn')}<h2>The timed task</h2>${vid(15)}<p>In the exam you have 60 minutes for both tasks. Task 2 is worth more, so give Task 1 about 20 minutes.</p><table style="width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0 12px"><tbody><tr><th style="text-align:left;padding:6px 10px 6px 0;font-family:var(--head)">2 min</th><td>Plan: read the task, note the overview and grouping.</td></tr><tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:6px 10px 6px 0;font-family:var(--head)">15 min</th><td>Write all four parts.</td></tr><tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:6px 10px 6px 0;font-family:var(--head)">3 min</th><td>Check tense, overview and word count.</td></tr></tbody></table><p class="small">This is a practice routine. Adjust it as you learn what works for you.</p><h3>How long is each part?</h3><table style="width:100%;border-collapse:collapse;font-size:14px;margin:4px 0 12px"><tbody><tr><td style="padding:4px 0">Introduction</td><td>25 to 30 words</td></tr><tr style="border-top:1px solid var(--line)"><td style="padding:4px 0">Overview</td><td>30 to 40 words</td></tr><tr style="border-top:1px solid var(--line)"><td style="padding:4px 0">Body paragraph 1</td><td>50 to 60 words</td></tr><tr style="border-top:1px solid var(--line)"><td style="padding:4px 0">Body paragraph 2</td><td>50 to 60 words</td></tr></tbody></table>${note('Write at least 150 words. A short answer may not develop the key features enough, and it gives the examiner less evidence of your language.')}<div class="clear"></div><ul class="clean" style="font-size:15px"><li>Keep planning notes to single words and numbers.</li><li>Write forward. Fix small errors at the end, not mid-paragraph.</li><li>When the check time comes, finish your current sentence, then check. Avoid starting a detail you can't complete.</li></ul>`,
+ right:`${head('Spread 5 · Timed task','Explore')}<div class="oe-workshop" style="padding:0;border:0;background:none"><div class="taskbox">The graph below shows the percentage of people who shop online at least once a week in the UK, South Korea and Brazil between 2009 and 2024.<br><br>Summarise the information by selecting and reporting the main features, and make comparisons where relevant.<br><br>Write at least 150 words.</div></div>${chart('shop')}<div data-act="c6-timer" style="margin-top:14px"></div><div data-act="c6-timed" style="margin-top:14px"></div>`}),
+
+/* 41 */ sp({id:'c6-review',title:'Course review',
+ left:`${head('Chapter 6 · Improve','Review')}<h2>Course review</h2><h3>You can now</h3><ul class="clean"><li>Read a line graph and select its key features.</li><li>Describe trends with precise verbs, adverbs and figures.</li><li>Use accurate grammar and make precise comparisons.</li><li>Write a complete answer in four parts, inside 20 minutes.</li></ul><h3>Your results</h3><div data-review="6"></div><div class="oe-insight" style="margin-top:14px"><span class="lab">Get it marked</span>Nothing in this book sends your answers anywhere. If your purchase includes personal feedback, follow the submission instructions in your course. Feedback from a former IELTS examiner is also available in the feedback plans at <a href="https://orangeenglish.nl/ielts-writing-course" target="_blank" rel="noopener">orangeenglish.nl/ielts-writing-course</a>.</div><h3>Or review it yourself</h3><p style="font-size:15px">Put your timed answer aside for a few hours, then reread it slowly, as an examiner would. Finish one of these sentences: <i>I did well at…</i> · <i>One thing I'd check is…</i> · <i>Next time, I will…</i></p>`,
+ right:`${head('Chapter 6 · Portfolio','Review')}<h2>Your answers</h2><p class="small">These are saved in this browser on this device. Use Copy or Download under each writing task to keep a copy or send it to me.</p><h3 style="margin-top:0">Writing practice</h3><div data-portfolio="c6-practice"></div><h3>Timed task</h3><div data-portfolio="c6-timed"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a> and read it before your next practice answer.</p>`})
+];
+B.SPREADS.splice(B.SPREADS.length-1,0,...S6);
+
+const SELF4=['<b>Task Achievement:</b> every country is covered, there is a clear overview, and I wrote at least 150 words.','<b>Coherence and Cohesion:</b> my paragraphs are clearly organised, and the connections between sentences make sense.','<b>Lexical Resource:</b> my words are precise and I used a range of them.','<b>Grammatical Range and Accuracy:</b> the tense matches the time frame, comparatives are correct, and million or thousand stays singular after a number.'];
+Object.assign(B.ACTS,{
+'c6-read1':{type:'choice',level:'Guided',skill:'Reading the units',decision:'Task: “The graph illustrates the number of electric vehicles sold (in thousands) in five countries from 2015 to 2023.” A line goes from 40 to 250. Which sentence is accurate?',
+  opts:[{t:'Sales rose from 40,000 to 250,000 vehicles.',ok:1,why:'The unit is thousands, so a reading of 40 means 40,000 vehicles.'},
+        {t:'Sales rose from 40 to 250.',why:'Forty what? Without the unit, the reader can\'t tell that these are thousands of vehicles.'},
+        {t:'Sales rose from 40% to 250%.',why:'The figures are numbers of vehicles, not percentages.'}]},
+'c6-read2':{type:'choice',level:'Guided',skill:'Counting categories',decision:'Task: “The line graph shows the percentage of households with broadband internet access across four regions from 2010 to 2022.” How many regions must your answer cover?',
+  opts:[{t:'All four',ok:1,why:'Every category in the task must appear in your answer. You can group regions together, but you can\'t leave one out.'},
+        {t:'The two most interesting',why:'Grouping is fine, but leaving a region out loses Task Achievement marks.'},
+        {t:'Only the highest and the lowest',why:'The two middle regions still need to appear, even briefly.'}]},
+'c6-read3':{type:'binary',level:'Supported',skill:'Reading the question',decision:'Task: “The line graph below shows average household water consumption (litres per day) in two cities between 2000 and 2020.” True or false?',labels:['True','False'],
+  items:[{t:'The unit is litres per day.',a:0,right:'The unit is in brackets, straight after what is measured.',wrong:'Look at the brackets: (litres per day). That is the unit.'},
+         {t:'The graph covers a twenty-year period.',a:0,right:'2020 minus 2000 is twenty years.',wrong:'2000 to 2020 is twenty years.'},
+         {t:'Your answer must cover three cities.',a:1,right:'The task says two cities.',wrong:'Read again: “in two cities”.'},
+         {t:'The figures are percentages.',a:1,right:'They are litres per day, not percentages.',wrong:'The unit is litres per day. Nothing in the task mentions percentages.'}]},
+'c6-plan':{type:'write',level:'Supported',skill:'Planning',decision:'Plan an answer for the museum graph.',prompt:'Notes only: a few words and figures in each box. When you check your plan, you\'ll see my plan and my full answer.',
+  fields:[{k:'ov',label:'Overview: the main patterns',rows:2,ph:'all three up…'},{k:'grp',label:'Grouping',rows:2,ph:'Body 1:…  Body 2:…'},{k:'f1',label:'Key figures for body paragraph 1',rows:2,ph:'2 → 6 million…'},{k:'f2',label:'Key figures for body paragraph 2',rows:2,ph:''}],
+  checks:[{t:'Your overview notes have no detailed figures.',fix:'Your overview notes include figures. The overview summarises patterns, so detailed figures usually go in the body paragraphs.',fn:v=>noFig(v.ov)},
+          {t:'Your overview notes cover all three museums or the main comparison.',fix:'Note what is true of all three museums, and which one stands apart.',fn:v=>/(all|three|british|bm|highest|most|far)/i.test(v.ov)},
+          {t:'Your grouping names the museums.',fix:'Say which museums go in which paragraph.',fn:v=>/(british|bm|tate|science)/i.test(v.grp)},
+          {t:'You noted figures for both body paragraphs.',fix:'Note three or four figures for each body paragraph.',fn:v=>/\d/.test(v.f1)&&/\d/.test(v.f2)},
+          {t:'You kept your plan to notes.',fix:'A plan is notes, not sentences. Keep each box to about fifteen words or fewer.',fn:v=>['ov','grp','f1','f2'].every(k=>words(v[k])<=15)}],
+  modelTitle:'My plan and my full answer',
+  model:`<p class="small" style="background:var(--cream);border-radius:8px;padding:10px 12px"><b>Overview:</b> all three up · BM far ahead · Science erratic<br><b>Grouping:</b> Body 1 BM · Body 2 Tate + Science<br><b>Body 1:</b> 2 → 6 m (x3) · passed 4 m in 2005<br><b>Body 2:</b> Tate 0.8 → 3 m · Science 0.6 → 1.3 (1995, above Tate) → 0.9 (2000) → 2.5</p><p><span class="plabel">Introduction</span>The line graph illustrates how many people visited three London museums, <button type="button" class="hl" data-n="0">namely the British Museum, the Tate and the Science Museum</button>, over the 30-year period from 1990 to 2020.</p><p><span class="plabel">Overview</span>Overall, attendance at all three venues rose considerably, and the British Museum consistently attracted far more visitors than the other two. <button type="button" class="hl" data-n="1">The Science Museum's figures, however, were noticeably more erratic</button> than those of its rivals.</p><p><span class="plabel">Body paragraph 1</span>Visitor numbers at the British Museum stood at 2 million in 1990 and <button type="button" class="hl" data-n="2">climbed steadily</button>, passing 4 million in 2005 before reaching 6 million by 2020. <button type="button" class="hl" data-n="3">Its attendance therefore tripled</button>, and it was by far the most popular of the three museums in every year shown.</p><p><span class="plabel">Body paragraph 2</span><button type="button" class="hl" data-n="4">In contrast,</button> visitor numbers at the other two museums both began under 1 million. While the Tate's figure grew gradually from 0.8 million to 3 million, attendance at the Science Museum fluctuated considerably. Its numbers <button type="button" class="hl" data-n="5">more than doubled to 1.3 million in 1995, briefly overtaking the Tate's</button>, but then dipped to 0.9 million in 2000. After further rises and falls, the Science Museum's figure ended the period at 2.5 million, <button type="button" class="hl" data-n="6">half a million below the Tate's</button>.</p>`,
+  notes:['Naming the museums keeps every category in the introduction.','Two general trends plus one notable feature, and not a single figure.','A varied verb with an adverb. Every five years the line rose by between half a million and 800,000.','6 ÷ 2 = 3, so “tripled” is accurate. Being the most popular is a separate observation, so it gets its own clause.','“In contrast” tells the examiner that this paragraph is the other group. “Visitor numbers at” keeps the comparison between figures, not buildings.','0.6 million to 1.3 million is more than double, and 1.3 was above the Tate\'s 1.1 that year.','3.0 minus 2.5 is 0.5: half a million. A comparison to finish.']},
+'c6-edit':{type:'binary',level:'Supported',skill:'Self-editing',decision:'Each sentence has one main problem. Which question on the checklist catches it?',labels:['Tense','Overview','Grouping','Comparison','Vocabulary','Number form'],
+  items:[{t:'Between 2000 and 2020, internet use increases every year, reaching 80% in 2020.',a:0,right:'The data is recorded, so the past simple: increased.',wrong:'Every year on this graph is in the past, so the tense should be the past simple: increased.'},
+         {t:'Overall, City A grew from 2 million to 6 million, while City B only reached 3 million.',a:1,right:'This recounts detail instead of summarising the pattern.',wrong:'This is meant to be an overview, but it recounts detailed figures. Sum up the pattern instead: both cities grew, and City A stayed well ahead.'},
+         {t:'Body 1 describes City A and the first half of City B. Body 2 describes City C and the rest of City B.',a:2,right:'City B is split across both paragraphs.',wrong:'City B appears in both paragraphs. Keep each line, or each period, in one logical place.'},
+         {t:'In 2020, the British Museum was twice as high as the Tate\'s figure.',a:3,right:'A museum is compared with a figure.',wrong:'The comparison isn\'t between equivalent things. Compare figures with figures: visitor numbers at the British Museum were twice as high as at the Tate.'},
+         {t:'The Tate\'s figure increased steadily, while the Science Museum\'s increased unevenly, and the British Museum\'s increased the most.',a:4,right:'“Increased” three times in one sentence limits the range.',wrong:'The comparisons are fine, but “increased” appears three times. Grew, rose or climbed would show more range.'},
+         {t:'By 2020, sales had reached 8 millions, almost triple the figure for 2010.',a:5,right:'After a number, million stays singular: 8 million.',wrong:'Look at “8 millions”. After a number, million, thousand and hundred have no -s.'}]},
+'c6-practice':{type:'write',level:'Independent',skill:'A complete answer',decision:'Write a complete answer about the books graph.',prompt:'No time limit. One box for each part, at least 150 words in total. When you have finished, review your answer with the checklist on the previous spread and compare it with my model.',
+  fields:[{k:'intro',label:'Introduction',rows:3,ph:'The line graph illustrates…'},{k:'ov',label:'Overview',rows:3,ph:'Overall,…'},{k:'b1',label:'Body paragraph 1',rows:5,ph:''},{k:'b2',label:'Body paragraph 2',rows:5,ph:''}],
+  checks:[{t:'You covered all three countries.',fix:'Name every country: Norway, Japan and Brazil.',fn:v=>{const a=[v.intro,v.ov,v.b1,v.b2].join(' ');return /norw/i.test(a)&&/japan/i.test(a)&&/brazil/i.test(a)}},
+          {t:'You paraphrased the task rather than copying it.',fix:'You copied eight or more words in a row from the task. Change some words and the word order.',fn:v=>v.intro.trim()&&!copied(v.intro,TASK_B,8)},
+          {t:'Your overview starts with “Overall,” and has no detailed figures.',fix:'Start the overview with “Overall,”. If it includes figures, check whether it summarises a pattern or recounts detail.',fn:v=>/^\s*(overall|in general|it is clear|generally)/i.test(v.ov)&&noFig(v.ov)},
+          {t:'You used the past simple for the recorded years.',fix:'Every year on this graph is in the past. Use rose, fell, grew, not rises, falls or grows.',fn:v=>{const a=[v.intro,v.ov,v.b1,v.b2].join(' ');return a.trim()&&!PRESENT.test(a)}},
+                    {t:'You wrote at least 150 words.',fix:'Write at least 150 words. Add a comparison to each body paragraph.',fn:v=>words([v.intro,v.ov,v.b1,v.b2].join(' '))>=150}],
+  modelTitle:'My model answer',
+  model:`<p><span class="plabel">Introduction</span>The line graph illustrates <button type="button" class="hl" data-n="0">how many books an average adult read each year</button> in Norway, Japan and Brazil over the fifteen-year period from 2005 to 2020.</p><p><span class="plabel">Overview</span>Overall, adults in all three countries were reading more books by the end of the period. Norway had the highest figures throughout, <button type="button" class="hl" data-n="1">while Brazil had the lowest</button>, although the gap between Brazil and Japan narrowed considerably.</p><p><span class="plabel">Body paragraph 1</span>In 2005, the average adult in Norway read 12 books a year, <button type="button" class="hl" data-n="2">compared with 10 in Japan</button>. Over the next fifteen years, the Norwegian figure <button type="button" class="hl" data-n="3">climbed steadily</button> to 19, whereas Japan's rose only modestly, reaching 12 books by 2020. As a result, the gap between the two countries widened from 2 books to 7.</p><p><span class="plabel">Body paragraph 2</span>Brazil started from a much lower base, at just 3 books per adult in 2005. Its figure grew gradually to 5.5 in 2015 and then <button type="button" class="hl" data-n="4">increased more sharply</button>, to 8 books in 2020. As a result, Brazil <button type="button" class="hl" data-n="5">more than doubled its starting figure</button>, and the gap with Japan <button type="button" class="hl" data-n="6">had narrowed</button> from 7 books to 4.</p>`,
+  notes:['“How many books… read” replaces “the average number of books read”: a new structure with the same meaning.','The overview names the highest and lowest lines and one change, without a figure.','Like with like: Norway\'s figure compared with Japan\'s, both in books a year.','Norway rose by 2, 2 and 3 books every five years: “steadily” is accurate.','A different verb from “grew” in the sentence before, and the adverb matches the steeper line after 2015.','8 ÷ 3 is about 2.7, so “more than doubled” is accurate.','The past perfect with a past end point. 10 minus 3 is 7; 12 minus 8 is 4.'],
+  self:['I covered the main features of all three countries, with accurate figures.','My overview summarises the patterns without recounting detail.','My comparisons are between equivalent figures, and my grouping is logical.','My vocabulary is precise, the tense matches the time reference and my sentences connect clearly.'],revise:1},
+'c6-timer':{type:'timer',level:'Challenge',skill:'Exam conditions',decision:'Start the clock when you are ready.',prompt:'The clock moves through the three stages for you. You can pause it, but in the exam you can\'t.',
+  phases:[{lab:'Plan',s:120,tip:'Read the task. Note the overview, the grouping and your key figures.'},{lab:'Write',s:900,tip:'Write all four parts. Keep going forward; fix small errors later.'},{lab:'Check',s:180,tip:'Check tense, the overview and your word count.'}]},
+'c6-timed':{type:'write',level:'Challenge',skill:'Timed writing',decision:'Write your answer.',prompt:'Allow about 20 minutes and write at least 150 words. One box, as in the exam; leave a line between paragraphs. Your answer is saved in this browser, but finishing does not send it for marking. Afterwards, use the self-review checklist.',
+  fields:[{k:'a',label:'My answer',rows:14,ph:'The line graph…'}],
+  checks:[{t:'You wrote at least 150 words.',fix:'Your answer is under 150 words. Task 1 asks for at least 150, and a short answer may not cover the key features fully. Keep your plan to notes so you have more time to write.',fn:v=>words(v.a)>=150},
+          {t:'You wrote four paragraphs.',fix:'Write four paragraphs: introduction, overview and two body paragraphs. Press Enter between them.',fn:v=>paras(v.a).length===4},
+          {t:'Your second paragraph is an overview with no detailed figures.',fix:'In this course the overview comes second and starts with “Overall,”. If it includes figures, check whether it summarises a pattern or recounts detail.',fn:v=>{const p=paras(v.a);return p.length>1&&/^(overall|in general|it is clear|generally)/i.test(p[1])&&noFig(p[1])}},
+          {t:'You covered all three countries.',fix:'Name every country: the UK, South Korea and Brazil.',fn:v=>/korea/i.test(v.a)&&/\b(uk|united kingdom|britain|british)\b/i.test(v.a)&&/brazil/i.test(v.a)},
+          {t:'You paraphrased the task rather than copying it.',fix:'You copied eight or more words in a row from the task. Change some words and the word order.',fn:v=>v.a.trim()&&!copied(paras(v.a)[0]||'',TASK_S,8)},
+          {t:'You used the past simple for the recorded years.',fix:'Every year on this graph is in the past. Use rose, grew, reached, not rises or grows.',fn:v=>v.a.trim()&&!PRESENT.test(v.a)},
+          {t:'Million, thousand and hundred stay singular after a number.',fix:'After a number, write million, thousand or hundred with no -s.',fn:v=>v.a.trim()&&!PLURAL.test(v.a)}],
+  modelTitle:'My model answer (173 words)',
+  model:`<p><span class="plabel">Introduction</span>The line graph illustrates what percentage of people in the UK, South Korea and Brazil <button type="button" class="hl" data-n="0">bought something online at least weekly</button> from 2009 to 2024.</p><p><span class="plabel">Overview</span>Overall, weekly online shopping became far more common in all three countries. South Korea had the highest proportion throughout, while Brazil's figure remained the lowest, <button type="button" class="hl" data-n="1">although it grew the fastest</button> in the final five years.</p><p><span class="plabel">Body paragraph 1</span>In 2009, 20% of South Koreans shopped online every week, slightly more than the 15% recorded in the UK. Both figures <button type="button" class="hl" data-n="2">rose steeply over the next ten years</button>, reaching 70% and 55% respectively in 2019. Growth then slowed, and by 2024 the figures stood at 80% in South Korea and 68% in the UK.</p><p><span class="plabel">Body paragraph 2</span>Brazil started from a much lower level, with only 5% of people shopping online weekly in 2009. This figure <button type="button" class="hl" data-n="3">tripled to 15% by 2014 and doubled again to 30% in 2019</button>. Unlike in the other two countries, growth in Brazil did not slow down, <button type="button" class="hl" data-n="4">climbing by a further 15 percentage points</button> to 45% in 2024, although it was still well below the UK's figure.</p>`,
+  notes:['“Bought something online at least weekly” paraphrases “shop online at least once a week”.','The overview names the highest, the lowest and one feature that stands out. 2019 to 2024: Brazil rose by 15 points, the UK by 13, South Korea by 10.','Korea rose by 50 points and the UK by 40 in ten years. “Respectively” matches 70% to Korea and 55% to the UK.','5 to 15 is three times; 15 to 30 is twice. Multiples show the speed of Brazil\'s growth.','Percentages change by percentage points: 30% to 45% is 15 points.'],
+  self:SELF4,revise:1}
+});
+
+Object.assign(B.RETRIEVAL,{
+ 'c6-s1':[{q:'A task says “(in thousands)”. A line reaches 250. You write…',opts:[{t:'250,000',ok:1,why:'The unit is thousands.'},{t:'250',why:'Without the unit, the figure is incomplete.'}]},
+          {q:'The task has five countries. How many must your answer cover?',opts:[{t:'All five',ok:1,why:'Every category must appear, even if you group them.'},{t:'The three most important',why:'Leaving a category out loses Task Achievement marks.'}]}],
+ 'c6-s2':[{q:'What goes in a two-minute plan?',opts:[{t:'The overview, the grouping and key figures',ok:1,why:'Notes on those three things, nothing more.'},{t:'A first draft of the introduction',why:'There is no time to write twice. Plan in notes.'}]}],
+ 'c6-s3':[{q:'Which is correct?',opts:[{t:'5 million',ok:1,why:'Million stays singular after a number.'},{t:'5 millions',why:'After a number, no -s.'}]},
+          {q:'What makes a link between two sentences work?',opts:[{t:'It matches the relationship between the ideas',ok:1,why:'Use “in contrast” for a contrast, “meanwhile” for something happening at the same time.'},{t:'Using as many linking words as possible',why:'Too many linking words can make writing mechanical. Use the ones the ideas need.'}]}],
+ 'c6-s4':[{q:'All the data on a graph is from 2005 to 2020. Which tense?',opts:[{t:'The past simple',ok:1,why:'The years are recorded, so they are past.'},{t:'The present simple',why:'The present simple is for general truths, not recorded data.'}]}],
+ 'c6-s5':[{q:'How do you split 20 minutes?',opts:[{t:'2 plan, 15 write, 3 check',ok:1,why:'Protect the checking time.'},{t:'20 minutes writing, no plan',why:'Without a plan and a check, structure and accuracy slip.'}]},
+          {q:'Your answer is 130 words. What is the risk?',opts:[{t:'It may not develop the key features enough',ok:1,why:'Task 1 asks for at least 150 words, and a short answer gives the examiner less to credit.'},{t:'None, if the language is good',why:'Good language can\'t make up for key features that aren\'t there.'}]}]
+});
+})();
+</script>
+<script>
+/* ==========================================================================
    ORANGE ENGLISH INTERACTIVE BOOK · ENGINE
    Reusable: store, charts (lineChart), glossary, activities
-   (choice, binary, sort, hotspots, sections, motion, builder, write,
-   annotate, selfcheck), journal, retrieval, navigation, bookmark.
+   (choice, binary, sort, hotspots, sections, motion, builder, fix, write,
+   timer, annotate, selfcheck), journal, retrieval, navigation, bookmark.
+   Links: data-go takes a spread index or a spread id (data-go="dict").
    Content lives in content.js (SPREADS, ACTS, GLOSS, RETRIEVAL).
    ========================================================================== */
 (function(){
@@ -1250,11 +1627,17 @@ function wireAnnot(el,o){$$('.hl',el).forEach(b=>{b.setAttribute('aria-pressed',
 A.write=(el,o)=>{el.classList.add('oe-workshop','oe-try');
   const fieldHTML=(pfx,vals)=>o.fields.map(f=>`<label class="small" for="${o.id}-${pfx}-${f.k}" style="display:block;font-weight:600;color:var(--dark);margin:10px 0 4px">${f.label}</label><textarea id="${o.id}-${pfx}-${f.k}" data-k="${f.k}" rows="${f.rows||4}" style="min-height:${(f.rows||4)*28}px" placeholder="${esc(f.ph||'')}">${esc((vals||{})[f.k]||'')}</textarea><div class="wc"></div>`).join('');
   const d1=S.get('d1-'+o.id,null),d2=S.get('d2-'+o.id,null),cur=S.get('w-'+o.id,{});
-  el.innerHTML=head(o)+`<div class="f1">${fieldHTML('a',d1||cur)}</div><div class="row" style="margin-top:12px"><button type="button" class="btn chk">Check my writing</button></div><ul class="checks" aria-live="polite"></ul><div class="after" hidden></div>`;
+  el.innerHTML=head(o)+`<div class="f1">${fieldHTML('a',d1||cur)}</div><div class="row" style="margin-top:12px"><button type="button" class="btn chk">Check my writing</button><button type="button" class="btn ghost cpy">Copy my answer</button><button type="button" class="btn ghost dl">Download</button><span class="small cpmsg" aria-live="polite"></span></div><ul class="checks" aria-live="polite"></ul><p class="small chknote" hidden style="margin-top:8px">These quick checks only look for a few patterns in your text, such as the word count or a figure in the overview. They can't judge accuracy or grammar, so compare your answer with my model too.</p><div class="after" hidden></div>`;
   const vals=()=>{const v={};$$('.f1 textarea',el).forEach(t=>v[t.dataset.k]=t.value);return v};
   const wc=root=>$$('textarea',root).forEach(t=>{const u=()=>{t.nextElementSibling.textContent=words(t.value)+' words'};t.addEventListener('input',u);u()});
   wc($('.f1',el));$$('.f1 textarea',el).forEach(t=>t.addEventListener('input',()=>S.set('w-'+o.id,vals())));
-  const runChecks=(v,ul)=>{let pass=0;ul.innerHTML=o.checks.map(c=>{const ok=!!c.fn(v);if(ok)pass++;return `<li class="${ok?'pass':'todo'}"><span class="mk">${ok?'✓':'!'}</span><span>${ok?c.t:(c.fix||c.t)}</span></li>`}).join('');return pass};
+  const answerText=()=>{const parts=[];const add=(root,title)=>{const t=$$('textarea',root).map(x=>(o.fields.length>1?(o.fields.find(f=>f.k===x.dataset.k)||{}).label+'\n':'')+x.value.trim()).filter(x=>x.trim()).join('\n\n');if(t)parts.push((title?title+'\n\n':'')+t)};
+    add($('.f1',el),$('.f2',el)?'First draft':'');const f2=$('.f2',el);if(f2)add(f2,'Revision');return (o.decision?o.decision+'\n\n':'')+parts.join('\n\n')};
+  const say=m=>{$('.cpmsg',el).textContent=m};
+  $('.cpy',el).onclick=()=>{const t=answerText();const fallback=()=>{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();say(ok?'Copied.':'Select your text and copy it with your keyboard.')};
+    try{navigator.clipboard.writeText(t).then(()=>say('Copied.'),fallback)}catch(e){fallback()}};
+  $('.dl',el).onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([answerText()],{type:'text/plain;charset=utf-8'}));a.download='orange-english-'+o.id+'.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);say('Downloaded.')};
+  const runChecks=(v,ul)=>{let pass=0;$('.chknote',el).hidden=false;ul.innerHTML=o.checks.map(c=>{const ok=!!c.fn(v);if(ok)pass++;return `<li class="${ok?'pass':'todo'}"><span class="mk">${ok?'✓':'!'}</span><span>${ok?c.t:(c.fix||c.t)}</span></li>`}).join('');return pass};
   const after=()=>{const a=$('.after',el);if(!a.hidden)return;a.hidden=false;
     a.innerHTML=`<h3 style="margin-top:20px">${o.modelTitle||'My model answer'}</h3>${o.notes?annotHTML(o):`<div class="draft" style="background:var(--paper)">${o.model}</div>`}`+
       (o.self?`<h3>Check your own writing</h3><ul class="selfcheck" style="list-style:none;display:grid;gap:8px">${o.self.map((s,i)=>`<li><label style="display:flex;gap:10px;font-size:15px;cursor:pointer"><input type="checkbox" data-i="${i}" style="width:20px;height:20px;margin-top:3px;accent-color:var(--green-ink)"> <span>${s}</span></label></li>`).join('')}</ul>`:'')+
@@ -1264,6 +1647,21 @@ A.write=(el,o)=>{el.classList.add('oe-workshop','oe-try');
   $('.chk',el).onclick=()=>{const v=vals();if(!Object.values(v).join('').trim()){$('.checks',el).innerHTML='<li class="todo"><span class="mk">!</span><span>Write something first. It doesn\'t need to be perfect.</span></li>';return}
     const p=runChecks(v,$('.checks',el));if(!S.get('d1-'+o.id,null)){S.set('d1-'+o.id,v);track(o.id,null,p===o.checks.length,o._spread)}gate(o.id);after();refreshReviews()};
   if(d1){runChecks(d1,$('.checks',el));after()}};
+
+A.timer=(el,o)=>{el.classList.add('oe-try','oe-timer');const total=o.phases.reduce((a,p)=>a+p.s,0);const fmt=t=>Math.floor(t/60)+':'+String(t%60).padStart(2,'0');
+  el.innerHTML=head(o)+`<div class="tm"><span class="tm-clock" aria-hidden="true">${fmt(total)}</span><span class="tm-phase" aria-live="polite">Ready to start</span></div><div class="tm-bar" aria-hidden="true">${o.phases.map(p=>`<i style="flex:${p.s}"><b></b></i>`).join('')}</div><div class="tm-labs" aria-hidden="true">${o.phases.map(p=>`<span style="flex:${p.s}">${p.lab} ${Math.round(p.s/60)}</span>`).join('')}</div><p class="small tm-tip" style="margin-top:8px">${o.phases.map(p=>`<b>${p.lab}:</b> ${p.tip}`).join(' ')}</p><div class="row" style="margin-top:10px"><button type="button" class="btn tm-go">Start ${fmt(total)}</button><button type="button" class="btn ghost tm-reset">Reset</button></div>`;
+  const clock=$('.tm-clock',el),ph=$('.tm-phase',el),tip=$('.tm-tip',el),bars=$$('.tm-bar b',el),goB=$('.tm-go',el);let st=S.get('t-'+o.id,{rem:total,end:null}),iv=null,lastLab='';
+  const rem=()=>st.end?Math.max(0,Math.ceil((st.end-Date.now())/1000)):st.rem;
+  const paint=()=>{const r=rem(),el2=total-r;clock.textContent=fmt(r);clock.classList.toggle('urgent',r>0&&r<=o.phases[o.phases.length-1].s);
+    let acc=0,k=-1;o.phases.forEach((p,i)=>{bars[i].style.width=(Math.max(0,Math.min(1,(el2-acc)/p.s))*100)+'%';if(k<0&&el2<acc+p.s)k=i;acc+=p.s});if(k<0)k=o.phases.length-1;const lab=r<=0?'Time\'s up. Stop writing, then check your answer below.':(!st.end&&r===total?'Ready to start':(st.end?'':'Paused · ')+o.phases[k].lab+' · '+o.phases[k].tip);
+    if(lab!==lastLab){ph.textContent=lab;lastLab=lab}
+    if(r<=0&&st.end){st={rem:0,end:null};S.set('t-'+o.id,st);stop();goB.textContent='Start again';}};
+  const stop=()=>{if(iv){clearInterval(iv);iv=null}};
+  const run=()=>{stop();iv=setInterval(paint,250);paint()};
+  goB.onclick=()=>{if(st.end){st={rem:rem(),end:null};S.set('t-'+o.id,st);stop();goB.textContent='Resume';paint()}
+    else{const r=rem()>0?rem():total;st={rem:r,end:Date.now()+r*1000};S.set('t-'+o.id,st);goB.textContent='Pause';run()}};
+  $('.tm-reset',el).onclick=()=>{stop();st={rem:total,end:null};S.set('t-'+o.id,st);goB.textContent='Start '+fmt(total);paint()};
+  if(st.end&&rem()>0){goB.textContent='Pause';run()}else{if(st.end){st={rem:0,end:null};S.set('t-'+o.id,st)}if(st.rem<total)goB.textContent=st.rem>0?'Resume':'Start again';paint()}};
 
 /* ---------------- gates (explanations that appear after a first try) ---------------- */
 function gate(id){$$(`[data-gate="${id}"]`).forEach(g=>{g.hidden=false});$$(`[data-gateph="${id}"]`).forEach(g=>{g.hidden=true})}
@@ -1304,7 +1702,8 @@ $$('[data-video]').forEach(v=>{const k=+v.dataset.video,url=(VL[k]||'').trim(),m
 Object.entries(C.ACTS).forEach(([id,o])=>{o.id=id;const el=$(`[data-act="${id}"]`);if(!el)return;const sp=+el.closest('.spread').dataset.s;o._spread=sp;o._spreadTitle=C.SPREADS[sp].title;A[o.type](el,o)});
 enhanceCharts(document);applyGates();
 // go-to links & contents
-document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){e.preventDefault();closeOverlay();go(+g.dataset.go,'left',1)}});
+const spreadIndex=v=>/^\d+$/.test(v)?+v:C.SPREADS.findIndex(x=>x.id===v);
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){e.preventDefault();const s=spreadIndex(g.dataset.go);if(s<0)return;closeOverlay();go(s,'left',1)}});
 $$('.dict-print').forEach(b=>b.onclick=printDict);renderDict();refreshReviews();
 
 /* ---------------- navigation ---------------- */
