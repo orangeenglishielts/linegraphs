@@ -73,6 +73,7 @@
     .para-grid { grid-template-columns: 1fr; }
     .answer-options { grid-template-columns: 1fr; }
   }
+.option-btn.sel-right{border-color:#5FB27B!important;background:#E7F2EB!important}.option-btn.sel-wrong{border-color:#F88B48!important;background:#FCE9DD!important}.explain-box.is-wrong{border-color:#F88B48!important;background:#FCE9DD!important;color:#7A3410!important}
 </style>
 </head>
 <body>
@@ -90,20 +91,20 @@
   <!-- SECTION 1: THE SHAPE -->
   <div class="section active" data-section="shape">
     <div class="section-title">Section 1: The Four-Part Shape</div>
-    <div class="section-subtitle">Every Task 1 answer follows the same structure</div>
+    <div class="section-subtitle">A reliable structure for line-graph answers</div>
+    <p style="font-size:15px;margin:0 0 14px">In this course, we practise four paragraphs. This is a practical starting structure, not a compulsory IELTS format: choose an arrangement that makes the information clear.</p>
 
     <div class="comparison-card">
       <div class="shape-row">
         <div class="shape-box"><div class="shape-num">1</div><div class="shape-label">Introduction</div><div class="shape-desc">Paraphrase the question, one sentence.</div></div>
-        <div class="shape-box"><div class="shape-num">2</div><div class="shape-label">Overview</div><div class="shape-desc">General trends only, no numbers.</div></div>
-        <div class="shape-box"><div class="shape-num">3</div><div class="shape-label">Body 1</div><div class="shape-desc">First group of data, with figures.</div></div>
-        <div class="shape-box"><div class="shape-num">4</div><div class="shape-label">Body 2</div><div class="shape-desc">Remaining data, with figures.</div></div>
+        <div class="shape-box"><div class="shape-num">2</div><div class="shape-label">Overview</div><div class="shape-desc">The main patterns, without detailed figures.</div></div>
+        <div class="shape-box"><div class="shape-num">3</div><div class="shape-label">Body 1</div><div class="shape-desc">One logical group of information, with figures.</div></div>
+        <div class="shape-box"><div class="shape-num">4</div><div class="shape-label">Body 2</div><div class="shape-desc">The remaining key information, with figures.</div></div>
       </div>
     </div>
 
     <div class="reference-link">
-      &#128229; <strong>Download Reference Guide PDF</strong><br>
-      <a href="lesson4_reference_guide.html" target="_blank">&rarr; Click to view/print</a>
+      &#128424; <a href="lesson4_reference_guide.html" target="_blank" rel="noopener"><strong>Open printable reference guide</strong></a>
     </div>
 
     <div class="comparison-card">
@@ -120,7 +121,7 @@
     </div>
 
     <div class="critical-rule">
-      <strong>Critical rule:</strong> the overview comes right after the introduction and contains <strong>no numbers</strong>. One or two sentences, general pattern only &mdash; every figure is saved for the body paragraphs.
+      <strong>Why the overview comes early:</strong> putting it straight after the introduction means you are less likely to leave it out. Focus on the big picture, and save detailed figures for the body paragraphs. (IELTS also accepts an overview at the end.)
     </div>
 
     <button class="next-btn" onclick="goToSection('sort')">Start Practice &rarr;</button>
@@ -158,7 +159,7 @@
 <script>
 const SECTIONS = ['shape', 'sort', 'spot', 'full'];
 const SORT_DATA = [{"id": "sa1", "sentence": "The line graph illustrates the percentage of smartphone ownership across three age groups in the UK from 2010 to 2020.", "correct": "Introduction", "explain": "Correct — paraphrases the question in one sentence, with no figures yet."}, {"id": "sa2", "sentence": "Overall, smartphone ownership increased substantially across all age groups, with younger people adopting the technology fastest.", "correct": "Overview", "explain": "Correct — the general pattern only, no specific numbers."}, {"id": "sa3", "sentence": "Specifically, the 18–30 age group reached 95% ownership by 2020, up from just 20% in 2010.", "correct": "Body paragraph", "explain": "Correct — specific figures like these belong in the body, not the overview."}, {"id": "sa4", "sentence": "In contrast, the 65+ age group grew more slowly, rising from just 5% to 45% over the same period.", "correct": "Body paragraph", "explain": "Correct — more detail, continuing the comparison."}, {"id": "sb1", "sentence": "The chart shows the revenue of three coffee shop chains between 2015 and 2023.", "correct": "Introduction", "explain": "Correct — one sentence, paraphrasing the prompt."}, {"id": "sb2", "sentence": "In general, all three chains experienced revenue growth, although the rate of expansion varied considerably.", "correct": "Overview", "explain": "Correct — summarises the pattern with no figures."}, {"id": "sb3", "sentence": "Chain A’s revenue rose from £2 million to £8 million, the most dramatic increase of the three.", "correct": "Body paragraph", "explain": "Correct — this is where the figures belong."}, {"id": "sb4", "sentence": "Chain C, meanwhile, grew only modestly, from £3 million to £4.5 million.", "correct": "Body paragraph", "explain": "Correct — continues the detailed comparison."}, {"id": "sc1", "sentence": "The graph depicts the number of passengers using public transport in two cities from 2000 to 2020.", "correct": "Introduction", "explain": "Correct — paraphrases the prompt, one sentence."}, {"id": "sc2", "sentence": "Overall, both cities saw passenger numbers rise, with City A consistently ahead of City B throughout the period.", "correct": "Overview", "explain": "Correct — the big picture, no numbers."}, {"id": "sc3", "sentence": "City A’s numbers climbed from 2 million to 6 million over the twenty years.", "correct": "Body paragraph", "explain": "Correct — specific figures for City A."}, {"id": "sc4", "sentence": "City B started lower, at 1 million, and ended at 3.5 million by 2020.", "correct": "Body paragraph", "explain": "Correct — specific figures for City B, completing the comparison."}];
-const SPOT_DATA = [{"id": "sp1", "sentence": "Overall, City A had 1.2 million visitors in 2020 while City C only had 300,000.", "correct": "Weak", "explain": "Weak — those are specific figures. Numbers belong in the body paragraphs, not the overview."}, {"id": "sp2", "sentence": "Overall, City A consistently attracted far more visitors than the other two cities, and all three cities saw long-term growth.", "correct": "Strong", "explain": "Strong — general pattern only, no numbers. Exactly what an overview should do."}, {"id": "sp3", "sentence": "In general, smartphone ownership rose from 20% to 95% among young adults.", "correct": "Weak", "explain": "Weak — ‘20% to 95%’ is body-paragraph detail, not an overview."}, {"id": "sp4", "sentence": "In general, smartphone ownership increased across all age groups, with younger people adopting the technology fastest.", "correct": "Strong", "explain": "Strong — describes the pattern without quoting a single figure."}, {"id": "sp5", "sentence": "Overall, coffee shop revenue increased by £6 million for Chain A and by £1.5 million for Chain C.", "correct": "Weak", "explain": "Weak — specific revenue figures belong later, in the body."}, {"id": "sp6", "sentence": "Overall, all three coffee chains experienced growth, though the extent of that growth varied considerably.", "correct": "Strong", "explain": "Strong — captures the big picture only."}];
+const SPOT_DATA = [{"id": "sp1", "sentence": "Overall, City A had 1.2 million visitors in 2020 while City C only had 300,000.", "correct": "Weak", "explain": "Weak: it recounts two details (1.2 million and 300,000) instead of summarising the pattern. It doesn't say what happened over time."}, {"id": "sp2", "sentence": "Overall, City A consistently attracted far more visitors than the other two cities, and all three cities saw long-term growth.", "correct": "Strong", "explain": "Strong: it summarises the main comparison and the overall trend. Exactly what an overview should do."}, {"id": "sp3", "sentence": "In general, smartphone ownership rose from 20% to 95% among young adults.", "correct": "Weak", "explain": "Weak: it recounts the detail for one age group and leaves out the others. An overview sums up all of them."}, {"id": "sp4", "sentence": "In general, smartphone ownership increased across all age groups, with younger people adopting the technology fastest.", "correct": "Strong", "explain": "Strong: it covers every age group and the main difference, without recounting detail."}, {"id": "sp5", "sentence": "Overall, coffee shop revenue increased by £6 million for Chain A and by £1.5 million for Chain C.", "correct": "Weak", "explain": "Weak: it recounts exact changes for two chains and leaves out Chain B. Sum up the pattern for all three instead."}, {"id": "sp6", "sentence": "Overall, all three coffee chains experienced growth, though the extent of that growth varied considerably.", "correct": "Strong", "explain": "Strong: it captures the big picture for all three chains."}];
 
 function initNav() {
   const nav = document.getElementById('sectionNav');
@@ -200,14 +201,26 @@ function renderSort() {
   `).join('');
 }
 
+function showChoice(cardId, isRight, rightText, wrongText) {
+  const exp = document.getElementById(`exp-${cardId}`);
+  const box = exp.querySelector('.explain-box');
+  exp.classList.remove('show');
+  void exp.offsetWidth;
+  box.classList.toggle('is-wrong', !isRight);
+  box.innerHTML = isRight ? rightText : wrongText;
+  exp.classList.add('show');
+}
 function selectSort(cardId, answer, correct) {
   const card = document.getElementById(`exp-${cardId}`).closest('.comparison-card');
+  const item = SORT_DATA.find(x => x.id === cardId);
   card.querySelectorAll('.option-btn').forEach(btn => {
     btn.classList.toggle('selected', btn.textContent === answer);
+    btn.classList.toggle('sel-right', btn.textContent === answer && answer === correct);
+    btn.classList.toggle('sel-wrong', btn.textContent === answer && answer !== correct);
   });
-  if (answer === correct) {
-    document.getElementById(`exp-${cardId}`).classList.add('show');
-  }
+  const reason = item.explain.replace(/^Correct\s*[—-]\s*/, '');
+  showChoice(cardId, answer === correct, '<b>Yes.</b> ' + reason.charAt(0).toUpperCase() + reason.slice(1),
+    `<b>Not quite.</b> This one belongs in the ${correct.toLowerCase()}: ${reason}`);
 }
 
 function renderSpot() {
@@ -228,22 +241,69 @@ function renderSpot() {
 
 function selectSpot(cardId, answer, correct) {
   const card = document.getElementById(`exp-${cardId}`).closest('.comparison-card');
+  const item = SPOT_DATA.find(x => x.id === cardId);
   card.querySelectorAll('.option-btn').forEach(btn => {
     const isThis = (answer === 'Weak' && btn.textContent.indexOf('Weak') === 0) || (answer === 'Strong' && btn.textContent.indexOf('Strong') === 0);
     btn.classList.toggle('selected', isThis);
+    btn.classList.toggle('sel-right', isThis && answer === correct);
+    btn.classList.toggle('sel-wrong', isThis && answer !== correct);
   });
-  if (answer === correct) {
-    document.getElementById(`exp-${cardId}`).classList.add('show');
-  }
+  showChoice(cardId, answer === correct, '<b>Yes.</b> ' + item.explain, '<b>Look again.</b> ' + item.explain);
 }
+
+/* ===== Orange English self-review (shared by Lessons 3 to 6) =====
+   selfReview(host, {id, prompt, rows, placeholder, model, checks, minWords, note})
+   Saves the draft in this browser, counts words, shows a model answer on request with a
+   self-review checklist, and offers Copy and Download. It does not mark the writing. */
+(function(){
+  if(!document.getElementById('sr-css')){const st=document.createElement('style');st.id='sr-css';st.textContent=`
+.sr textarea{width:100%;min-height:140px;font:inherit;font-size:15px;line-height:1.6;border:1.5px solid #E4DED1;border-radius:8px;padding:12px;background:#fff;resize:vertical;display:block}
+.sr textarea:focus{border-color:#292929;outline:none}
+.sr .sr-meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:12.5px;color:#6E6B64;margin:6px 0 10px}
+.sr .sr-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.sr button{font-family:'Montserrat',system-ui,sans-serif;font-weight:700;font-size:13.5px;border-radius:8px;padding:9px 14px;border:1.5px solid #292929;background:#292929;color:#fff;cursor:pointer;min-height:42px}
+.sr button.gh{background:transparent;color:#292929}
+.sr .sr-out{margin-top:14px;display:none}.sr .sr-out.show{display:block}
+.sr .sr-model{background:#E7F2EB;border-left:4px solid #5FB27B;border-radius:0 8px 8px 0;padding:12px 14px;font-size:15px;line-height:1.65}
+.sr .sr-model p+p{margin-top:8px}.sr .sr-lab{font-family:'Montserrat',system-ui,sans-serif;font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#2B6E43;display:block;margin-bottom:4px}
+.sr .sr-checks{list-style:none;display:grid;gap:8px;margin-top:12px;padding:0}
+.sr .sr-checks label{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;cursor:pointer;background:#FAF8F3;border-radius:8px;padding:9px 11px}
+.sr .sr-checks input{width:19px;height:19px;margin-top:2px;accent-color:#2B6E43;flex:none}
+.sr .sr-note{font-size:13px;color:#55534E;background:#FCE9DD;border-left:4px solid #F88B48;border-radius:0 8px 8px 0;padding:9px 12px;margin-top:12px}
+.sr .sr-ready{font-size:14.5px;font-weight:600;margin:12px 0 4px}`;document.head.appendChild(st)}
+  const K=id=>'oe-sr-'+location.pathname.split('/').pop()+'-'+id;
+  const get=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}};
+  const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+  const wc=t=>(String(t).match(/[A-Za-z0-9€£%'’.,-]+/g)||[]).filter(w=>/[A-Za-z0-9]/.test(w)).length;
+  window.selfReview=function(host,o){
+    const st=get(K(o.id),{t:'',c:{},shown:false});
+    host.classList.add('sr');
+    host.innerHTML=`${o.prompt?`<div class="sr-prompt">${o.prompt}</div>`:''}<textarea rows="${o.rows||6}" placeholder="${o.placeholder||'Write here…'}" aria-label="Your answer"></textarea>
+    <div class="sr-meta"><span class="sr-wc">0 words</span><span>Saved in this browser as you type.</span></div>
+    <div class="sr-row"><button type="button" class="sr-show">Show a model answer</button><button type="button" class="gh sr-copy">Copy my answer</button><button type="button" class="gh sr-dl">Download</button><span class="sr-msg" aria-live="polite" style="font-size:13px;color:#55534E"></span></div>
+    <div class="sr-out"><p class="sr-ready">Your draft is ready for self-review.</p><div class="sr-model"><span class="sr-lab">Model answer</span>${o.model}</div>
+    <p style="font-size:14px;margin-top:12px"><b>Check your own writing.</b> Compare it with the model, then tick what is true.</p>
+    <ul class="sr-checks">${o.checks.map((c,i)=>`<li><label><input type="checkbox" data-i="${i}"><span>${c}</span></label></li>`).join('')}</ul>
+    <div class="sr-note">${o.note||'This page does not mark your writing or send it anywhere. If your course includes personal feedback, follow the submission instructions in your course.'}</div></div>`;
+    const ta=host.querySelector('textarea'),out=host.querySelector('.sr-out'),msg=host.querySelector('.sr-msg');
+    ta.value=st.t||'';
+    const upd=()=>{const n=wc(ta.value);host.querySelector('.sr-wc').textContent=n+(n===1?' word':' words')+(o.minWords?` · aim for at least ${o.minWords}`:'')};
+    ta.addEventListener('input',()=>{st.t=ta.value;put(K(o.id),st);upd()});upd();
+    const show=()=>{out.classList.add('show');st.shown=true;put(K(o.id),st)};
+    host.querySelector('.sr-show').onclick=()=>{show();out.scrollIntoView({behavior:'smooth',block:'nearest'})};
+    if(st.shown)show();
+    host.querySelectorAll('.sr-checks input').forEach(c=>{c.checked=!!st.c[c.dataset.i];c.onchange=()=>{st.c[c.dataset.i]=c.checked;put(K(o.id),st)}});
+    const text=()=>(o.title?o.title+'\n\n':'')+ta.value.trim();
+    host.querySelector('.sr-copy').onclick=()=>{const t=text();const fb=()=>{ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}msg.textContent=ok?'Copied.':'Select your text and copy it with your keyboard.'};
+      try{navigator.clipboard.writeText(t).then(()=>msg.textContent='Copied.',fb)}catch(e){fb()}};
+    host.querySelector('.sr-dl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text()],{type:'text/plain;charset=utf-8'}));a.download='orange-english-'+o.id+'.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);msg.textContent='Downloaded.'};
+  };
+})();
 
 function renderFull() {
   const container = document.getElementById('fullContainer');
-  container.innerHTML = `
-    <div class="sentence-builder">
-      <div class="task-prompt">
-        The graph below shows the average number of hours per week that three age groups in Australia spent on social media between 2010 and 2022. Summarise the information by selecting and reporting the main features, and make comparisons where relevant. <strong>Write at least 150 words.</strong>
-      </div>
+  container.innerHTML = `<div class="sentence-builder">
+      <div class="task-prompt">The graph below shows the average number of hours per week that three age groups in Australia spent on social media between 2010 and 2022. Summarise the information by selecting and reporting the main features, and make comparisons where relevant. <strong>Write at least 150 words.</strong></div>
       <svg viewBox="0 0 600 300" style="width: 100%; max-width: 600px; display: block; margin: 0 auto 20px; background: white; border-radius: 8px;">
         <line x1="60" y1="20" x2="60" y2="260" stroke="#292929" stroke-width="1.5"/>
         <line x1="60" y1="260" x2="580" y2="260" stroke="#292929" stroke-width="1.5"/>
@@ -271,28 +331,10 @@ function renderFull() {
         <line x1="80" y1="52" x2="105" y2="52" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/><text x="110" y="56" font-size="12" fill="#292929">Aged 25&ndash;44</text>
         <line x1="80" y1="70" x2="105" y2="70" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/><text x="110" y="74" font-size="12" fill="#292929">Aged 45+</text>
       </svg>
-      <textarea id="full-answer" style="min-height: 220px;" placeholder="Write your complete Task 1 response (at least 150 words)..."></textarea>
-      <div id="full-wordcount" style="font-size: 12px; color: var(--mid-grey); margin-top: -8px; margin-bottom: 12px;">0 words</div>
-      <button class="submit-btn" onclick="submitFull()">Submit</button>
-      <div class="checklist">
-        <div class="ct">Before you submit, check:</div>
-        &#9744; Introduction paraphrases the question (one sentence)<br>
-        &#9744; Overview describes the general pattern only &mdash; no numbers<br>
-        &#9744; Two body paragraphs, each backed with specific figures<br>
-        &#9744; Body paragraphs grouped logically (by age group or by time period)
-      </div>
-    </div>
-  `;
-  document.getElementById('full-answer').addEventListener('input', () => {
-    const words = document.getElementById('full-answer').value.trim().split(/\s+/).filter(Boolean).length;
-    document.getElementById('full-wordcount').textContent = `${words} words`;
-  });
-}
-
-function submitFull() {
-  const ans = document.getElementById('full-answer').value;
-  const words = ans.trim().split(/\s+/).filter(Boolean).length;
-  alert(words >= 150 ? `\u2713 Good length (${words} words)! Now check: intro paraphrased, overview number-free, two body paragraphs with figures?` : `Keep writing \u2014 you have ${words} words, aim for 150+.`);
+      <div id="sr-full"></div></div>`;
+  selfReview(document.getElementById('sr-full'), { id: 'full', rows: 12, minWords: 150, title: 'Social media use in Australia',
+    model: "<p>The line graph compares how much time Australians in three age groups spent on social media each week over the twelve-year period from 2010 to 2022.</p><p>Overall, weekly use of social media rose in all three groups, and the younger the group, the more time it spent on these platforms in every year shown. The youngest group also saw by far the largest increase.</p><p>In 2010, people aged 16 to 24 spent an average of 3 hours a week on social media. This figure more than doubled to 7 hours by 2014 and then rose sharply, reaching 18 hours in 2022, six times the starting figure.</p><p>The two older groups started from much lower levels and grew more slowly. Among 25- to 44-year-olds, weekly use climbed from just 1 hour to 10 hours, while the figure for people aged 45 and over rose from half an hour to 4 hours. By 2022, the oldest group still spent less than a quarter as much time on social media as the youngest.</p>",
+    checks: ['My introduction explains what the graph shows, in my own words.', 'My overview summarises the main patterns without recounting detail.', 'Each body paragraph covers one logical group of information, with figures and units.', 'My comparisons are between equivalent things: time compared with time.', 'I wrote at least 150 words.'] });
 }
 
 initNav();

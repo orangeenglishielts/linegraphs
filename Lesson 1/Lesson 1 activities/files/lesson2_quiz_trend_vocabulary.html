@@ -333,6 +333,14 @@
     color: var(--mid-grey);
     letter-spacing: 0.5px;
   }
+
+.fit-card{display:grid;grid-template-columns:minmax(0,180px) 1fr;gap:16px;align-items:center;background:#fff;border:1.5px solid #E6DDD2;border-radius:12px;padding:14px;margin-bottom:12px}
+.fit-graph svg{width:100%;height:auto;display:block;background:#FAF8F3;border-radius:8px}
+.fit-opts{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}
+.fit-opt{font:inherit;font-weight:600;font-size:15px;border:1.5px solid #E6DDD2;background:#fff;border-radius:999px;padding:8px 14px;cursor:pointer;min-height:40px}
+.fit-opt.sel.k-ok{border-color:#5FB27B;background:#E7F2EB}.fit-opt.sel.k-maybe{border-color:#C9A227;background:#FBF3D9}.fit-opt.sel.k-no{border-color:#F88B48;background:#FCE9DD}
+.fit-why{flex-basis:100%;font-size:14px;color:#55534E;display:none;margin-top:2px}.fit-why.show{display:block}
+@media (max-width:560px){.fit-card{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -340,7 +348,7 @@
 <header>
   <div class="eyebrow">Orange English &middot; IELTS Writing Task 1</div>
   <h1>Quiz: Trend Vocabulary</h1>
-  <p>Module 2 &middot; Patterns, collocations, and sentence grammar</p>
+  <p>Lesson 2 &middot; Patterns, accurate descriptions and sentence grammar</p>
 </header>
 
 <div class="wrap">
@@ -356,14 +364,11 @@
   </div>
 
   <div class="part-header">
-    <h2>Part 2: Build the collocation</h2>
-    <span class="count" id="count2">0 / 6 matched</span>
+    <h2>Part 2: Which description fits?</h2>
+    <span class="count" id="count2">0 / 4 done</span>
   </div>
-  <p class="instructions">Tap a verb, then tap the adverb it naturally pairs with.</p>
-  <div class="match-grid">
-    <div class="col" id="left2"></div>
-    <div class="col" id="right2"></div>
-  </div>
+  <p class="instructions">“Rise” can go with several adverbs. The graph decides which one is accurate. Choose a description for each graph. Some graphs have more than one good answer.</p>
+  <div id="fit2"></div>
 
   <div class="part-header">
     <h2>Part 3: Build the sentence</h2>
@@ -375,7 +380,7 @@
 
   <div class="banner" id="finalBanner">
     <h3>Well done</h3>
-    <p>You have matched every pattern, collocation, and sentence. Move on to the Extension activity for higher band vocabulary.</p>
+    <p>You have matched every pattern, description and sentence. Move on to the Extension activity for more precise vocabulary.</p>
   </div>
 
   <button class="reset-link" id="resetBtn">Start again</button>
@@ -405,14 +410,49 @@ const patternPairs = [
   { id: 'p8', phrase: 'dipped, then recovered', d: 'M20,38 C50,34 70,76 90,80 C120,83 150,40 180,24', color: '#F88B48' }
 ];
 
-const collocationPairs = [
-  { id: 'c1', verb: 'rise',     adverb: 'sharply' },
-  { id: 'c2', verb: 'decline',  adverb: 'steadily' },
-  { id: 'c3', verb: 'increase', adverb: 'dramatically' },
-  { id: 'c4', verb: 'decrease', adverb: 'slightly' },
-  { id: 'c5', verb: 'fall',     adverb: 'gradually' },
-  { id: 'c6', verb: 'grow',     adverb: 'marginally' }
+const fitItems = [
+  { d: 'M20,72 C70,68 120,64 180,60', color: '#5FB27B', label: 'A small, gradual increase',
+    opts: [ { t: 'rose slightly', k: 'ok', why: 'the line moved up only a little.' },
+            { t: 'increased steadily', k: 'maybe', why: 'it rose evenly. But “slightly” tells the reader how small the change was.' },
+            { t: 'soared', k: 'no', why: '“Soared” describes a large, rapid rise. This one is small.' } ] },
+  { d: 'M20,88 L180,20', color: '#5FB27B', label: 'A consistent increase over time',
+    opts: [ { t: 'increased steadily', k: 'ok', why: 'the line rose by about the same amount all the way.' },
+            { t: 'rose sharply', k: 'maybe', why: 'The rise is fairly large. But it is even, not sudden, so “steadily” is more precise.' },
+            { t: 'fluctuated', k: 'no', why: 'Fluctuating means going up and down. This line only goes up.' } ] },
+  { d: 'M20,86 C90,84 110,20 180,14', color: '#5FB27B', label: 'A large, rapid increase',
+    opts: [ { t: 'rose sharply', k: 'ok', why: 'a large rise over a short time.' },
+            { t: 'surged', k: 'ok', why: 'Also good: a sudden, strong rise. The graph shows how long it lasted.' },
+            { t: 'edged up', k: 'no', why: '“Edged up” describes a very small rise.' } ] },
+  { d: 'M20,50 L50,24 L80,68 L110,28 L140,62 L180,34', color: '#F88B48', label: 'Repeated rises and falls',
+    opts: [ { t: 'fluctuated', k: 'ok', why: 'it went up and down repeatedly.' },
+            { t: 'rose and fell several times', k: 'ok', why: 'Also accurate, and a useful way to vary “fluctuated”.' },
+            { t: 'remained stable', k: 'no', why: 'A stable line stays flat. This one moves up and down.' } ] }
 ];
+
+function setupFit(host, countEl, onAllDone) {
+  let done = 0;
+  const LAB = { ok: 'Accurate', maybe: 'Possible, less precise', no: 'Inaccurate' };
+  fitItems.forEach((it, i) => {
+    const card = document.createElement('div');
+    card.className = 'fit-card';
+    card.innerHTML = `<div class="fit-graph" role="img" aria-label="${it.label}">${graphSVG(it.d, it.color)}</div><div class="fit-opts">${it.opts.map((o, j) => `<button type="button" class="fit-opt" data-j="${j}">${o.t}</button>`).join('')}<p class="fit-why" aria-live="polite"></p></div>`;
+    host.appendChild(card);
+    let solved = false;
+    card.querySelectorAll('.fit-opt').forEach(b => b.addEventListener('click', () => {
+      const o = it.opts[+b.dataset.j];
+      card.querySelectorAll('.fit-opt').forEach(x => x.classList.remove('sel'));
+      b.classList.add('sel', 'k-' + o.k);
+      const w = card.querySelector('.fit-why');
+      w.className = 'fit-why show k-' + o.k;
+      w.innerHTML = `<b>${LAB[o.k]}.</b> ${o.why.charAt(0).toUpperCase() + o.why.slice(1)}`;
+      if (o.k === 'ok' && !solved) {
+        solved = true; done++;
+        countEl.textContent = `${done} / ${fitItems.length} done`;
+        if (done === fitItems.length) { countEl.classList.add('done'); onAllDone(); }
+      }
+    }));
+  });
+}
 
 const grammarPairs = [
   { id: 'g1', verbSentence: 'Profits decreased slightly between 2010 and 2015.',
@@ -423,8 +463,8 @@ const grammarPairs = [
     before: 'There was a', adjective: 'sharp', noun: 'rise', after: 'in unemployment during the recession.' },
   { id: 'g4', verbSentence: 'Exports fell gradually over the decade.',
     before: 'There was a', adjective: 'gradual', noun: 'fall', after: 'in exports over the decade.' },
-  { id: 'g5', verbSentence: 'Average prices grew steadily throughout the period.',
-    before: 'There was a', adjective: 'steady', noun: 'growth', after: 'in average prices throughout the period.' },
+  { id: 'g5', verbSentence: 'Average prices rose steadily throughout the period.',
+    before: 'There was a', adjective: 'steady', noun: 'rise', after: 'in average prices throughout the period.' },
   { id: 'g6', verbSentence: 'Sales declined steeply in the final year.',
     before: 'There was a', adjective: 'steep', noun: 'decline', after: 'in sales in the final year.' }
 ];
@@ -680,12 +720,12 @@ function init() {
 
   const left1 = document.getElementById('left1');
   const right1 = document.getElementById('right1');
-  const left2 = document.getElementById('left2');
-  const right2 = document.getElementById('right2');
+  const fit2 = document.getElementById('fit2');
   const wordBank = document.getElementById('wordBank');
   const sentenceList = document.getElementById('sentenceList');
   left1.innerHTML = ''; right1.innerHTML = '';
-  left2.innerHTML = ''; right2.innerHTML = '';
+  fit2.innerHTML = '';
+  document.getElementById('count2').textContent = `0 / ${fitItems.length} done`;
   wordBank.innerHTML = ''; sentenceList.innerHTML = '';
 
   setupMatching(patternPairs, left1, right1, document.getElementById('count1'), 8, () => {
@@ -693,7 +733,7 @@ function init() {
     checkAllDone();
   });
 
-  setupMatching(collocationPairs, left2, right2, document.getElementById('count2'), 6, () => {
+  setupFit(fit2, document.getElementById('count2'), () => {
     part2Done = true;
     checkAllDone();
   });

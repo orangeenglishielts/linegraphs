@@ -86,6 +86,7 @@
     .answer-options.six-col { grid-template-columns: 1fr 1fr; }
     .read-grid { grid-template-columns: 1fr; }
   }
+.option-btn.sel-right{border-color:#5FB27B!important;background:#E7F2EB!important}.option-btn.sel-wrong{border-color:#F88B48!important;background:#FCE9DD!important}.explain-box.is-wrong{border-color:#F88B48!important;background:#FCE9DD!important;color:#7A3410!important}
 </style>
 </head>
 <body>
@@ -108,8 +109,7 @@
       <strong>Why this matters:</strong> missing a category in your answer is one of the fastest ways to lose Task Achievement marks.
     </div>
     <div class="reference-link">
-      &#128229; <strong>Download Reference Guide PDF</strong><br>
-      <a href="lesson5_reference_guide.html" target="_blank">&rarr; Click to view/print</a>
+      &#128424; <a href="lesson5_reference_guide.html" target="_blank" rel="noopener"><strong>Open printable reference guide</strong></a>
     </div>
     <div id="readContainer"></div>
     
@@ -130,7 +130,17 @@
     <div class="section-subtitle">Two minutes of planning saves ten minutes of rewriting</div>
     <div class="sentence-builder">
       <div class="task-prompt">The line graph shows average commute times (minutes) in three cities between 2000 and 2020.</div>
-      <label class="plan-label">1. Overview pattern (1&ndash;2 sentences, no numbers)</label>
+      <svg viewBox="0 0 600 300" role="img" aria-label="Average one-way commuting time in three cities, 2000 to 2020. Oakhaven 20, 26, 33, 40, 45 minutes. Tarnbridge 25, 27, 29, 31, 32. Stellmoor 30, 31, 33, 34, 35." style="width:100%;max-width:600px;display:block;margin:0 auto 18px;background:#fff;border-radius:8px">
+<text x="300" y="16" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="700" font-size="13" fill="#292929">Average one-way commuting time (minutes), 2000 to 2020</text>
+<g font-size="11" fill="#666"><line x1="60" y1="252" x2="580" y2="252" stroke="#292929" stroke-width="1.5"/>
+<line x1="60" y1="207.6" x2="580" y2="207.6" stroke="#eee"/><line x1="60" y1="163.2" x2="580" y2="163.2" stroke="#eee"/><line x1="60" y1="118.8" x2="580" y2="118.8" stroke="#eee"/><line x1="60" y1="74.4" x2="580" y2="74.4" stroke="#eee"/><line x1="60" y1="30" x2="580" y2="30" stroke="#eee"/>
+<text x="50" y="256" text-anchor="end">0</text><text x="50" y="211.6" text-anchor="end">10</text><text x="50" y="167.2" text-anchor="end">20</text><text x="50" y="122.8" text-anchor="end">30</text><text x="50" y="78.4" text-anchor="end">40</text><text x="50" y="34" text-anchor="end">50</text>
+<text x="60" y="270" text-anchor="middle">2000</text><text x="190" y="270" text-anchor="middle">2005</text><text x="320" y="270" text-anchor="middle">2010</text><text x="450" y="270" text-anchor="middle">2015</text><text x="580" y="270" text-anchor="middle">2020</text></g>
+<polyline points="60,163.2 190,136.6 320,105.5 450,74.4 580,52.2" fill="none" stroke="#F88B48" stroke-width="3"/>
+<polyline points="60,141 190,132.1 320,123.2 450,114.4 580,109.9" fill="none" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/>
+<polyline points="60,118.8 190,114.4 320,105.5 450,101.0 580,96.6" fill="none" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/>
+<g font-size="12" fill="#292929"><line x1="80" y1="288" x2="105" y2="288" stroke="#F88B48" stroke-width="3"/><text x="110" y="292">Oakhaven</text><line x1="200" y1="288" x2="225" y2="288" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/><text x="230" y="292">Tarnbridge</text><line x1="330" y1="288" x2="355" y2="288" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/><text x="360" y="292">Stellmoor</text></g></svg>
+      <label class="plan-label">1. Overview pattern (the one or two biggest patterns, no detailed figures)</label>
       <textarea id="plan-overview" placeholder="Note the one or two biggest trends..."></textarea>
       <label class="plan-label">2. Paragraph grouping</label>
       <div class="answer-options" id="planGroupingOptions">
@@ -145,10 +155,10 @@
       <button class="reveal-btn" onclick="revealPlan()">Reveal a model plan &rarr;</button>
       <div class="explanation-section" id="exp-plan">
         <div class="explain-box">
-          <strong>Overview:</strong> Overall, commute times increased in all three cities, though one rose far more sharply than the others.<br><br>
-          <strong>Grouping:</strong> By trend &mdash; group the city with the sharp rise separately from the two with gradual change.<br><br>
-          <strong>Body 1 figures:</strong> City with sharp rise: e.g. 20 &rarr; 45 minutes.<br>
-          <strong>Body 2 figures:</strong> Other two cities: e.g. 25 &rarr; 32 minutes, and 30 &rarr; 35 minutes.
+          <strong>Overview:</strong> Overall, commute times increased in all three cities, and Oakhaven's rose far more sharply than the others, going from the shortest commute to the longest.<br><br>
+          <strong>Grouping:</strong> By trend: Oakhaven, with the sharp rise, on its own; Tarnbridge and Stellmoor, with gradual change, together.<br><br>
+          <strong>Body 1 figures:</strong> Oakhaven 20 &rarr; 45 minutes; longest of the three by 2015 (40 against 34 and 31).<br>
+          <strong>Body 2 figures:</strong> Tarnbridge 25 &rarr; 32 minutes; Stellmoor 30 &rarr; 35 minutes.
         </div>
       </div>
     </div>
@@ -231,19 +241,19 @@
     <div class="model-card" style="border-left-color:#5FB27B;">
       <span class="model-label" style="background:#5FB27B;">Overview</span>
       <div class="model-text">&ldquo;Overall, attendance at all three venues rose considerably, and the British Museum consistently attracted far more visitors than the other two. The Science Museum&rsquo;s figures, however, were noticeably more erratic than those of its rivals.&rdquo;</div>
-      <div class="model-note">Two general trends plus one notable feature. No figures at all.</div>
+      <div class="model-note">Two general trends plus one notable feature. It summarises the pattern without recounting detail.</div>
     </div>
 
     <div class="model-card" style="border-left-color:#5AA9E6;">
       <span class="model-label" style="background:#5AA9E6;">Body 1</span>
-      <div class="model-text">&ldquo;The British Museum began at around 2 million visitors in 1990 and <mark class="hl-orange">climbed steadily</mark>, passing 4 million in 2005 before reaching roughly 6 million by 2020. This tripling made it <mark class="hl-blue">by far the most popular</mark> of the three museums in every year shown.&rdquo;</div>
-      <div class="model-note">Varied verbs (‘climbed’, ‘passing’, ‘reaching’) + specific figures + superlative (‘the most popular’).</div>
+      <div class="model-text">&ldquo;Visitor numbers at the British Museum stood at 2 million in 1990 and <mark class="hl-orange">climbed steadily</mark>, passing 4 million in 2005 before reaching 6 million by 2020. Its attendance therefore tripled, and it was <mark class="hl-blue">by far the most popular</mark> of the three museums in every year shown.&rdquo;</div>
+      <div class="model-note">Exact figures from the table, a precise verb (‘climbed steadily’), and two separate observations: the attendance tripled, and it was the most popular every year.</div>
     </div>
 
     <div class="model-card" style="border-left-color:#A98BC9;">
       <span class="model-label" style="background:#A98BC9;">Body 2</span>
-      <div class="model-text">&ldquo;<mark class="hl-green">In contrast</mark>, the other two museums both began under 1 million. <mark class="hl-green">While</mark> the Tate <mark class="hl-orange">grew gradually</mark> from 0.8 million to 3 million, the Science Museum <mark class="hl-orange">fluctuated</mark> considerably. Its numbers more than doubled to 1.3 million in 1995, briefly overtaking the Tate, <mark class="hl-green">but</mark> then <mark class="hl-orange">dipped</mark> to 0.9 million in 2000. After further rises and falls, the Science Museum ended the period at 2.5 million, half a million behind the Tate.&rdquo;</div>
-      <div class="model-note">Linking words (‘in contrast’, ‘while’, ‘but’) + comparative figures + varied verbs (‘grew’, ‘fluctuated’, ‘dipped’).</div>
+      <div class="model-text">&ldquo;<mark class="hl-green">In contrast</mark>, visitor numbers at the other two museums both began under 1 million. <mark class="hl-green">While</mark> the Tate's figure <mark class="hl-orange">grew gradually</mark> from 0.8 million to 3 million, attendance at the Science Museum <mark class="hl-orange">fluctuated</mark> considerably. Its numbers more than doubled to 1.3 million in 1995, briefly overtaking the Tate's, <mark class="hl-green">but</mark> then <mark class="hl-orange">dipped</mark> to 0.9 million in 2000. After further rises and falls, the Science Museum's figure ended the period at 2.5 million, half a million below the Tate's.&rdquo;</div>
+      <div class="model-note">Connections that match the ideas (‘in contrast’, ‘while’, ‘but’), figures compared with figures, and precise verbs (‘grew’, ‘fluctuated’, ‘dipped’).</div>
     </div>
 
     
@@ -252,7 +262,7 @@
         <path d="M44,4 C30,2 10,10 4,28" fill="none" stroke="#C2660E" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1,4"/>
         <path d="M4,28 L9,22 M4,28 L11,29" fill="none" stroke="#C2660E" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
-      <div class="hw-text">See those linking words? That's the difference between a list and a comparison.</div>
+      <div class="hw-text">See how each connection matches the idea? That's the difference between a list and a comparison.</div>
     </div>
     
     <button class="next-btn" onclick="goToSection('edit')">Next &rarr;</button>
@@ -261,7 +271,7 @@
   <!-- SECTION 4: SELF-EDITING -->
   <div class="section" data-section="edit">
     <div class="section-title">Section 4: Self-Editing Checklist</div>
-    <div class="section-subtitle">Each sentence below breaks exactly one checklist rule &mdash; which one?</div>
+    <div class="section-subtitle">Each sentence has one main problem. Which checklist question catches it?</div>
     <div id="editContainer"></div>
     
     <div class="handwritten-note">
@@ -269,7 +279,7 @@
         <path d="M44,4 C30,2 10,10 4,28" fill="none" stroke="#C2660E" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1,4"/>
         <path d="M4,28 L9,22 M4,28 L11,29" fill="none" stroke="#C2660E" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
-      <div class="hw-text">Catching yourself reaching for the same verb twice? That's your cue to vary it.</div>
+      <div class="hw-text">Check the main features, the overview and your comparisons first. Polish the wording last.</div>
     </div>
     
     <button class="next-btn" onclick="goToSection('full')">Next &rarr;</button>
@@ -291,8 +301,8 @@
 <script>
 const SECTIONS = ['read', 'plan', 'model', 'edit', 'full'];
 const READ_DATA = [{"id": "r1", "prompt": "The line graph shows the unemployment rate (%) in three countries between 1995 and 2015.", "type": "Line graph", "period": "1995–2015 (20 years)", "units": "Percentage (%)", "categories": "3"}, {"id": "r2", "prompt": "The graph illustrates the number of electric vehicles sold (in thousands) in five countries from 2015 to 2023.", "type": "Line graph", "period": "2015–2023 (8 years)", "units": "Thousands of units", "categories": "5"}, {"id": "r3", "prompt": "The line graph below shows average household water consumption (litres per day) in two cities between 2000 and 2020.", "type": "Line graph", "period": "2000–2020 (20 years)", "units": "Litres per day", "categories": "2"}, {"id": "r4", "prompt": "The line graph shows the percentage of households with broadband internet access across four regions from 2010 to 2022.", "type": "Line graph", "period": "2010–2022 (12 years)", "units": "Percentage (%)", "categories": "4"}];
-const EDIT_DATA = [{"id": "e1", "text": "The line graph shows internet usage rates. Overall, usage increases steadily and reached 80% by 2020.", "rule": "Tense", "explain": "Breaks: tense. ‘Increases’ (present) and ‘reached’ (past) are mixed within the same period. Since every year on this graph (up to 2020) is already in the past, it should stay in past simple throughout. The rule isn’t ‘always past simple’ though — if a graph extended into projected future years, you’d switch to future forms (will rise, is expected to reach) for that part."}, {"id": "e2", "text": "Overall, City A grew from 2 million to 6 million while City B only reached 3 million.", "rule": "Numbers in overview", "explain": "Breaks: overview free of numbers. Specific figures like ‘2 million’ and ‘3 million’ belong in the body paragraphs, not the overview."}, {"id": "e3", "text": "City A grew steadily. Meanwhile, average rainfall increased too. Then prices in City B rose sharply.", "rule": "Grouping", "explain": "Breaks: logical grouping. These sentences jump between unrelated topics instead of grouping data by category or time period."}, {"id": "e4", "text": "Visitors increased to 6 million. It increased to 3 million. It also increased to 2.5 million.", "rule": "Repeated vocabulary", "explain": "Breaks: varied vocabulary. ‘Increased’ is repeated three times with no comparative or alternative verb."}, {"id": "e5", "text": "The British Museum reached 6 million. The Tate reached 3 million. The Science Museum reached 2.5 million.", "rule": "Linking words", "explain": "Breaks: at least two linking words. There is no ‘while’, ‘in contrast’, or ‘however’ connecting these comparisons."}, {"id": "e6", "text": "By 2020, sales had reached 8 millions, almost triple the figure from 2010.", "rule": "Number formatting", "explain": "Breaks: number formatting. Say ‘8 million’, not ‘8 millions’ — million, thousand, and hundred stay singular whenever a specific number comes right before them."}];
-const RULES = ["Tense", "Numbers in overview", "Grouping", "Repeated vocabulary", "Linking words", "Number formatting"];
+const EDIT_DATA = [{"id": "e1", "text": "Between 2000 and 2020, internet use increases every year, reaching 80% in 2020.", "rule": "Tense", "explain": "Every year on this graph is in the past, so the past simple fits: increased. Future forms are only for projections."}, {"id": "e2", "text": "Overall, City A grew from 2 million to 6 million, while City B only reached 3 million.", "rule": "Overview", "explain": "This overview recounts detailed figures instead of summarising the pattern. Try: both cities grew, and City A stayed well ahead."}, {"id": "e3", "text": "Body 1 describes City A and the first half of City B. Body 2 describes City C and the rest of City B.", "rule": "Grouping", "explain": "City B is split across both paragraphs. Keep each line, or each period, in one logical place."}, {"id": "e4", "text": "In 2020, the British Museum was twice as high as the Tate's figure.", "rule": "Comparison", "explain": "A museum is compared with a figure. Compare figures with figures: visitor numbers at the British Museum were twice as high as at the Tate."}, {"id": "e5", "text": "The Tate's figure increased steadily, while the Science Museum's increased unevenly, and the British Museum's increased the most.", "rule": "Vocabulary", "explain": "The comparisons work, but “increased” appears three times. Grew, rose or climbed would show more range."}, {"id": "e6", "text": "By 2020, sales had reached 8 millions, almost triple the figure for 2010.", "rule": "Number form", "explain": "After a number, million, thousand and hundred have no -s: 8 million."}];
+const RULES = ["Tense","Overview","Grouping","Comparison","Vocabulary","Number form"];
 
 function initNav() {
   const nav = document.getElementById('sectionNav');
@@ -371,22 +381,73 @@ function renderEdit() {
 }
 
 function selectEdit(cardId, answer, correct) {
-  const card = document.getElementById(`exp-${cardId}`).closest('.comparison-card');
+  const exp = document.getElementById(`exp-${cardId}`);
+  const card = exp.closest('.comparison-card');
+  const item = EDIT_DATA.find(x => x.id === cardId);
   card.querySelectorAll('.option-btn').forEach(btn => {
     btn.classList.toggle('selected', btn.textContent === answer);
+    btn.classList.toggle('sel-right', btn.textContent === answer && answer === correct);
+    btn.classList.toggle('sel-wrong', btn.textContent === answer && answer !== correct);
   });
-  if (answer === correct) {
-    document.getElementById(`exp-${cardId}`).classList.add('show');
-  }
+  const box = exp.querySelector('.explain-box');
+  box.classList.toggle('is-wrong', answer !== correct);
+  box.innerHTML = answer === correct ? '<b>Yes.</b> ' + item.explain : `<b>Look again.</b> The main problem here is ${correct.toLowerCase()}. ` + item.explain;
+  exp.classList.add('show');
 }
+
+/* ===== Orange English self-review (shared by Lessons 3 to 6) =====
+   selfReview(host, {id, prompt, rows, placeholder, model, checks, minWords, note})
+   Saves the draft in this browser, counts words, shows a model answer on request with a
+   self-review checklist, and offers Copy and Download. It does not mark the writing. */
+(function(){
+  if(!document.getElementById('sr-css')){const st=document.createElement('style');st.id='sr-css';st.textContent=`
+.sr textarea{width:100%;min-height:140px;font:inherit;font-size:15px;line-height:1.6;border:1.5px solid #E4DED1;border-radius:8px;padding:12px;background:#fff;resize:vertical;display:block}
+.sr textarea:focus{border-color:#292929;outline:none}
+.sr .sr-meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:12.5px;color:#6E6B64;margin:6px 0 10px}
+.sr .sr-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.sr button{font-family:'Montserrat',system-ui,sans-serif;font-weight:700;font-size:13.5px;border-radius:8px;padding:9px 14px;border:1.5px solid #292929;background:#292929;color:#fff;cursor:pointer;min-height:42px}
+.sr button.gh{background:transparent;color:#292929}
+.sr .sr-out{margin-top:14px;display:none}.sr .sr-out.show{display:block}
+.sr .sr-model{background:#E7F2EB;border-left:4px solid #5FB27B;border-radius:0 8px 8px 0;padding:12px 14px;font-size:15px;line-height:1.65}
+.sr .sr-model p+p{margin-top:8px}.sr .sr-lab{font-family:'Montserrat',system-ui,sans-serif;font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#2B6E43;display:block;margin-bottom:4px}
+.sr .sr-checks{list-style:none;display:grid;gap:8px;margin-top:12px;padding:0}
+.sr .sr-checks label{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;cursor:pointer;background:#FAF8F3;border-radius:8px;padding:9px 11px}
+.sr .sr-checks input{width:19px;height:19px;margin-top:2px;accent-color:#2B6E43;flex:none}
+.sr .sr-note{font-size:13px;color:#55534E;background:#FCE9DD;border-left:4px solid #F88B48;border-radius:0 8px 8px 0;padding:9px 12px;margin-top:12px}
+.sr .sr-ready{font-size:14.5px;font-weight:600;margin:12px 0 4px}`;document.head.appendChild(st)}
+  const K=id=>'oe-sr-'+location.pathname.split('/').pop()+'-'+id;
+  const get=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}};
+  const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+  const wc=t=>(String(t).match(/[A-Za-z0-9€£%'’.,-]+/g)||[]).filter(w=>/[A-Za-z0-9]/.test(w)).length;
+  window.selfReview=function(host,o){
+    const st=get(K(o.id),{t:'',c:{},shown:false});
+    host.classList.add('sr');
+    host.innerHTML=`${o.prompt?`<div class="sr-prompt">${o.prompt}</div>`:''}<textarea rows="${o.rows||6}" placeholder="${o.placeholder||'Write here…'}" aria-label="Your answer"></textarea>
+    <div class="sr-meta"><span class="sr-wc">0 words</span><span>Saved in this browser as you type.</span></div>
+    <div class="sr-row"><button type="button" class="sr-show">Show a model answer</button><button type="button" class="gh sr-copy">Copy my answer</button><button type="button" class="gh sr-dl">Download</button><span class="sr-msg" aria-live="polite" style="font-size:13px;color:#55534E"></span></div>
+    <div class="sr-out"><p class="sr-ready">Your draft is ready for self-review.</p><div class="sr-model"><span class="sr-lab">Model answer</span>${o.model}</div>
+    <p style="font-size:14px;margin-top:12px"><b>Check your own writing.</b> Compare it with the model, then tick what is true.</p>
+    <ul class="sr-checks">${o.checks.map((c,i)=>`<li><label><input type="checkbox" data-i="${i}"><span>${c}</span></label></li>`).join('')}</ul>
+    <div class="sr-note">${o.note||'This page does not mark your writing or send it anywhere. If your course includes personal feedback, follow the submission instructions in your course.'}</div></div>`;
+    const ta=host.querySelector('textarea'),out=host.querySelector('.sr-out'),msg=host.querySelector('.sr-msg');
+    ta.value=st.t||'';
+    const upd=()=>{const n=wc(ta.value);host.querySelector('.sr-wc').textContent=n+(n===1?' word':' words')+(o.minWords?` · aim for at least ${o.minWords}`:'')};
+    ta.addEventListener('input',()=>{st.t=ta.value;put(K(o.id),st);upd()});upd();
+    const show=()=>{out.classList.add('show');st.shown=true;put(K(o.id),st)};
+    host.querySelector('.sr-show').onclick=()=>{show();out.scrollIntoView({behavior:'smooth',block:'nearest'})};
+    if(st.shown)show();
+    host.querySelectorAll('.sr-checks input').forEach(c=>{c.checked=!!st.c[c.dataset.i];c.onchange=()=>{st.c[c.dataset.i]=c.checked;put(K(o.id),st)}});
+    const text=()=>(o.title?o.title+'\n\n':'')+ta.value.trim();
+    host.querySelector('.sr-copy').onclick=()=>{const t=text();const fb=()=>{ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}msg.textContent=ok?'Copied.':'Select your text and copy it with your keyboard.'};
+      try{navigator.clipboard.writeText(t).then(()=>msg.textContent='Copied.',fb)}catch(e){fb()}};
+    host.querySelector('.sr-dl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text()],{type:'text/plain;charset=utf-8'}));a.download='orange-english-'+o.id+'.txt';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);msg.textContent='Downloaded.'};
+  };
+})();
 
 function renderFull() {
   const container = document.getElementById('fullContainer');
-  container.innerHTML = `
-    <div class="sentence-builder">
-      <div class="task-prompt">
-        The graph below shows the average number of books read per year by adults in Norway, Japan, and Brazil between 2005 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant. <strong>There is no time limit for this task &mdash; focus on accuracy, not speed.</strong>
-      </div>
+  container.innerHTML = `<div class="sentence-builder">
+      <div class="task-prompt">The graph below shows the average number of books read per year by adults in Norway, Japan and Brazil between 2005 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant. <strong>There is no time limit for this task: focus on accuracy, not speed.</strong></div>
       <svg viewBox="0 0 600 300" style="width: 100%; max-width: 600px; display: block; margin: 0 auto 20px; background: white; border-radius: 8px;">
         <line x1="60" y1="20" x2="60" y2="260" stroke="#292929" stroke-width="1.5"/>
         <line x1="60" y1="260" x2="580" y2="260" stroke="#292929" stroke-width="1.5"/>
@@ -414,39 +475,8 @@ function renderFull() {
         <line x1="80" y1="52" x2="105" y2="52" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/><text x="110" y="56" font-size="12" fill="#292929">Japan</text>
         <line x1="80" y1="70" x2="105" y2="70" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/><text x="110" y="74" font-size="12" fill="#292929">Brazil</text>
       </svg>
-      <textarea id="full-answer" style="min-height: 220px;" placeholder="Write your complete response here..."></textarea>
-      <div id="full-wordcount" style="font-size: 12px; color: var(--mid-grey); margin-top: -8px; margin-bottom: 12px;">0 words</div>
-      <button class="submit-btn" onclick="submitFull()">Submit</button>
-      
-    <div class="handwritten-note">
-      <svg class="hw-arrow" width="46" height="34" viewBox="0 0 46 34" xmlns="http://www.w3.org/2000/svg">
-        <path d="M44,4 C30,2 10,10 4,28" fill="none" stroke="#C2660E" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1,4"/>
-        <path d="M4,28 L9,22 M4,28 L11,29" fill="none" stroke="#C2660E" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
-      <div class="hw-text">Examiners notice every box on this list &mdash; tick them all before you submit.</div>
-    </div>
-    
-      <div class="checklist">
-        <div class="ct">Self-editing checklist:</div>
-        &#9744; Is the tense correct for the time frame (past simple for completed years, future forms for any years still to come)?<br>
-        &#9744; Is the overview free of numbers?<br>
-        &#9744; Are body paragraphs grouped logically?<br>
-        &#9744; Is vocabulary varied, no repeated verbs?<br>
-        &#9744; Are at least two linking words used (while, in contrast, however)?<br>
-        &#9744; Are million/thousand/hundred singular after a number (5 million, not 5 millions)?
-      </div>
-    </div>
-  `;
-  document.getElementById('full-answer').addEventListener('input', () => {
-    const words = document.getElementById('full-answer').value.trim().split(/\s+/).filter(Boolean).length;
-    document.getElementById('full-wordcount').textContent = `${words} words`;
-  });
-}
-
-function submitFull() {
-  const ans = document.getElementById('full-answer').value;
-  const words = ans.trim().split(/\s+/).filter(Boolean).length;
-  alert(words >= 150 ? `\u2713 Good length (${words} words)! Now run through the self-editing checklist below.` : `Keep writing \u2014 you have ${words} words, aim for 150+.`);
+      <div id="sr-full"></div></div>`;
+  selfReview(document.getElementById('sr-full'), { id: 'full', rows: 12, minWords: 150, title: 'Books read per year', model: "<p>The line graph illustrates how many books an average adult read each year in Norway, Japan and Brazil over the fifteen-year period from 2005 to 2020.</p><p>Overall, adults in all three countries were reading more books by the end of the period. Norway had the highest figures throughout, while Brazil had the lowest, although the gap between Brazil and Japan narrowed considerably.</p><p>In 2005, the average adult in Norway read 12 books a year, compared with 10 in Japan. Over the next fifteen years, the Norwegian figure climbed steadily to 19, whereas Japan's rose only modestly, reaching 12 books by 2020. As a result, the gap between the two countries widened from 2 books to 7.</p><p>Brazil started from a much lower base, at just 3 books per adult in 2005. Its figure grew gradually to 5.5 in 2015 and then increased more sharply, to 8 books in 2020. As a result, Brazil more than doubled its starting figure, and the gap with Japan had narrowed from 7 books to 4.</p>", checks: ["Have I selected and supported the main features accurately?", "Is my overview clear?", "Are my comparisons between equivalent measurements?", "Is my grouping logical?", "Are my vocabulary and tense appropriate?", "Do the connections between my sentences make sense?"] });
 }
 
 initNav();
