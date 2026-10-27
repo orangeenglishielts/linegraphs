@@ -385,43 +385,43 @@
 const TASKS = [
   {
     id: 'museums',
-    name: 'Task 1',
+    name: 'Exercise 1',
     question: 'The line graph shows the number of visitors to three major museums in London from 2010 to 2020. <strong>Select</strong> the main features, <strong>describe</strong> the data accurately, and <strong>compare</strong> the trends.',
-    graph: '<svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><defs><style>.line{fill:none;stroke-width:2;stroke-linecap:round}.axis{stroke:#D1D5DB;stroke-width:1}.label{font-size:9px;fill:#6B7280;font-family:Inter}</style></defs><line x1="20" y1="130" x2="190" y2="130" class="axis"/><line x1="20" y1="20" x2="20" y2="130" class="axis"/><polyline points="25,120 50,110 75,95 100,70 125,50 150,40 175,30" class="line" stroke="#F88B48"/><polyline points="25,100 50,105 75,100 100,90 125,75 150,70 175,65" class="line" stroke="#5FB27B"/><polyline points="25,125 50,125 75,120 100,100 125,80 150,50 175,30" class="line" stroke="#5AA9E6"/><text x="100" y="145" text-anchor="middle" class="label">Years</text><text x="10" y="75" text-anchor="end" class="label">Visitors</text></svg>',
+    graph: '<svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><defs><style>.line{fill:none;stroke-width:2;stroke-linecap:round}.axis{stroke:#D1D5DB;stroke-width:1}.label{font-size:9px;fill:#6B7280;font-family:Inter}</style></defs><line x1="20" y1="130" x2="190" y2="130" class="axis"/><line x1="20" y1="20" x2="20" y2="130" class="axis"/><polyline points="25,90 55,78 85,60 115,44 145,30 175,40" class="line" stroke="#F88B48"/><polyline points="25,70 55,66 85,62 115,58 145,54 175,50" class="line" stroke="#5FB27B"/><polyline points="25,110 55,108 85,110 115,94 145,70 175,46" class="line" stroke="#5AA9E6"/><text x="100" y="145" text-anchor="middle" class="label">Years</text><text x="10" y="75" text-anchor="end" class="label">Visitors</text></svg>',
     nounGroups: [
       { 
         label: 'VISITORS / PEOPLE',
-        synonyms: ['holiday makers', 'tourists', 'attendees', 'museum-goers', 'patrons'],
+        synonyms: ['visitors', 'museum-goers', 'attendees', 'patrons'],
         blanks: 3
       },
       { 
         label: 'MUSEUMS / INSTITUTIONS',
-        synonyms: ['cultural institutions', 'heritage sites', 'attractions', 'galleries'],
-        blanks: 1
+        synonyms: ['institutions', 'cultural institutions', 'galleries', 'attractions'],
+        blanks: 2
       },
       { 
         label: 'NUMBERS / FIGURES',
-        synonyms: ['visitor statistics', 'attendance figures', 'footfall', 'visitor trends'],
-        blanks: 2
+        synonyms: ['visitor numbers', 'attendance figures', 'visitor statistics', 'footfall'],
+        blanks: 4
       },
       { 
         label: 'PERIOD / YEARS',
-        synonyms: ['decade', 'span', 'period'],
-        blanks: 2
+        synonyms: ['decade', 'period', 'timeframe', 'span'],
+        blanks: 3
       }
     ],
-    gapfill: 'The line graph illustrates the number of ___blank_1___ to three major ___blank_2___ in London over a ten-year ___blank_3___. Overall, ___blank_4___ to all institutions rose during this period, though individual ___blank_5___ varied considerably.\n\nThe British Museum maintained the highest ___blank_6___ throughout the decade, starting at 5 million ___blank_7___ and reaching approximately 6 million by 2020. In contrast, the National Gallery experienced more dramatic growth. ___blank_8___ to this institution climbed steadily from 4 million, peaking at 7 million in 2019 before declining slightly to 6.5 million in the final ___blank_9___.\n\nThe V&A Museum showed the most volatile pattern. ___blank_10___ remained relatively flat for the first five years at around 3 million, then surged dramatically in the latter half of the ___blank_11___. By 2020, ___blank_12___ had overtaken the Natural History Museum, reaching 5.5 million.'
+    gapfill: 'The line graph illustrates the number of ___blank_1___ to three major ___blank_2___ in London over a ten-year ___blank_3___. Overall, ___blank_4___ at all three ___blank_5___ rose during this period, although the British Museum, which began with the highest figure, was overtaken by both of the others.\n\nThe British Museum attracted 5 million ___blank_6___ in 2010, and its ___blank_7___ rose gradually to 6 million by 2020. In contrast, the National Gallery experienced more dramatic growth. Its ___blank_8___ climbed steadily from 4 million, peaking at 7 million in 2018 before declining slightly to 6.5 million at the end of the ___blank_9___.\n\nThe V&A showed the most uneven pattern. Its ___blank_10___ remained relatively flat at around 3 million for the first half of the ___blank_11___, then surged in the second half. By 2020, the V&A had overtaken the British Museum, welcoming 6.2 million ___blank_12___.'
   },
   {
     id: 'coffee',
-    name: 'Task 2',
-    question: 'The graph shows consumption of coffee and tea in five countries between 2010 and 2020. <strong>Select</strong> key differences, <strong>describe</strong> consumption patterns, and <strong>compare</strong> countries.',
+    name: 'Exercise 2',
+    question: 'The graph shows consumption of coffee and tea in three countries between 2010 and 2020. <strong>Select</strong> key differences, <strong>describe</strong> consumption patterns, and <strong>compare</strong> countries.',
     graph: '<svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><defs><style>.line{fill:none;stroke-width:2;stroke-linecap:round}.axis{stroke:#D1D5DB;stroke-width:1}.label{font-size:9px;fill:#6B7280;font-family:Inter}</style></defs><line x1="20" y1="130" x2="190" y2="130" class="axis"/><line x1="20" y1="20" x2="20" y2="130" class="axis"/><polyline points="25,120 75,100 125,70 175,40" class="line" stroke="#F88B48"/><polyline points="25,110 75,105 125,85 175,60" class="line" stroke="#5FB27B"/><polyline points="25,100 75,95 125,80 175,70" class="line" stroke="#5AA9E6"/><text x="100" y="145" text-anchor="middle" class="label">Years</text><text x="10" y="75" text-anchor="end" class="label">Consumption</text></svg>',
     nounGroups: [
       { 
         label: 'CONSUMPTION / INTAKE',
-        synonyms: ['intake', 'usage', 'demand', 'per capita figures'],
-        blanks: 3
+        synonyms: ['intake', 'usage', 'demand', 'per capita figures', 'consumption levels'],
+        blanks: 5
       },
       { 
         label: 'BEVERAGES / DRINKS',
@@ -431,7 +431,7 @@ const TASKS = [
       { 
         label: 'PEOPLE / INDIVIDUALS',
         synonyms: ['individuals', 'populations', 'consumers', 'households'],
-        blanks: 2
+        blanks: 3
       },
       { 
         label: 'PERIOD',
@@ -439,11 +439,11 @@ const TASKS = [
         blanks: 1
       }
     ],
-    gapfill: 'The graph shows ___blank_1___ of coffee and tea in five countries between 2010 and 2020. Overall, ___blank_2___ of both ___blank_3___ increased across all nations, with coffee demonstrating more pronounced growth than tea.\n\nIn 2010, ___blank_4___ in the UK consumed approximately 2.5 kg of coffee annually, while tea ___blank_5___ stood at 1.8 kg. By 2020, coffee ___blank_6___ had risen to 3.2 kg per capita, representing a 28% increase. Tea consumption, meanwhile, remained relatively stable at 1.9 kg, showing only marginal growth throughout the ___blank_7___.\n\nGermany and Italy displayed contrasting patterns. Italian ___blank_8___ favoured coffee heavily from the outset, with ___blank_9___ climbing from 5.5 kg to 6.8 kg.'
+    gapfill: 'The graph shows ___blank_1___ of coffee and tea in three countries between 2010 and 2020. Overall, ___blank_2___ of both ___blank_3___ increased in all three nations, with coffee showing more pronounced growth than tea.\n\nIn 2010, ___blank_4___ in the UK consumed approximately 2.5 kg of coffee each, while tea ___blank_5___ stood at 1.8 kg. By 2020, coffee ___blank_6___ had risen to 3.2 kg per capita, an increase of 28%. Tea consumption, meanwhile, remained relatively stable, edging up to just 1.9 kg by the end of the ___blank_7___.\n\nItaly and Germany displayed contrasting preferences. Italian ___blank_8___ favoured coffee heavily from the outset, with ___blank_9___ climbing from 5.5 kg to 6.8 kg. German ___blank_10___, by contrast, drank considerably more tea than Italians did, although coffee remained the more popular of the two ___blank_11___ in both countries.'
   },
   {
     id: 'internet',
-    name: 'Task 3',
+    name: 'Exercise 3',
     question: 'The line graph presents internet access across age groups in the US from 2005 to 2020. <strong>Select</strong> the main trends, <strong>describe</strong> adoption rates, and <strong>compare</strong> age groups.',
     graph: '<svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"><defs><style>.line{fill:none;stroke-width:2;stroke-linecap:round}.axis{stroke:#D1D5DB;stroke-width:1}.label{font-size:9px;fill:#6B7280;font-family:Inter}</style></defs><line x1="20" y1="130" x2="190" y2="130" class="axis"/><line x1="20" y1="20" x2="20" y2="130" class="axis"/><polyline points="25,120 75,80 125,40 175,25" class="line" stroke="#F88B48"/><polyline points="25,100 75,75 125,50 175,35" class="line" stroke="#5FB27B"/><polyline points="25,90 75,80 125,60 175,45" class="line" stroke="#5AA9E6"/><polyline points="25,80 75,70 125,50 175,30" class="line" stroke="#E64A3C"/><text x="100" y="145" text-anchor="middle" class="label">Years</text><text x="10" y="75" text-anchor="end" class="label">Adoption %</text></svg>',
     nounGroups: [
@@ -460,7 +460,7 @@ const TASKS = [
       { 
         label: 'AGE GROUPS',
         synonyms: ['age brackets', 'age categories', 'cohorts'],
-        blanks: 1
+        blanks: 2
       }
     ],
     gapfill: 'The line graph presents the percentage of ___blank_1___ accessing the internet across four ___blank_2___ in the United States from 2005 to 2020. Overall, ___blank_3___ increased substantially across all demographics, with younger ___blank_4___ demonstrating near-universal access by the end of the period.\n\nIn 2005, only 58% of ___blank_5___ aged 18-30 had internet access, while ___blank_6___ aged 65+ showed significantly lower ___blank_7___, at just 12%. This gap narrowed considerably over the following years.'
@@ -499,7 +499,7 @@ function renderTask() {
     </div>
 
     <div class="instructions">
-      <strong>How to use:</strong> Drag a synonym from the coloured groups below and drop it into a blank in the response. Try to use variety—don't use the same word twice!
+      <strong>How to use:</strong> Drag a synonym from the coloured groups below and drop it into a blank in the response. Try to use variety, so don't use the same word twice!
     </div>
   `;
 

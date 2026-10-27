@@ -169,32 +169,81 @@
     <div class="section-title">Section 3: A Full Example, Annotated</div>
     <div class="section-subtitle">One graph, one complete response &mdash; see exactly why each part works</div>
     <div class="task-prompt">The graph below shows the number of visitors to three London museums between 1990 and 2020.</div>
+      <svg viewBox="0 0 600 300" style="width: 100%; max-width: 600px; display: block; margin: 0 auto 20px; background: white; border-radius: 8px;" role="img" aria-label="Line graph of visitors to three London museums, 1990 to 2020">
+        <line x1="60" y1="20" x2="60" y2="260" stroke="#292929" stroke-width="1.5"/>
+        <line x1="60" y1="260" x2="580" y2="260" stroke="#292929" stroke-width="1.5"/>
+        <line x1="60" y1="230" x2="580" y2="230" stroke="#eee" stroke-width="1"/>
+        <line x1="60" y1="200" x2="580" y2="200" stroke="#eee" stroke-width="1"/>
+        <line x1="60" y1="170" x2="580" y2="170" stroke="#eee" stroke-width="1"/>
+        <line x1="60" y1="140" x2="580" y2="140" stroke="#eee" stroke-width="1"/>
+        <line x1="60" y1="110" x2="580" y2="110" stroke="#eee" stroke-width="1"/>
+        <line x1="60" y1="80" x2="580" y2="80" stroke="#eee" stroke-width="1"/>
+        <line x1="60" y1="50" x2="580" y2="50" stroke="#eee" stroke-width="1"/>
+        <line x1="60" y1="20" x2="580" y2="20" stroke="#eee" stroke-width="1"/>
+        <text x="50" y="264" font-size="11" text-anchor="end" fill="#666">0</text>
+        <text x="50" y="234" font-size="11" text-anchor="end" fill="#666">1</text>
+        <text x="50" y="204" font-size="11" text-anchor="end" fill="#666">2</text>
+        <text x="50" y="174" font-size="11" text-anchor="end" fill="#666">3</text>
+        <text x="50" y="144" font-size="11" text-anchor="end" fill="#666">4</text>
+        <text x="50" y="114" font-size="11" text-anchor="end" fill="#666">5</text>
+        <text x="50" y="84" font-size="11" text-anchor="end" fill="#666">6</text>
+        <text x="50" y="54" font-size="11" text-anchor="end" fill="#666">7</text>
+        <text x="50" y="24" font-size="11" text-anchor="end" fill="#666">8</text>
+        <text x="60" y="280" font-size="11" text-anchor="middle" fill="#666">1990</text>
+        <text x="147" y="280" font-size="11" text-anchor="middle" fill="#666">1995</text>
+        <text x="233" y="280" font-size="11" text-anchor="middle" fill="#666">2000</text>
+        <text x="320" y="280" font-size="11" text-anchor="middle" fill="#666">2005</text>
+        <text x="407" y="280" font-size="11" text-anchor="middle" fill="#666">2010</text>
+        <text x="493" y="280" font-size="11" text-anchor="middle" fill="#666">2015</text>
+        <text x="580" y="280" font-size="11" text-anchor="middle" fill="#666">2020</text>
+        <text x="320" y="297" font-size="12" text-anchor="middle" fill="#292929" font-weight="700">Visitors per year (millions)</text>
+        <polyline points="60,200 147,182 233,158 320,137 407,113 493,95 580,80" fill="none" stroke="#F88B48" stroke-width="3"/>
+        <circle cx="60" cy="200" r="4" fill="#F88B48"/><circle cx="147" cy="182" r="4" fill="#F88B48"/><circle cx="233" cy="158" r="4" fill="#F88B48"/><circle cx="320" cy="137" r="4" fill="#F88B48"/><circle cx="407" cy="113" r="4" fill="#F88B48"/><circle cx="493" cy="95" r="4" fill="#F88B48"/><circle cx="580" cy="80" r="4" fill="#F88B48"/>
+        <polyline points="60,236 147,227 233,215 320,206 407,194 493,182 580,170" fill="none" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/>
+        <circle cx="60" cy="236" r="4" fill="#5FB27B"/><circle cx="147" cy="227" r="4" fill="#5FB27B"/><circle cx="233" cy="215" r="4" fill="#5FB27B"/><circle cx="320" cy="206" r="4" fill="#5FB27B"/><circle cx="407" cy="194" r="4" fill="#5FB27B"/><circle cx="493" cy="182" r="4" fill="#5FB27B"/><circle cx="580" cy="170" r="4" fill="#5FB27B"/>
+        <polyline points="60,242 147,221 233,233 320,212 407,224 493,200 580,185" fill="none" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/>
+        <circle cx="60" cy="242" r="4" fill="#292929"/><circle cx="147" cy="221" r="4" fill="#292929"/><circle cx="233" cy="233" r="4" fill="#292929"/><circle cx="320" cy="212" r="4" fill="#292929"/><circle cx="407" cy="224" r="4" fill="#292929"/><circle cx="493" cy="200" r="4" fill="#292929"/><circle cx="580" cy="185" r="4" fill="#292929"/>
+        <line x1="80" y1="34" x2="105" y2="34" stroke="#F88B48" stroke-width="3"/><text x="110" y="38" font-size="12" fill="#292929">British Museum</text>
+        <line x1="80" y1="52" x2="105" y2="52" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/><text x="110" y="56" font-size="12" fill="#292929">Tate</text>
+        <line x1="80" y1="70" x2="105" y2="70" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/><text x="110" y="74" font-size="12" fill="#292929">Science Museum</text>
+      </svg>
+      <div style="overflow-x: auto; margin: 0 auto 20px; max-width: 600px;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 12px; background: white; border-radius: 8px;">
+        <caption style="caption-side: top; text-align: left; font-size: 12px; color: var(--mid-grey); padding-bottom: 6px;">Data shown in the graph (visitors, millions)</caption>
+        <thead><tr style="background: #292929; color: white;"><th style="padding: 6px 8px; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 700; text-align: left;">Museum</th><th style="padding: 6px 8px; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 700;">1990</th><th style="padding: 6px 8px; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 700;">1995</th><th style="padding: 6px 8px; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 700;">2000</th><th style="padding: 6px 8px; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 700;">2005</th><th style="padding: 6px 8px; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 700;">2010</th><th style="padding: 6px 8px; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 700;">2015</th><th style="padding: 6px 8px; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 700;">2020</th></tr></thead>
+        <tbody>
+          <tr><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8; text-align: left; font-weight: 600;">British Museum</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">2.0</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">2.6</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">3.4</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">4.1</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">4.9</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">5.5</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">6.0</td></tr>
+          <tr><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8; text-align: left; font-weight: 600;">Tate</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">0.8</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">1.1</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">1.5</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">1.8</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">2.2</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">2.6</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">3.0</td></tr>
+          <tr><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8; text-align: left; font-weight: 600;">Science Museum</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">0.6</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">1.3</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">0.9</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">1.6</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">1.2</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">2.0</td><td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #E5E1D8;">2.5</td></tr>
+        </tbody>
+      </table>
+      </div>
     <div class="critical-rule">
-      <strong>Watch the numbers:</strong> notice every figure below is &ldquo;2 million&rdquo;, &ldquo;6 million&rdquo;, &ldquo;3 million&rdquo; &mdash; never &ldquo;millions&rdquo;. Million, thousand, and hundred stay singular whenever a specific number comes right before them.
+      <strong>Watch the numbers:</strong> notice every figure below is &ldquo;2 million&rdquo;, &ldquo;6 million&rdquo;, &ldquo;3 million&rdquo;, never &ldquo;millions&rdquo;. Million, thousand, and hundred stay singular whenever a specific number comes right before them.
     </div>
     
     <div class="model-card" style="border-left-color:#F88B48;">
       <span class="model-label" style="background:#F88B48;">Introduction</span>
-      <div class="model-text">&ldquo;The line graph illustrates how many people visited three London museums over the 30-year period from 1990 to 2020.&rdquo;</div>
+      <div class="model-text">&ldquo;The line graph illustrates how many people visited three London museums, namely the British Museum, the Tate and the Science Museum, over the 30-year period from 1990 to 2020.&rdquo;</div>
       <div class="model-note">Paraphrases the prompt — new structure, same categories.</div>
     </div>
 
     <div class="model-card" style="border-left-color:#5FB27B;">
       <span class="model-label" style="background:#5FB27B;">Overview</span>
-      <div class="model-text">&ldquo;Overall, one museum consistently attracted far more visitors than the other two, while numbers at all three venues rose considerably.&rdquo;</div>
-      <div class="model-note">Two general trends. No figures at all.</div>
+      <div class="model-text">&ldquo;Overall, attendance at all three venues rose considerably, and the British Museum consistently attracted far more visitors than the other two. The Science Museum&rsquo;s figures, however, were noticeably more erratic than those of its rivals.&rdquo;</div>
+      <div class="model-note">Two general trends plus one notable feature. No figures at all.</div>
     </div>
 
     <div class="model-card" style="border-left-color:#5AA9E6;">
       <span class="model-label" style="background:#5AA9E6;">Body 1</span>
-      <div class="model-text">&ldquo;The British Museum began at around 2 million in 1990 and <mark class="hl-orange">climbed steadily</mark> to roughly 6 million by 2020, remaining the <mark class="hl-blue">most popular</mark> throughout.&rdquo;</div>
-      <div class="model-note">Varied verb (‘climbed’) + specific figures + superlative (‘most popular’).</div>
+      <div class="model-text">&ldquo;The British Museum began at around 2 million visitors in 1990 and <mark class="hl-orange">climbed steadily</mark>, passing 4 million in 2005 before reaching roughly 6 million by 2020. This tripling made it <mark class="hl-blue">by far the most popular</mark> of the three museums in every year shown.&rdquo;</div>
+      <div class="model-note">Varied verbs (‘climbed’, ‘passing’, ‘reaching’) + specific figures + superlative (‘the most popular’).</div>
     </div>
 
     <div class="model-card" style="border-left-color:#A98BC9;">
       <span class="model-label" style="background:#A98BC9;">Body 2</span>
-      <div class="model-text">&ldquo;<mark class="hl-green">In contrast</mark>, the other two began under 1 million. <mark class="hl-green">While</mark> the Tate <mark class="hl-orange">grew gradually</mark> to 3 million, the Science Museum <mark class="hl-orange">fluctuated</mark> before reaching 2.5 million.&rdquo;</div>
-      <div class="model-note">Two linking words (‘in contrast’, ‘while’) + comparative figures + varied verbs (‘grew’, ‘fluctuated’).</div>
+      <div class="model-text">&ldquo;<mark class="hl-green">In contrast</mark>, the other two museums both began under 1 million. <mark class="hl-green">While</mark> the Tate <mark class="hl-orange">grew gradually</mark> from 0.8 million to 3 million, the Science Museum <mark class="hl-orange">fluctuated</mark> considerably. Its numbers more than doubled to 1.3 million in 1995, briefly overtaking the Tate, <mark class="hl-green">but</mark> then <mark class="hl-orange">dipped</mark> to 0.9 million in 2000. After further rises and falls, the Science Museum ended the period at 2.5 million, half a million behind the Tate.&rdquo;</div>
+      <div class="model-note">Linking words (‘in contrast’, ‘while’, ‘but’) + comparative figures + varied verbs (‘grew’, ‘fluctuated’, ‘dipped’).</div>
     </div>
 
     
@@ -241,7 +290,7 @@
 
 <script>
 const SECTIONS = ['read', 'plan', 'model', 'edit', 'full'];
-const READ_DATA = [{"id": "r1", "prompt": "The line graph shows the unemployment rate (%) in three countries between 1995 and 2015.", "type": "Line graph", "period": "1995–2015 (20 years)", "units": "Percentage (%)", "categories": "3"}, {"id": "r2", "prompt": "The graph illustrates the number of electric vehicles sold (in thousands) in five countries from 2015 to 2023.", "type": "Line graph", "period": "2015–2023 (8 years)", "units": "Thousands of units", "categories": "5"}, {"id": "r3", "prompt": "The line graph below shows average household water consumption (litres per day) in two cities between 2000 and 2020.", "type": "Line graph", "period": "2000–2020 (20 years)", "units": "Litres per day", "categories": "2"}, {"id": "r4", "prompt": "The chart shows the percentage of households with broadband internet access across four regions from 2010 to 2022.", "type": "Line graph", "period": "2010–2022 (12 years)", "units": "Percentage (%)", "categories": "4"}];
+const READ_DATA = [{"id": "r1", "prompt": "The line graph shows the unemployment rate (%) in three countries between 1995 and 2015.", "type": "Line graph", "period": "1995–2015 (20 years)", "units": "Percentage (%)", "categories": "3"}, {"id": "r2", "prompt": "The graph illustrates the number of electric vehicles sold (in thousands) in five countries from 2015 to 2023.", "type": "Line graph", "period": "2015–2023 (8 years)", "units": "Thousands of units", "categories": "5"}, {"id": "r3", "prompt": "The line graph below shows average household water consumption (litres per day) in two cities between 2000 and 2020.", "type": "Line graph", "period": "2000–2020 (20 years)", "units": "Litres per day", "categories": "2"}, {"id": "r4", "prompt": "The line graph shows the percentage of households with broadband internet access across four regions from 2010 to 2022.", "type": "Line graph", "period": "2010–2022 (12 years)", "units": "Percentage (%)", "categories": "4"}];
 const EDIT_DATA = [{"id": "e1", "text": "The line graph shows internet usage rates. Overall, usage increases steadily and reached 80% by 2020.", "rule": "Tense", "explain": "Breaks: tense. ‘Increases’ (present) and ‘reached’ (past) are mixed within the same period. Since every year on this graph (up to 2020) is already in the past, it should stay in past simple throughout. The rule isn’t ‘always past simple’ though — if a graph extended into projected future years, you’d switch to future forms (will rise, is expected to reach) for that part."}, {"id": "e2", "text": "Overall, City A grew from 2 million to 6 million while City B only reached 3 million.", "rule": "Numbers in overview", "explain": "Breaks: overview free of numbers. Specific figures like ‘2 million’ and ‘3 million’ belong in the body paragraphs, not the overview."}, {"id": "e3", "text": "City A grew steadily. Meanwhile, average rainfall increased too. Then prices in City B rose sharply.", "rule": "Grouping", "explain": "Breaks: logical grouping. These sentences jump between unrelated topics instead of grouping data by category or time period."}, {"id": "e4", "text": "Visitors increased to 6 million. It increased to 3 million. It also increased to 2.5 million.", "rule": "Repeated vocabulary", "explain": "Breaks: varied vocabulary. ‘Increased’ is repeated three times with no comparative or alternative verb."}, {"id": "e5", "text": "The British Museum reached 6 million. The Tate reached 3 million. The Science Museum reached 2.5 million.", "rule": "Linking words", "explain": "Breaks: at least two linking words. There is no ‘while’, ‘in contrast’, or ‘however’ connecting these comparisons."}, {"id": "e6", "text": "By 2020, sales had reached 8 millions, almost triple the figure from 2010.", "rule": "Number formatting", "explain": "Breaks: number formatting. Say ‘8 million’, not ‘8 millions’ — million, thousand, and hundred stay singular whenever a specific number comes right before them."}];
 const RULES = ["Tense", "Numbers in overview", "Grouping", "Repeated vocabulary", "Linking words", "Number formatting"];
 
@@ -361,9 +410,9 @@ function renderFull() {
         <circle cx="60" cy="140" r="4" fill="#5FB27B"/><circle cx="233" cy="128" r="4" fill="#5FB27B"/><circle cx="407" cy="122" r="4" fill="#5FB27B"/><circle cx="580" cy="116" r="4" fill="#5FB27B"/>
         <polyline points="60,224 233,212 407,194 580,164" fill="none" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/>
         <circle cx="60" cy="224" r="4" fill="#292929"/><circle cx="233" cy="212" r="4" fill="#292929"/><circle cx="407" cy="194" r="4" fill="#292929"/><circle cx="580" cy="164" r="4" fill="#292929"/>
-        <line x1="400" y1="34" x2="425" y2="34" stroke="#F88B48" stroke-width="3"/><text x="430" y="38" font-size="12" fill="#292929">Norway</text>
-        <line x1="400" y1="52" x2="425" y2="52" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/><text x="430" y="56" font-size="12" fill="#292929">Japan</text>
-        <line x1="400" y1="70" x2="425" y2="70" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/><text x="430" y="74" font-size="12" fill="#292929">Brazil</text>
+        <line x1="80" y1="34" x2="105" y2="34" stroke="#F88B48" stroke-width="3"/><text x="110" y="38" font-size="12" fill="#292929">Norway</text>
+        <line x1="80" y1="52" x2="105" y2="52" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/><text x="110" y="56" font-size="12" fill="#292929">Japan</text>
+        <line x1="80" y1="70" x2="105" y2="70" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/><text x="110" y="74" font-size="12" fill="#292929">Brazil</text>
       </svg>
       <textarea id="full-answer" style="min-height: 220px;" placeholder="Write your complete response here..."></textarea>
       <div id="full-wordcount" style="font-size: 12px; color: var(--mid-grey); margin-top: -8px; margin-bottom: 12px;">0 words</div>
