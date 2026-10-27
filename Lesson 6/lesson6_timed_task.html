@@ -141,9 +141,9 @@
 
       <div class="wt-row"><span class="wt-part">Overview</span><span class="wt-words">30–40 words</span></div>
 
-      <div class="wt-row"><span class="wt-part">Body Paragraph 1</span><span class="wt-words">40–50 words</span></div>
+      <div class="wt-row"><span class="wt-part">Body Paragraph 1</span><span class="wt-words">50–60 words</span></div>
 
-      <div class="wt-row"><span class="wt-part">Body Paragraph 2</span><span class="wt-words">40–50 words</span></div>
+      <div class="wt-row"><span class="wt-part">Body Paragraph 2</span><span class="wt-words">50–60 words</span></div>
 
     </div>
     <div class="section-subtitle" style="margin-top:24px; margin-bottom:14px;"><strong style="color:var(--dark);">Same data, two outcomes:</strong></div>
@@ -238,29 +238,29 @@
 
   <!-- SECTION 4: PEER FEEDBACK -->
   <div class="section" data-section="peer">
-    <div class="section-title">Section 4: Peer Feedback</div>
-    <div class="section-subtitle">Get a second pair of eyes on your response &mdash; and practise the checklist on someone else's</div>
+    <div class="section-title">Section 4: Feedback &amp; Review</div>
+    <div class="section-subtitle">Get expert feedback on your response, or review it yourself with fresh eyes</div>
     <div class="comparison-card">
       <ol class="peer-steps">
-        <li>Post your finished response in this lesson's <strong>Discussion</strong> below.</li>
-        <li>Read two classmates' responses.</li>
-        <li>For each one, check the four things below and leave one specific comment.</li>
+        <li><strong>Send it to me for feedback</strong>, or put it aside for a few hours so you can review it with fresh eyes.</li>
+        <li>Reread your response slowly, as if an examiner were reading it.</li>
+        <li>Check the four things below and write one specific comment on what to improve next time.</li>
       </ol>
       <div class="feedback-checks">
-        <strong style="color:var(--green-dark);">When reviewing a classmate's response, check:</strong>
+        <strong style="color:var(--green-dark);">When reviewing your response, check:</strong>
         <ul style="margin-top:8px; margin-left:18px;">
           <li>Does the introduction paraphrase the question (not copy it)?</li><li>Is the overview free of numbers?</li><li>Are the body paragraphs grouped logically?</li><li>Is the tense appropriate for the time frame shown?</li>
         </ul>
       </div>
       <div class="critical-rule" style="margin-bottom:10px;"><strong>Useful starters for your comment:</strong></div>
-      <span class="starter-chip">I like how you...</span><span class="starter-chip">One thing I'd check is...</span><span class="starter-chip">Have you considered...</span><span class="starter-chip">Your strongest paragraph was... because...</span>
+      <span class="starter-chip">I did well at...</span><span class="starter-chip">One thing I'd check is...</span><span class="starter-chip">Next time, I will...</span><span class="starter-chip">My strongest paragraph was... because...</span>
     </div>
     <div class="handwritten-note">
       <svg class="hw-arrow" width="46" height="34" viewBox="0 0 46 34" xmlns="http://www.w3.org/2000/svg">
         <path d="M44,4 C30,2 10,10 4,28" fill="none" stroke="#C2660E" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1,4"/>
         <path d="M4,28 L9,22 M4,28 L11,29" fill="none" stroke="#C2660E" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
-      <div class="hw-text">Spotting someone else's mistakes is one of the fastest ways to stop making your own.</div>
+      <div class="hw-text">Reading your response the way an examiner would is one of the fastest ways to stop repeating the same mistakes.</div>
     </div>
   </div>
 </div>
@@ -275,7 +275,7 @@ const SECTIONS = ['budget', 'timed', 'assess', 'peer'];
 
 function initNav() {
   const nav = document.getElementById('sectionNav');
-  const labels = ['The 20 Minutes', 'Timed Task', 'Self-Assessment', 'Peer Feedback'];
+  const labels = ['The 20 Minutes', 'Timed Task', 'Self-Assessment', 'Feedback & Review'];
   nav.innerHTML = labels.map((label, idx) =>
     `<button class="nav-btn ${idx === 0 ? 'active' : ''}" onclick="goToSection('${SECTIONS[idx]}')">${label}</button>`
   ).join('');
@@ -387,19 +387,19 @@ function renderFull() {
         <text x="50" y="84" font-size="11" text-anchor="end" fill="#666">75%</text>
         <text x="50" y="24" font-size="11" text-anchor="end" fill="#666">100%</text>
         <text x="60" y="280" font-size="11" text-anchor="middle" fill="#666">2008</text>
-        <text x="233" y="280" font-size="11" text-anchor="middle" fill="#666">2014</text>
-        <text x="407" y="280" font-size="11" text-anchor="middle" fill="#666">2020</text>
+        <text x="255" y="280" font-size="11" text-anchor="middle" fill="#666">2014</text>
+        <text x="450" y="280" font-size="11" text-anchor="middle" fill="#666">2020</text>
         <text x="580" y="280" font-size="11" text-anchor="middle" fill="#666">2024</text>
         <text x="320" y="297" font-size="12" text-anchor="middle" fill="#292929" font-weight="700">Weekly online shoppers (%)</text>
-        <polyline points="60,224 233,176 407,128 580,97" fill="none" stroke="#F88B48" stroke-width="3"/>
-        <circle cx="60" cy="224" r="4" fill="#F88B48"/><circle cx="233" cy="176" r="4" fill="#F88B48"/><circle cx="407" cy="128" r="4" fill="#F88B48"/><circle cx="580" cy="97" r="4" fill="#F88B48"/>
-        <polyline points="60,212 233,152 407,92 580,68" fill="none" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/>
-        <circle cx="60" cy="212" r="4" fill="#5FB27B"/><circle cx="233" cy="152" r="4" fill="#5FB27B"/><circle cx="407" cy="92" r="4" fill="#5FB27B"/><circle cx="580" cy="68" r="4" fill="#5FB27B"/>
-        <polyline points="60,248 233,224 407,188 580,152" fill="none" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/>
-        <circle cx="60" cy="248" r="4" fill="#292929"/><circle cx="233" cy="224" r="4" fill="#292929"/><circle cx="407" cy="188" r="4" fill="#292929"/><circle cx="580" cy="152" r="4" fill="#292929"/>
-        <line x1="400" y1="34" x2="425" y2="34" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/><text x="430" y="38" font-size="12" fill="#292929">South Korea</text>
-        <line x1="400" y1="52" x2="425" y2="52" stroke="#F88B48" stroke-width="3"/><text x="430" y="56" font-size="12" fill="#292929">UK</text>
-        <line x1="400" y1="70" x2="425" y2="70" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/><text x="430" y="74" font-size="12" fill="#292929">Brazil</text>
+        <polyline points="60,224 255,176 450,128 580,97" fill="none" stroke="#F88B48" stroke-width="3"/>
+        <circle cx="60" cy="224" r="4" fill="#F88B48"/><circle cx="255" cy="176" r="4" fill="#F88B48"/><circle cx="450" cy="128" r="4" fill="#F88B48"/><circle cx="580" cy="97" r="4" fill="#F88B48"/>
+        <polyline points="60,212 255,152 450,92 580,68" fill="none" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/>
+        <circle cx="60" cy="212" r="4" fill="#5FB27B"/><circle cx="255" cy="152" r="4" fill="#5FB27B"/><circle cx="450" cy="92" r="4" fill="#5FB27B"/><circle cx="580" cy="68" r="4" fill="#5FB27B"/>
+        <polyline points="60,248 255,224 450,188 580,152" fill="none" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/>
+        <circle cx="60" cy="248" r="4" fill="#292929"/><circle cx="255" cy="224" r="4" fill="#292929"/><circle cx="450" cy="188" r="4" fill="#292929"/><circle cx="580" cy="152" r="4" fill="#292929"/>
+        <line x1="80" y1="34" x2="105" y2="34" stroke="#5FB27B" stroke-width="3" stroke-dasharray="7,5"/><text x="110" y="38" font-size="12" fill="#292929">South Korea</text>
+        <line x1="80" y1="52" x2="105" y2="52" stroke="#F88B48" stroke-width="3"/><text x="110" y="56" font-size="12" fill="#292929">UK</text>
+        <line x1="80" y1="70" x2="105" y2="70" stroke="#292929" stroke-width="3" stroke-dasharray="2,4"/><text x="110" y="74" font-size="12" fill="#292929">Brazil</text>
       </svg>
       <textarea id="full-answer" style="min-height: 240px;" placeholder="Write your complete response here, in real time..."></textarea>
       <div id="full-wordcount" style="font-size: 12px; color: var(--mid-grey); margin-top: -8px; margin-bottom: 12px;">0 words</div>
@@ -415,7 +415,7 @@ function renderFull() {
 function submitFull() {
   const ans = document.getElementById('full-answer').value;
   const words = ans.trim().split(/\s+/).filter(Boolean).length;
-  alert(words >= 150 ? `\u2713 ${words} words. Well done \u2014 head to Section 3 to self-assess, then Section 4 for peer feedback.` : `You have ${words} words \u2014 aim for 150+. If time's up, that's useful data for next time.`);
+  alert(words >= 150 ? `\u2713 ${words} words. Well done! Head to Section 3 to self-assess, then Section 4 for feedback and review.` : `You have ${words} words \u2014 aim for 150+. If time's up, that's useful data for next time.`);
 }
 
 initNav();
