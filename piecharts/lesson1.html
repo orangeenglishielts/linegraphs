@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Describing Pie Charts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: Orange English activity page. Light header band, one 720px column of rounds, reference blocks set off by fill rather than shadow. */
+:root{
+  --bg:#FAF8F3; --surface:#FFFFFF; --ink:#292929; --muted:#6B6359; --line:#E5E1D8;
+  --orange:#F88B48; --orange-ink:#B9541A; --orange-soft:#FEF0E6;
+  --green:#5FB27B; --green-ink:#2F7A49; --green-soft:#EDF7F1;
+  --amber-ink:#8A5A00; --amber-soft:#FFF5DB;
+  --red:#D9534F; --red-ink:#A8322E; --red-soft:#FBE9E8;
+  --f-display:"Montserrat","Segoe UI",system-ui,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);margin:0}
+.pad{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{border-bottom:1px solid var(--line);text-align:center;padding-block:32px 24px}
+.eyebrow{font:700 11px/1 var(--f-display);letter-spacing:2px;text-transform:uppercase;color:var(--orange-ink)}
+.badge{display:inline-block;margin-top:12px;font:800 12px/1 var(--f-display);letter-spacing:.5px;background:var(--orange);color:#1f1f1f;border-radius:20px;padding:6px 12px}
+h1{font:800 clamp(22px,5vw,28px)/1.2 var(--f-display);margin:10px 0 6px;text-wrap:balance}
+header p{margin:0 auto;color:var(--muted);font-size:15px;max-width:56ch}
+main{max-width:720px;margin:0 auto;padding-block:28px 40px;display:grid;gap:36px}
+section{display:grid;gap:14px;min-width:0}
+h2{font:700 19px/1.3 var(--f-display);margin:0;text-wrap:balance}
+h3{font:700 15px/1.3 var(--f-display);margin:0}
+p{margin:0}
+.lede{color:var(--muted);font-size:15px}
+.note{background:var(--orange-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.note b{font-family:var(--f-display)}
+.ok{background:var(--green-soft)}
+.pattern{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;min-width:0}
+.pattern .form{font:700 14px/1.4 var(--f-display);color:var(--orange-ink)}
+.pattern .ex{font-size:15px}
+.pattern .why{font-size:14px;color:var(--muted)}
+.patterns{display:grid;gap:10px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font:700 12px/1.3 var(--f-display);letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.fit{color:var(--green-ink)} td.avoid{color:var(--red-ink)}
+.toprow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.count{font:600 13px/1 var(--f-body);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:6px 12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.count.done{color:var(--green-ink);border-color:var(--green);background:var(--green-soft)}
+.round{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:12px;min-width:0}
+.round.solved{border-color:var(--green)}
+.rlabel{font:700 11px/1 var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.prompt{font-size:16px;font-weight:500}
+.data{font-size:14px;color:var(--muted)}
+.gap{display:inline-block;min-width:80px;border-bottom:2px dashed var(--muted);text-align:center;color:var(--orange-ink);font-weight:700}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts.stack{flex-direction:column}
+.opt{font:600 14px/1.35 var(--f-body);text-align:left;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:9px 16px;cursor:pointer}
+.opts.stack .opt{border-radius:12px}
+.opt:hover{border-color:var(--orange)}
+.opt:focus-visible,.btn:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.opt.best{border-color:var(--green);background:var(--green-soft);color:var(--green-ink)}
+.opt.maybe{border-color:#D9A520;background:var(--amber-soft);color:var(--amber-ink)}
+.opt.no{border-color:var(--red);background:var(--red-soft);color:var(--red-ink)}
+.fb{border-left:3px solid var(--orange);background:var(--orange-soft);border-radius:0 10px 10px 0;padding:10px 14px;font-size:14px}
+.fb.best{border-left-color:var(--green);background:var(--green-soft)}
+.fb.maybe{border-left-color:#D9A520;background:var(--amber-soft)}
+.fb.no{border-left-color:var(--red);background:var(--red-soft)}
+.fb .tag{display:block;font:800 11px/1.4 var(--f-display);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.fb.best .tag{color:var(--green-ink)} .fb.maybe .tag{color:var(--amber-ink)} .fb.no .tag{color:var(--red-ink)}
+.write textarea{width:100%;min-height:150px;font:15px/1.6 var(--f-body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:700 14px/1 var(--f-display);background:var(--orange);color:#1f1f1f;border:0;border-radius:999px;padding:12px 18px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.small{font-size:13px;color:var(--muted)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px}
+.checks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.checks input{margin-top:5px;accent-color:var(--green)}
+.model{background:var(--green-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.model mark{background:transparent;color:var(--green-ink);font-weight:700}
+.wc{font-variant-numeric:tabular-nums}
+.recap{background:var(--orange);color:#1f1f1f;border-radius:16px;padding:22px 20px;display:grid;gap:8px}
+.recap h2{color:#1f1f1f}
+.recap ol{margin:0;padding-left:20px;display:grid;gap:4px}
+.backrow{margin:0 0 14px;text-align:left;max-width:720px;margin-inline:auto}
+.back{font:600 14px var(--f-body);color:var(--orange-ink)}
+footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32px;font-size:12px;color:var(--muted);letter-spacing:.5px}
+.reset{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:13px var(--f-body);justify-self:center}
+
+.pie{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:12px}
+.pie figcaption{font:700 15px/1.35 var(--f-display);text-align:center;text-wrap:balance}
+.pierow{display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap}
+.pierow svg{max-width:100%;height:auto;flex:0 0 auto}
+.pl{font:700 12px var(--f-display);fill:#1f1f1f}
+.legend{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:14px;min-width:170px}
+.legend li{display:flex;align-items:center;gap:8px}
+.legend b{margin-left:auto;padding-left:12px;font-variant-numeric:tabular-nums}
+.sw{width:14px;height:14px;border-radius:4px;flex:0 0 auto}
+.mini{display:flex;align-items:center;gap:12px}
+.mini svg{width:72px;height:72px}
+.mini .mt{font-size:14px;color:var(--ink)}
+.two{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.ladder{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:l}
+.ladder li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px 12px 50px;position:relative;counter-increment:l;font-size:15px}
+.ladder li::before{content:counter(l);position:absolute;left:14px;top:11px;width:24px;height:24px;border-radius:50%;background:var(--orange);color:#1f1f1f;font:800 13px/24px var(--f-display);text-align:center}
+.ladder .st{display:block;font:700 12px/1.3 var(--f-display);letter-spacing:.5px;text-transform:uppercase;color:var(--orange-ink);margin-bottom:2px}
+.ladder mark{background:var(--orange-soft);color:inherit;border-radius:4px;padding:0 3px}
+.typ{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.typ input{font:600 15px var(--f-body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:9px 12px;min-width:0;width:200px}
+.typ input.good{border-color:var(--green);background:var(--green-soft)}
+.typ input.bad{border-color:var(--red)}
+.tblref td:first-child{font-weight:700;white-space:nowrap}
+/* comparison builder */
+.cb{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:14px;min-width:0}
+.cb .steplab{font:700 11px/1 var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 14px/1 var(--f-body);color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:999px;padding:8px 13px;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft);color:var(--orange-ink)}
+.chip:disabled{opacity:.4;cursor:not-allowed}
+.chip:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.frames{display:grid;gap:6px}
+.frame{font:500 14px/1.4 var(--f-body);text-align:left;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;display:flex;gap:10px;align-items:baseline}
+.frame[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft)}
+.frame .tick{margin-left:auto;color:var(--green-ink);font-weight:700;font-size:13px;white-space:nowrap}
+.frame:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.sent{font-size:17px;line-height:2;background:var(--bg);border-radius:12px;padding:12px 14px}
+.sent input{font:700 16px var(--f-body);color:var(--orange-ink);background:var(--surface);border:0;border-bottom:2px dashed var(--orange);border-radius:6px 6px 0 0;padding:2px 6px;width:9.5em;max-width:100%}
+.sent .ph{color:var(--muted);font-style:italic}
+.log{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.log li{background:var(--green-soft);border-radius:10px;padding:8px 12px;font-size:14px}
+.log li small{display:block;color:var(--muted)}
+
+.dnd{display:grid;gap:14px}
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:52px;padding:10px;border:2px dashed var(--line);border-radius:12px;background:var(--bg)}
+.pool:empty::after{content:'All placed. Now check your answers.';color:var(--muted);font-size:13px;align-self:center}
+.tile{font:600 14px/1.35 var(--f-body);color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:8px 12px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;text-align:left;max-width:100%}
+.tile:hover{border-color:var(--orange)}
+.tile[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft);box-shadow:0 0 0 3px var(--orange-soft)}
+.tile.right{border-color:var(--green);background:var(--green-soft);color:var(--green-ink);cursor:default}
+.tile.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red-ink)}
+.tile:focus-visible,.slot:focus-visible,.word:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.dragcopy{position:fixed;pointer-events:none;z-index:50;opacity:.9;box-shadow:0 6px 18px rgba(0,0,0,.18);transform:rotate(-2deg)}
+.slots{display:grid;gap:10px}
+.slotrow{display:grid;gap:8px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+@media (max-width:560px){.slotrow{grid-template-columns:1fr}}
+.slotrow.tight{grid-template-columns:72px minmax(0,1fr);padding:6px 10px}
+.slotrow.tight .slot{min-height:40px}
+.slot{min-height:46px;border:2px dashed var(--muted);border-radius:10px;padding:5px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--bg);cursor:pointer;font:13px var(--f-body);color:var(--muted);text-align:left}
+.slot.hot{border-color:var(--orange);background:var(--orange-soft)}
+.slot:empty::before{content:attr(data-ph);padding:0 6px}
+.bins{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.bin{display:grid;gap:8px;align-content:start}
+.bin h3{font-size:14px}
+.bin .slot{min-height:120px;align-content:flex-start;flex-direction:column;align-items:stretch}
+.seq{display:flex;flex-wrap:wrap;gap:6px;min-height:52px;padding:10px;border:2px dashed var(--muted);border-radius:12px;background:var(--bg);align-items:center}
+.seq:empty::before{content:'Tap or drag the words here in order';color:var(--muted);font-size:13px}
+.seq .tile,.wpool .tile{padding:6px 10px}
+.order{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:o}
+.order .slotrow{grid-template-columns:28px minmax(0,1fr);counter-increment:o}
+.order .slotrow::before{content:counter(o);width:26px;height:26px;border-radius:50%;background:var(--orange);color:#1f1f1f;font:800 13px/26px var(--f-display);text-align:center}
+.notes{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.notes li{font-size:14px;border-left:3px solid var(--red);background:var(--red-soft);border-radius:0 10px 10px 0;padding:8px 12px}
+.notes li.okn{border-left-color:var(--green);background:var(--green-soft)}
+.spot{font-size:17px;line-height:2.1}
+.word{font:inherit;color:inherit;background:none;border:0;border-bottom:2px solid transparent;padding:0;margin:0;cursor:pointer;border-radius:4px}
+.word:hover{background:var(--orange-soft)}
+.word.miss{background:var(--red-soft);text-decoration:line-through;text-decoration-color:var(--red)}
+.word.hit{background:var(--green-soft);color:var(--green-ink);font-weight:700}
+.word.nope{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+@media (prefers-reduced-motion:reduce){.word.nope{animation:none}}
+</style>
+</head>
+<body>
+<header class="pad"><div class="eyebrow">Mastering Pie Charts · Lesson 1 · Draft</div><span class="badge">Bands 5.5–7</span><h1>Describing pie charts: proportions, the passive and comparisons</h1><p>Build accurate sentences one step at a time, from a simple statement to a full comparison with data.</p></header>
+<main class="pad">
+<section>
+ <h2>How this lesson works</h2>
+ <p>You will build sentences about pie charts one step at a time: first a simple, accurate sentence, then the passive, then the figures, then comparisons, and finally all of these together.</p>
+ <ol class="ladder">
+  <li><span class="st">A simple sentence</span>Household waste <mark>was recycled</mark>.</li>
+  <li><span class="st">Add how much</span><mark>34% of</mark> household waste was recycled.</li>
+  <li><span class="st">Say it another way</span><mark>Just over a third of</mark> household waste was recycled.</li>
+  <li><span class="st">Compare</span><mark>More</mark> household waste was recycled <mark>than</mark> sent to landfill.</li>
+  <li><span class="st">Put it all together</span>Just over a third of household waste was recycled, <mark>compared with</mark> around a quarter that was sent to landfill.</li>
+ </ol>
+ <div class="note" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between"><span><b>Cheat sheet:</b> all the language from this lesson on two printable pages.</span><a class="btn" href="PieCharts_Lesson1_CheatSheet.pdf" download style="text-decoration:none">Download the PDF</a></div>
+</section>
+
+<section>
+ <h2>Step 1: Read the whole pie</h2>
+ <p>A pie chart always shows parts of a whole, so you can describe each slice as a percentage, a fraction (<i>a quarter</i>) or “one in …” (<i>one in four</i>). Using a mix shows the examiner a wider range of language.</p>
+</section>
+<section id="s-frac"><div class="toprow"><h2>Percentages and fractions</h2><span class="count">0 / 10</span></div>
+<p class="lede">Drag each fraction to its percentage.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Fractions</div><div class="pool" aria-label="Fractions"></div></div><div class="slots"><div class="slotrow tight"><p style="font:800 20px var(--f-display);color:var(--orange-ink)">10%</p><div class="slot" data-key="10%" data-ph="Drop a fraction here"></div></div><div class="slotrow tight"><p style="font:800 20px var(--f-display);color:var(--orange-ink)">12.5%</p><div class="slot" data-key="12.5%" data-ph="Drop a fraction here"></div></div><div class="slotrow tight"><p style="font:800 20px var(--f-display);color:var(--orange-ink)">17%</p><div class="slot" data-key="17%" data-ph="Drop a fraction here"></div></div><div class="slotrow tight"><p style="font:800 20px var(--f-display);color:var(--orange-ink)">20%</p><div class="slot" data-key="20%" data-ph="Drop a fraction here"></div></div><div class="slotrow tight"><p style="font:800 20px var(--f-display);color:var(--orange-ink)">25%</p><div class="slot" data-key="25%" data-ph="Drop a fraction here"></div></div><div class="slotrow tight"><p style="font:800 20px var(--f-display);color:var(--orange-ink)">33%</p><div class="slot" data-key="33%" data-ph="Drop a fraction here"></div></div><div class="slotrow tight"><p style="font:800 20px var(--f-display);color:var(--orange-ink)">40%</p><div class="slot" data-key="40%" data-ph="Drop a fraction here"></div></div><div class="slotrow tight"><p style="font:800 20px var(--f-display);color:var(--orange-ink)">60%</p><div class="slot" data-key="60%" data-ph="Drop a fraction here"></div></div><div class="slotrow tight"><p style="font:800 20px var(--f-display);color:var(--orange-ink)">67%</p><div class="slot" data-key="67%" data-ph="Drop a fraction here"></div></div><div class="slotrow tight"><p style="font:800 20px var(--f-display);color:var(--orange-ink)">80%</p><div class="slot" data-key="80%" data-ph="Drop a fraction here"></div></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+<section id="s-onein" data-label="Gap"><div class="toprow"><h2>One in …</h2><span class="count">0 / 6</span></div>
+<p class="lede">Type the missing number as a word. Watch the verb: “one in ten diners <b>was</b>” is singular.</p><div class="rounds"></div></section>
+<section id="s-qual" data-unit=" words"><div class="toprow"><h2>Just over, just under</h2><span class="count">0 / 10 words</span></div>
+<p class="lede">Most figures fall between two fractions. Sort these words by what they mean.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Words</div><div class="pool" aria-label="Words"></div></div><div class="bins"><div class="bin"><h3>A little more</h3><div class="slot" data-key="more" data-many="1" data-ph="Drop here"></div></div><div class="bin"><h3>A little less</h3><div class="slot" data-key="less" data-many="1" data-ph="Drop here"></div></div><div class="bin"><h3>Close, either side</h3><div class="slot" data-key="close" data-many="1" data-ph="Drop here"></div></div><div class="bin"><h3>Much more or much less</h3><div class="slot" data-key="far" data-many="1" data-ph="Drop here"></div></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+<section id="s-match"><div class="toprow"><h2>Match the phrase to the chart</h2><span class="count">0 / 6</span></div>
+<p class="lede">Two phrases don’t match any chart.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Phrases</div><div class="pool" aria-label="Phrases"></div></div><div class="slots"><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 0 1 53.5,91.7 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L53.5,91.7 A44.0,44.0 0 1 1 48.0,4.0 Z" fill="#4F7CAC" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">Students who studied part-time: 48%</span></span><div class="slot" data-key="Just under half" data-ph="Drop a phrase here"></div></div><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 0 1 91.9,50.8 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L91.9,50.8 A44.0,44.0 0 1 1 48.0,4.0 Z" fill="#A8A29A" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">Commuters who cycled: 26%</span></span><div class="slot" data-key="Just over a quarter" data-ph="Drop a phrase here"></div></div><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 1 1 12.4,73.9 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L12.4,73.9 A44.0,44.0 0 0 1 48.0,4.0 Z" fill="#4F7CAC" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">Households that owned a car: 65%</span></span><div class="slot" data-key="Almost two thirds" data-ph="Drop a phrase here"></div></div><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 0 1 71.6,10.8 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L71.6,10.8 A44.0,44.0 0 1 1 48.0,4.0 Z" fill="#A8A29A" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">Diners who chose a vegetarian meal: 9%</span></span><div class="slot" data-key="Just under a tenth" data-ph="Drop a phrase here"></div></div><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 1 1 4.1,50.8 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L4.1,50.8 A44.0,44.0 0 0 1 48.0,4.0 Z" fill="#4F7CAC" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">Customers who were satisfied: 74%</span></span><div class="slot" data-key="Nearly three quarters" data-ph="Drop a phrase here"></div></div><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 0 1 85.2,71.6 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L85.2,71.6 A44.0,44.0 0 1 1 48.0,4.0 Z" fill="#A8A29A" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">Pupils who walked to school: 34%</span></span><div class="slot" data-key="Just over a third" data-ph="Drop a phrase here"></div></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+
+<section>
+ <h2>Step 2: Percentage of what?</h2>
+ <p>Before you write a figure, ask yourself: <b>percentage of what?</b> The whole pie is the answer, so check the chart’s title. A common mistake is giving a percentage of one slice instead of the whole pie.</p>
+ <div class="two"><figure class="pie" role="img" aria-label="All students at Hillcrest College, 2025: Part-time 48%, Full-time 52%"><figcaption>All students at Hillcrest College, 2025</figcaption><div class="pierow"><svg viewBox="0 0 170 170" width="170" height="170" role="img" aria-hidden="true"><path d="M85.0,85.0 L85.0,4.0 A81.0,81.0 0 0 1 95.2,165.4 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><text x="138.4" y="81.6" text-anchor="middle" dominant-baseline="central" class="pl">48%</text><path d="M85.0,85.0 L95.2,165.4 A81.0,81.0 0 1 1 85.0,4.0 Z" fill="#4F7CAC" stroke="var(--surface)" stroke-width="2"/><text x="31.6" y="88.4" text-anchor="middle" dominant-baseline="central" class="pl">52%</text></svg><ul class="legend"><li><span class="sw" style="background:#F88B48"></span>Part-time<b>48%</b></li><li><span class="sw" style="background:#4F7CAC"></span>Full-time<b>52%</b></li></ul></div></figure><figure class="pie" role="img" aria-label="Part-time students at Hillcrest College by age, 2025: Over 25 70%, 25 and under 30%"><figcaption>Part-time students at Hillcrest College by age, 2025</figcaption><div class="pierow"><svg viewBox="0 0 170 170" width="170" height="170" role="img" aria-hidden="true"><path d="M85.0,85.0 L85.0,4.0 A81.0,81.0 0 1 1 8.0,110.0 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><text x="128.3" y="116.4" text-anchor="middle" dominant-baseline="central" class="pl">70%</text><path d="M85.0,85.0 L8.0,110.0 A81.0,81.0 0 0 1 85.0,4.0 Z" fill="#4F7CAC" stroke="var(--surface)" stroke-width="2"/><text x="41.7" y="53.6" text-anchor="middle" dominant-baseline="central" class="pl">30%</text></svg><ul class="legend"><li><span class="sw" style="background:#F88B48"></span>Over 25<b>70%</b></li><li><span class="sw" style="background:#4F7CAC"></span>25 and under<b>30%</b></li></ul></div></figure></div>
+</section>
+<section id="s-prop"><div class="toprow"><h2>Words for proportions</h2><span class="count">0 / 6</span></div>
+<p class="lede">Drag each phrase to the chart it describes. Then read the notes: <b>the majority</b> means more than half, not the biggest slice.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Phrases</div><div class="pool" aria-label="Phrases"></div></div><div class="slots"><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 1 1 26.8,9.4 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L26.8,9.4 A44.0,44.0 0 0 1 48.0,4.0 Z" fill="#A8A29A" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">92% of residents</span></span><div class="slot" data-key="92%" data-ph="Drop a phrase here"></div></div><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 1 1 4.1,50.8 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L4.1,50.8 A44.0,44.0 0 0 1 48.0,4.0 Z" fill="#A8A29A" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">74% of residents</span></span><div class="slot" data-key="74%" data-ph="Drop a phrase here"></div></div><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 1 1 34.4,89.8 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L34.4,89.8 A44.0,44.0 0 0 1 48.0,4.0 Z" fill="#A8A29A" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">55% of residents</span></span><div class="slot" data-key="55%" data-ph="Drop a phrase here"></div></div><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 0 1 78.1,80.1 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L78.1,80.1 A44.0,44.0 0 1 1 48.0,4.0 Z" fill="#A8A29A" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">38% of residents</span></span><div class="slot" data-key="38%" data-ph="Drop a phrase here"></div></div><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 0 1 71.6,10.8 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L71.6,10.8 A44.0,44.0 0 1 1 48.0,4.0 Z" fill="#A8A29A" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">9% of residents</span></span><div class="slot" data-key="9%" data-ph="Drop a phrase here"></div></div><div class="slotrow"><span class="mini"><svg viewBox="0 0 96 96" width="96" height="96" role="img" aria-hidden="true"><path d="M48.0,48.0 L48.0,4.0 A44.0,44.0 0 0 1 53.5,4.3 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><path d="M48.0,48.0 L53.5,4.3 A44.0,44.0 0 1 1 48.0,4.0 Z" fill="#A8A29A" stroke="var(--surface)" stroke-width="2"/></svg><span class="mt">2% of residents</span></span><div class="slot" data-key="2%" data-ph="Drop a phrase here"></div></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+<section id="s-what" data-unit=" sentences"><div class="toprow"><h2>Sort the sentences</h2><span class="count">0 / 9 sentences</span></div>
+<p class="lede">Put each sentence in the right group. The explanations appear when you check.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Sentences</div><div class="pool" aria-label="Sentences"></div></div><div class="bins"><div class="bin"><h3>Accurate</h3><div class="slot" data-key="acc" data-many="1" data-ph="Drop accurate sentences here"></div></div><div class="bin"><h3>Not accurate</h3><div class="slot" data-key="not" data-many="1" data-ph="Drop inaccurate sentences here"></div></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+
+<section>
+ <h2>Step 3: Use the passive</h2>
+ <p>Many pie charts show what happened <i>to</i> something: how waste was dealt with, how money was spent, how energy was produced. We usually don’t know or care who did it, so the passive is the natural choice.</p>
+ <div class="note"><b>Active:</b> The city recycled 34% of its household waste.<br><b>Passive:</b> 34% of household waste <b>was recycled</b>.<br><br><b>Form:</b> was / were + past participle. Use <b>was</b> with uncountable nouns like <i>waste</i>, <i>energy</i> and <i>money</i>, and with “34% of the waste”. Use the past if the chart gives a past year.</div>
+ <figure class="pie" role="img" aria-label="How household waste was dealt with in Riverton, 2025: Recycled 34%, Sent to landfill 26%, Burned to generate energy 22%, Composted 12%, Other 6%"><figcaption>How household waste was dealt with in Riverton, 2025</figcaption><div class="pierow"><svg viewBox="0 0 220 220" width="220" height="220" role="img" aria-hidden="true"><path d="M110.0,110.0 L110.0,4.0 A106.0,106.0 0 0 1 199.5,166.8 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><text x="171.3" y="76.3" text-anchor="middle" dominant-baseline="central" class="pl">34%</text><path d="M110.0,110.0 L199.5,166.8 A106.0,106.0 0 0 1 47.7,195.8 Z" fill="#4F7CAC" stroke="var(--surface)" stroke-width="2"/><text x="123.1" y="178.7" text-anchor="middle" dominant-baseline="central" class="pl">26%</text><path d="M110.0,110.0 L47.7,195.8 A106.0,106.0 0 0 1 14.1,64.9 Z" fill="#5FB27B" stroke="var(--surface)" stroke-width="2"/><text x="42.2" y="127.4" text-anchor="middle" dominant-baseline="central" class="pl">22%</text><path d="M110.0,110.0 L14.1,64.9 A106.0,106.0 0 0 1 71.0,11.4 Z" fill="#E2B33C" stroke="var(--surface)" stroke-width="2"/><text x="62.1" y="59.0" text-anchor="middle" dominant-baseline="central" class="pl">12%</text><path d="M110.0,110.0 L71.0,11.4 A106.0,106.0 0 0 1 110.0,4.0 Z" fill="#A8A29A" stroke="var(--surface)" stroke-width="2"/><text x="96.9" y="41.3" text-anchor="middle" dominant-baseline="central" class="pl">6%</text></svg><ul class="legend"><li><span class="sw" style="background:#F88B48"></span>Recycled<b>34%</b></li><li><span class="sw" style="background:#4F7CAC"></span>Sent to landfill<b>26%</b></li><li><span class="sw" style="background:#5FB27B"></span>Burned to generate energy<b>22%</b></li><li><span class="sw" style="background:#E2B33C"></span>Composted<b>12%</b></li><li><span class="sw" style="background:#A8A29A"></span>Other<b>6%</b></li></ul></div></figure>
+</section>
+<section id="s-agree" data-label="Sentence"><div class="toprow"><h2>Was or were?</h2><span class="count">0 / 6</span></div>
+<p class="lede">The verb agrees with the noun after <b>of</b>, not with the fraction.</p><div class="rounds"></div></section>
+<section id="s-pass" data-label="Gap">
+ <div class="toprow"><h2>Make it passive</h2><span class="count">0 / 6</span></div>
+ <p class="lede">Type the verb in the passive. Use the past tense.</p>
+ <div class="rounds"></div>
+</section>
+<section id="s-uns"><div class="toprow"><h2>Build the sentence</h2><span class="count" id="uns-count">0 / 3</span></div>
+<p class="lede">Put the words in order. Drag them, or tap them one by one. Tap a word in your sentence to send it back.</p><div class="uns" id="uns0"><p class="small" style="margin-bottom:6px"><b>Sentence 1</b></p><div class="dnd"><div class="seq"></div><div class="pool wpool" aria-label="Words"></div><div class="row"><button type="button" class="btn ghost chk">Check</button></div><div class="fb" hidden></div><ul class="notes"></ul></div></div><div class="uns" id="uns1"><p class="small" style="margin-bottom:6px"><b>Sentence 2</b></p><div class="dnd"><div class="seq"></div><div class="pool wpool" aria-label="Words"></div><div class="row"><button type="button" class="btn ghost chk">Check</button></div><div class="fb" hidden></div><ul class="notes"></ul></div></div><div class="uns" id="uns2"><p class="small" style="margin-bottom:6px"><b>Sentence 3</b></p><div class="dnd"><div class="seq"></div><div class="pool wpool" aria-label="Words"></div><div class="row"><button type="button" class="btn ghost chk">Check</button></div><div class="fb" hidden></div><ul class="notes"></ul></div></div></section>
+<section id="s-wj" data-label="Sentence"><div class="toprow"><h2>Find the mistake</h2><span class="count">0 / 8</span></div>
+<p class="lede">Each sentence has one mistake: grammar, a figure, or the wrong whole. Tap the word that’s wrong.</p><div class="rounds"></div></section>
+
+<section>
+ <h2>Step 4: Compare</h2>
+ <p>Task 1 asks you to “make comparisons where relevant”. With a pie chart, that means comparing the slices with each other, not just listing them. Use a range of structures so you don’t repeat <i>more than</i> in every sentence.</p>
+ <figure class="pie" role="img" aria-label="Countries of origin of international students at a UK university, 2025: China 28%, India 22%, Russia 12%, Brazil 10%, Germany 10%, Nigeria 6%, Other countries 12%"><figcaption>Countries of origin of international students at a UK university, 2025</figcaption><div class="pierow"><svg viewBox="0 0 220 220" width="220" height="220" role="img" aria-hidden="true"><path d="M110.0,110.0 L110.0,4.0 A106.0,106.0 0 0 1 214.1,129.9 Z" fill="#F88B48" stroke="var(--surface)" stroke-width="2"/><text x="163.9" y="65.4" text-anchor="middle" dominant-baseline="central" class="pl">28%</text><path d="M110.0,110.0 L214.1,129.9 A106.0,106.0 0 0 1 110.0,216.0 Z" fill="#4F7CAC" stroke="var(--surface)" stroke-width="2"/><text x="154.6" y="163.9" text-anchor="middle" dominant-baseline="central" class="pl">22%</text><path d="M110.0,110.0 L110.0,216.0 A106.0,106.0 0 0 1 37.4,187.3 Z" fill="#5FB27B" stroke="var(--surface)" stroke-width="2"/><text x="84.2" y="175.0" text-anchor="middle" dominant-baseline="central" class="pl">12%</text><path d="M110.0,110.0 L37.4,187.3 A106.0,106.0 0 0 1 5.9,129.9 Z" fill="#E2B33C" stroke="var(--surface)" stroke-width="2"/><text x="48.7" y="143.7" text-anchor="middle" dominant-baseline="central" class="pl">10%</text><path d="M110.0,110.0 L5.9,129.9 A106.0,106.0 0 0 1 14.1,64.9 Z" fill="#9B6FB0" stroke="var(--surface)" stroke-width="2"/><text x="40.6" y="101.2" text-anchor="middle" dominant-baseline="central" class="pl">10%</text><path d="M110.0,110.0 L14.1,64.9 A106.0,106.0 0 0 1 37.4,32.7 Z" fill="#C8665E" stroke="var(--surface)" stroke-width="2"/><text x="53.4" y="68.9" text-anchor="middle" dominant-baseline="central" class="pl">6%</text><path d="M110.0,110.0 L37.4,32.7 A106.0,106.0 0 0 1 110.0,4.0 Z" fill="#A8A29A" stroke="var(--surface)" stroke-width="2"/><text x="84.2" y="45.0" text-anchor="middle" dominant-baseline="central" class="pl">12%</text></svg><ul class="legend"><li><span class="sw" style="background:#F88B48"></span>China<b>28%</b></li><li><span class="sw" style="background:#4F7CAC"></span>India<b>22%</b></li><li><span class="sw" style="background:#5FB27B"></span>Russia<b>12%</b></li><li><span class="sw" style="background:#E2B33C"></span>Brazil<b>10%</b></li><li><span class="sw" style="background:#9B6FB0"></span>Germany<b>10%</b></li><li><span class="sw" style="background:#C8665E"></span>Nigeria<b>6%</b></li><li><span class="sw" style="background:#A8A29A"></span>Other countries<b>12%</b></li></ul></div></figure>
+</section>
+<section id="s-voc" data-label="Gap"><div class="toprow"><h2>Instead of “percentage”</h2><span class="count">0 / 6</span></div>
+<p class="lede">These words help you avoid repeating “percentage”, but each has its own grammar. Choose the right form.</p><div class="rounds"></div></section>
+<section id="s-cb">
+ <div class="toprow"><h2>Build a comparison</h2><span class="count" id="cb-count">0 / 7 structures</span></div>
+ <p class="lede">Choose a country, a structure and a second country. Then type the missing word or words and check your sentence. It must be grammatical and true. Try to use all seven structures.</p>
+ <div class="cb">
+  <div><div class="steplab">1 · First country</div><div class="chips" id="cb-a"></div></div>
+  <div><div class="steplab">2 · Structure</div><div class="frames" id="cb-f"></div></div>
+  <div><div class="steplab">3 · Second country</div><div class="chips" id="cb-b"></div></div>
+  <div><div class="steplab">4 · Complete and check</div><div class="sent" id="cb-s"><span class="ph">Choose a country and a structure first.</span></div></div>
+  <div class="row"><button type="button" class="btn" id="cb-check">Check my sentence</button></div>
+  <div class="fb" id="cb-fb" hidden></div>
+ </div>
+ <h3>Your sentences</h3>
+ <ul class="log" id="cb-log"><li style="background:var(--bg);color:var(--muted)">Your correct sentences will appear here, with the figures added.</li></ul>
+</section>
+
+<section>
+ <h2>Step 5: Add the data</h2>
+ <p>A strong comparison gives the reader the figures too. Add them in brackets, after a colon, after <i>compared with</i>, or in a second sentence starting with <i>Specifically,</i>. You can also contrast two figures with <i>whereas</i> or <i>while</i>.</p>
+</section>
+<section id="s-add"><div class="toprow"><h2>Match the halves</h2><span class="count">0 / 5</span></div>
+<p class="lede">Complete each sentence with the right ending. One ending isn’t accurate.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Endings</div><div class="pool" aria-label="Endings"></div></div><div class="slots"><div class="slotrow"><p>More international students came from India than from Brazil</p><div class="slot" data-key="h0" data-ph="Drop the ending here"></div></div><div class="slotrow"><p>Just over a fifth of students came from India,</p><div class="slot" data-key="h1" data-ph="Drop the ending here"></div></div><div class="slotrow"><p>Students from Russia made up 12% of the total,</p><div class="slot" data-key="h2" data-ph="Drop the ending here"></div></div><div class="slotrow"><p>China and India were by far the largest sources of students.</p><div class="slot" data-key="h3" data-ph="Drop the ending here"></div></div><div class="slotrow"><p>As many students came from Brazil as from Germany</p><div class="slot" data-key="h4" data-ph="Drop the ending here"></div></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+
+<section><h2>Step 6: Put it all together</h2><p>A good answer moves from the introduction, to the overview, to the details in a logical order, usually from the largest slice to the smallest.</p></section>
+<section id="s-order"><div class="toprow"><h2>Put the answer in order</h2><span class="count">0 / 7</span></div>
+<p class="lede">Here is a model answer for the waste chart, in the wrong order. Look for the clues: <i>Overall</i>, <i>This was followed by</i>, <i>Slightly less</i>, <i>Only</i>, <i>The remaining</i>.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Sentences</div><div class="pool" aria-label="Sentences"></div></div><ol class="order"><li class="slotrow"><div class="slot" data-key="0" data-ph="Drop sentence 1 here"></div></li><li class="slotrow"><div class="slot" data-key="1" data-ph="Drop sentence 2 here"></div></li><li class="slotrow"><div class="slot" data-key="2" data-ph="Drop sentence 3 here"></div></li><li class="slotrow"><div class="slot" data-key="3" data-ph="Drop sentence 4 here"></div></li><li class="slotrow"><div class="slot" data-key="4" data-ph="Drop sentence 5 here"></div></li><li class="slotrow"><div class="slot" data-key="5" data-ph="Drop sentence 6 here"></div></li><li class="slotrow"><div class="slot" data-key="6" data-ph="Drop sentence 7 here"></div></li></ol>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+<section class="write" id="s-write">
+ <h2>Your turn</h2>
+ <p>Look at the international students chart again. Write an overview and one body paragraph (about 100 words). Use at least three different comparison structures, add the figures, and say what each percentage is a percentage <i>of</i>.</p>
+ <label for="pie-ta" class="small">Your overview and body paragraph</label>
+ <textarea id="pie-ta" placeholder="Overall, …"></textarea>
+ <div class="row"><button type="button" class="btn show">Show my version</button><button type="button" class="btn ghost cpy">Copy my answer</button><span class="small wc"></span><span class="small cpmsg" aria-live="polite"></span></div>
+ <div class="after" hidden>
+  <div class="model"><p>Overall, China and India were by far the largest sources of international students, <mark>together accounting for half</mark> of the total, while each of the other countries made up a much smaller share.</p><p style="margin-top:8px">China accounted for <mark>the largest proportion</mark>, at 28%, followed by India with just over a fifth (22%). Russia was a distant third: at 12%, its share was <mark>less than half that of</mark> China. <mark>As many</mark> students came from Brazil <mark>as</mark> from Germany, with each sending 10% of the total. Nigeria provided <mark>the smallest proportion</mark>, just 6%, which was <mark>half the figure</mark> for Russia. The remaining 12% came from other countries.</p></div>
+  <ul class="checks" style="margin-top:12px">
+   <li><label><input type="checkbox">My overview gives the main pattern without figures.</label></li>
+   <li><label><input type="checkbox">Every percentage is a percentage of the whole: all international students.</label></li>
+   <li><label><input type="checkbox">I used at least three different comparison structures.</label></li>
+   <li><label><input type="checkbox">I varied the figures: some fractions, some percentages.</label></li>
+   <li><label><input type="checkbox">I used the past tense, because the chart shows 2025.</label></li>
+  </ul>
+ </div>
+</section>
+<section><div class="note" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between"><span><b>Cheat sheet:</b> all the language from this lesson on two printable pages.</span><a class="btn" href="PieCharts_Lesson1_CheatSheet.pdf" download style="text-decoration:none">Download the PDF</a></div></section>
+<section class="recap"><h2>Before you finish, ask</h2><ol><li>Percentage of what? Is the whole the same as the chart title?</li><li>Are my fractions precise: just over, just under, almost?</li><li>Did I use the passive where nobody did the action?</li><li>Did I compare the slices with a range of structures?</li><li>Did I add the figures to support each comparison?</li></ol></section>
+<button type="button" class="reset" onclick="location.reload()">Start again</button>
+</main>
+<footer class="pad">orangeenglish.nl</footer>
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const TAG={best:'Best choice',maybe:'Possible, but less precise',no:'Doesn’t fit'};
+function counter(sec,total){const c=$('.count',sec);let n=0;return{inc(){n++;c.textContent=n+' / '+total+(sec.dataset.unit||'');if(n===total)c.classList.add('done')},reset(){n=0;c.textContent='0 / '+total+(sec.dataset.unit||'');c.classList.remove('done')}}}
+function buildPick(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Round'} ${i+1}</div>${it.data?`<div class="data">${it.data}</div>`:''}<p class="prompt">${it.p.replace('___','<span class="gap">___</span>')}</p><div class="opts ${it.stack?'stack':''}"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  [...it.o].map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]).forEach(x=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=x.t;
+   b.onclick=()=>{$$('.opt',o).forEach(e=>e.classList.remove('best','maybe','no'));b.classList.add(x.v);fb.hidden=false;fb.className='fb '+x.v;fb.innerHTML=`<span class="tag">${TAG[x.v]}</span>${x.n}`;
+    if(x.v==='best'&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildJudge(sec,items,labels){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Sentence'} ${i+1}</div><p class="prompt">${it.s}</p><div class="opts"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  labels.forEach((l,j)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=l;
+   b.onclick=()=>{const right=j===it.a;$$('.opt',o).forEach(e=>e.classList.remove('best','no'));b.classList.add(right?'best':'no');fb.hidden=false;fb.className='fb '+(right?'best':'no');
+    fb.innerHTML=`<span class="tag">${right?'Correct':'Look again'}</span>${right?it.n:(it.hint||it.n)}`;
+    if(right&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildWrite(sec){const ta=$('textarea',sec),wc=$('.wc',sec),msg=$('.cpmsg',sec),key='oe-b7-'+ta.id;
+ try{const v=localStorage.getItem(key);if(v)ta.value=v}catch(e){}
+ const upd=()=>{const n=(ta.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' words';try{localStorage.setItem(key,ta.value)}catch(e){}};ta.addEventListener('input',upd);upd();
+ $('.show',sec).onclick=()=>{$('.after',sec).hidden=false};
+ $('.cpy',sec).onclick=()=>{const t=ta.value;const fall=()=>{ta.focus();ta.select();msg.textContent='Selected. Copy it with your keyboard.'};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{msg.textContent='Copied.'},fall)}else fall()}}
+
+
+function buildPassive(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  const id='pv'+i;const parts=it.p.split('___');
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label} ${i+1}</div><p class="prompt">${parts[0]}<span class="gap">___</span>${parts[1]}</p><div class="typ"><input id="${id}" aria-label="Passive verb for gap ${i+1}" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="btn ghost">Check</button></div><div class="fb" hidden></div>`;
+  const inp=$('input',r),fb=$('.fb',r);
+  const go=()=>{let w=inp.value.toLowerCase().replace(/\s+/g,' ').trim();if(!w)return;
+   if(it.full&&w===it.full)w=it.ok[0];
+   let cls='no',tag='Not quite',msg='';
+   if(it.ok.includes(w)){cls='best';tag='Correct';msg=`<b>${it.full||it.ok[0]}</b>: was + past participle.`}
+   else if(w===it.verb||it.ok.some(o=>o.split(' ')[1]===w))msg='The passive needs <b>be</b> as well as the past participle: was + '+it.verb+'.';
+   else if(/^(is|are) /.test(w))msg='Right idea, but the chart shows 2025, so use the past: <b>was</b>.';
+   else if(/^were /.test(w))msg='“Waste” is uncountable, so a percentage of waste takes <b>was</b>, not “were”.';
+   else if(/^was /.test(w)){const p=w.slice(4);msg=it.irr&&/ed$/.test(p)?`This verb is irregular: ${it.irr}.`:'You need the past participle after was: <b>'+it.verb+'</b>.'}
+   else if(/^(has|have) been /.test(w))msg='Use the past simple passive for a past year: <b>was</b> + past participle.';
+   else msg='Use <b>was</b> + past participle, for example “was recycled”.';
+   inp.classList.toggle('good',cls==='best');inp.classList.toggle('bad',cls!=='best');
+   fb.hidden=false;fb.className='fb '+cls;fb.innerHTML=`<span class="tag">${tag}</span>${msg}`;
+   if(cls==='best'&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};
+  $('button',r).onclick=go;inp.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+  host.appendChild(r)})}
+
+/* ---- drag or tap tiles into slots ----
+ cfg: {sec, tiles:[{t,key,n}], mode:'match'|'bins'|'order'|'sentence', answers (sentence mode)} */
+function buildDnd(sec,cfg){
+ const host=$('.dnd',sec),pool=$('.pool',sec),cnt=$('.count',sec),fb=$('.fb',sec),notes=$('.notes',sec);
+ let sel=null,solved=false;
+ const tiles=cfg.tiles.map((d,i)=>{const b=document.createElement('button');b.type='button';b.className='tile';b.textContent=d.t;b.dataset.key=d.key;b.dataset.i=i;b.setAttribute('aria-pressed','false');return b});
+ tiles.map(t=>[Math.random(),t]).sort((a,b)=>a[0]-b[0]).forEach(x=>pool.appendChild(x[1]));
+ const slots=()=>$$('.slot,.seq',sec);
+ const cap=s=>s.classList.contains('seq')||s.dataset.many?99:1;
+ function select(t){if(sel)sel.setAttribute('aria-pressed','false');sel=(sel===t)?null:t;if(sel)sel.setAttribute('aria-pressed','true')}
+ function place(t,s){if(!s||t.classList.contains('right'))return;
+  if(s!==pool&&cap(s)===1&&s.firstElementChild&&s.firstElementChild!==t)pool.appendChild(s.firstElementChild);
+  s.appendChild(t);t.classList.remove('wrong');t.setAttribute('aria-pressed','false');sel=null;fb.hidden=true}
+ slots().forEach(s=>s.addEventListener('click',e=>{if(e.target.closest('.tile'))return;if(sel)place(sel,s)}));
+ pool.addEventListener('click',e=>{if(e.target===pool&&sel)place(sel,pool)});
+ tiles.forEach(t=>{
+  let sx,sy,drag=null,moved=false;
+  t.addEventListener('pointerdown',e=>{if(t.classList.contains('right')||e.button>0)return;sx=e.clientX;sy=e.clientY;moved=false;t.setPointerCapture(e.pointerId)});
+  t.addEventListener('pointermove',e=>{if(sx===undefined)return;
+   if(!drag&&Math.hypot(e.clientX-sx,e.clientY-sy)>6){moved=true;const r=t.getBoundingClientRect();drag=t.cloneNode(true);drag.classList.add('dragcopy');drag.style.width=r.width+'px';drag.dx=sx-r.left;drag.dy=sy-r.top;document.body.appendChild(drag);t.style.opacity='.35'}
+   if(drag){if(e.clientY<70)scrollBy(0,-14);else if(e.clientY>innerHeight-70)scrollBy(0,14);drag.style.left=(e.clientX-drag.dx)+'px';drag.style.top=(e.clientY-drag.dy)+'px';
+    const over=document.elementFromPoint(e.clientX,e.clientY);slots().concat(pool).forEach(s=>s.classList.remove('hot'));const s=over&&over.closest('.slot,.seq,.pool');if(s&&host.contains(s))s.classList.add('hot')}});
+  const end=e=>{if(sx===undefined)return;sx=undefined;
+   if(drag){const over=document.elementFromPoint(e.clientX,e.clientY);drag.remove();drag=null;t.style.opacity='';slots().concat(pool).forEach(s=>s.classList.remove('hot'));
+    const s=over&&over.closest('.slot,.seq,.pool');if(s&&host.contains(s)){if(s.classList.contains('seq')){const near=over.closest('.tile');if(near&&near!==t&&s.contains(near)){s.insertBefore(t,near);fb.hidden=true}else place(t,s)}else place(t,s)}}};
+  t.addEventListener('pointerup',end);t.addEventListener('pointercancel',end);
+  t.addEventListener('click',e=>{if(moved){moved=false;return}if(t.classList.contains('right'))return;
+   if(cfg.mode==='sentence'&&t.parentElement===pool&&!sel){place(t,$('.seq',sec));return}
+   if(t.parentElement!==pool&&!sel){place(t,pool);return}
+   if(sel&&sel!==t&&t.parentElement!==pool){const s=t.parentElement;if(s.classList.contains('seq')){s.insertBefore(sel,t);sel.setAttribute('aria-pressed','false');sel=null;return}place(sel,s);return}
+   select(t)})});
+ $('.chk',sec).onclick=()=>{if(solved)return;fb.hidden=false;notes.innerHTML='';
+  if(cfg.mode==='sentence'){const seq=$('.seq',sec),words=$$('.tile',seq).map(x=>x.textContent).join(' ');
+   if($$('.tile',pool).length){fb.className='fb maybe';fb.innerHTML='<span class="tag">Not finished</span>Use all the words.';return}
+   const ok=cfg.answers.map(a=>a.toLowerCase()).includes(words.toLowerCase());
+   fb.className='fb '+(ok?'best':'no');fb.innerHTML=ok?`<span class="tag">Correct</span>${cfg.note||''}`:`<span class="tag">Not yet</span>${cfg.hint}`;
+   if(ok){solved=true;$$('.tile',seq).forEach(x=>x.classList.add('right'));cnt&&(cnt.textContent='1 / 1',cnt.classList.add('done'));sec.dispatchEvent(new Event('solved'))}return}
+  const placed=$$('.slot .tile',sec);let right=0,need=$$('.slot',sec).length;
+  if(cfg.mode==='bins')need=tiles.length;
+  placed.forEach(t=>{const s=t.closest('.slot'),d=cfg.tiles[t.dataset.i];const ok=s.dataset.key===String(d.key);
+   t.classList.toggle('right',ok);t.classList.toggle('wrong',!ok);if(ok)right++;
+   if(d.n&&(!ok||cfg.mode==='bins')){const li=document.createElement('li');li.className=ok?'okn':'';li.innerHTML=`<b>${d.t}</b> ${d.n}`;if(!ok||cfg.showAll)notes.appendChild(li)}});
+  cnt&&(cnt.textContent=right+' / '+need+(sec.dataset.unit||''));
+  if(right===need){solved=true;cnt&&cnt.classList.add('done');fb.className='fb best';fb.innerHTML='<span class="tag">All correct</span>'+(cfg.done||'Well done.');
+   if(cfg.showAll){notes.innerHTML='';cfg.tiles.forEach(d=>{if(d.n){const li=document.createElement('li');li.className='okn';li.innerHTML=`<b>${d.t}</b> ${d.n}`;notes.appendChild(li)}})}}
+  else{fb.className='fb maybe';fb.innerHTML=`<span class="tag">${right} of ${need} correct</span>${placed.length<need?'Place all the cards first, or look at the ones in red. ':'Look at the ones in red. '}Tap a red card to send it back, then try again.`}};
+}
+
+/* ---- short typed answers ---- items: [{p (with ___), ok:[...], n}] */
+function buildType(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';const parts=it.p.split('___');
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label} ${i+1}</div><p class="prompt">${parts[0]}<span class="gap">___</span>${parts[1]}</p><div class="typ"><input aria-label="Answer for gap ${i+1}" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="btn ghost">Check</button></div><div class="fb" hidden></div>`;
+  const inp=$('input',r),fb=$('.fb',r);
+  const go=()=>{const w=inp.value.toLowerCase().trim();if(!w)return;const ok=it.ok.includes(w);
+   inp.classList.toggle('good',ok);inp.classList.toggle('bad',!ok);fb.hidden=false;fb.className='fb '+(ok?'best':'no');
+   fb.innerHTML=ok?`<span class="tag">Correct</span>${it.n}${/^\d+$/.test(w)?' In a sentence, write the number as a word.':''}`:`<span class="tag">Not quite</span>Think of the fraction first. What fraction is the percentage?`;
+   if(ok&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};
+  $('button',r).onclick=go;inp.addEventListener('keydown',e=>{if(e.key==='Enter')go()});host.appendChild(r)});return cnt}
+
+/* ---- click the mistake ---- items: [{w:[words], bad:index, fix, n}] */
+function buildSpot(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label} ${i+1}</div><p class="spot"></p><div class="fb" hidden></div>`;
+  const p=$('.spot',r),fb=$('.fb',r);let tries=0;
+  it.w.forEach((w,j)=>{const b=document.createElement('button');b.type='button';b.className='word';b.textContent=w;
+   b.onclick=()=>{if(r.classList.contains('solved'))return;
+    if(j===it.bad){b.classList.add('miss');const fx=document.createElement('span');fx.className='word hit';fx.textContent=it.fix;b.after(document.createTextNode(' '),fx);
+     fb.hidden=false;fb.className='fb best';fb.innerHTML=`<span class="tag">Found it</span>${it.n}`;r.classList.add('solved');cnt.inc()}
+    else{tries++;b.classList.remove('nope');void b.offsetWidth;b.classList.add('nope');fb.hidden=false;fb.className='fb no';fb.innerHTML=`<span class="tag">That word is fine</span>${tries>1?it.hint:'Look again. Check the grammar, the figure and what the percentage is of.'}`}};
+   p.appendChild(b);if(j<it.w.length-1)p.appendChild(document.createTextNode(' '))});
+  host.appendChild(r)});return cnt}
+
+const STUD=[["China", 28], ["India", 22], ["Russia", 12], ["Brazil", 10], ["Germany", 10], ["Nigeria", 6], ["Other countries", 12]];
+const val=n=>STUD.find(x=>x[0]===n)[1];
+const COUNTRIES=STUD.filter(x=>!/^Other/.test(x[0])).map(x=>x[0]);
+const pct=n=>val(n)+'%';
+const norm=s=>s.toLowerCase().replace(/[‐-–—]/g,'-').replace(/\s+/g,' ').trim();
+const near=(r,m,q)=>{if(!q||q==='exactly')return Math.abs(r-m)/m<=0.04;if(/^(about|around|roughly|approximately)$/.test(q))return Math.abs(r-m)/m<=0.12;if(/^(almost|nearly|just under)$/.test(q))return r<m&&r>=m*0.85;if(/^(more than|over|just over)$/.test(q))return r>m&&r<=m*1.3;return false};
+const MULT={'twice':2,'double':2,'three times':3,'triple':3,'four times':4,'five times':5,'half':0.5};
+// each frame: id, label (shown), parts before/after gap, needsB, check(word,A,B) -> {ok, msg, kind:'grammar'|'false'|'unknown'}
+const FR=[
+ {id:'more',label:'___ international students came from A than from B.',needsB:true,
+  build:(A,B)=>['',` international students came from ${A} than from ${B}.`],cap:true,
+  check:(w,A,B)=>{const a=val(A),b=val(B);
+   if(w==='less')return{kind:'grammar',msg:'“Students” is a countable noun, so use <b>fewer</b>, not “less”.'};
+   if(w==='more')return a>b?{ok:1}:{kind:'false',msg:`${A} had ${pct(A)} and ${B} had ${pct(B)}, so <b>more</b> isn’t true. ${a<b?'Try “fewer”.':'They were equal: try the “as many … as” structure.'}`};
+   if(w==='fewer')return a<b?{ok:1}:{kind:'false',msg:`${A} had ${pct(A)} and ${B} had ${pct(B)}, so <b>fewer</b> isn’t true. ${a>b?'Try “more”.':'They were equal: try the “as many … as” structure.'}`};
+   return{kind:'unknown',msg:'Use <b>more</b> or <b>fewer</b> here.'}},
+  data:(A,B)=>` (${pct(A)} compared with ${pct(B)})`},
+ {id:'comp',label:'The proportion of students from A was ___ than the proportion from B.',needsB:true,
+  build:(A,B)=>[`The proportion of students from ${A} was `,` than the proportion from ${B}.`],
+  check:(w,A,B)=>{const a=val(A),b=val(B);
+   if(/^more (high|large|big|low|small)/.test(w))return{kind:'grammar',msg:'Short adjectives take <b>-er</b>: higher, larger, lower, smaller. Not “more high”.'};
+   if(w==='more'||w==='less'||w==='bigger amount')return{kind:'grammar',msg:'You need an adjective here: <b>higher</b>, <b>larger</b>, <b>lower</b> or <b>smaller</b>.'};
+   const up=/^(much |considerably |significantly |slightly |a little |far )?(higher|larger|bigger|greater)$/.test(w),dn=/^(much |considerably |significantly |slightly |a little |far )?(lower|smaller)$/.test(w);
+   if(!up&&!dn)return{kind:'unknown',msg:'Try a comparative adjective: <b>higher</b>, <b>larger</b>, <b>lower</b> or <b>smaller</b>. You can add <i>much</i> or <i>slightly</i> before it.'};
+   if(up&&a<=b||dn&&a>=b)return{kind:'false',msg:`${A} had ${pct(A)} and ${B} had ${pct(B)}, so that isn’t true.${a===b?' They were equal: try the “equal” structure.':' Try the opposite adjective.'}`};
+   const m=w.split(' ')[0];if(m==='slightly'&&Math.abs(a-b)>4)return{kind:'false',msg:`The difference is ${Math.abs(a-b)} percentage points, which is more than “slightly”. Try “much”.`};
+   if((m==='much'||m==='far'||m==='considerably'||m==='significantly')&&Math.abs(a-b)<4)return{kind:'false',msg:`The difference is only ${Math.abs(a-b)} percentage points. Try “slightly”.`};
+   return{ok:1}},
+  data:(A,B)=>`: ${pct(A)}, compared with ${pct(B)}`},
+ {id:'notas',label:'The proportion of students from A was not as ___ as the proportion from B.',needsB:true,
+  build:(A,B)=>[`The proportion of students from ${A} was not as `,` as the proportion from ${B}.`],
+  check:(w,A,B)=>{const a=val(A),b=val(B);
+   if(/er$/.test(w)&&/^(higher|larger|bigger|greater|lower|smaller)$/.test(w))return{kind:'grammar',msg:'After <b>not as</b>, use the base adjective: <b>high</b> or <b>large</b>, not “'+w+'”.'};
+   if(/^(high|large|big|great)$/.test(w))return a<b?{ok:1}:{kind:'false',msg:`${A} had ${pct(A)} and ${B} had ${pct(B)}, so ${A}’s share ${a===b?'was the same':'was actually higher'}. ${a>b?'Swap the countries.':'Try the “equal” structure.'}`};
+   if(/^(low|small)$/.test(w))return{kind:'grammar',msg:'Grammatically possible, but we normally say “not as <b>high</b>/<b>large</b> as”. “Not as low as” sounds odd for a share.'};
+   return{kind:'unknown',msg:'Use a base adjective: <b>high</b> or <b>large</b>.'}},
+  data:(A,B)=>` (${pct(A)} against ${pct(B)})`},
+ {id:'sup',label:'A accounted for the ___ proportion of international students.',needsB:false,
+  build:(A)=>[`${A} accounted for the `,` proportion of international students.`],
+  check:(w,A)=>{const order=[...COUNTRIES].sort((x,y)=>val(y)-val(x)),rank=order.indexOf(A)+1,a=val(A);
+   if(/^most (large|big|high|small|low)/.test(w)||/^(larger|bigger|higher|smaller|lower)$/.test(w))return{kind:'grammar',msg:'Use the superlative: <b>largest</b>, <b>highest</b>, <b>smallest</b>, <b>lowest</b>.'};
+   const m=w.match(/^(?:(second|third)[ -])?(largest|biggest|highest|greatest|smallest|lowest)$/);
+   if(!m)return{kind:'unknown',msg:'Use a superlative: <b>largest</b> or <b>smallest</b>. You can add <i>second</i> or <i>third</i>: “the second largest”.'};
+   const n={undefined:1,second:2,third:3}[m[1]],up=/largest|biggest|highest|greatest/.test(m[2]);
+   const r=up?rank:COUNTRIES.length+1-rank;
+   const tie=COUNTRIES.filter(c=>val(c)===a).length>1;
+   if(r===n&&!tie)return{ok:1};
+   if(tie)return{kind:'false',msg:`${A} had ${pct(A)}, the same as another country, so it doesn’t have a ranking of its own. Try a different country.`};
+   return{kind:'false',msg:`${A} had ${pct(A)}. Look at the order of the slices again: that ranking isn’t right.`}},
+  data:(A)=>`, at ${pct(A)}`},
+ {id:'asmany',label:'As ___ students came from A as from B.',needsB:true,
+  build:(A,B)=>['As ',` students came from ${A} as from ${B}.`],
+  check:(w,A,B)=>{const a=val(A),b=val(B);
+   if(w==='much')return{kind:'grammar',msg:'“Students” is countable, so use <b>many</b>: “as many students as”.'};
+   if(w!=='many')return{kind:'unknown',msg:'Use <b>many</b>: “as many students came from … as from …”.'};
+   return a===b?{ok:1}:{kind:'false',msg:`${A} had ${pct(A)} and ${B} had ${pct(B)}. “As many … as” means the figures were the same.`}},
+  data:(A,B)=>` (${pct(A)} each)`},
+ {id:'mult',label:'The proportion of students from A was ___ that from B.',needsB:true,
+  build:(A,B)=>[`The proportion of students from ${A} was `,` that from ${B}.`],
+  check:(w,A,B)=>{const a=val(A),b=val(B),r=a/b;
+   if(/^two times/.test(w))return{kind:'grammar',msg:'We say <b>twice</b>, not “two times”.'};
+   if(/ as$| than$/.test(w))return{kind:'grammar',msg:'In this frame, the word <b>that</b> follows the gap: “twice that from …”. Don’t add “as” or “than”.'};
+   const m=w.match(/^(?:(almost|nearly|just under|more than|over|just over|about|around|roughly|approximately|exactly) )?(twice|double|three times|triple|four times|five times|half)$/);
+   if(!m)return{kind:'unknown',msg:'Use a multiple: <b>twice</b>, <b>three times</b> or <b>half</b>. You can add <i>almost</i>, <i>about</i> or <i>more than</i> before it.'};
+   return near(r,MULT[m[2]],m[1])?{ok:1}:{kind:'false',msg:`${A} had ${pct(A)} and ${B} had ${pct(B)}. ${a} ÷ ${b} = ${(r).toFixed(2).replace(/\.?0+$/,'')}, so “${w}” isn’t accurate.`}},
+  data:(A,B)=>` (${pct(A)} and ${pct(B)} respectively)`},
+ {id:'equal',label:'A and B accounted for ___ proportions of international students.',needsB:true,
+  build:(A,B)=>[`${A} and ${B} accounted for `,` proportions of international students.`],
+  check:(w,A,B)=>{const a=val(A),b=val(B);
+   if(/^the same$/.test(w))return{kind:'grammar',msg:'Say “<b>the same proportion</b>” (singular) or “<b>equal</b> proportions”.'};
+   if(/^(equal|identical)$/.test(w))return a===b?{ok:1}:{kind:'false',msg:`${A} had ${pct(A)} and ${B} had ${pct(B)}, so they weren’t equal.${Math.abs(a-b)<=2?' Try “similar”.':''}`};
+   if(w==='similar')return Math.abs(a-b)<=2?{ok:1}:{kind:'false',msg:`${A} had ${pct(A)} and ${B} had ${pct(B)}. A difference of ${Math.abs(a-b)} points is too big to call similar.`};
+   return{kind:'unknown',msg:'Use <b>equal</b>, <b>identical</b> or <b>similar</b>.'}},
+  data:(A,B)=>val(A)===val(B)?` (${pct(A)} each)`:` (${pct(A)} and ${pct(B)})`},
+];
+(function(){
+ const sec=$('#s-cb'),ca=$('#cb-a'),cf=$('#cb-f'),cbx=$('#cb-b'),cs=$('#cb-s'),fb=$('#cb-fb'),log=$('#cb-log'),cnt=$('#cb-count');
+ let A=null,B=null,F=null;const done=new Set();
+ const chip=(host,name,fn)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=name;b.setAttribute('aria-pressed','false');b.onclick=()=>fn(name,b);host.appendChild(b);return b};
+ const press=(host,b)=>{$$('[aria-pressed]',host).forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true')};
+ COUNTRIES.forEach(n=>chip(ca,n,(n,b)=>{A=n;press(ca,b);render()}));
+ COUNTRIES.forEach(n=>chip(cbx,n,(n,b)=>{B=n;press(cbx,b);render()}));
+ FR.forEach(f=>{const b=document.createElement('button');b.type='button';b.className='frame';b.setAttribute('aria-pressed','false');
+  b.innerHTML=`<span>${f.label.replace('___','<b>___</b>').replace(/\bA\b/,'<i>[country 1]</i>').replace(/\bB\b/,'<i>[country 2]</i>')}</span><span class="tick"></span>`;
+  b.onclick=()=>{F=f;press(cf,b);render()};f.btn=b;cf.appendChild(b)});
+ function render(){fb.hidden=true;
+  $$('.chip',cbx).forEach(c=>{c.disabled=!!(F&&!F.needsB)||c.textContent===A});
+  if(F&&F.needsB&&B===A){B=null;$$('.chip',cbx).forEach(c=>c.setAttribute('aria-pressed','false'))}
+  if(!A||!F){cs.innerHTML='<span class="ph">Choose a country and a structure first.</span>';return}
+  if(F.needsB&&!B){cs.innerHTML='<span class="ph">Now choose a second country.</span>';return}
+  const [pre,post]=F.build(A,B);
+  cs.innerHTML=`${pre}<input type="text" id="cb-in" aria-label="Missing word or words" autocomplete="off" autocapitalize="off" spellcheck="false">${post}`;
+  const i=$('#cb-in');i.addEventListener('keydown',e=>{if(e.key==='Enter')check()});i.focus({preventScroll:true})}
+ function check(){const i=$('#cb-in');if(!i){fb.hidden=false;fb.className='fb';fb.innerHTML='Choose your countries and a structure first.';return}
+  let w=norm(i.value);if(!w){i.focus();return}
+  const res=F.check(w,A,B);fb.hidden=false;
+  if(res.ok){fb.className='fb best';
+   let [pre,post]=F.build(A,B);let word=i.value.trim();if(!pre)word=word[0].toUpperCase()+word.slice(1);
+   const s=pre+word+post,withData=s.replace(/\.$/,'')+F.data(A,B)+'.';
+   fb.innerHTML=`<span class="tag">Correct and true</span>Now add the figures: <i>${withData}</i>`;
+   if(log.dataset.started!=='1'){log.innerHTML='';log.dataset.started='1'}
+   const li=document.createElement('li');li.innerHTML=`${withData}<small>${F.label.replace(/\bA\b/,'…').replace(/\bB\b/,'…')}</small>`;log.appendChild(li);
+   if(!done.has(F.id)){done.add(F.id);F.btn.querySelector('.tick').textContent='✓ used';cnt.textContent=done.size+' / '+FR.length+' structures';if(done.size===FR.length)cnt.classList.add('done')}
+  }else{fb.className='fb '+(res.kind==='false'?'maybe':'no');
+   fb.innerHTML=`<span class="tag">${res.kind==='false'?'Good grammar, but not true':res.kind==='grammar'?'Check the grammar':'Try a different word'}</span>${res.msg}`}}
+ $('#cb-check').onclick=check;
+})();
+
+buildDnd($('#s-frac'),{tiles:[{"t": "a tenth", "key": "10%", "n": "is 10%."}, {"t": "an eighth", "key": "12.5%", "n": "is 12.5%."}, {"t": "a sixth", "key": "17%", "n": "is 17%."}, {"t": "a fifth", "key": "20%", "n": "is 20%."}, {"t": "a quarter", "key": "25%", "n": "is 25%."}, {"t": "a third", "key": "33%", "n": "is 33%."}, {"t": "two fifths", "key": "40%", "n": "is 40%."}, {"t": "three fifths", "key": "60%", "n": "is 60%."}, {"t": "two thirds", "key": "67%", "n": "is 67%."}, {"t": "four fifths", "key": "80%", "n": "is 80%."}],mode:'match',done:'Use these fractions to vary your figures.'});
+buildType($('#s-onein'),[{"p": "25% of commuters cycled. \u2192 One in ___ commuters cycled.", "ok": ["four", "4"], "n": "25% is a quarter, so one in <b>four</b>."}, {"p": "10% of diners were vegetarian. \u2192 One in ___ diners was vegetarian.", "ok": ["ten", "10"], "n": "10% is a tenth, so one in <b>ten</b>."}, {"p": "20% of students studied online. \u2192 One in ___ students studied online.", "ok": ["five", "5"], "n": "20% is a fifth, so one in <b>five</b>."}, {"p": "33% of households owned a dog. \u2192 One in ___ households owned a dog.", "ok": ["three", "3"], "n": "33% is a third, so one in <b>three</b>."}, {"p": "5% of visitors came by train. \u2192 One in ___ visitors came by train.", "ok": ["twenty", "20"], "n": "5% is a twentieth, so one in <b>twenty</b>."}, {"p": "70% of pupils walked to school. \u2192 ___ in ten pupils walked to school.", "ok": ["seven", "7"], "n": "70% is <b>seven</b> in ten. This sounds more natural than \u201cseven tenths\u201d."}]);
+buildDnd($('#s-qual'),{tiles:[{"t": "just over", "key": "more", "n": "A little more: 26% is just over a quarter."}, {"t": "slightly more than", "key": "more", "n": "A little more: 52% is slightly more than half."}, {"t": "just under", "key": "less", "n": "A little less: 48% is just under half."}, {"t": "almost", "key": "less", "n": "Always a little <i>less</i>: 52% is not \u201calmost half\u201d."}, {"t": "nearly", "key": "less", "n": "Like almost, always a little <i>less</i>: 74% is nearly three quarters."}, {"t": "about", "key": "close", "n": "Close, either side: 32% or 34% is about a third."}, {"t": "roughly", "key": "close", "n": "Close, either side."}, {"t": "approximately", "key": "close", "n": "Close, either side. More formal than \u201cabout\u201d."}, {"t": "well over", "key": "far", "n": "Much more: 60% is well over half."}, {"t": "considerably less than", "key": "far", "n": "Much less: 15% is considerably less than a quarter."}],mode:'bins',showAll:true,done:'Remember: almost and nearly always mean a little less.'});
+buildDnd($('#s-match'),{tiles:[{"t": "Just under half", "key": "Just under half", "n": "means a little below 50%, such as 48%."}, {"t": "Just over a quarter", "key": "Just over a quarter", "n": "means a little above 25%, such as 26%."}, {"t": "Almost two thirds", "key": "Almost two thirds", "n": "means a little below 67%, such as 65%."}, {"t": "Just under a tenth", "key": "Just under a tenth", "n": "means a little below 10%, such as 9%."}, {"t": "Nearly three quarters", "key": "Nearly three quarters", "n": "means a little below 75%, such as 74%."}, {"t": "Just over a third", "key": "Just over a third", "n": "means a little above 33%, such as 34%."}, {"t": "Just over half", "key": "none", "n": "means a little above 50%. None of these charts shows that."}, {"t": "Exactly a third", "key": "none", "n": "would be 33.3%. None of these charts shows that."}],mode:'match',done:'Each phrase matches the figure exactly.'});
+buildDnd($('#s-prop'),{tiles:[{"t": "the vast majority", "key": "92%", "n": "about 85\u201399%. \u201cAlmost all\u201d also works."}, {"t": "a large majority", "key": "74%", "n": "about 65\u201385%."}, {"t": "the majority", "key": "55%", "n": "more than half. It never means \u201cthe biggest slice\u201d."}, {"t": "a significant minority", "key": "38%", "n": "about 30\u201345%: less than half, but a lot."}, {"t": "a small minority", "key": "9%", "n": "about 5\u201315%."}, {"t": "a tiny fraction", "key": "2%", "n": "under 5%. \u201cVery few\u201d also works."}],mode:'match',showAll:true,done:'Notice that the majority means over 50%.'});
+buildDnd($('#s-what'),{tiles:[{"t": "70% of part-time students were over 25.", "key": "acc", "n": "The whole of the second pie is part-time students, so \u201c70% of part-time students\u201d is exactly right."}, {"t": "70% of students over 25 studied part-time.", "key": "not", "n": "This turns the chart around. The whole pie is part-time students, not students over 25. We don\u2019t know how many over-25s studied full-time."}, {"t": "Almost half of all students studied part-time.", "key": "acc", "n": "48% of all students is almost half. The whole is the first pie: all students."}, {"t": "Over half of all students studied part-time.", "key": "not", "n": "48% is under half. It\u2019s the full-time students who were just over half (52%)."}, {"t": "Part-time students were 48%.", "key": "not", "n": "48% of what? Say what the whole is: \u201cPart-time students made up 48% of all students.\u201d"}, {"t": "70% of all students at the college were part-time students over 25.", "key": "not", "n": "70% is a share of part-time students only, not of all students. Ask yourself: percentage of what?"}, {"t": "Part-time students over 25 outnumbered those aged 25 and under by more than two to one.", "key": "acc", "n": "70 against 30 is more than two to one. It compares two slices of the same pie, so it\u2019s accurate."}, {"t": "The majority of part-time students were over 25.", "key": "acc", "n": "70% is more than half, so \u201cthe majority\u201d is accurate. The whole is part-time students."}, {"t": "Most part-time students preferred evening classes.", "key": "not", "n": "The charts say nothing about evening classes. Only describe what the data shows."}],mode:'bins',showAll:true,done:'Read the explanations below.'});
+buildJudge($('#s-agree'),[{"s": "A third of the students ___ over 25.", "a": 1, "n": "\u201cStudents\u201d is plural, so the verb is plural: <b>were</b>."}, {"s": "A third of the waste ___ recycled.", "a": 0, "n": "\u201cWaste\u201d is uncountable, so the verb is singular: <b>was</b>."}, {"s": "28% of international students ___ from China.", "a": 1, "n": "The verb agrees with \u201cstudents\u201d, the noun after \u201cof\u201d: <b>were</b>."}, {"s": "Just over a quarter of the money ___ spent on housing.", "a": 0, "n": "\u201cMoney\u201d is uncountable: <b>was</b>."}, {"s": "The majority of part-time students ___ over 25.", "a": 1, "n": "Agree with \u201cstudents\u201d: <b>were</b>."}, {"s": "Most of the energy ___ produced from gas.", "a": 0, "n": "\u201cEnergy\u201d is uncountable: <b>was</b>."}],['was','were']);
+buildPassive($('#s-pass'),[{"p": "Just over a third of household waste ___ (recycle).", "ok": ["was recycled"], "verb": "recycled"}, {"p": "Around a quarter of the waste ___ (send) to landfill.", "ok": ["was sent"], "verb": "sent", "irr": "send \u2192 sent"}, {"p": "22% of household waste ___ (burn) to generate energy.", "ok": ["was burned", "was burnt"], "verb": "burned"}, {"p": "Only 12% ___ (turn) into compost.", "ok": ["was turned"], "verb": "turned"}, {"p": "Almost three times as much waste ___ (recycle) as was composted.", "ok": ["was recycled"], "verb": "recycled"}, {"p": "Household waste in Riverton ___ (deal) with in four main ways.", "ok": ["was dealt"], "verb": "dealt", "irr": "deal \u2192 dealt", "full": "was dealt with"}]);
+(function(){const U=[{"w": ["Just", "over", "a", "third", "of", "household", "waste", "was", "recycled"], "a": ["Just over a third of household waste was recycled"], "hint": "Start with the amount (\u201cJust over a third of\u2026\u201d), then the whole, then was + past participle.", "note": "Amount + of + the whole + was + past participle."}, {"w": ["Around", "a", "quarter", "of", "the", "waste", "was", "sent", "to", "landfill"], "a": ["Around a quarter of the waste was sent to landfill"], "hint": "Start with \u201cAround a quarter of the waste\u201d, then the passive verb.", "note": "\u201cWas sent\u201d is the passive of the irregular verb send."}, {"w": ["More", "waste", "was", "sent", "to", "landfill", "than", "was", "burned"], "a": ["More waste was sent to landfill than was burned"], "hint": "Check the chart: was more waste sent to landfill (26%) or burned (22%)? Put the bigger one first.", "note": "26% was sent to landfill and 22% was burned, so this order is the true one."}];let n=0;const c=$('#uns-count');
+ U.forEach((u,i)=>{const s=$('#uns'+i);buildDnd(s,{tiles:u.w.map((w,j)=>({t:w,key:j})),mode:'sentence',answers:u.a,hint:u.hint,note:u.note});
+  s.addEventListener('solved',()=>{n++;c.textContent=n+' / '+U.length;if(n===U.length)c.classList.add('done')})})})();
+buildSpot($('#s-wj'),[{"w": ["Just", "over", "a", "third", "of", "household", "waste", "were", "recycled."], "bad": 7, "fix": "was", "n": "\u201cWaste\u201d is uncountable, so it takes <b>was</b>.", "hint": "Look at the verb. Is \u201cwaste\u201d singular or plural?"}, {"w": ["Around", "a", "quarter", "of", "the", "waste", "was", "send", "to", "landfill."], "bad": 7, "fix": "sent", "n": "The passive needs the past participle: <b>sent</b>.", "hint": "Look at the passive verb."}, {"w": ["Just", "under", "a", "third", "of", "household", "waste", "was", "recycled."], "bad": 1, "fix": "over", "n": "34% is more than a third (33%), so it\u2019s <b>just over</b>.", "hint": "Check the figure in the chart: 34%."}, {"w": ["Recycling", "accounted", "for", "the", "larger", "proportion", "of", "household", "waste."], "bad": 4, "fix": "largest", "n": "There are more than two slices, so use the superlative: <b>the largest</b>.", "hint": "How many slices are being compared?"}, {"w": ["Composting", "accounted", "for", "12%", "of", "residents."], "bad": 5, "fix": "household waste.", "n": "The whole is household waste, not residents. Always ask: percentage of what?", "hint": "12% of what? Check the chart title."}, {"w": ["Only", "12%", "of", "household", "waste", "was", "composted,", "roughly", "half", "the", "figure", "for", "recycling."], "bad": 8, "fix": "a third of", "n": "12 is roughly <b>a third of</b> 34, not half.", "hint": "Check the comparison: 12 and 34."}, {"w": ["In", "2025,", "22%", "of", "household", "waste", "is", "burned", "to", "generate", "energy."], "bad": 6, "fix": "was", "n": "2025 is in the past, so use <b>was</b> burned.", "hint": "Look at the year and the tense."}, {"w": ["The", "majority", "of", "household", "waste", "was", "recycled."], "bad": 1, "fix": "largest share", "n": "Recycling had the largest slice, but 34% isn\u2019t more than half. Write \u201cThe largest share of household waste was recycled.\u201d", "hint": "34% of the waste: is that more than half?"}]);
+buildDnd($('#s-add'),{tiles:[{"t": "(22% compared with 10%).", "key": "h0", "n": "The figures go in brackets after the comparison."}, {"t": "whereas only 6% came from Nigeria.", "key": "h1", "n": "\u201cWhereas\u201d joins two contrasting facts after a comma."}, {"t": "double the proportion from Nigeria.", "key": "h2", "n": "12% is twice 6%, so \u201cdouble\u201d is accurate."}, {"t": "Specifically, they accounted for 28% and 22% respectively.", "key": "h3", "n": "\u201cSpecifically\u201d starts a new sentence with the detail."}, {"t": "(10% each).", "key": "h4", "n": "Equal figures: \u201c10% each\u201d."}, {"t": "three times the proportion from Nigeria.", "key": "none", "n": "12 is twice 6, not three times. This ending doesn\u2019t fit anywhere."}],mode:'match',done:'Notice the different ways of adding the figures: brackets, whereas, double and Specifically.'});
+buildDnd($('#s-order'),{tiles:[{"t": "The pie chart shows how household waste was dealt with in Riverton in 2025.", "key": 0}, {"t": "Overall, recycling was the most common method, while composting accounted for a relatively small share.", "key": 1}, {"t": "Just over a third of household waste (34%) was recycled, making it the largest category.", "key": 2}, {"t": "This was followed by landfill, which took around a quarter of the waste.", "key": 3}, {"t": "Slightly less waste, 22%, was burned to generate energy.", "key": 4}, {"t": "Only 12% was composted, roughly a third of the figure for recycling.", "key": 5}, {"t": "The remaining 6% was dealt with in other ways.", "key": 6}],mode:'order',done:'The answer moves from the introduction, to the overview, to the slices from largest to smallest.'});
+buildPick($('#s-voc'),[{"p": "India ___ 22% of international students.", "o": [{"t": "accounted for", "v": "best", "n": "\u201cAccount\u201d always needs <b>for</b> in this meaning."}, {"t": "accounted", "v": "no", "n": "Without \u201cfor\u201d, \u201caccounted\u201d doesn\u2019t mean \u201cmade up\u201d."}, {"t": "was accounted for", "v": "no", "n": "The passive changes the meaning. India is the subject, so use the active: accounted for."}]}, {"p": "Students from Russia ___ 12% of the total.", "o": [{"t": "made up", "v": "best", "n": "\u201cMake up\u201d + amount: made up 12%."}, {"t": "made up of", "v": "no", "n": "\u201cMade up of\u201d means \u201cconsisted of\u201d: the total was made up of several groups. Here, drop \u201cof\u201d."}, {"t": "consisted", "v": "no", "n": "\u201cConsist\u201d needs \u201cof\u201d and describes the whole, not a part."}]}, {"p": "China had the ___ share of international students.", "o": [{"t": "largest", "v": "best", "n": "Use a superlative adjective with \u201cshare\u201d or \u201cproportion\u201d: the largest."}, {"t": "most", "v": "no", "n": "We don\u2019t say \u201cthe most share\u201d. Use \u201cthe largest share\u201d."}, {"t": "more", "v": "no", "n": "With more than two countries, use the superlative: the largest."}]}, {"p": "Twenty-eight ___ of students came from China.", "o": [{"t": "per cent", "v": "best", "n": "After a number, write <b>per cent</b> (or \u201cpercent\u201d in American English)."}, {"t": "percentage", "v": "no", "n": "\u201cPercentage\u201d never follows a number. Use it with words: \u201ca high percentage of\u2026\u201d."}, {"t": "percents", "v": "no", "n": "\u201cPer cent\u201d has no plural form."}]}, {"p": "A high ___ of students came from Asia.", "o": [{"t": "percentage", "v": "best", "n": "With an adjective and no number, use <b>percentage</b> (or proportion)."}, {"t": "per cent", "v": "no", "n": "\u201cPer cent\u201d only follows a number: 28 per cent."}, {"t": "percent", "v": "no", "n": "\u201cPercent\u201d only follows a number."}]}, {"p": "Germany ___ a tenth of international students.", "o": [{"t": "represented", "v": "best", "n": "\u201cRepresent\u201d + amount: represented a tenth."}, {"t": "represented of", "v": "no", "n": "No preposition after \u201crepresent\u201d."}, {"t": "was represented", "v": "no", "n": "Passive changes the meaning. Use the active: Germany represented a tenth."}]}]);
+buildWrite($('#s-write'));
+</script>
+</body>
+</html>
