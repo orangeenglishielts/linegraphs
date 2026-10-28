@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Course Feedback and Certificate | Mastering Line Graphs</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&display=swap">
+<style>
+/* Layout: same dark header band and dot-grid workbook column as the diagnostics; three steps: finish, feedback, certificate */
+:root{
+  --bg:#fbf8f5; --dot:#e9dfd6; --surface:#ffffff; --ink:#292929; --muted:#6b625b; --line:#e6ddd4;
+  --orange:#F88B48; --orange-ink:#b4521a; --orange-soft:#fde7d8;
+  --green:#5FB27B; --green-ink:#2f7a49; --green-soft:#dff1e5;
+  --red-ink:#b3402f; --red-soft:#f9e1dc;
+  --header:#292929; --header-ink:#ffffff;
+  --f-display:"Montserrat", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Inter", system-ui, -apple-system, sans-serif;
+  --f-hand:"Caveat", "Comic Sans MS", cursive;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1c1a19; --dot:#2c2826; --surface:#252220; --ink:#f3eee9; --muted:#b2a79f; --line:#3a3532;
+  --orange:#F88B48; --orange-ink:#ffab7a; --orange-soft:#3b2619;
+  --green:#5FB27B; --green-ink:#86d39f; --green-soft:#1d3325;
+  --red-ink:#f19a8b; --red-soft:#3a201b;
+  --header:#111010; --header-ink:#ffffff; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1c1a19; --dot:#2c2826; --surface:#252220; --ink:#f3eee9; --muted:#b2a79f; --line:#3a3532;
+  --orange:#F88B48; --orange-ink:#ffab7a; --orange-soft:#3b2619;
+  --green:#5FB27B; --green-ink:#86d39f; --green-soft:#1d3325;
+  --red-ink:#f19a8b; --red-soft:#3a201b;
+  --header:#111010; --header-ink:#ffffff; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg) radial-gradient(var(--dot) 1.2px, transparent 1.3px) 0 0/18px 18px; color:var(--ink); font:16px/1.6 var(--f-body)}
+header{background:var(--header); color:var(--header-ink)}
+.wrap{max-width:680px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px))}
+header .wrap{padding-block:22px 26px}
+.brand{font:700 13px/1 var(--f-display); letter-spacing:.12em; text-transform:uppercase; color:var(--orange)}
+h1{font:800 clamp(26px,6vw,34px)/1.15 var(--f-display); margin:10px 0 8px; text-wrap:balance}
+header p{margin:0; color:#d9d2cc; max-width:54ch}
+main .wrap{padding-block:24px 48px; display:grid; gap:20px}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px}
+h2{font:700 20px/1.25 var(--f-display); margin:0 0 8px; text-wrap:balance}
+h3{font:700 15px/1.3 var(--f-display); margin:0 0 6px}
+.eyebrow{font:600 12px/1 var(--f-body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.hand{font-family:var(--f-hand); font-size:22px; color:var(--orange-ink); line-height:1.2}
+.small{font-size:13px; color:var(--muted)}
+a{color:var(--orange-ink)}
+.btn{display:inline-block; text-decoration:none; font:600 16px/1 var(--f-display); background:var(--orange); color:#1d1d1d; border:0; border-radius:999px; padding:14px 22px; cursor:pointer}
+.btn:hover{filter:brightness(1.05)}
+.btn[disabled]{opacity:.6; cursor:progress}
+.btn.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line)}
+.btn:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,.choice input:focus-visible+span{outline:3px solid var(--green); outline-offset:2px}
+.row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:16px}
+
+/* steps */
+.steps{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:18px}
+.step{font:600 12px/1.3 var(--f-body); color:#bdb5ae; border-top:4px solid #4a4542; padding-top:8px}
+.step.done{color:#fff; border-color:var(--green)}
+.step.now{color:#fff; border-color:var(--orange)}
+
+/* form */
+.q{display:grid; gap:8px; padding:16px 0; border-top:1px solid var(--line)}
+.q:first-of-type{border-top:0; padding-top:4px}
+.q > label, .q > .lab{font-weight:600}
+.req{color:var(--orange-ink); font-weight:700}
+.hint{font-size:13px; color:var(--muted); margin-top:-4px}
+input[type=text],input[type=email],textarea,select{width:100%; min-width:0; font:inherit; color:var(--ink); background:var(--bg); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px}
+textarea{min-height:96px; resize:vertical}
+.choices{display:flex; flex-wrap:wrap; gap:8px}
+.choice{position:relative}
+.choice input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.choice span{display:inline-block; padding:9px 14px; border:1.5px solid var(--line); border-radius:999px; background:var(--surface); font-size:15px; cursor:pointer}
+.choice input:checked + span{border-color:var(--orange); background:var(--orange-soft); font-weight:600}
+.nps .choice span{min-width:44px; text-align:center; padding:9px 0}
+.scale{display:flex; justify-content:space-between; font-size:12px; color:var(--muted)}
+.scores{display:flex; gap:12px; flex-wrap:wrap}
+.score{flex:1 1 140px; border-radius:10px; background:var(--green-soft); padding:12px 14px}
+.score b{font:800 26px/1 var(--f-display); display:block; margin-top:4px}
+.err{color:var(--red-ink); font-size:14px; font-weight:600}
+.q.bad input[type=text],.q.bad textarea,.q.bad .choice span{border-color:var(--red-ink)}
+.check{display:flex; gap:10px; align-items:flex-start; font-size:15px}
+.check input{margin-top:5px; flex:none; width:18px; height:18px; accent-color:var(--orange)}
+.journal{background:var(--orange-soft); border-radius:12px; padding:14px 16px; margin:4px 0 0}
+
+/* certificate */
+#certimg{width:100%; height:auto; display:block; border-radius:6px; box-shadow:0 10px 30px rgba(0,0,0,.15); background:#fffdf9}
+footer{color:var(--muted); font-size:13px; text-align:center}
+@media print{
+  @page{size:A4 landscape; margin:0}
+  body{background:#fff}
+  header,footer,.noprint{display:none!important}
+  main .wrap{max-width:none; padding:0}
+  .card{border:0; padding:0; background:none}
+  #certimg{box-shadow:none; border-radius:0; width:100vw; height:auto}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand">Mastering Line Graphs · Course feedback and certificate</div>
+  <h1 id="title">Get your certificate</h1>
+  <p>Finish the final diagnostic, tell me what you thought of the course, and download your certificate of completion.</p>
+  <div class="steps" aria-hidden="true">
+    <div class="step" id="st1">1 · Finish the course</div>
+    <div class="step" id="st2">2 · Course feedback</div>
+    <div class="step" id="st3">3 · Your certificate</div>
+  </div>
+</div></header>
+
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap" style="padding-block:0 32px"><a href="./#review-6" style="color:inherit">Back to the course review</a> · © Orange English · orangeenglish.nl</div></footer>
+
+<script>
+/* ===== Settings =====
+   Feedback is sent with FormSubmit (formsubmit.co), a free service with no account.
+   The first time anyone submits, FormSubmit emails hello@orangeenglish.nl an activation link.
+   Click it once and every later submission arrives as an email.
+   After activating, you can swap the address below for the random alias FormSubmit gives you,
+   so your email address isn't visible in the page code. */
+const FORM_ENDPOINT = "https://formsubmit.co/ajax/hello@orangeenglish.nl";
+const COURSE = "Mastering Line Graphs";
+const COURSE_SUB = "IELTS Academic Writing Task 1";
+const KEY = "oe-linebook-certificate";   // saved in this browser: {name, feedbackSent, certId, date}
+
+const $ = s => document.querySelector(s);
+const app = $("#app");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const load = (k, d) => { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+
+const before = load("oe-diagnostic-before", null);
+const after  = load("oe-diagnostic-after", null);
+let state = load(KEY, {});
+
+function steps(n){
+  ["st1","st2","st3"].forEach((id,k)=>{ const el=$("#"+id); el.className="step"+(k+1<n?" done":k+1===n?" now":""); });
+}
+
+/* ---------- Step 1: not finished yet ---------- */
+function notFinished(){
+  steps(1);
+  app.innerHTML = `
+  <section class="card">
+    <div class="eyebrow">Step 1 of 3</div>
+    <h2>Finish the course first</h2>
+    <p>Your certificate unlocks when you've worked through the six chapters and taken the <strong>final diagnostic</strong> at the end of Chapter 6. It takes about 10 minutes.</p>
+    <div class="row"><a class="btn" href="diagnostic/after.html">Take the final diagnostic</a><a class="btn ghost" href="./#chapter-6">Go to Chapter 6</a></div>
+    <p class="small" style="margin:16px 0 0">Already taken it? Your progress is saved in this browser, so open this page from your course on the same device and browser you used for the diagnostic.</p>
+  </section>`;
+}
+
+/* ---------- Step 2: feedback form ---------- */
+const radios = (name, opts, cls="") => `<div class="choices ${cls}" role="radiogroup">${opts.map(o=>`<label class="choice"><input type="radio" name="${name}" value="${esc(o)}"><span>${esc(o)}</span></label>`).join("")}</div>`;
+
+function feedbackForm(){
+  steps(2);
+  app.innerHTML = `
+  <section class="card">
+    <div class="eyebrow">Step 2 of 3</div>
+    <h2>Well done for finishing! One last thing</h2>
+    <p>Please tell me what you thought of the course. It takes about three minutes, I read every reply, and your certificate appears as soon as you send it.</p>
+    <div class="scores">
+      <div class="score"><span class="small">First diagnostic</span><b>${before?before.total+" / 12":"–"}</b></div>
+      <div class="score"><span class="small">Final diagnostic</span><b>${after.total} / 12</b></div>
+    </div>
+    ${before?"":`<p class="small" style="margin:10px 0 0">There's no first diagnostic score saved in this browser, so only your final score will be sent.</p>`}
+  </section>
+
+  <form class="card" id="fb" novalidate>
+    <div class="q" data-req="name">
+      <label for="name">Your name, as it should appear on your certificate <span class="req">*</span></label>
+      <input type="text" id="name" name="name" autocomplete="name" maxlength="60" value="${esc(state.name||"")}">
+    </div>
+    <div class="q">
+      <label for="country">Your country</label>
+      <input type="text" id="country" name="country" autocomplete="country-name" maxlength="60">
+    </div>
+    <div class="q" data-req="helped">
+      <label for="helped">Which chapter helped you most, and why? <span class="req">*</span></label>
+      <textarea id="helped" name="helped"></textarea>
+    </div>
+    <div class="q" data-req="confusing">
+      <label for="confusing">Was anything confusing, too easy or too difficult? <span class="req">*</span></label>
+      <div class="hint">“Nothing” is a fine answer too.</div>
+      <textarea id="confusing" name="confusing"></textarea>
+    </div>
+    <div class="q" data-req="hours">
+      <div class="lab">Roughly how long did the course take you? <span class="req">*</span></div>
+      ${radios("hours",["Under 1 hour","1–2 hours","2–4 hours","More than 4 hours"])}
+    </div>
+    <div class="q nps" data-req="recommend">
+      <div class="lab">How likely are you to recommend this course to a friend preparing for IELTS? <span class="req">*</span></div>
+      ${radios("recommend",["0","1","2","3","4","5","6","7","8","9","10"])}
+      <div class="scale"><span>Not at all likely</span><span>Extremely likely</span></div>
+    </div>
+    <div class="q">
+      <label for="test">When are you taking IELTS, and what Writing band do you need?</label>
+      <input type="text" id="test" name="test" maxlength="120" placeholder="For example: March 2027, Band 7">
+    </div>
+
+    <div class="q" data-req="printed">
+      <div class="lab">Would you like a printed copy of the IELTS Learning Companion? <span class="req">*</span></div>
+      <div class="journal">
+        <p style="margin:0 0 10px">The Learning Companion is the student journal that goes with this course. I'm thinking of offering it as a printed, bound copy to write in, for an extra fee. Would you buy one?</p>
+        ${radios("printed",["Yes, definitely","Maybe","No, the digital version is enough"])}
+        <div id="priceq" hidden style="margin-top:14px">
+          <div class="lab" style="font-weight:600;margin-bottom:8px">What would feel like a fair price, plus postage? <span class="req">*</span></div>
+          ${radios("price",["Under €15","€15–20","€20–30","More than €30"])}
+        </div>
+      </div>
+    </div>
+
+    <div class="q">
+      <label for="answer">Paste your timed answer from Chapter 6 (optional)</label>
+      <div class="hint">I'd love to see how you got on. This isn't marked, but it helps me improve the course.</div>
+      <textarea id="answer" name="answer" style="min-height:120px"></textarea>
+    </div>
+    <div class="q" data-req="quote">
+      <div class="lab">May I quote your comments on the Orange English website? <span class="req">*</span></div>
+      ${radios("quote",["Yes, with my first name and country","Yes, with my first name only","No, please keep them private"])}
+    </div>
+    <div class="q">
+      <label for="email">Your email (optional)</label>
+      <input type="email" id="email" name="email" autocomplete="email" maxlength="120">
+      <label class="check"><input type="checkbox" id="optin" name="optin"><span>Send me occasional IELTS tips and news about the full Task 1 course. You can unsubscribe at any time.</span></label>
+    </div>
+
+    <p class="err" id="formerr" role="alert" hidden></p>
+    <div class="row"><button class="btn" id="send" type="submit">Send feedback and get my certificate</button></div>
+    <p class="small" style="margin:12px 0 0">Your answers are emailed to me through FormSubmit, a form service. I only use them to improve the course, and I only quote you if you said yes above.</p>
+  </form>`;
+
+  const f = $("#fb");
+  f.querySelectorAll('input[name=printed]').forEach(r=>r.onchange=()=>{ $("#priceq").hidden = r.value.startsWith("No") && r.checked; });
+  f.addEventListener("input", e=>{ const q=e.target.closest(".q"); if(q) q.classList.remove("bad"); });
+  f.onsubmit = submit;
+}
+
+function val(name){
+  const f=$("#fb"); const el=f.elements[name];
+  if(!el) return "";
+  if(el instanceof RadioNodeList) return el.value || "";
+  if(el.type==="checkbox") return el.checked;
+  return el.value.trim();
+}
+
+async function submit(e){
+  e.preventDefault();
+  const f=$("#fb"), err=$("#formerr");
+  const needed=["name","helped","confusing","hours","recommend","printed","quote"];
+  const printed=val("printed");
+  if(printed && !printed.startsWith("No")) needed.push("price");
+  const missing=needed.filter(n=>!val(n));
+  f.querySelectorAll(".q").forEach(q=>q.classList.remove("bad"));
+  missing.forEach(n=>{ const q=f.querySelector(`[data-req="${n}"]`)||f.elements[n]?.[0]?.closest?.(".q")||$("#priceq").closest(".q"); if(q) q.classList.add("bad"); });
+  if(missing.length){
+    err.hidden=false; err.textContent="Please answer the questions marked in red.";
+    const first=f.querySelector(".q.bad"); if(first) first.scrollIntoView({behavior:"smooth",block:"center"});
+    return;
+  }
+  err.hidden=true;
+
+  const data = {
+    _subject: `Course feedback: ${COURSE} (${val("name")})`,
+    _template: "table",
+    "Name on certificate": val("name"),
+    "Country": val("country"),
+    "First diagnostic (out of 12)": before ? before.total : "not taken in this browser",
+    "Final diagnostic (out of 12)": after.total,
+    "Skills before (KF/CMP/GR/ORG)": before && before.score ? [before.score.KF,before.score.CMP,before.score.GR,before.score.ORG].join(" / ") : "",
+    "Skills after (KF/CMP/GR/ORG)": after.score ? [after.score.KF,after.score.CMP,after.score.GR,after.score.ORG].join(" / ") : "",
+    "Chapter that helped most": val("helped"),
+    "Confusing / too easy / too hard": val("confusing"),
+    "Time taken": val("hours"),
+    "Likely to recommend (0-10)": val("recommend"),
+    "Test date and band needed": val("test"),
+    "Printed Learning Companion?": printed,
+    "Fair price for printed copy": printed.startsWith("No") ? "" : val("price"),
+    "Permission to quote": val("quote"),
+    "Timed answer": val("answer"),
+    "Email": val("email"),
+    "Wants tips and course news": val("optin") ? "Yes" : "No"
+  };
+  if(val("email")) data._replyto = val("email");
+
+  state.name = val("name");
+  save(KEY, state);
+  save("oe-linebook-feedback", Object.assign({ts:Date.now()}, data));
+
+  const btn=$("#send"); btn.disabled=true; btn.textContent="Sending…";
+  try{
+    const res = await fetch(FORM_ENDPOINT, {method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify(data)});
+    if(!res.ok && res.status>=500) throw new Error("server");
+    unlock();
+  }catch(ex){
+    btn.disabled=false; btn.textContent="Try again";
+    const body = Object.entries(data).filter(([k])=>!k.startsWith("_")).map(([k,v])=>`${k}: ${v}`).join("\n");
+    const mail = `mailto:hello@orangeenglish.nl?subject=${encodeURIComponent(data._subject)}&body=${encodeURIComponent(body)}`;
+    err.hidden=false;
+    err.innerHTML = `Your feedback couldn't be sent just now. Check your connection and try again, or <a href="${mail}" id="mailfb">send it by email instead</a>.`;
+    $("#mailfb").onclick = ()=>setTimeout(unlock, 400);
+  }
+}
+
+function unlock(){
+  state.feedbackSent = true;
+  if(!state.certId) state.certId = "OE-LG-" + new Date().getFullYear() + "-" + Math.random().toString(36).slice(2,7).toUpperCase();
+  if(!state.date) state.date = Date.now();
+  save(KEY, state);
+  window.scrollTo({top:0});
+  certificate(state.name, state.date, state.certId);
+}
+
+/* ---------- Step 3: certificate ---------- */
+const fmtDate = ts => new Date(ts).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+
+async function draw(name, ts, id){
+  await Promise.all(["800 120px Montserrat","700 40px Montserrat","600 48px Montserrat","400 40px Inter","600 40px Inter","700 96px Caveat"].map(f=>document.fonts.load(f).catch(()=>{})));
+  const logo = await new Promise(r=>{ const im=new Image(); im.onload=()=>r(im); im.onerror=()=>r(null); im.src="assets/orange-english-logo.png"; });
+  const W=2480, H=1754, c=document.createElement("canvas"); c.width=W; c.height=H;
+  const x=c.getContext("2d");
+  x.fillStyle="#FFFDF9"; x.fillRect(0,0,W,H);
+  // soft dots
+  x.fillStyle="#F2EBE3"; for(let yy=40; yy<H; yy+=36) for(let xx=40; xx<W; xx+=36){ x.beginPath(); x.arc(xx,yy,2.2,0,Math.PI*2); x.fill(); }
+  // frame
+  x.fillStyle="#FFFDF9"; x.fillRect(110,110,W-220,H-220);
+  x.strokeStyle="#F88B48"; x.lineWidth=16; x.strokeRect(70,70,W-140,H-140);
+  x.strokeStyle="#292929"; x.lineWidth=3; x.strokeRect(110,110,W-220,H-220);
+  // corner accents
+  [[70,70],[W-70,70],[70,H-70],[W-70,H-70]].forEach(([cx,cy],k)=>{ x.fillStyle=k%3===0?"#F88B48":"#5FB27B"; x.beginPath(); x.arc(cx,cy,26,0,Math.PI*2); x.fill(); });
+
+  const C=W/2;
+  if(logo){ const lh=330, lw=logo.width*lh/logo.height; x.drawImage(logo, C-lw/2, 170, lw, lh); }
+  x.textAlign="center"; x.textBaseline="alphabetic";
+  const spaced=(t,font,col,y,sp)=>{ x.font=font; x.fillStyle=col; if("letterSpacing" in x){ x.letterSpacing=sp+"px"; x.fillText(t,C+sp/2,y); x.letterSpacing="0px"; } else x.fillText(t,C,y); };
+  spaced("CERTIFICATE OF COMPLETION","700 44px Montserrat","#292929",620,14);
+  x.font="400 40px Inter"; x.fillStyle="#6b625b"; x.fillText("This certifies that",C,720);
+  // name, fitted to width
+  let size=132; x.font=`800 ${size}px Montserrat`;
+  while(x.measureText(name).width>1800 && size>60){ size-=4; x.font=`800 ${size}px Montserrat`; }
+  x.fillStyle="#292929"; x.fillText(name,C,870);
+  const nw=Math.min(1800,x.measureText(name).width)+120;
+  x.fillStyle="#F88B48"; x.fillRect(C-nw/2,905,nw,8);
+  x.font="400 40px Inter"; x.fillStyle="#6b625b"; x.fillText("has completed the Orange English course",C,1000);
+  x.font="800 92px Montserrat"; x.fillStyle="#EF5831"; x.fillText(COURSE,C,1120);
+  x.font="600 50px Montserrat"; x.fillStyle="#292929"; x.fillText(COURSE_SUB,C,1195);
+  x.font="400 34px Inter"; x.fillStyle="#6b625b"; x.fillText("Six chapters  ·  Before-and-after diagnostic  ·  20-minute timed writing task",C,1270);
+
+  // date (left) and signature (right)
+  const yLine=1430;
+  x.strokeStyle="#292929"; x.lineWidth=3;
+  x.beginPath(); x.moveTo(330,yLine); x.lineTo(930,yLine); x.stroke();
+  x.beginPath(); x.moveTo(1550,yLine); x.lineTo(2150,yLine); x.stroke();
+  x.font="600 46px Inter"; x.fillStyle="#292929"; x.fillText(fmtDate(ts),630,yLine-26);
+  x.font="700 104px Caveat"; x.fillStyle="#292929"; x.fillText("Lindsey",1850,yLine-22);
+  x.font="600 32px Inter"; x.fillStyle="#292929"; x.fillText("Date of completion",630,yLine+52); x.fillText("Lindsey, course author",1850,yLine+52);
+  x.font="400 30px Inter"; x.fillStyle="#6b625b"; x.fillText("Former IELTS examiner",1850,yLine+96);
+  // id
+  x.font="400 28px Inter"; x.fillStyle="#9a918a"; x.fillText(`Certificate ID ${id}  ·  orangeenglish.nl`,C,1610);
+  return c;
+}
+
+async function certificate(name, ts, id){
+  steps(3);
+  $("#title").textContent="Your certificate";
+  app.innerHTML = `
+  <section class="card noprint">
+    <div class="eyebrow">Step 3 of 3</div>
+    <h2>Congratulations, ${esc(name)}!</h2>
+    <p style="margin:0">Thank you for your feedback. Here's your certificate of completion.</p>
+  </section>
+  <section class="card"><img id="certimg" alt="Certificate of completion for ${esc(name)}, ${esc(COURSE)}"></section>
+  <section class="card noprint">
+    <div class="row" style="margin-top:0">
+      <a class="btn" id="dl" download>Download (PNG)</a>
+      <button class="btn ghost" id="pr" type="button">Print or save as PDF</button>
+      <a class="btn ghost" id="tab" target="_blank" rel="noopener">Open in a new tab</a>
+    </div>
+    <p class="small" style="margin:14px 0 0">If the buttons don't work inside your course page, right-click the certificate (or press and hold on a phone) and choose <strong>Save image</strong>, or use <strong>Open in a new tab</strong>.</p>
+    <p class="small" style="margin:10px 0 0">Wrong name? <a href="#" id="rename">Change it</a>.</p>
+  </section>
+  <section class="card noprint">
+    <h3>What next?</h3>
+    <p style="margin:0">Line graphs are one of seven Task 1 question types. The full <strong>IELTS Academic Writing Task 1</strong> course covers them all, with model answers and a mock exam. <a href="https://orangeenglish.nl" target="_blank" rel="noopener">Find out more at orangeenglish.nl</a>.</p>
+  </section>`;
+  const canvas = await draw(name, ts, id);
+  const url = canvas.toDataURL("image/png");
+  $("#certimg").src = url;
+  const dl=$("#dl"); dl.download = `Orange-English-certificate-${name.replace(/[^\p{L}\p{N}]+/gu,"-")}.png`;
+  canvas.toBlob(b=>{ if(b) dl.href = URL.createObjectURL(b); else dl.href = url; });
+  $("#pr").onclick = ()=>window.print();
+  const q = new URLSearchParams({view:"cert", n:name, d:String(ts), id});
+  $("#tab").href = location.pathname + "?" + q.toString();
+  const rn=$("#rename");
+  if(rn) rn.onclick = e=>{ e.preventDefault(); const n=prompt("Your name, as it should appear on your certificate:", name); if(n&&n.trim()){ state.name=n.trim().slice(0,60); save(KEY,state); certificate(state.name, ts, id); } };
+}
+
+/* ---------- start ---------- */
+const params = new URLSearchParams(location.search);
+if(params.get("view")==="cert" && params.get("n")){
+  // opened from "Open in a new tab": show the certificate that was already issued
+  certificate(params.get("n").slice(0,60), +params.get("d")||Date.now(), (params.get("id")||"").slice(0,24));
+  const rn=document.getElementById("rename"); if(rn) rn.parentElement.remove();
+} else if(!after){
+  notFinished();
+} else if(state.feedbackSent && state.name){
+  certificate(state.name, state.date, state.certId);
+} else {
+  feedbackForm();
+}
+</script>
+</body>
+</html>

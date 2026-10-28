@@ -1814,7 +1814,7 @@ function canBox(box){const n=+box.dataset.cannow,items=CANNOW[n];if(!items)retur
   $$('input',box).forEach(i=>i.onchange=()=>{st[i.dataset.k]=i.checked;S.set('can-'+n,st)})}
 function progressBox(box){let bf=null,af=null;try{bf=JSON.parse(localStorage.getItem('oe-diagnostic-before')||'null');af=JSON.parse(localStorage.getItem('oe-diagnostic-after')||'null')}catch(e){}
   box.innerHTML=`<div class="oe-insight" style="margin:14px 0"><span class="lab">Measure your progress</span><p style="margin:4px 0 10px">${bf?`Before the course, you scored <b>${bf.total} / 12</b> on the diagnostic. `:''}${af?`Your final diagnostic score is <b>${af.total} / 12</b>. `:''}The final diagnostic uses a new graph and tests the same four skills as the first one.</p><div class="row"><a class="btn" href="diagnostic/after.html" style="text-decoration:none">${af?'Retake':'Take'} the final diagnostic</a></div></div>
-  <div class="oe-insight" style="margin:14px 0"><span class="lab">Help me improve this course</span><p style="margin:4px 0 0">Please answer the short course survey in the next lesson of your course. It takes about three minutes, and I read every reply.</p></div>`}
+  <div class="oe-insight" style="margin:14px 0"><span class="lab">Your certificate</span><p style="margin:4px 0 10px">After the final diagnostic, answer a short feedback form (about three minutes) to unlock your certificate of completion. I read every reply.</p><div class="row"><a class="btn" href="certificate.html" style="text-decoration:none">Feedback and certificate</a></div></div>`}
 $$('[data-extras]').forEach(extrasBox);$$('[data-cannow]').forEach(canBox);$$('[data-progress]').forEach(progressBox);
 $$('[data-minitest]').forEach(miniCard);
 
