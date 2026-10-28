@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Relative Clauses for Data</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: Orange English activity page. Light header band, one 720px column of rounds, reference blocks set off by fill rather than shadow. */
+:root{
+  --bg:#FAF8F3; --surface:#FFFFFF; --ink:#292929; --muted:#6B6359; --line:#E5E1D8;
+  --orange:#F88B48; --orange-ink:#B9541A; --orange-soft:#FEF0E6;
+  --green:#5FB27B; --green-ink:#2F7A49; --green-soft:#EDF7F1;
+  --amber-ink:#8A5A00; --amber-soft:#FFF5DB;
+  --red:#D9534F; --red-ink:#A8322E; --red-soft:#FBE9E8;
+  --f-display:"Montserrat","Segoe UI",system-ui,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);margin:0}
+.pad{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{border-bottom:1px solid var(--line);text-align:center;padding-block:32px 24px}
+.eyebrow{font:700 11px/1 var(--f-display);letter-spacing:2px;text-transform:uppercase;color:var(--orange-ink)}
+.badge{display:inline-block;margin-top:12px;font:800 12px/1 var(--f-display);letter-spacing:.5px;background:var(--orange);color:#1f1f1f;border-radius:20px;padding:6px 12px}
+h1{font:800 clamp(22px,5vw,28px)/1.2 var(--f-display);margin:10px 0 6px;text-wrap:balance}
+header p{margin:0 auto;color:var(--muted);font-size:15px;max-width:56ch}
+main{max-width:720px;margin:0 auto;padding-block:28px 40px;display:grid;gap:36px}
+section{display:grid;gap:14px;min-width:0}
+h2{font:700 19px/1.3 var(--f-display);margin:0;text-wrap:balance}
+h3{font:700 15px/1.3 var(--f-display);margin:0}
+p{margin:0}
+.lede{color:var(--muted);font-size:15px}
+.note{background:var(--orange-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.note b{font-family:var(--f-display)}
+.ok{background:var(--green-soft)}
+.pattern{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;min-width:0}
+.pattern .form{font:700 14px/1.4 var(--f-display);color:var(--orange-ink)}
+.pattern .ex{font-size:15px}
+.pattern .why{font-size:14px;color:var(--muted)}
+.patterns{display:grid;gap:10px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font:700 12px/1.3 var(--f-display);letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.fit{color:var(--green-ink)} td.avoid{color:var(--red-ink)}
+.toprow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.count{font:600 13px/1 var(--f-body);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:6px 12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.count.done{color:var(--green-ink);border-color:var(--green);background:var(--green-soft)}
+.round{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:12px;min-width:0}
+.round.solved{border-color:var(--green)}
+.rlabel{font:700 11px/1 var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.prompt{font-size:16px;font-weight:500}
+.data{font-size:14px;color:var(--muted)}
+.gap{display:inline-block;min-width:80px;border-bottom:2px dashed var(--muted);text-align:center;color:var(--orange-ink);font-weight:700}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts.stack{flex-direction:column}
+.opt{font:600 14px/1.35 var(--f-body);text-align:left;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:9px 16px;cursor:pointer}
+.opts.stack .opt{border-radius:12px}
+.opt:hover{border-color:var(--orange)}
+.opt:focus-visible,.btn:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.opt.best{border-color:var(--green);background:var(--green-soft);color:var(--green-ink)}
+.opt.maybe{border-color:#D9A520;background:var(--amber-soft);color:var(--amber-ink)}
+.opt.no{border-color:var(--red);background:var(--red-soft);color:var(--red-ink)}
+.fb{border-left:3px solid var(--orange);background:var(--orange-soft);border-radius:0 10px 10px 0;padding:10px 14px;font-size:14px}
+.fb.best{border-left-color:var(--green);background:var(--green-soft)}
+.fb.maybe{border-left-color:#D9A520;background:var(--amber-soft)}
+.fb.no{border-left-color:var(--red);background:var(--red-soft)}
+.fb .tag{display:block;font:800 11px/1.4 var(--f-display);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.fb.best .tag{color:var(--green-ink)} .fb.maybe .tag{color:var(--amber-ink)} .fb.no .tag{color:var(--red-ink)}
+.write textarea{width:100%;min-height:150px;font:15px/1.6 var(--f-body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:700 14px/1 var(--f-display);background:var(--orange);color:#1f1f1f;border:0;border-radius:999px;padding:12px 18px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.small{font-size:13px;color:var(--muted)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px}
+.checks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.checks input{margin-top:5px;accent-color:var(--green)}
+.model{background:var(--green-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.model mark{background:transparent;color:var(--green-ink);font-weight:700}
+.wc{font-variant-numeric:tabular-nums}
+.recap{background:var(--orange);color:#1f1f1f;border-radius:16px;padding:22px 20px;display:grid;gap:8px}
+.recap h2{color:#1f1f1f}
+.recap ol{margin:0;padding-left:20px;display:grid;gap:4px}
+footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32px;font-size:12px;color:var(--muted);letter-spacing:.5px}
+.reset{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:13px var(--f-body);justify-self:center}
+</style>
+</head>
+<body>
+<header class="pad"><div class="eyebrow">Orange English · Lesson 3 Extension</div><span class="badge">Band 7+</span><h1>Relative clauses for describing data</h1><p>Join figures, times and comparisons into one accurate sentence, the way Band 7+ answers do.</p></header>
+<main class="pad">
+<section>
+ <h2>Why relative clauses matter at Band 7</h2>
+ <p>At Band 7, the examiner looks for a variety of complex structures, with most sentences free of errors. Relative clauses are one of the most useful complex structures in Task 1: they let you attach a figure, a time or a comparison to a noun without starting a new sentence. That turns a list of short facts into connected description.</p>
+ <div class="note"><b>Band 6:</b> Cycling rose to 34% in 2020. This was its highest figure. Car use fell to 37%. The gap became three points.<br><b>Band 7+:</b> Cycling rose to 34% in 2020, which was its highest figure, while car use fell to 37%, narrowing the gap to just three points.</div>
+</section>
+<section>
+ <h2>Six patterns for describing data</h2>
+ <div class="patterns">
+  <div class="pattern"><span class="form">Defining · which / that · no commas</span><span class="ex">The country <b>that recorded the highest figure</b> was Norland.</span><span class="why">Tells the reader which one you mean.</span></div>
+  <div class="pattern"><span class="form">Non-defining · , which … ,</span><span class="ex">Gas, <b>which overtook coal between 2008 and 2012</b>, peaked at 42%.</span><span class="why">Adds extra information. Commas on both sides, and never “that”.</span></div>
+  <div class="pattern"><span class="form">Whole-clause · , which …</span><span class="ex">Car use fell to 37%, <b>which narrowed the gap to three points</b>.</span><span class="why">“Which” refers to the whole idea before it. Use it for what happened in the data, not for reasons the graph doesn’t show.</span></div>
+  <div class="pattern"><span class="form">Time · when / during which</span><span class="ex">The sharpest rise came between 2010 and 2015, <b>when cycling grew by 7 points</b>.</span><span class="why">For years and periods. “Where” is only for places.</span></div>
+  <div class="pattern"><span class="form">Possession · whose</span><span class="ex">Brazil, <b>whose figure tripled</b>, still ended in last place.</span><span class="why">Works for countries, cities and companies, not just people.</span></div>
+  <div class="pattern"><span class="form">Quantifier · of which</span><span class="ex">The graph shows three sources, <b>only one of which</b> grew throughout.</span><span class="why">Also: both of which, all of which, the largest of which, neither of which.</span></div>
+ </div>
+ <div class="note ok"><b>Shortcut:</b> a participle clause can replace “which” + verb. <i>…, which narrowed the gap</i> becomes <i>…, narrowing the gap</i>. <i>The figure which was recorded in 2020</i> becomes <i>the figure recorded in 2020</i>.</div>
+ <div class="note"><b>One per sentence.</b> Two or three relative clauses in a sentence show range. Two “which” clauses in a row usually show confusion. Aim for two or three across the whole answer, not one in every sentence.</div>
+</section>
+<section id="s-join" data-label="Round">
+ <div class="toprow"><h2>Join the sentences</h2><span class="count">0 / 5</span></div>
+ <p class="lede">The figures come from the commuting and electricity graphs in the course. Choose the best way to join each pair.</p>
+ <div class="rounds"></div>
+</section>
+<section id="s-judge" data-label="Sentence">
+ <div class="toprow"><h2>Correct or incorrect?</h2><span class="count">0 / 8</span></div>
+ <p class="lede">Check the relative pronoun, the commas and what each clause refers to.</p>
+ <div class="rounds"></div>
+</section>
+<section class="write" id="s-write">
+ <h2>Your turn</h2>
+ <p>Rewrite this body paragraph in three or four sentences. Use at least two different relative or participle clauses.</p>
+ <div class="note">In 2009, 20% of South Koreans shopped online every week. This was the highest figure of the three countries. The UK figure was 15%. Both figures rose steeply until 2019. In 2019 South Korea reached 70% and the UK reached 55%. Growth then slowed. By 2024 the figures were 80% and 68%.</div>
+ <label for="rc-ta" class="small">Your paragraph</label>
+ <textarea id="rc-ta" placeholder="In 2009, 20% of South Koreans shopped online every week, which…"></textarea>
+ <div class="row"><button type="button" class="btn show">Show my version</button><button type="button" class="btn ghost cpy">Copy my answer</button><span class="small wc"></span><span class="small cpmsg" aria-live="polite"></span></div>
+ <div class="after" hidden>
+  <div class="model">In 2009, 20% of South Koreans shopped online every week, <mark>which was the highest figure of the three countries</mark>, compared with 15% in the UK. Both figures rose steeply until 2019, <mark>when South Korea reached 70% and the UK 55%</mark>. Growth then slowed in both countries, <mark>with the figures reaching 80% and 68% respectively</mark> by 2024.</div>
+  <ul class="checks" style="margin-top:12px">
+   <li><label><input type="checkbox" id="rc1">I used at least two different patterns: which, when, whose, of which, or a participle clause.</label></li>
+   <li><label><input type="checkbox" id="rc2">Every non-defining clause has a comma before it, and I used “which”, not “that”.</label></li>
+   <li><label><input type="checkbox" id="rc3">Each “which” clearly refers to one noun or to the whole idea before it.</label></li>
+   <li><label><input type="checkbox" id="rc4">I used “when” for years, not “where”.</label></li>
+   <li><label><input type="checkbox" id="rc5">No sentence has two “which” clauses in a row.</label></li>
+  </ul>
+ </div>
+</section>
+<section class="recap"><h2>Check every relative clause</h2><ol><li>Does it say which one (no commas) or add extra information (commas)?</li><li>After a comma: which, who, whose, when. Never that.</li><li>Is it right next to the noun it describes?</li><li>Did I repeat the subject (“which it”)? Remove it.</li><li>Is “where” really a place? For years, use “when”.</li></ol></section>
+<button type="button" class="reset" onclick="location.reload()">Start again</button>
+</main>
+<footer class="pad">orangeenglish.nl</footer>
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const TAG={best:'Best choice',maybe:'Possible, but less precise',no:'Doesn’t fit'};
+function counter(sec,total){const c=$('.count',sec);let n=0;return{inc(){n++;c.textContent=n+' / '+total+(sec.dataset.unit||'');if(n===total)c.classList.add('done')},reset(){n=0;c.textContent='0 / '+total+(sec.dataset.unit||'');c.classList.remove('done')}}}
+function buildPick(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Round'} ${i+1}</div>${it.data?`<p class="data">${it.data}</p>`:''}<p class="prompt">${it.p.replace('___','<span class="gap">___</span>')}</p><div class="opts ${it.stack?'stack':''}"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  it.o.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=x.t;
+   b.onclick=()=>{$$('.opt',o).forEach(e=>e.classList.remove('best','maybe','no'));b.classList.add(x.v);fb.hidden=false;fb.className='fb '+x.v;fb.innerHTML=`<span class="tag">${TAG[x.v]}</span>${x.n}`;
+    if(x.v==='best'&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildJudge(sec,items,labels){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Sentence'} ${i+1}</div><p class="prompt">${it.s}</p><div class="opts"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  labels.forEach((l,j)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=l;
+   b.onclick=()=>{const right=j===it.a;$$('.opt',o).forEach(e=>e.classList.remove('best','no'));b.classList.add(right?'best':'no');fb.hidden=false;fb.className='fb '+(right?'best':'no');
+    fb.innerHTML=`<span class="tag">${right?'Correct':'Look again'}</span>${right?it.n:(it.hint||it.n)}`;
+    if(right&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildWrite(sec){const ta=$('textarea',sec),wc=$('.wc',sec),msg=$('.cpmsg',sec),key='oe-b7-'+ta.id;
+ try{const v=localStorage.getItem(key);if(v)ta.value=v}catch(e){}
+ const upd=()=>{const n=(ta.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' words';try{localStorage.setItem(key,ta.value)}catch(e){}};ta.addEventListener('input',upd);upd();
+ $('.show',sec).onclick=()=>{$('.after',sec).hidden=false};
+ $('.cpy',sec).onclick=()=>{const t=ta.value;const fall=()=>{ta.focus();ta.select();msg.textContent='Selected. Copy it with your keyboard.'};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{msg.textContent='Copied.'},fall)}else fall()}}
+
+
+buildPick($('#s-join'),[{"data": "Cycling rose to 34% in 2020. This was its highest figure in the period.", "p": "Which sentence joins these most accurately?", "stack": true, "o": [{"t": "Cycling rose to 34% in 2020, which was its highest figure in the period.", "v": "best", "n": "A non-defining clause with \u201cwhich\u201d, after a comma, adds the extra fact without a new sentence."}, {"t": "Cycling rose to 34% in 2020, that was its highest figure in the period.", "v": "no", "n": "\u201cThat\u201d can\u2019t follow a comma. After a comma, use \u201cwhich\u201d."}, {"t": "Cycling rose to 34% in 2020 which it was its highest figure in the period.", "v": "no", "n": "Two problems: no comma before \u201cwhich\u201d, and \u201cit\u201d repeats the subject. \u201cWhich\u201d already replaces it."}]}, {"data": "The sharpest changes came between 2010 and 2015. In that period cycling grew by 7 points and car use dropped by 8.", "p": "Which sentence joins these best?", "stack": true, "o": [{"t": "The sharpest changes came between 2010 and 2015, when cycling grew by 7 points and car use dropped by 8.", "v": "best", "n": "\u201cWhen\u201d refers back to a time period and keeps both figures in one clear sentence."}, {"t": "The sharpest changes came between 2010 and 2015, where cycling grew by 7 points and car use dropped by 8.", "v": "no", "n": "\u201cWhere\u201d is for places. For years and periods, use \u201cwhen\u201d."}, {"t": "The sharpest changes came between 2010 and 2015, which cycling grew by 7 points and car use dropped by 8.", "v": "no", "n": "\u201cWhich\u201d needs to be the subject or object of its clause. Here the clause is about time, so use \u201cwhen\u201d or \u201cduring which\u201d."}]}, {"data": "Coal, gas and renewables are shown on the graph. Only renewables grew throughout the period.", "p": "Which sentence is the most concise and accurate?", "stack": true, "o": [{"t": "The graph shows three sources of electricity, only one of which grew throughout the period: renewables.", "v": "best", "n": "A quantifier with \u201cof which\u201d (one of which, both of which, the largest of which) is a Band 7+ way to comment on a group."}, {"t": "The graph shows three sources of electricity, only one of them grew throughout the period, renewables.", "v": "no", "n": "This is two sentences joined with a comma. Use \u201cof which\u201d to make the second part a relative clause."}, {"t": "The graph shows three sources of electricity, which only renewables grew throughout the period.", "v": "no", "n": "\u201cWhich\u201d here has no role in its clause. Use \u201conly one of which\u201d."}]}, {"data": "Gas overtook coal between 2008 and 2012. Gas peaked at 42% in 2012.", "p": "Which sentence joins these best?", "stack": true, "o": [{"t": "Gas, which overtook coal between 2008 and 2012, peaked at 42% in 2012.", "v": "best", "n": "The clause sits right after \u201cGas\u201d, with a comma on each side, so the reader knows exactly what \u201cwhich\u201d refers to."}, {"t": "Gas overtook coal between 2008 and 2012, which peaked at 42% in 2012.", "v": "no", "n": "Now \u201cwhich\u201d seems to refer to coal, or to the whole period. Put the clause straight after the noun it describes."}, {"t": "Gas that overtook coal between 2008 and 2012 peaked at 42% in 2012.", "v": "maybe", "n": "Possible, but \u201cthat\u201d without commas suggests there were several kinds of gas. There is only one gas line, so use commas and \u201cwhich\u201d."}]}, {"data": "Car use fell to 37% in 2020. This narrowed the gap with cycling to three points.", "p": "Which sentence joins these best?", "stack": true, "o": [{"t": "Car use fell to 37% in 2020, which narrowed the gap with cycling to just three points.", "v": "best", "n": "Here \u201cwhich\u201d refers to the whole first clause: the fact that car use fell. This is a natural way to show a consequence in the data."}, {"t": "Car use fell to 37% in 2020, narrowing the gap with cycling to just three points.", "v": "best", "n": "Also excellent: a participle clause (\u201cnarrowing\u201d) does the same job as \u201cwhich narrowed\u201d in fewer words."}, {"t": "Car use fell to 37% in 2020, what narrowed the gap with cycling to just three points.", "v": "no", "n": "\u201cWhat\u201d is not a relative pronoun. Use \u201cwhich\u201d."}]}]);
+buildJudge($('#s-judge'),[{"s": "The country which recorded the highest figure was Norland.", "a": 0, "n": "A defining clause: it tells us which country. No commas, and \u201cwhich\u201d or \u201cthat\u201d both work."}, {"s": "Norland, that had the highest figure throughout, rose steadily.", "a": 1, "hint": "After a comma, use \u201cwhich\u201d, not \u201cthat\u201d: \u201cNorland, which had the highest figure throughout, rose steadily.\u201d"}, {"s": "In 2010, where the two lines crossed, both stood at 40%.", "a": 1, "hint": "2010 is a time, not a place: \u201cIn 2010, when the two lines crossed, both stood at 40%.\u201d"}, {"s": "The UK, whose figure doubled, ended the period in second place.", "a": 0, "n": "\u201cWhose\u201d shows possession and works for countries, companies and cities as well as people."}, {"s": "Sales rose to \u20ac9 million, which it was three times the 2019 level.", "a": 1, "hint": "\u201cWhich\u201d replaces \u201cit\u201d, so don\u2019t repeat it: \u201c\u2026, which was three times the 2019 level.\u201d"}, {"s": "Three age groups are shown, all of which spent more time online by 2022.", "a": 0, "n": "\u201cAll of which\u201d comments on the whole group in one clause. A strong Band 7+ structure."}, {"s": "Brazil started at 5%, rose sharply after 2014, which reached 45% in 2024, which was still the lowest figure.", "a": 1, "hint": "Two \u201cwhich\u201d clauses in a row make the sentence hard to follow, and the first one has no clear noun. Split it: \u201cBrazil started at 5% and rose sharply after 2014, reaching 45% in 2024. This was still the lowest figure.\u201d"}, {"s": "Visitors aged over 65, who made up 10% of the total in 2000, accounted for a quarter by 2020.", "a": 0, "n": "\u201cWho\u201d for people, with commas on both sides because the clause adds extra information."}],['Correct','Incorrect']);
+buildWrite($('#s-write'));
+</script>
+</body>
+</html>

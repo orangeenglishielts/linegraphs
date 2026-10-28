@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tone and Connotation</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: Orange English activity page. Light header band, one 720px column of rounds, reference blocks set off by fill rather than shadow. */
+:root{
+  --bg:#FAF8F3; --surface:#FFFFFF; --ink:#292929; --muted:#6B6359; --line:#E5E1D8;
+  --orange:#F88B48; --orange-ink:#B9541A; --orange-soft:#FEF0E6;
+  --green:#5FB27B; --green-ink:#2F7A49; --green-soft:#EDF7F1;
+  --amber-ink:#8A5A00; --amber-soft:#FFF5DB;
+  --red:#D9534F; --red-ink:#A8322E; --red-soft:#FBE9E8;
+  --f-display:"Montserrat","Segoe UI",system-ui,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);margin:0}
+.pad{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{border-bottom:1px solid var(--line);text-align:center;padding-block:32px 24px}
+.eyebrow{font:700 11px/1 var(--f-display);letter-spacing:2px;text-transform:uppercase;color:var(--orange-ink)}
+.badge{display:inline-block;margin-top:12px;font:800 12px/1 var(--f-display);letter-spacing:.5px;background:var(--orange);color:#1f1f1f;border-radius:20px;padding:6px 12px}
+h1{font:800 clamp(22px,5vw,28px)/1.2 var(--f-display);margin:10px 0 6px;text-wrap:balance}
+header p{margin:0 auto;color:var(--muted);font-size:15px;max-width:56ch}
+main{max-width:720px;margin:0 auto;padding-block:28px 40px;display:grid;gap:36px}
+section{display:grid;gap:14px;min-width:0}
+h2{font:700 19px/1.3 var(--f-display);margin:0;text-wrap:balance}
+h3{font:700 15px/1.3 var(--f-display);margin:0}
+p{margin:0}
+.lede{color:var(--muted);font-size:15px}
+.note{background:var(--orange-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.note b{font-family:var(--f-display)}
+.ok{background:var(--green-soft)}
+.pattern{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;min-width:0}
+.pattern .form{font:700 14px/1.4 var(--f-display);color:var(--orange-ink)}
+.pattern .ex{font-size:15px}
+.pattern .why{font-size:14px;color:var(--muted)}
+.patterns{display:grid;gap:10px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font:700 12px/1.3 var(--f-display);letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.fit{color:var(--green-ink)} td.avoid{color:var(--red-ink)}
+.toprow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.count{font:600 13px/1 var(--f-body);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:6px 12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.count.done{color:var(--green-ink);border-color:var(--green);background:var(--green-soft)}
+.round{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:12px;min-width:0}
+.round.solved{border-color:var(--green)}
+.rlabel{font:700 11px/1 var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.prompt{font-size:16px;font-weight:500}
+.data{font-size:14px;color:var(--muted)}
+.gap{display:inline-block;min-width:80px;border-bottom:2px dashed var(--muted);text-align:center;color:var(--orange-ink);font-weight:700}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts.stack{flex-direction:column}
+.opt{font:600 14px/1.35 var(--f-body);text-align:left;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:9px 16px;cursor:pointer}
+.opts.stack .opt{border-radius:12px}
+.opt:hover{border-color:var(--orange)}
+.opt:focus-visible,.btn:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.opt.best{border-color:var(--green);background:var(--green-soft);color:var(--green-ink)}
+.opt.maybe{border-color:#D9A520;background:var(--amber-soft);color:var(--amber-ink)}
+.opt.no{border-color:var(--red);background:var(--red-soft);color:var(--red-ink)}
+.fb{border-left:3px solid var(--orange);background:var(--orange-soft);border-radius:0 10px 10px 0;padding:10px 14px;font-size:14px}
+.fb.best{border-left-color:var(--green);background:var(--green-soft)}
+.fb.maybe{border-left-color:#D9A520;background:var(--amber-soft)}
+.fb.no{border-left-color:var(--red);background:var(--red-soft)}
+.fb .tag{display:block;font:800 11px/1.4 var(--f-display);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.fb.best .tag{color:var(--green-ink)} .fb.maybe .tag{color:var(--amber-ink)} .fb.no .tag{color:var(--red-ink)}
+.write textarea{width:100%;min-height:150px;font:15px/1.6 var(--f-body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:700 14px/1 var(--f-display);background:var(--orange);color:#1f1f1f;border:0;border-radius:999px;padding:12px 18px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.small{font-size:13px;color:var(--muted)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px}
+.checks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.checks input{margin-top:5px;accent-color:var(--green)}
+.model{background:var(--green-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.model mark{background:transparent;color:var(--green-ink);font-weight:700}
+.wc{font-variant-numeric:tabular-nums}
+.recap{background:var(--orange);color:#1f1f1f;border-radius:16px;padding:22px 20px;display:grid;gap:8px}
+.recap h2{color:#1f1f1f}
+.recap ol{margin:0;padding-left:20px;display:grid;gap:4px}
+footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32px;font-size:12px;color:var(--muted);letter-spacing:.5px}
+.reset{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:13px var(--f-body);justify-self:center}
+</style>
+</head>
+<body>
+<header class="pad"><div class="eyebrow">Orange English · Lesson 2 Extension</div><span class="badge">Band 7+</span><h1>Choosing verbs with the right tone</h1><p>Why “sales boomed” works and “mortality boomed” doesn’t, and how to use strong verbs without losing marks.</p></header>
+<main class="pad">
+<section>
+ <h2>Why tone matters at Band 7</h2>
+ <p>At Band 7, the examiner looks for less common vocabulary used with awareness of style and collocation. Strong verbs like <i>boomed</i>, <i>slumped</i> or <i>spiralled</i> can show that range, but each one carries a feeling. If the feeling doesn’t match the topic, the word becomes an error, and a less common word used wrongly costs more than a simple one used well.</p>
+ <div class="note"><b>The test:</b> before you use a strong verb, ask whether more of this thing is good news or bad news. Then check that your verb says the same.</div>
+</section>
+<section>
+ <h2>Three kinds of trend verb</h2>
+ <div class="patterns">
+  <div class="pattern"><span class="form">Neutral · always safe</span><span class="ex">rose, increased, grew, fell, declined, dropped, remained stable, fluctuated</span><span class="why">Add an adverb for size and speed: rose slightly, fell sharply, increased dramatically.</span></div>
+  <div class="pattern"><span class="form">Size and speed · no judgement</span><span class="ex">soared, surged, rocketed, plummeted, plunged, doubled, halved</span><span class="why">They say how big and how fast, not whether it was good. “Sales soared” and “unemployment soared” are both fine.</span></div>
+  <div class="pattern"><span class="form">Evaluative · carries a feeling</span><span class="ex">Positive: boomed, flourished, thrived, recovered, rallied, picked up<br>Negative: slumped, crashed, collapsed, spiralled, deteriorated, stagnated</span><span class="why">Use these only when the feeling matches the topic, and only for changes big enough to deserve them.</span></div>
+ </div>
+</section>
+<section>
+ <h2>Matching the verb to the topic</h2>
+ <div class="tbl"><table>
+  <thead><tr><th>Topic</th><th>When it rises</th><th>When it falls</th><th>Avoid</th></tr></thead>
+  <tbody>
+   <tr><td><b>Good to have more</b><br><span class="small">sales, profits, exports, tourism, visitor numbers, employment</span></td><td class="fit">boomed, surged, soared, picked up, recovered</td><td class="fit">slumped, crashed, collapsed, plummeted</td><td class="avoid">spiralled, escalated</td></tr>
+   <tr><td><b>Bad to have more</b><br><span class="small">mortality, illiteracy, unemployment, crime, pollution, poverty</span></td><td class="fit">soared, surged, rose sharply, escalated (once at most)</td><td class="fit">fell sharply, declined, dropped considerably, eased</td><td class="avoid">boomed, flourished, thrived, recovered, slumped, crashed</td></tr>
+   <tr><td><b>Costs and prices</b><br><span class="small">rent, fuel prices, tuition fees, debt</span></td><td class="fit">soared, rocketed, doubled; spiralled if very fast</td><td class="fit">fell, eased, dropped</td><td class="avoid">boomed, flourished</td></tr>
+  </tbody></table></div>
+ <div class="note"><b>Improved and worsened</b> describe a situation, not a number. “Literacy improved” and “air quality worsened” work. “The illiteracy rate improved” doesn’t: write that it fell.</div>
+ <div class="note"><b>No opinions.</b> Words like <i>fortunately</i>, <i>worryingly</i> or <i>sadly</i> give your view of the data. Task 1 asks you to report it, so leave them out even when the topic is serious.</div>
+</section>
+<section id="s-fit" data-label="Sentence">
+ <div class="toprow"><h2>Fits or clashes?</h2><span class="count">0 / 12</span></div>
+ <p class="lede">Each verb is grammatically correct. Decide whether its tone fits the topic.</p>
+ <div class="rounds"></div>
+</section>
+<section id="s-pick" data-label="Round">
+ <div class="toprow"><h2>Choose the best verb</h2><span class="count">0 / 5</span></div>
+ <p class="lede">Check the figures first, then the topic. One option is best, and some are possible but less precise.</p>
+ <div class="rounds"></div>
+</section>
+<section class="write" id="s-write">
+ <h2>Your turn</h2>
+ <p>Rewrite this paragraph so every verb matches its topic and the size of the change.</p>
+ <div class="note">Between 2000 and 2020, deaths from road accidents in the country flourished from 4,000 to 6,500 a year, while the number of cars on the roads boomed from 10 million to 18 million. Fortunately, the death rate then recovered to 5,000 by 2022.</div>
+ <label for="tone-ta" class="small">Your paragraph</label>
+ <textarea id="tone-ta" placeholder="Between 2000 and 2020, deaths from road accidents…"></textarea>
+ <div class="row"><button type="button" class="btn show">Show my version</button><button type="button" class="btn ghost cpy">Copy my answer</button><span class="small wc"></span><span class="small cpmsg" aria-live="polite"></span></div>
+ <div class="after" hidden>
+  <div class="model">Between 2000 and 2020, deaths from road accidents in the country <mark>rose significantly</mark>, from 4,000 to 6,500 a year, while the number of cars on the roads <mark>increased by 80%</mark>, from 10 million to 18 million. By 2022, the number of deaths <mark>had fallen</mark> to 5,000.</div>
+  <ul class="checks" style="margin-top:12px">
+   <li><label><input type="checkbox" id="tc1">I replaced “flourished”: rising deaths are never positive.</label></li>
+   <li><label><input type="checkbox" id="tc2">I chose a verb for the cars that doesn’t praise or criticise the rise (more cars is neither clearly good nor bad).</label></li>
+   <li><label><input type="checkbox" id="tc3">I replaced “recovered”: the figure fell, and a fall in deaths is not a recovery.</label></li>
+   <li><label><input type="checkbox" id="tc4">I removed “Fortunately”, because it gives my opinion.</label></li>
+  </ul>
+ </div>
+</section>
+<section class="recap"><h2>Before you use a strong verb</h2><ol><li>Which way did the line move, and how far? Calculate it.</li><li>Is more of this thing good news or bad news?</li><li>Does my verb carry a feeling? Does it match?</li><li>Not sure? Use a neutral verb with an adverb. It is always safe.</li></ol></section>
+<button type="button" class="reset" onclick="location.reload()">Start again</button>
+</main>
+<footer class="pad">orangeenglish.nl</footer>
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const TAG={best:'Best choice',maybe:'Possible, but less precise',no:'Doesn’t fit'};
+function counter(sec,total){const c=$('.count',sec);let n=0;return{inc(){n++;c.textContent=n+' / '+total+(sec.dataset.unit||'');if(n===total)c.classList.add('done')},reset(){n=0;c.textContent='0 / '+total+(sec.dataset.unit||'');c.classList.remove('done')}}}
+function buildPick(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Round'} ${i+1}</div>${it.data?`<p class="data">${it.data}</p>`:''}<p class="prompt">${it.p.replace('___','<span class="gap">___</span>')}</p><div class="opts ${it.stack?'stack':''}"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  it.o.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=x.t;
+   b.onclick=()=>{$$('.opt',o).forEach(e=>e.classList.remove('best','maybe','no'));b.classList.add(x.v);fb.hidden=false;fb.className='fb '+x.v;fb.innerHTML=`<span class="tag">${TAG[x.v]}</span>${x.n}`;
+    if(x.v==='best'&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildJudge(sec,items,labels){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Sentence'} ${i+1}</div><p class="prompt">${it.s}</p><div class="opts"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  labels.forEach((l,j)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=l;
+   b.onclick=()=>{const right=j===it.a;$$('.opt',o).forEach(e=>e.classList.remove('best','no'));b.classList.add(right?'best':'no');fb.hidden=false;fb.className='fb '+(right?'best':'no');
+    fb.innerHTML=`<span class="tag">${right?'Correct':'Look again'}</span>${right?it.n:(it.hint||it.n)}`;
+    if(right&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildWrite(sec){const ta=$('textarea',sec),wc=$('.wc',sec),msg=$('.cpmsg',sec),key='oe-b7-'+ta.id;
+ try{const v=localStorage.getItem(key);if(v)ta.value=v}catch(e){}
+ const upd=()=>{const n=(ta.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' words';try{localStorage.setItem(key,ta.value)}catch(e){}};ta.addEventListener('input',upd);upd();
+ $('.show',sec).onclick=()=>{$('.after',sec).hidden=false};
+ $('.cpy',sec).onclick=()=>{const t=ta.value;const fall=()=>{ta.focus();ta.select();msg.textContent='Selected. Copy it with your keyboard.'};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{msg.textContent='Copied.'},fall)}else fall()}}
+
+
+buildJudge($('#s-fit'),[{"s": "Sales boomed in the run-up to Christmas.", "a": 0, "n": "More sales is good news for a business, so the positive tone of \u201cboomed\u201d matches. Use it only for a large, fast rise."}, {"s": "Infant mortality boomed in the region between 1990 and 2000.", "a": 1, "n": "\u201cBoomed\u201d sounds like success. A rise in infant mortality is bad news, so write \u201crose sharply\u201d or \u201cincreased significantly\u201d."}, {"s": "Illiteracy rates flourished in rural areas.", "a": 1, "n": "\u201cFlourished\u201d means grew healthily and successfully. Nobody wants illiteracy to grow. Use a neutral verb: \u201cthe illiteracy rate rose\u201d."}, {"s": "Unemployment soared after the factory closures.", "a": 0, "n": "\u201cSoared\u201d tells the reader the rise was large and fast. It describes size and speed, not whether the change was good, so it works for both good and bad topics."}, {"s": "Tourism revenue slumped during the pandemic.", "a": 0, "n": "Less tourism revenue is bad news for the industry, and \u201cslumped\u201d carries that negative tone. It matches."}, {"s": "Crime slumped after the new policing initiative.", "a": 1, "n": "\u201cSlumped\u201d sounds like a disappointing fall. Less crime is good news, so the tone clashes. Write \u201cfell sharply\u201d or \u201cdropped considerably\u201d."}, {"s": "Share prices crashed in a single day.", "a": 0, "n": "A sudden, very large fall in something people want to keep high: \u201ccrashed\u201d matches both the speed and the tone."}, {"s": "Visitor numbers spiralled between 2015 and 2020.", "a": 1, "n": "\u201cSpiralled\u201d suggests something going out of control, such as costs or debt. More visitors is usually welcome, so write \u201crose sharply\u201d or \u201csurged\u201d."}, {"s": "Exports recovered after 2010, returning to their 2005 level.", "a": 0, "n": "\u201cRecovered\u201d means returned to a good level after a fall. More exports is good news, and the line went back up, so it fits."}, {"s": "Pollution levels recovered after the factory reopened.", "a": 1, "n": "\u201cRecovered\u201d suggests a return to a healthy state. Pollution going back up is not a recovery. Write \u201crose again\u201d or \u201creturned to their earlier level\u201d."}, {"s": "The illiteracy rate improved from 34% to 12%.", "a": 1, "n": "A rate doesn\u2019t improve: the situation does. Report the number with a neutral verb, \u201cthe illiteracy rate fell from 34% to 12%\u201d, or describe the situation, \u201cliteracy improved\u201d."}, {"s": "Air quality in the city improved after the low-emission zone opened.", "a": 0, "n": "Here the subject is a quality, so \u201cimproved\u201d is exact: better air means pollution fell."}],['Fits','Clashes']);
+buildPick($('#s-pick'),[{"data": "Deaths from heart disease: 120 per 100,000 people in 1990, 210 in 2000.", "p": "Deaths from heart disease ___ between 1990 and 2000.", "o": [{"t": "rose sharply", "v": "best", "n": "A 75% rise in ten years is large, and \u201crose sharply\u201d gives the size without praising or dramatising it."}, {"t": "boomed", "v": "no", "n": "\u201cBoomed\u201d presents the rise as success. Rising deaths are never a boom."}, {"t": "edged up", "v": "no", "n": "\u201cEdged up\u201d means a very small rise. 120 to 210 is an increase of three quarters."}]}, {"data": "Adult illiteracy: 34% in 2000, 12% in 2020.", "p": "Adult illiteracy ___ over the twenty-year period.", "o": [{"t": "fell substantially", "v": "best", "n": "Neutral verb, with an adverb that gives the size: the rate dropped by 22 percentage points."}, {"t": "improved", "v": "no", "n": "The figure measures a problem, so \u201cilliteracy improved\u201d is confusing. Say the rate fell, or that literacy improved."}, {"t": "collapsed", "v": "no", "n": "\u201cCollapsed\u201d suggests sudden bad news. This was a steady fall over twenty years, and a welcome one."}]}, {"data": "Online sales: \u20ac2 million in 2019, \u20ac9 million in 2022.", "p": "Online sales ___ in just three years.", "o": [{"t": "boomed", "v": "best", "n": "More than four times as much in three years, for something a business wants more of. The positive tone and the size both match."}, {"t": "increased", "v": "maybe", "n": "Accurate and safe, but it doesn\u2019t show how large and fast the rise was. Add an adverb: \u201cincreased dramatically\u201d."}, {"t": "spiralled", "v": "no", "n": "\u201cSpiralled\u201d is for things going out of control, like costs or debt. It makes good news sound like a problem."}]}, {"data": "Youth unemployment: 12% in 2007, 25% in 2009, then falling.", "p": "Youth unemployment ___ to 25% in 2009, before falling back.", "o": [{"t": "surged", "v": "best", "n": "It more than doubled in two years. \u201cSurged\u201d gives the speed and size without judging."}, {"t": "escalated", "v": "maybe", "n": "Possible: unemployment is a problem, and \u201cescalated\u201d suggests a worsening situation. It is a little dramatic for a report, so use it once at most."}, {"t": "thrived", "v": "no", "n": "\u201cThrived\u201d means did well. Unemployment doing well makes no sense."}]}, {"data": "Average rent: \u20ac700 a month in 2018, \u20ac1,400 in 2022.", "p": "Rents ___ between 2018 and 2022.", "o": [{"t": "doubled", "v": "best", "n": "1,400 \u00f7 700 = 2. The most precise choice is often the number itself, and it carries no tone at all."}, {"t": "spiralled", "v": "maybe", "n": "Rising rents are bad news for tenants, and doubling in four years is fast, so the tone can work. But \u201cdoubled\u201d tells the examiner exactly how much."}, {"t": "flourished", "v": "no", "n": "\u201cFlourished\u201d suggests healthy growth. Rents aren\u2019t a living thing that thrives, and the tone is wrong for a cost."}]}]);
+buildWrite($('#s-write'));
+</script>
+</body>
+</html>
