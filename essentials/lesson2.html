@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Task 1 Essentials: Lesson 2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: Orange English activity page. Light header band, one 720px column of rounds, reference blocks set off by fill rather than shadow. */
+:root{
+  --bg:#FAF8F3; --surface:#FFFFFF; --ink:#292929; --muted:#6B6359; --line:#E5E1D8;
+  --orange:#F88B48; --orange-ink:#B9541A; --orange-soft:#FEF0E6;
+  --green:#5FB27B; --green-ink:#2F7A49; --green-soft:#EDF7F1;
+  --amber-ink:#8A5A00; --amber-soft:#FFF5DB;
+  --red:#D9534F; --red-ink:#A8322E; --red-soft:#FBE9E8;
+  --f-display:"Montserrat","Segoe UI",system-ui,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);margin:0}
+.pad{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{border-bottom:1px solid var(--line);text-align:center;padding-block:32px 24px}
+.eyebrow{font:700 11px/1 var(--f-display);letter-spacing:2px;text-transform:uppercase;color:var(--orange-ink)}
+.badge{display:inline-block;margin-top:12px;font:800 12px/1 var(--f-display);letter-spacing:.5px;background:var(--orange);color:#1f1f1f;border-radius:20px;padding:6px 12px}
+h1{font:800 clamp(22px,5vw,28px)/1.2 var(--f-display);margin:10px 0 6px;text-wrap:balance}
+header p{margin:0 auto;color:var(--muted);font-size:15px;max-width:56ch}
+main{max-width:720px;margin:0 auto;padding-block:28px 40px;display:grid;gap:36px}
+section{display:grid;gap:14px;min-width:0}
+h2{font:700 19px/1.3 var(--f-display);margin:0;text-wrap:balance}
+h3{font:700 15px/1.3 var(--f-display);margin:0}
+p{margin:0}
+.lede{color:var(--muted);font-size:15px}
+.note{background:var(--orange-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.note b{font-family:var(--f-display)}
+.ok{background:var(--green-soft)}
+.pattern{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;min-width:0}
+.pattern .form{font:700 14px/1.4 var(--f-display);color:var(--orange-ink)}
+.pattern .ex{font-size:15px}
+.pattern .why{font-size:14px;color:var(--muted)}
+.patterns{display:grid;gap:10px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font:700 12px/1.3 var(--f-display);letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.fit{color:var(--green-ink)} td.avoid{color:var(--red-ink)}
+.toprow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.count{font:600 13px/1 var(--f-body);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:6px 12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.count.done{color:var(--green-ink);border-color:var(--green);background:var(--green-soft)}
+.round{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:12px;min-width:0}
+.round.solved{border-color:var(--green)}
+.rlabel{font:700 11px/1 var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.prompt{font-size:16px;font-weight:500}
+.data{font-size:14px;color:var(--muted)}
+.gap{display:inline-block;min-width:80px;border-bottom:2px dashed var(--muted);text-align:center;color:var(--orange-ink);font-weight:700}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts.stack{flex-direction:column}
+.opt{font:600 14px/1.35 var(--f-body);text-align:left;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:9px 16px;cursor:pointer}
+.opts.stack .opt{border-radius:12px}
+.opt:hover{border-color:var(--orange)}
+.opt:focus-visible,.btn:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.opt.best{border-color:var(--green);background:var(--green-soft);color:var(--green-ink)}
+.opt.maybe{border-color:#D9A520;background:var(--amber-soft);color:var(--amber-ink)}
+.opt.no{border-color:var(--red);background:var(--red-soft);color:var(--red-ink)}
+.fb{border-left:3px solid var(--orange);background:var(--orange-soft);border-radius:0 10px 10px 0;padding:10px 14px;font-size:14px}
+.fb.best{border-left-color:var(--green);background:var(--green-soft)}
+.fb.maybe{border-left-color:#D9A520;background:var(--amber-soft)}
+.fb.no{border-left-color:var(--red);background:var(--red-soft)}
+.fb .tag{display:block;font:800 11px/1.4 var(--f-display);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.fb.best .tag{color:var(--green-ink)} .fb.maybe .tag{color:var(--amber-ink)} .fb.no .tag{color:var(--red-ink)}
+.write textarea{width:100%;min-height:150px;font:15px/1.6 var(--f-body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:700 14px/1 var(--f-display);background:var(--orange);color:#1f1f1f;border:0;border-radius:999px;padding:12px 18px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.small{font-size:13px;color:var(--muted)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px}
+.checks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.checks input{margin-top:5px;accent-color:var(--green)}
+.model{background:var(--green-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.model mark{background:transparent;color:var(--green-ink);font-weight:700}
+.wc{font-variant-numeric:tabular-nums}
+.recap{background:var(--orange);color:#1f1f1f;border-radius:16px;padding:22px 20px;display:grid;gap:8px}
+.recap h2{color:#1f1f1f}
+.recap ol{margin:0;padding-left:20px;display:grid;gap:4px}
+.backrow{margin:0 0 14px;text-align:left;max-width:720px;margin-inline:auto}
+.back{font:600 14px var(--f-body);color:var(--orange-ink)}
+footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32px;font-size:12px;color:var(--muted);letter-spacing:.5px}
+.reset{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:13px var(--f-body);justify-self:center}
+
+.dnd{display:grid;gap:14px}
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:52px;padding:10px;border:2px dashed var(--line);border-radius:12px;background:var(--bg)}
+.pool:empty::after{content:'All placed. Now check your answers.';color:var(--muted);font-size:13px;align-self:center}
+.tile{font:600 14px/1.35 var(--f-body);color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:8px 12px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;text-align:left;max-width:100%}
+.tile:hover{border-color:var(--orange)}
+.tile[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft);box-shadow:0 0 0 3px var(--orange-soft)}
+.tile.right{border-color:var(--green);background:var(--green-soft);color:var(--green-ink);cursor:default}
+.tile.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red-ink)}
+.tile:focus-visible,.slot:focus-visible,.word:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.dragcopy{position:fixed;pointer-events:none;z-index:50;opacity:.9;box-shadow:0 6px 18px rgba(0,0,0,.18);transform:rotate(-2deg)}
+.slots{display:grid;gap:10px}
+.slotrow{display:grid;gap:8px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+@media (max-width:560px){.slotrow{grid-template-columns:1fr}}
+.slotrow.tight{grid-template-columns:72px minmax(0,1fr);padding:6px 10px}
+.slotrow.tight .slot{min-height:40px}
+.slot{min-height:46px;border:2px dashed var(--muted);border-radius:10px;padding:5px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--bg);cursor:pointer;font:13px var(--f-body);color:var(--muted);text-align:left}
+.slot.hot{border-color:var(--orange);background:var(--orange-soft)}
+.slot:empty::before{content:attr(data-ph);padding:0 6px}
+.bins{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.bin{display:grid;gap:8px;align-content:start}
+.bin h3{font-size:14px}
+.bin .slot{min-height:120px;align-content:flex-start;flex-direction:column;align-items:stretch}
+.seq{display:flex;flex-wrap:wrap;gap:6px;min-height:52px;padding:10px;border:2px dashed var(--muted);border-radius:12px;background:var(--bg);align-items:center}
+.seq:empty::before{content:'Tap or drag the words here in order';color:var(--muted);font-size:13px}
+.seq .tile,.wpool .tile{padding:6px 10px}
+.order{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:o}
+.order .slotrow{grid-template-columns:28px minmax(0,1fr);counter-increment:o}
+.order .slotrow::before{content:counter(o);width:26px;height:26px;border-radius:50%;background:var(--orange);color:#1f1f1f;font:800 13px/26px var(--f-display);text-align:center}
+.notes{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.notes li{font-size:14px;border-left:3px solid var(--red);background:var(--red-soft);border-radius:0 10px 10px 0;padding:8px 12px}
+.notes li.okn{border-left-color:var(--green);background:var(--green-soft)}
+.spot{font-size:17px;line-height:2.1}
+.word{font:inherit;color:inherit;background:none;border:0;border-bottom:2px solid transparent;padding:0;margin:0;cursor:pointer;border-radius:4px}
+.word:hover{background:var(--orange-soft)}
+.word.miss{background:var(--red-soft);text-decoration:line-through;text-decoration-color:var(--red)}
+.word.hit{background:var(--green-soft);color:var(--green-ink);font-weight:700}
+.word.nope{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+@media (prefers-reduced-motion:reduce){.word.nope{animation:none}}
+
+.sdpairs{display:grid;gap:18px}
+.sdpair h3{margin-bottom:8px}
+.sdrow{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.sd{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px;align-content:start;border-top:5px solid var(--green)}
+.sd-d{border-top-color:var(--orange)}
+.sdtag{font:800 11px/1 var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--green-ink)}
+.sd-d .sdtag{color:var(--orange-ink)}
+.sdt{font:700 14px/1.3 var(--f-display)}
+.sdv{display:flex;justify-content:center;min-height:90px;align-items:center}
+.sdv svg{max-width:100%;height:auto}
+.sdl{font-size:14px;color:var(--muted)}
+
+.slot.inl{display:inline-flex;min-height:34px;min-width:120px;vertical-align:middle;padding:2px 4px;margin:0 2px}
+.slot.inl .tile{padding:4px 8px}
+
+.fig{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:10px}
+.fig figcaption{font:700 15px/1.35 var(--f-display);text-align:center;text-wrap:balance}
+.fig svg{width:100%;height:auto;max-width:560px;justify-self:center}
+.bl{font:600 12px var(--f-body);fill:var(--ink)} .bv{font:700 11px var(--f-display);fill:var(--ink)} .ax{font:11px var(--f-body);fill:var(--muted)}
+.leg{display:flex;gap:16px;justify-content:center;font-size:13px;flex-wrap:wrap} .leg span{display:flex;gap:6px;align-items:center}
+.sw{width:14px;height:14px;border-radius:4px;display:inline-block}
+.sdc{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.sdc div{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--orange);border-radius:12px;padding:14px 16px;display:grid;gap:4px}
+.sdc b{font:800 18px var(--f-display);color:var(--orange-ink)}
+.task{background:var(--surface);border:2px solid var(--ink);border-radius:12px;padding:14px 16px;font-size:15px;display:grid;gap:8px}
+.task .tl{font:700 11px/1 var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.para{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:15px}
+.dtab{border-collapse:collapse;width:100%;min-width:0;font-size:15px}
+.dtab th,.dtab td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left}
+.dtab td+td,.dtab th+th{text-align:right;font-variant-numeric:tabular-nums}
+.multi{display:grid;gap:8px}
+.mopt{font:500 15px/1.4 var(--f-body);text-align:left;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:10px 14px 10px 42px;cursor:pointer;position:relative}
+.mopt::before{content:'';position:absolute;left:14px;top:12px;width:16px;height:16px;border:2px solid var(--muted);border-radius:4px}
+.mopt[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft)}
+.mopt[aria-pressed="true"]::before{background:var(--orange);border-color:var(--orange)}
+.mopt.right{border-color:var(--green);background:var(--green-soft)} .mopt.wrong{border-color:var(--red);background:var(--red-soft)} .mopt.missed{border-color:#D9A520;background:var(--amber-soft)}
+.mopt .why{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+.mopt:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="pad"><p class="backrow"><a class="back" href="lesson1.html">← Lesson 1: select, describe, compare</a></p><div class="eyebrow">Start here · Task 1 Essentials · Lesson 2</div><span class="badge">All levels</span><h1>Structure your answer</h1><p>Paraphrase, overview, two organised body paragraphs, and signposts that show your plan.</p></header>
+<main class="pad"><section>
+ <h2>Four paragraphs, every time</h2>
+ <p>In Lesson 1 you practised the three skills: select, describe and compare. Now you’ll put them into the structure examiners expect: an introduction, an overview and two body paragraphs. We’ll use this chart.</p>
+ <figure class="fig" role="img" aria-label="Bar chart. Television: under 30s 9 hours, over 60s 18 hours; Social media: under 30s 14 hours, over 60s 3 hours; Sport: under 30s 5 hours, over 60s 2 hours; Reading: under 30s 2 hours, over 60s 6 hours; Gardening: under 30s 1 hours, over 60s 5 hours"><figcaption>Average hours per week spent on five leisure activities by two age groups in Hartford, 2025</figcaption>
+<svg viewBox="0 0 520 302" aria-hidden="true"><line x1="100" y1="10" x2="100" y2="270" stroke="var(--line)"/><text x="100" y="286" text-anchor="middle" class="ax">0</text><line x1="198" y1="10" x2="198" y2="270" stroke="var(--line)"/><text x="198" y="286" text-anchor="middle" class="ax">5</text><line x1="295" y1="10" x2="295" y2="270" stroke="var(--line)"/><text x="295" y="286" text-anchor="middle" class="ax">10</text><line x1="392" y1="10" x2="392" y2="270" stroke="var(--line)"/><text x="392" y="286" text-anchor="middle" class="ax">15</text><line x1="490" y1="10" x2="490" y2="270" stroke="var(--line)"/><text x="490" y="286" text-anchor="middle" class="ax">20</text><text x="92" y="35" text-anchor="end" class="bl">Television</text><rect x="100" y="16" width="175.5" height="18" rx="3" fill="#F88B48"/><text x="280.5" y="29" class="bv">9</text><rect x="100" y="36" width="351.0" height="18" rx="3" fill="#4F7CAC"/><text x="456.0" y="49" class="bv">18</text><text x="92" y="87" text-anchor="end" class="bl">Social media</text><rect x="100" y="68" width="273.0" height="18" rx="3" fill="#F88B48"/><text x="378.0" y="81" class="bv">14</text><rect x="100" y="88" width="58.5" height="18" rx="3" fill="#4F7CAC"/><text x="163.5" y="101" class="bv">3</text><text x="92" y="139" text-anchor="end" class="bl">Sport</text><rect x="100" y="120" width="97.5" height="18" rx="3" fill="#F88B48"/><text x="202.5" y="133" class="bv">5</text><rect x="100" y="140" width="39.0" height="18" rx="3" fill="#4F7CAC"/><text x="144.0" y="153" class="bv">2</text><text x="92" y="191" text-anchor="end" class="bl">Reading</text><rect x="100" y="172" width="39.0" height="18" rx="3" fill="#F88B48"/><text x="144.0" y="185" class="bv">2</text><rect x="100" y="192" width="117.0" height="18" rx="3" fill="#4F7CAC"/><text x="222.0" y="205" class="bv">6</text><text x="92" y="243" text-anchor="end" class="bl">Gardening</text><rect x="100" y="224" width="19.5" height="18" rx="3" fill="#F88B48"/><text x="124.5" y="237" class="bv">1</text><rect x="100" y="244" width="97.5" height="18" rx="3" fill="#4F7CAC"/><text x="202.5" y="257" class="bv">5</text><text x="295" y="296" text-anchor="middle" class="ax">Hours per week</text></svg>
+<div class="leg"><span><i class="sw" style="background:#F88B48"></i>Under 30</span><span><i class="sw" style="background:#4F7CAC"></i>Over 60</span></div></figure>
+ <div class="note" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between"><span><b>Cheat sheet:</b> both lessons on two printable pages.</span><a class="btn" href="Task1_Essentials_CheatSheet.pdf" download style="text-decoration:none">Download the PDF</a></div>
+</section>
+<section>
+ <h2>Step 1: The four paragraphs</h2>
+ <p>A Task 1 answer has four short paragraphs. Here is a model answer for the leisure chart.</p>
+</section>
+<section id="s-lab"><div class="toprow"><h2>Label the paragraphs</h2><span class="count">0 / 4</span></div><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Labels</div><div class="pool" aria-label="Labels"></div></div><div class="slots"><div class="slotrow"><div class="slot" data-key="0" data-ph="Drop a label"></div><p class="para">The bar chart compares how many hours a week people under 30 and over 60 spent, on average, on five leisure activities in Hartford in 2025.</p></div><div class="slotrow"><div class="slot" data-key="1" data-ph="Drop a label"></div><p class="para">Overall, the younger group spent most of their free time on social media, while the older group watched far more television than they spent on anything else. The over-60s spent more time than the under-30s on three of the five activities.</p></div><div class="slotrow"><div class="slot" data-key="2" data-ph="Drop a label"></div><p class="para">People under 30 spent 14 hours a week on social media, almost five times the figure for the over-60s (3 hours). They also did more sport, at 5 hours compared with only 2 for older people.</p></div><div class="slotrow"><div class="slot" data-key="3" data-ph="Drop a label"></div><p class="para">In contrast, television was the main pastime of the over-60s, who watched it for 18 hours a week, twice as long as younger people. Older people also read for three times as long (6 hours compared with 2) and spent 5 hours gardening, whereas the under-30s spent just one hour on this activity.</p></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+<section id="s-where" data-unit=" cards"><div class="toprow"><h2>What goes where?</h2><span class="count">0 / 9 cards</span></div>
+<div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Cards</div><div class="pool" aria-label="Cards"></div></div><div class="bins"><div class="bin"><h3>Introduction</h3><div class="slot" data-key="intro" data-many="1" data-ph="Drop here"></div></div><div class="bin"><h3>Overview</h3><div class="slot" data-key="ov" data-many="1" data-ph="Drop here"></div></div><div class="bin"><h3>Body paragraphs</h3><div class="slot" data-key="body" data-many="1" data-ph="Drop here"></div></div><div class="bin"><h3>Leave it out</h3><div class="slot" data-key="out" data-many="1" data-ph="Drop here"></div></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+
+<section>
+ <h2>Step 2: Paraphrase the question</h2>
+ <p>Your first sentence rewrites the task in your own words. Change the words <b>and</b> the word order, but keep every fact: what is measured, who, where and when. Copied words don’t count towards your 150, and a copied introduction tells the examiner nothing about your English.</p>
+ <div class="note"><b>Useful changes:</b> <i>shows → compares, illustrates, gives a breakdown of</i> · <i>the number of → how many</i> · <i>the percentage of → the proportion of, the share of</i> · <i>from 2010 to 2025 → over a fifteen-year period</i> · <i>in three countries → name them</i>. Never write “below”: your reader can’t see the task.</div>
+</section>
+<section id="s-para"><div class="toprow"><h2>Paraphrase toolkit</h2><span class="count">0 / 6</span></div>
+<p class="lede">Drag each paraphrase to the words from a task.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Paraphrases</div><div class="pool" aria-label="Paraphrases"></div></div><div class="slots"><div class="slotrow"><p style="font-weight:600">“The bar chart below shows”</p><div class="slot" data-key="0" data-ph="Drop a paraphrase"></div></div><div class="slotrow"><p style="font-weight:600">“the number of people”</p><div class="slot" data-key="1" data-ph="Drop a paraphrase"></div></div><div class="slotrow"><p style="font-weight:600">“gives information about”</p><div class="slot" data-key="2" data-ph="Drop a paraphrase"></div></div><div class="slotrow"><p style="font-weight:600">“between 2010 and 2025”</p><div class="slot" data-key="3" data-ph="Drop a paraphrase"></div></div><div class="slotrow"><p style="font-weight:600">“the percentage of households”</p><div class="slot" data-key="4" data-ph="Drop a paraphrase"></div></div><div class="slotrow"><p style="font-weight:600">“in three cities”</p><div class="slot" data-key="5" data-ph="Drop a paraphrase"></div></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+<section id="s-intro" data-label="Question"><div class="toprow"><h2>Choose the best introduction</h2><span class="count">0 / 2</span></div><div class="rounds"></div></section>
+
+<section>
+ <h2>Step 3: Write the overview</h2>
+ <p>The overview is the most important paragraph for Task Achievement. It comes straight after the introduction, starts with <i>Overall,</i> and gives the two or three biggest features in one or two sentences, with no figures.</p>
+ <div class="note"><b>Static chart:</b> the largest and smallest categories, and the biggest difference.<br><b>Dynamic chart:</b> the overall trend (up, down, stable), the biggest change, and whether the ranking changed or stayed the same.</div>
+ <figure class="fig"><figcaption>Average monthly rent for a one-bedroom flat in three cities, 2015 and 2025 (€)</figcaption><div class="tbl" style="border:0"><table class="dtab"><tr><th>City</th><th>2015</th><th>2025</th></tr><tr><td>Paris</td><td>€1,100</td><td>€1,450</td></tr><tr><td>Rome</td><td>€800</td><td>€1,100</td></tr><tr><td>Lisbon</td><td>€600</td><td>€1,000</td></tr></table></div></figure>
+</section>
+<section id="s-ov" data-label="Question"><div class="toprow"><h2>Choose the best overview</h2><span class="count">0 / 2</span></div><div class="rounds"></div></section>
+
+<section>
+ <h2>Step 4: Organise the body paragraphs</h2>
+ <p>Don’t describe the chart from left to right. Choose a plan that groups the information logically, so each body paragraph has one clear job. These are the five most useful plans.</p>
+ <div class="patterns">
+  <div class="pattern"><span class="form">By time (dynamic charts)</span><span class="ex">Body 1: the first year and the ranking. Body 2: the changes and the final year.</span></div>
+  <div class="pattern"><span class="form">By size (static charts)</span><span class="ex">Body 1: the largest categories. Body 2: the smaller ones.</span></div>
+  <div class="pattern"><span class="form">By trend</span><span class="ex">Body 1: the categories that rose. Body 2: those that fell or stayed the same.</span></div>
+  <div class="pattern"><span class="form">By group</span><span class="ex">Body 1: where one group was higher. Body 2: where the other was.</span></div>
+  <div class="pattern"><span class="form">By chart (two different charts)</span><span class="ex">Body 1: the first chart. Body 2: the second, linked back to the first.</span></div>
+ </div>
+</section>
+<section id="s-org"><div class="toprow"><h2>Choose a plan</h2><span class="count">0 / 5</span></div>
+<p class="lede">Drag the best plan to each chart.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Plans</div><div class="pool" aria-label="Plans"></div></div><div class="slots"><div class="slotrow"><p>Table: rent in three cities, 2015 and 2025</p><div class="slot" data-key="time" data-ph="Drop a plan here"></div></div><div class="slotrow"><p>Pie chart: household spending by category, 2025</p><div class="slot" data-key="size" data-ph="Drop a plan here"></div></div><div class="slotrow"><p>Line graph: sales of four products, 2000–2020. Two rose and two fell.</p><div class="slot" data-key="trend" data-ph="Drop a plan here"></div></div><div class="slotrow"><p>Bar chart: leisure hours of under-30s and over-60s</p><div class="slot" data-key="group" data-ph="Drop a plan here"></div></div><div class="slotrow"><p>A pie chart and a table on the same topic</p><div class="slot" data-key="chart" data-ph="Drop a plan here"></div></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+<section id="s-grp" data-unit=" details"><div class="toprow"><h2>Group the details</h2><span class="count">0 / 5 details</span></div>
+<p class="lede">The leisure chart works best by group. Sort the details into two paragraphs.</p>
+<div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Details</div><div class="pool" aria-label="Details"></div></div><div class="bins"><div class="bin"><h3>Body 1: the under-30s did more</h3><div class="slot" data-key="b1" data-many="1" data-ph="Drop here"></div></div><div class="bin"><h3>Body 2: the over-60s did more</h3><div class="slot" data-key="b2" data-many="1" data-ph="Drop here"></div></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+
+<section>
+ <h2>Step 5: Signpost your plan</h2>
+ <p>Once you have a plan, show it. Start each body paragraph with a signpost that tells the reader what the paragraph is about. This is what examiners mean by clear progression, and it is part of Coherence and Cohesion.</p>
+ <div class="tbl tblref"><table style="min-width:0"><tr><th>Plan</th><th>Signposts to start each paragraph</th></tr><tr><td><b>By time</b></td><td><i>In 2015,</i> … <i>By 2025,</i> … <i>Over the decade,</i> …</td></tr><tr><td><b>By size</b></td><td><i>The largest category was</i> … <i>Turning to the smaller categories,</i> … <i>The remaining 10%</i> …</td></tr><tr><td><b>By trend</b></td><td><i>Looking first at the products that grew,</i> … <i>In contrast,</i> … <i>By comparison,</i> …</td></tr><tr><td><b>By group</b></td><td><i>People under 30</i> … <i>In contrast, the over-60s</i> …</td></tr><tr><td><b>By chart</b></td><td><i>According to the pie chart,</i> … <i>Turning to the table,</i> … <i>As for the second chart,</i> …</td></tr></table></div>
+</section>
+<section id="s-sign"><div class="toprow"><h2>Add the signposts</h2><span class="count">0 / 6</span></div>
+<p class="lede">This answer for the rent table is organised by time. Drag the signposts into the gaps. Two don’t fit.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Signposts</div><div class="pool" aria-label="Signposts"></div></div><div class="para" style="display:grid;gap:10px;line-height:2.1">
+<p>The table compares the average monthly rent for a one-bedroom flat in Paris, Rome and Lisbon in 2015 and 2025.</p>
+<p><span class="slot inl" data-key="ov" data-ph="___"></span> rent rose in all three cities, and Paris remained the most expensive throughout, although Lisbon saw the biggest increase.</p>
+<p><span class="slot inl" data-key="t1" data-ph="___"></span> Paris had the highest rent, at €1,100 a month, <span class="slot inl" data-key="fb" data-ph="___"></span> Rome at €800. Lisbon was by far the cheapest, at €600, just over half the figure for Paris.</p>
+<p><span class="slot inl" data-key="t2" data-ph="___"></span> rent had risen in every city. <span class="slot inl" data-key="big" data-ph="___"></span> was in Lisbon, where it went up by €400 to €1,000, while rent in Paris and Rome rose by €350 and €300, reaching €1,450 and €1,100 respectively. <span class="slot inl" data-key="res" data-ph="___"></span> the gap between Paris and Lisbon narrowed slightly, from €500 to €450.</p></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+
+<section><h2>Step 6: Plan your time</h2></section>
+<section id="s-time"><div class="toprow"><h2>Plan your 20 minutes</h2><span class="count">0 / 5</span></div>
+<p class="lede">Put the steps in order.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Steps</div><div class="pool" aria-label="Steps"></div></div><ol class="order"><li class="slotrow"><div class="slot" data-key="0" data-ph="Drop step 1 here"></div></li><li class="slotrow"><div class="slot" data-key="1" data-ph="Drop step 2 here"></div></li><li class="slotrow"><div class="slot" data-key="2" data-ph="Drop step 3 here"></div></li><li class="slotrow"><div class="slot" data-key="3" data-ph="Drop step 4 here"></div></li><li class="slotrow"><div class="slot" data-key="4" data-ph="Drop step 5 here"></div></li></ol>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+
+<section id="s-quiz2" data-label="Question"><div class="toprow"><h2>Quick check</h2><span class="count">0 / 6</span></div><div class="rounds"></div></section>
+<section>
+ <h2>Step 7: Your turn</h2>
+ <div class="task"><span class="tl">Task · 20 minutes · at least 150 words</span><p>The table below gives information about the percentage of households with internet access in four regions in 2010 and 2025.</p><p>Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</p></div>
+ <figure class="fig"><figcaption>Percentage of households with internet access in four regions, 2010 and 2025</figcaption><div class="tbl" style="border:0"><table class="dtab"><tr><th>Region</th><th>2010</th><th>2025</th></tr><tr><td>North</td><td>45%</td><td>88%</td></tr><tr><td>South</td><td>62%</td><td>91%</td></tr><tr><td>East</td><td>38%</td><td>85%</td></tr><tr><td>West</td><td>70%</td><td>90%</td></tr></table></div></figure>
+</section>
+<section class="write" id="s-write">
+ <label for="ess-ta" class="small">Your answer</label>
+ <textarea id="ess-ta" style="min-height:260px" placeholder="The table compares…"></textarea>
+ <div class="row"><button type="button" class="btn show">Show my version</button><button type="button" class="btn ghost cpy">Copy my answer</button><span class="small wc"></span><span class="small cpmsg" aria-live="polite"></span></div>
+ <div class="after" hidden>
+  <div class="model"><p>The table compares the proportion of households in four regions that had internet access in 2010 and 2025.</p><p style="margin-top:8px">Overall, internet access <mark>rose considerably</mark> in every region, and the differences between the regions <mark>became much smaller</mark> over the period.</p><p style="margin-top:8px">In 2010, the West had <mark>the highest</mark> proportion of connected households, at 70%, <mark>followed by</mark> the South (62%). The figures for the North and East were <mark>much lower</mark>, at 45% and 38% respectively, so the gap between the highest and lowest regions was 32 percentage points.</p><p style="margin-top:8px">By 2025, at least 85% of households in every region had internet access. The East saw <mark>the largest increase</mark>, <mark>more than doubling</mark> to 85%, while the North <mark>almost doubled</mark> to 88%. The figures for the South and West rose more slowly, to 91% and 90% respectively, and the gap between the regions <mark>had narrowed</mark> to just 6 percentage points.</p></div>
+  <ul class="checks" style="margin-top:12px">
+   <li><label><input type="checkbox"><span><b>Select:</b> I chose the main features: the rise everywhere, the highest and lowest regions, the narrowing gap.</span></label></li>
+   <li><label><input type="checkbox"><span><b>Describe:</b> I used the past tense and gave the unit (%) with every figure.</span></label></li>
+   <li><label><input type="checkbox"><span><b>Compare:</b> every body paragraph compares regions, not just lists them.</span></label></li>
+   <li><label><input type="checkbox"><span><b>Structure:</b> introduction, overview with no figures, two body paragraphs.</span></label></li>
+   <li><label><input type="checkbox"><span>I wrote at least 150 words.</span></label></li>
+  </ul>
+ </div>
+</section>
+<section><div class="note" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between"><span><b>Cheat sheet:</b> both lessons on two printable pages.</span><a class="btn" href="Task1_Essentials_CheatSheet.pdf" download style="text-decoration:none">Download the PDF</a></div></section>
+<section class="recap"><h2>Before you finish, ask</h2><ol><li><b>Select:</b> did I choose the main features, not every figure?</li><li><b>Describe:</b> is the tense right for the dates? Does every figure have its unit?</li><li><b>Compare:</b> does every body paragraph compare?</li><li><b>Structure:</b> introduction, overview, two body paragraphs?</li></ol></section>
+<button type="button" class="reset" onclick="location.reload()">Start again</button>
+</main>
+<footer class="pad">orangeenglish.nl</footer>
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const TAG={best:'Best choice',maybe:'Possible, but less precise',no:'Doesn’t fit'};
+function counter(sec,total){const c=$('.count',sec);let n=0;return{inc(){n++;c.textContent=n+' / '+total+(sec.dataset.unit||'');if(n===total)c.classList.add('done')},reset(){n=0;c.textContent='0 / '+total+(sec.dataset.unit||'');c.classList.remove('done')}}}
+function buildPick(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Round'} ${i+1}</div>${it.data?`<div class="data">${it.data}</div>`:''}<p class="prompt">${it.p.replace('___','<span class="gap">___</span>')}</p><div class="opts ${it.stack?'stack':''}"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  [...it.o].map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]).forEach(x=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=x.t;
+   b.onclick=()=>{$$('.opt',o).forEach(e=>e.classList.remove('best','maybe','no'));b.classList.add(x.v);fb.hidden=false;fb.className='fb '+x.v;fb.innerHTML=`<span class="tag">${TAG[x.v]}</span>${x.n}`;
+    if(x.v==='best'&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildJudge(sec,items,labels){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Sentence'} ${i+1}</div><p class="prompt">${it.s}</p><div class="opts"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  labels.forEach((l,j)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=l;
+   b.onclick=()=>{const right=j===it.a;$$('.opt',o).forEach(e=>e.classList.remove('best','no'));b.classList.add(right?'best':'no');fb.hidden=false;fb.className='fb '+(right?'best':'no');
+    fb.innerHTML=`<span class="tag">${right?'Correct':'Look again'}</span>${right?it.n:(it.hint||it.n)}`;
+    if(right&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildWrite(sec){const ta=$('textarea',sec),wc=$('.wc',sec),msg=$('.cpmsg',sec),key='oe-b7-'+ta.id;
+ try{const v=localStorage.getItem(key);if(v)ta.value=v}catch(e){}
+ const upd=()=>{const n=(ta.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' words';try{localStorage.setItem(key,ta.value)}catch(e){}};ta.addEventListener('input',upd);upd();
+ $('.show',sec).onclick=()=>{$('.after',sec).hidden=false};
+ $('.cpy',sec).onclick=()=>{const t=ta.value;const fall=()=>{ta.focus();ta.select();msg.textContent='Selected. Copy it with your keyboard.'};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{msg.textContent='Copied.'},fall)}else fall()}}
+
+
+/* ---- drag or tap tiles into slots ----
+ cfg: {sec, tiles:[{t,key,n}], mode:'match'|'bins'|'order'|'sentence', answers (sentence mode)} */
+function buildDnd(sec,cfg){
+ const host=$('.dnd',sec),pool=$('.pool',sec),cnt=$('.count',sec),fb=$('.fb',sec),notes=$('.notes',sec);
+ let sel=null,solved=false;
+ const tiles=cfg.tiles.map((d,i)=>{const b=document.createElement('button');b.type='button';b.className='tile';b.textContent=d.t;b.dataset.key=d.key;b.dataset.i=i;b.setAttribute('aria-pressed','false');return b});
+ tiles.map(t=>[Math.random(),t]).sort((a,b)=>a[0]-b[0]).forEach(x=>pool.appendChild(x[1]));
+ const slots=()=>$$('.slot,.seq',sec);
+ const cap=s=>s.classList.contains('seq')||s.dataset.many?99:1;
+ function select(t){if(sel)sel.setAttribute('aria-pressed','false');sel=(sel===t)?null:t;if(sel)sel.setAttribute('aria-pressed','true')}
+ function place(t,s){if(!s||t.classList.contains('right'))return;
+  if(s!==pool&&cap(s)===1&&s.firstElementChild&&s.firstElementChild!==t)pool.appendChild(s.firstElementChild);
+  s.appendChild(t);t.classList.remove('wrong');t.setAttribute('aria-pressed','false');sel=null;fb.hidden=true}
+ slots().forEach(s=>s.addEventListener('click',e=>{if(e.target.closest('.tile'))return;if(sel)place(sel,s)}));
+ pool.addEventListener('click',e=>{if(e.target===pool&&sel)place(sel,pool)});
+ tiles.forEach(t=>{
+  let sx,sy,drag=null,moved=false;
+  t.addEventListener('pointerdown',e=>{if(t.classList.contains('right')||e.button>0)return;sx=e.clientX;sy=e.clientY;moved=false;t.setPointerCapture(e.pointerId)});
+  t.addEventListener('pointermove',e=>{if(sx===undefined)return;
+   if(!drag&&Math.hypot(e.clientX-sx,e.clientY-sy)>6){moved=true;const r=t.getBoundingClientRect();drag=t.cloneNode(true);drag.classList.add('dragcopy');drag.style.width=r.width+'px';drag.dx=sx-r.left;drag.dy=sy-r.top;document.body.appendChild(drag);t.style.opacity='.35'}
+   if(drag){if(e.clientY<70)scrollBy(0,-14);else if(e.clientY>innerHeight-70)scrollBy(0,14);drag.style.left=(e.clientX-drag.dx)+'px';drag.style.top=(e.clientY-drag.dy)+'px';
+    const over=document.elementFromPoint(e.clientX,e.clientY);slots().concat(pool).forEach(s=>s.classList.remove('hot'));const s=over&&over.closest('.slot,.seq,.pool');if(s&&host.contains(s))s.classList.add('hot')}});
+  const end=e=>{if(sx===undefined)return;sx=undefined;
+   if(drag){const over=document.elementFromPoint(e.clientX,e.clientY);drag.remove();drag=null;t.style.opacity='';slots().concat(pool).forEach(s=>s.classList.remove('hot'));
+    const s=over&&over.closest('.slot,.seq,.pool');if(s&&host.contains(s)){if(s.classList.contains('seq')){const near=over.closest('.tile');if(near&&near!==t&&s.contains(near)){s.insertBefore(t,near);fb.hidden=true}else place(t,s)}else place(t,s)}}};
+  t.addEventListener('pointerup',end);t.addEventListener('pointercancel',end);
+  t.addEventListener('click',e=>{if(moved){moved=false;return}if(t.classList.contains('right'))return;
+   if(cfg.mode==='sentence'&&t.parentElement===pool&&!sel){place(t,$('.seq',sec));return}
+   if(t.parentElement!==pool&&!sel){place(t,pool);return}
+   if(sel&&sel!==t&&t.parentElement!==pool){const s=t.parentElement;if(s.classList.contains('seq')){s.insertBefore(sel,t);sel.setAttribute('aria-pressed','false');sel=null;return}place(sel,s);return}
+   select(t)})});
+ $('.chk',sec).onclick=()=>{if(solved)return;fb.hidden=false;notes.innerHTML='';
+  if(cfg.mode==='sentence'){const seq=$('.seq',sec),words=$$('.tile',seq).map(x=>x.textContent).join(' ');
+   if($$('.tile',pool).length){fb.className='fb maybe';fb.innerHTML='<span class="tag">Not finished</span>Use all the words.';return}
+   const ok=cfg.answers.map(a=>a.toLowerCase()).includes(words.toLowerCase());
+   fb.className='fb '+(ok?'best':'no');fb.innerHTML=ok?`<span class="tag">Correct</span>${cfg.note||''}`:`<span class="tag">Not yet</span>${cfg.hint}`;
+   if(ok){solved=true;$$('.tile',seq).forEach(x=>x.classList.add('right'));cnt&&(cnt.textContent='1 / 1',cnt.classList.add('done'));sec.dispatchEvent(new Event('solved'))}return}
+  const placed=$$('.slot .tile',sec);let right=0,need=$$('.slot',sec).length;
+  if(cfg.mode==='bins')need=tiles.length;
+  placed.forEach(t=>{const s=t.closest('.slot'),d=cfg.tiles[t.dataset.i];const ok=s.dataset.key===String(d.key);
+   t.classList.toggle('right',ok);t.classList.toggle('wrong',!ok);if(ok)right++;
+   if(d.n&&(!ok||cfg.mode==='bins')){const li=document.createElement('li');li.className=ok?'okn':'';li.innerHTML=`<b>${d.t}</b> ${d.n}`;if(!ok||cfg.showAll)notes.appendChild(li)}});
+  cnt&&(cnt.textContent=right+' / '+need+(sec.dataset.unit||''));
+  if(right===need){solved=true;cnt&&cnt.classList.add('done');fb.className='fb best';fb.innerHTML='<span class="tag">All correct</span>'+(cfg.done||'Well done.');
+   if(cfg.showAll){notes.innerHTML='';cfg.tiles.forEach(d=>{if(d.n){const li=document.createElement('li');li.className='okn';li.innerHTML=`<b>${d.t}</b> ${d.n}`;notes.appendChild(li)}})}}
+  else{fb.className='fb maybe';fb.innerHTML=`<span class="tag">${right} of ${need} correct</span>${placed.length<need?'Place all the cards first, or look at the ones in red. ':'Look at the ones in red. '}Tap a red card to send it back, then try again.`}};
+}
+
+/* ---- short typed answers ---- items: [{p (with ___), ok:[...], n}] */
+function buildType(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';const parts=it.p.split('___');
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label} ${i+1}</div><p class="prompt">${parts[0]}<span class="gap">___</span>${parts[1]}</p><div class="typ"><input aria-label="Answer for gap ${i+1}" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="btn ghost">Check</button></div><div class="fb" hidden></div>`;
+  const inp=$('input',r),fb=$('.fb',r);
+  const go=()=>{const w=inp.value.toLowerCase().trim();if(!w)return;const ok=it.ok.includes(w);
+   inp.classList.toggle('good',ok);inp.classList.toggle('bad',!ok);fb.hidden=false;fb.className='fb '+(ok?'best':'no');
+   fb.innerHTML=ok?`<span class="tag">Correct</span>${it.n}${/^\d+$/.test(w)?' In a sentence, write the number as a word.':''}`:`<span class="tag">Not quite</span>Think of the fraction first. What fraction is the percentage?`;
+   if(ok&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};
+  $('button',r).onclick=go;inp.addEventListener('keydown',e=>{if(e.key==='Enter')go()});host.appendChild(r)});return cnt}
+
+/* ---- click the mistake ---- items: [{w:[words], bad:index, fix, n}] */
+function buildSpot(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label} ${i+1}</div><p class="spot"></p><div class="fb" hidden></div>`;
+  const p=$('.spot',r),fb=$('.fb',r);let tries=0;
+  it.w.forEach((w,j)=>{const b=document.createElement('button');b.type='button';b.className='word';b.textContent=w;
+   b.onclick=()=>{if(r.classList.contains('solved'))return;
+    if(j===it.bad){if(it.fix){b.classList.add('miss');const fx=document.createElement('span');fx.className='word hit';fx.textContent=it.fix;b.after(document.createTextNode(' '),fx)}else b.classList.add('hit');
+     fb.hidden=false;fb.className='fb best';fb.innerHTML=`<span class="tag">${it.fix?'Found it':'That’s the one'}</span>${it.n}`;r.classList.add('solved');cnt.inc()}
+    else{tries++;b.classList.remove('nope');void b.offsetWidth;b.classList.add('nope');fb.hidden=false;fb.className='fb no';fb.innerHTML=`<span class="tag">${it.fix?'That word is fine':'Not that one'}</span>${tries>1?it.hint:(it.fix?'Look again. Check the grammar, the figure and what the percentage is of.':'Look again. Find the main noun before “of” or before the description.')}`}};
+   p.appendChild(b);if(j<it.w.length-1)p.appendChild(document.createTextNode(' '))});
+  host.appendChild(r)});return cnt}
+
+function buildMulti(sec,items,need){const host=$('.multi',sec),fb=$('.fb',sec),cnt=$('.count',sec);let done=false;
+ [...items].map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).forEach(([_,it])=>{const b=document.createElement('button');b.type='button';b.className='mopt';b.setAttribute('aria-pressed','false');b.textContent=it.t;b.it=it;
+  b.onclick=()=>{if(done)return;$$('.mopt',host).forEach(x=>{x.classList.remove('right','wrong','missed');const w=$('.why',x);if(w)w.remove()});fb.hidden=true;b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true')};host.appendChild(b)});
+ $('.mchk',sec).onclick=()=>{const opts=$$('.mopt',host),sel=opts.filter(o=>o.getAttribute('aria-pressed')==='true');fb.hidden=false;
+  if(sel.length!==need){fb.className='fb maybe';fb.innerHTML=`<span class="tag">Choose ${need}</span>You have ticked ${sel.length}.`;return}
+  let right=0;opts.forEach(o=>{const s=o.getAttribute('aria-pressed')==='true',k=o.it.k===1;const w=document.createElement('span');w.className='why';w.textContent=o.it.n;
+   if(s&&k){o.classList.add('right');right++;o.appendChild(w)}else if(s&&!k){o.classList.add('wrong');o.appendChild(w)}else if(!s&&k){o.classList.add('missed');o.appendChild(w)}});
+  if(right===need){done=true;cnt.textContent='1 / 1';cnt.classList.add('done');fb.className='fb best';fb.innerHTML='<span class="tag">All four</span>Notice that none of them is a single small figure, a reason or a description of the chart.';
+   opts.filter(o=>!o.classList.contains('right')).forEach(o=>{const w=document.createElement('span');w.className='why';w.textContent=o.it.n;o.appendChild(w)})}
+  else{fb.className='fb maybe';fb.innerHTML=`<span class="tag">${right} of ${need} right</span>Red: not a main feature. Amber: a main feature you missed. Change your choice and check again.`}}}
+
+buildDnd($('#s-lab'),{tiles:[{"t": "Introduction", "key": 0, "n": "Paraphrases the task: what, who, where, when."}, {"t": "Overview", "key": 1, "n": "The main features, with no figures."}, {"t": "Body paragraph 1", "key": 2, "n": "Details and figures for the first group of features."}, {"t": "Body paragraph 2", "key": 3, "n": "Details and figures for the second group."}],mode:'match',showAll:true,done:'Four paragraphs, every time.'});
+buildDnd($('#s-where'),{tiles:[{"t": "A paraphrase of the task", "key": "intro", "n": "Introduction: one sentence in your own words."}, {"t": "What, who, where and when", "key": "intro", "n": "Introduction."}, {"t": "The main trends or biggest differences", "key": "ov", "n": "Overview: the big picture."}, {"t": "No figures", "key": "ov", "n": "Overview: keep figures for the body."}, {"t": "Specific figures to support each point", "key": "body", "n": "Body paragraphs."}, {"t": "Comparisons with numbers", "key": "body", "n": "Body paragraphs: twice as long, 14 hours compared with 3."}, {"t": "Your opinion", "key": "out", "n": "Leave it out. Task 1 is a report, not an essay."}, {"t": "Reasons for the data", "key": "out", "n": "Leave it out. The chart doesn\u2019t say why."}, {"t": "A conclusion that repeats the overview", "key": "out", "n": "Not needed. Your overview already gives the big picture."}],mode:'bins',showAll:true,done:'No opinions, no reasons, no conclusion.'});
+buildDnd($('#s-para'),{tiles:[{"t": "The bar chart compares", "key": 0}, {"t": "how many people", "key": 1}, {"t": "(leave it out: say what is measured)", "key": 2}, {"t": "over a fifteen-year period", "key": 3}, {"t": "the proportion of households", "key": 4}, {"t": "in Paris, Rome and Lisbon", "key": 5}],mode:'match',done:'Same facts, new words.'});
+buildPick($('#s-intro'),[{"p": "<b>Task:</b> <i>The bar chart below shows the average number of hours per week spent on five leisure activities by two age groups in Hartford in 2025.</i><br>Which is the best introduction?", "stack": true, "o": [{"t": "The bar chart compares how many hours a week people under 30 and over 60 spent, on average, on five leisure activities in Hartford in 2025.", "v": "best", "n": "Same information, new words: <i>shows \u2192 compares</i>, <i>the number of hours \u2192 how many hours</i>, <i>two age groups \u2192 people under 30 and over 60</i>."}, {"t": "The bar chart below shows the average number of hours per week spent on five leisure activities by two age groups in Hartford in 2025.", "v": "no", "n": "Copied. Copied words don\u2019t count towards your 150, and \u201cbelow\u201d doesn\u2019t make sense in your answer."}, {"t": "The chart is about free time.", "v": "no", "n": "Too vague: who, where, when and what is measured?"}, {"t": "The bar chart shows that older people watched the most television.", "v": "no", "n": "That\u2019s a feature of the data. It belongs in the overview or body."}]}, {"p": "<b>Task:</b> <i>The table below gives information about the percentage of households with internet access in four regions in 2010 and 2025.</i><br>Which is the best introduction?", "stack": true, "o": [{"t": "The table compares the proportion of households in four regions that had internet access in 2010 and 2025.", "v": "best", "n": "<i>gives information about \u2192 compares</i>, <i>percentage \u2192 proportion</i>, and the word order changes."}, {"t": "The table gives information about the percentage of households with internet access in four regions in 2010 and 2025.", "v": "no", "n": "Copied from the task."}, {"t": "The table compares internet access over a fifteen-year period.", "v": "maybe", "n": "Good paraphrase of the dates, but it leaves out what is measured (households) and where (four regions)."}]}]);
+buildPick($('#s-ov'),[{"p": "<b>Static chart</b> (the leisure bar chart, 2025). Which is the best overview?", "stack": true, "o": [{"t": "Overall, the younger group spent most of their free time on social media, while the older group watched far more television than they spent on anything else.", "v": "best", "n": "Static: the biggest categories and the main difference between the groups. No figures."}, {"t": "Overall, the under-30s spent 14 hours on social media and the over-60s spent 18 hours watching TV.", "v": "maybe", "n": "The right features, but an overview gives the big picture without figures."}, {"t": "Overall, people enjoy many different hobbies.", "v": "no", "n": "Vague, and not from the chart."}, {"t": "In conclusion, older people should spend less time watching TV.", "v": "no", "n": "An opinion. Task 1 never asks for one."}]}, {"p": "<b>Dynamic chart</b> (the rent table, 2015 and 2025). Which is the best overview?", "stack": true, "o": [{"t": "Overall, rent rose in all three cities, and Paris remained the most expensive throughout, although Lisbon saw the biggest increase.", "v": "best", "n": "Dynamic: the overall trend, what stayed the same (Paris highest) and the biggest change. No figures."}, {"t": "Overall, Paris was the most expensive city.", "v": "maybe", "n": "True, but it ignores the change over time, which is the main point of a dynamic chart."}, {"t": "Overall, rent in Paris rose from \u20ac1,100 to \u20ac1,450.", "v": "no", "n": "Figures, and only one city. Give the big picture for all three."}, {"t": "Overall, Lisbon is becoming too expensive for local people.", "v": "no", "n": "An opinion and a reason, neither of which is in the table."}]}]);
+buildDnd($('#s-org'),{tiles:[{"t": "By time: Body 1 the first year, Body 2 the changes and the final year", "key": "time"}, {"t": "By size: Body 1 the largest categories, Body 2 the smaller ones", "key": "size"}, {"t": "By trend: Body 1 the categories that rose, Body 2 those that fell", "key": "trend"}, {"t": "By group: Body 1 where one group was higher, Body 2 where the other was", "key": "group"}, {"t": "By chart: one body paragraph for each chart", "key": "chart"}],mode:'match',done:'Choose the plan before you write, and the paragraphs almost write themselves.'});
+buildDnd($('#s-grp'),{tiles:[{"t": "Social media: 14 hours vs 3", "key": "b1", "n": "Under-30s did more: body 1."}, {"t": "Sport: 5 hours vs 2", "key": "b1", "n": "Under-30s did more: body 1."}, {"t": "Television: 9 hours vs 18", "key": "b2", "n": "Over-60s did more: body 2."}, {"t": "Reading: 2 hours vs 6", "key": "b2", "n": "Over-60s did more: body 2."}, {"t": "Gardening: 1 hour vs 5", "key": "b2", "n": "Over-60s did more: body 2."}],mode:'bins',showAll:true,done:'Grouping by who did more gives each paragraph a clear purpose, and the comparisons follow naturally.'});
+buildDnd($('#s-sign'),{tiles:[{"t": "Overall,", "key": "ov", "n": "Starts the overview."}, {"t": "In 2015,", "key": "t1", "n": "Body 1: the first year."}, {"t": "followed by", "key": "fb", "n": "Moves down the ranking."}, {"t": "By 2025,", "key": "t2", "n": "Body 2: the final year. \u201cBy\u201d shows the change had happened by then."}, {"t": "The largest increase", "key": "big", "n": "Signals the most important change first."}, {"t": "As a result,", "key": "res", "n": "Links the changes to their effect on the gap."}, {"t": "In conclusion,", "key": "none", "n": "Task 1 doesn\u2019t need a conclusion. The overview does that job."}, {"t": "Firstly,", "key": "none", "n": "Makes the answer sound like a list. Use a signpost that says what the paragraph is about."}],mode:'match',showAll:true,done:'Read it again: the signposts show the plan at a glance.'});
+buildDnd($('#s-time'),{tiles:[{"t": "Read the task and the chart. Check the units and the dates. (2 minutes)", "key": 0}, {"t": "Select the key features and decide how to group them. (3 minutes)", "key": 1}, {"t": "Write the introduction and the overview. (5 minutes)", "key": 2}, {"t": "Write the two body paragraphs with figures and comparisons. (8 minutes)", "key": 3}, {"t": "Check tense, units, spelling and the word count. (2 minutes)", "key": 4}],mode:'order',done:'Spending five minutes before you write saves time later.'});
+buildWrite($('#s-write'));
+
+buildPick($('#s-quiz2'),[{"p": "Where do the specific figures go?", "o": [{"t": "In the body paragraphs", "v": "best", "n": "The overview gives the big picture; the body gives the figures."}, {"t": "In the overview", "v": "no", "n": "Keep the overview free of figures."}, {"t": "In the introduction", "v": "no", "n": "The introduction only paraphrases the task."}]}, {"p": "How long should you spend on Task 1?", "o": [{"t": "About 20 minutes", "v": "best", "n": "Task 2 is worth twice as much, so it needs the other 40."}, {"t": "About 40 minutes", "v": "no", "n": "That leaves too little time for Task 2, which carries more weight."}]}, {"p": "Where does the overview go?", "o": [{"t": "Straight after the introduction", "v": "best", "n": "Put it second so the examiner sees it at once, and you can\u2019t run out of time before writing it."}, {"t": "Only at the very end, as a conclusion", "v": "maybe", "n": "Allowed, but risky: if you run out of time, there\u2019s no overview at all."}]}, {"p": "The chart shows rent in 2015 and 2025. Which plan works best?", "o": [{"t": "By time: 2015 in Body 1, the changes by 2025 in Body 2", "v": "best", "n": "A dynamic chart with two years suits a time plan."}, {"t": "One paragraph per city", "v": "maybe", "n": "Possible, but it makes comparison harder."}]}, {"p": "Your introduction starts \u201cThe table below shows\u2026\u201d. What\u2019s the problem?", "o": [{"t": "It copies the task, and \u201cbelow\u201d makes no sense in your answer", "v": "best", "n": "Paraphrase: \u201cThe table compares\u2026\u201d."}, {"t": "Nothing", "v": "no", "n": "Copied words don\u2019t count, and the reader can\u2019t see what is \u201cbelow\u201d."}]}, {"p": "Which is the best start for a body paragraph?", "o": [{"t": "By 2025, rent had risen in every city.", "v": "best", "n": "A signpost that shows the paragraph\u2019s focus."}, {"t": "Firstly, Paris.", "v": "no", "n": "\u201cFirstly\u201d only lists. It doesn\u2019t tell the reader what the paragraph is about."}]}]);
+</script>
+</body>
+</html>
