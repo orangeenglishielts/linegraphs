@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Spot the Missing Comparison</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: Orange English activity page. Light header band, one 720px column of rounds, reference blocks set off by fill rather than shadow. */
+:root{
+  --bg:#FAF8F3; --surface:#FFFFFF; --ink:#292929; --muted:#6B6359; --line:#E5E1D8;
+  --orange:#F88B48; --orange-ink:#B9541A; --orange-soft:#FEF0E6;
+  --green:#5FB27B; --green-ink:#2F7A49; --green-soft:#EDF7F1;
+  --amber-ink:#8A5A00; --amber-soft:#FFF5DB;
+  --red:#D9534F; --red-ink:#A8322E; --red-soft:#FBE9E8;
+  --f-display:"Montserrat","Segoe UI",system-ui,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);margin:0}
+.pad{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{border-bottom:1px solid var(--line);text-align:center;padding-block:32px 24px}
+.eyebrow{font:700 11px/1 var(--f-display);letter-spacing:2px;text-transform:uppercase;color:var(--orange-ink)}
+.badge{display:inline-block;margin-top:12px;font:800 12px/1 var(--f-display);letter-spacing:.5px;background:var(--orange);color:#1f1f1f;border-radius:20px;padding:6px 12px}
+h1{font:800 clamp(22px,5vw,28px)/1.2 var(--f-display);margin:10px 0 6px;text-wrap:balance}
+header p{margin:0 auto;color:var(--muted);font-size:15px;max-width:56ch}
+main{max-width:720px;margin:0 auto;padding-block:28px 40px;display:grid;gap:36px}
+section{display:grid;gap:14px;min-width:0}
+h2{font:700 19px/1.3 var(--f-display);margin:0;text-wrap:balance}
+h3{font:700 15px/1.3 var(--f-display);margin:0}
+p{margin:0}
+.lede{color:var(--muted);font-size:15px}
+.note{background:var(--orange-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.note b{font-family:var(--f-display)}
+.ok{background:var(--green-soft)}
+.pattern{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;min-width:0}
+.pattern .form{font:700 14px/1.4 var(--f-display);color:var(--orange-ink)}
+.pattern .ex{font-size:15px}
+.pattern .why{font-size:14px;color:var(--muted)}
+.patterns{display:grid;gap:10px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font:700 12px/1.3 var(--f-display);letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.fit{color:var(--green-ink)} td.avoid{color:var(--red-ink)}
+.toprow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.count{font:600 13px/1 var(--f-body);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:6px 12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.count.done{color:var(--green-ink);border-color:var(--green);background:var(--green-soft)}
+.round{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:12px;min-width:0}
+.round.solved{border-color:var(--green)}
+.rlabel{font:700 11px/1 var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.prompt{font-size:16px;font-weight:500}
+.data{font-size:14px;color:var(--muted)}
+.gap{display:inline-block;min-width:80px;border-bottom:2px dashed var(--muted);text-align:center;color:var(--orange-ink);font-weight:700}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts.stack{flex-direction:column}
+.opt{font:600 14px/1.35 var(--f-body);text-align:left;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:9px 16px;cursor:pointer}
+.opts.stack .opt{border-radius:12px}
+.opt:hover{border-color:var(--orange)}
+.opt:focus-visible,.btn:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.opt.best{border-color:var(--green);background:var(--green-soft);color:var(--green-ink)}
+.opt.maybe{border-color:#D9A520;background:var(--amber-soft);color:var(--amber-ink)}
+.opt.no{border-color:var(--red);background:var(--red-soft);color:var(--red-ink)}
+.fb{border-left:3px solid var(--orange);background:var(--orange-soft);border-radius:0 10px 10px 0;padding:10px 14px;font-size:14px}
+.fb.best{border-left-color:var(--green);background:var(--green-soft)}
+.fb.maybe{border-left-color:#D9A520;background:var(--amber-soft)}
+.fb.no{border-left-color:var(--red);background:var(--red-soft)}
+.fb .tag{display:block;font:800 11px/1.4 var(--f-display);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.fb.best .tag{color:var(--green-ink)} .fb.maybe .tag{color:var(--amber-ink)} .fb.no .tag{color:var(--red-ink)}
+.write textarea{width:100%;min-height:150px;font:15px/1.6 var(--f-body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:700 14px/1 var(--f-display);background:var(--orange);color:#1f1f1f;border:0;border-radius:999px;padding:12px 18px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.small{font-size:13px;color:var(--muted)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px}
+.checks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.checks input{margin-top:5px;accent-color:var(--green)}
+.model{background:var(--green-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.model mark{background:transparent;color:var(--green-ink);font-weight:700}
+.wc{font-variant-numeric:tabular-nums}
+.recap{background:var(--orange);color:#1f1f1f;border-radius:16px;padding:22px 20px;display:grid;gap:8px}
+.recap h2{color:#1f1f1f}
+.recap ol{margin:0;padding-left:20px;display:grid;gap:4px}
+footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32px;font-size:12px;color:var(--muted);letter-spacing:.5px}
+.reset{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:13px var(--f-body);justify-self:center}
+
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 8px 4px;overflow-x:auto}
+.chart svg{display:block;width:100%;min-width:320px;height:auto}
+.ct{font:700 13px var(--f-display);fill:var(--ink)} .cl{font:11.5px var(--f-body);fill:var(--muted)} .cy{font:600 12px var(--f-body);fill:var(--ink)}
+.cg{stroke:var(--line)} .ca{stroke:var(--ink);stroke-width:1.2}
+.s1{stroke:var(--orange)} .s1-dot{fill:var(--orange)} .s2{stroke:var(--muted)} .s2-dot{fill:var(--muted)}
+.cap{font-size:13px;color:var(--muted)}
+
+.answer{background:var(--surface);border:2px dashed var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:10px;font-size:15px}
+.answer .lab{font:700 11px/1 var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.tools{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.s3{stroke:var(--green)} .s3-dot{fill:var(--green)}
+</style>
+</head>
+<body>
+<header class="pad"><div class="eyebrow">Mastering Line Graphs · Chapter 4 extension</div><span class="badge">All levels</span><h1>Spot the missing comparison</h1><p>An answer can have every figure right and still miss what the task asks for. Find out why, and fix it.</p></header>
+<main class="pad">
+<section>
+ <h2>Describe, then compare</h2>
+ <p>Every Task 1 question ends with the same instruction: <i>make comparisons where relevant</i>. It is one of the most common reasons good writers lose marks. They describe each line accurately, one after another, and never say how the lines relate to each other.</p>
+ <div class="note"><b>Listing:</b> Easton used 90 litres in 2004 and 150 litres in 2024. Westvale used 60 litres in 2004 and 45 litres in 2024.<br><b>Comparing:</b> While water use in Easton rose by 60 litres, Westvale’s figure fell, so by 2024 Easton used more than three times as much.</div>
+</section>
+<section>
+ <h2>Read this answer</h2>
+ <p class="lede">A student wrote this about the graph below. All the figures are correct.</p>
+ <div class="chart" id="c-water"></div>
+ <div class="answer"><span class="lab">Student answer</span>
+  <p>The line graph shows the average amount of water used per person per day in three towns from 2004 to 2024.</p>
+  <p>Overall, water use changed in all three towns.</p>
+  <p>In 2004, Northport used 150 litres per person. In 2009 it used 160 litres, in 2014 170 litres and in 2019 180 litres. In 2024 it used 180 litres.</p>
+  <p>Easton used 90 litres in 2004. This rose to 105 litres in 2009, 120 litres in 2014 and 135 litres in 2019, and it was 150 litres in 2024.</p>
+  <p>Westvale used 60 litres in 2004, 55 litres in 2009, 50 litres in 2014, 48 litres in 2019 and 45 litres in 2024.</p>
+ </div>
+</section>
+<section id="s-problem" data-label="Question">
+ <div class="toprow"><h2>Spot the problem</h2><span class="count">0 / 1</span></div>
+ <div class="rounds"></div>
+</section>
+<section id="s-judge" data-label="Sentence">
+ <div class="toprow"><h2>Listing or comparing?</h2><span class="count">0 / 8</span></div>
+ <p class="lede">Does each sentence just give figures, or does it compare?</p>
+ <div class="rounds"></div>
+</section>
+<section>
+ <h2>Five ways to compare</h2>
+ <div class="tools">
+  <div class="pattern"><span class="form">Highest and lowest</span><span class="ex">Northport had the highest figure throughout, while Westvale’s was by far the lowest.</span></div>
+  <div class="pattern"><span class="form">Higher than, times as high</span><span class="ex">By 2024, water use in Northport was four times as high as in Westvale.</span></div>
+  <div class="pattern"><span class="form">Faster, slower, more</span><span class="ex">Easton’s figure rose faster, by 60 litres compared with 30.</span></div>
+  <div class="pattern"><span class="form">The gap</span><span class="ex">The gap between Northport and Easton halved, from 60 litres to 30.</span></div>
+  <div class="pattern"><span class="form">Contrasting trends</span><span class="ex">While water use rose in Northport and Easton, it fell in Westvale.</span></div>
+ </div>
+</section>
+<section id="s-ov" data-label="Question">
+ <div class="toprow"><h2>Fix the overview</h2><span class="count">0 / 1</span></div>
+ <div class="rounds"></div>
+</section>
+<section class="write" id="s-write">
+ <h2>Your turn</h2>
+ <p>Rewrite the student’s body paragraphs. Keep the key figures, but make at least three comparisons, using at least two of the five ways above.</p>
+ <label for="cmp-ta" class="small">Your body paragraphs</label>
+ <textarea id="cmp-ta" placeholder="In 2004, the average resident of Northport used 150 litres a day, compared with…"></textarea>
+ <div class="row"><button type="button" class="btn show">Show my version</button><button type="button" class="btn ghost cpy">Copy my answer</button><span class="small wc"></span><span class="small cpmsg" aria-live="polite"></span></div>
+ <div class="after" hidden>
+  <div class="model"><p>The line graph compares the average amount of water used per person each day in Northport, Easton and Westvale over the twenty-year period from 2004 to 2024.</p><p style="margin-top:8px">Overall, water use rose in Northport and Easton but fell in Westvale. Northport had the highest consumption throughout, while Westvale’s was <mark>by far the lowest</mark>.</p><p style="margin-top:8px">In 2004, the average resident of Northport used 150 litres a day, <mark>compared with</mark> 90 litres in Easton. Northport’s figure rose steadily to 180 litres in 2019 and then levelled off, <mark>while</mark> Easton’s grew <mark>faster</mark>, increasing by 60 litres in total <mark>compared with</mark> Northport’s 30. As a result, <mark>the gap between them halved</mark>, from 60 litres to 30.</p><p style="margin-top:8px">Westvale followed <mark>the opposite trend</mark>. Its figure fell gradually from 60 litres to 45, so by 2024 water use in Northport was <mark>four times as high as</mark> in Westvale.</p></div>
+  <ul class="checks" style="margin-top:12px">
+   <li><label><input type="checkbox" id="cc1">My overview compares the towns: which rose, which fell, which was highest.</label></li>
+   <li><label><input type="checkbox" id="cc2">Each body paragraph has at least one comparison, not just figures.</label></li>
+   <li><label><input type="checkbox" id="cc3">I used at least two of the five ways to compare.</label></li>
+   <li><label><input type="checkbox" id="cc4">I chose key figures: start, end, the highest and the gap, not every year.</label></li>
+   <li><label><input type="checkbox" id="cc5">My comparisons are like with like: water use compared with water use.</label></li>
+  </ul>
+ </div>
+</section>
+<section class="recap"><h2>Before you finish, ask</h2><ol><li>Does my overview compare the lines?</li><li>Does every body paragraph compare, not just describe?</li><li>Could a reader see which line was highest, which changed most, and what happened to the gap?</li><li>Have I listed every year? Cut the middle figures and compare instead.</li></ol></section>
+<button type="button" class="reset" onclick="location.reload()">Start again</button>
+</main>
+<footer class="pad">orangeenglish.nl</footer>
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const TAG={best:'Best choice',maybe:'Possible, but less precise',no:'Doesn’t fit'};
+function counter(sec,total){const c=$('.count',sec);let n=0;return{inc(){n++;c.textContent=n+' / '+total+(sec.dataset.unit||'');if(n===total)c.classList.add('done')},reset(){n=0;c.textContent='0 / '+total+(sec.dataset.unit||'');c.classList.remove('done')}}}
+function buildPick(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Round'} ${i+1}</div>${it.data?`<p class="data">${it.data}</p>`:''}<p class="prompt">${it.p.replace('___','<span class="gap">___</span>')}</p><div class="opts ${it.stack?'stack':''}"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  it.o.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=x.t;
+   b.onclick=()=>{$$('.opt',o).forEach(e=>e.classList.remove('best','maybe','no'));b.classList.add(x.v);fb.hidden=false;fb.className='fb '+x.v;fb.innerHTML=`<span class="tag">${TAG[x.v]}</span>${x.n}`;
+    if(x.v==='best'&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildJudge(sec,items,labels){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Sentence'} ${i+1}</div><p class="prompt">${it.s}</p><div class="opts"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  labels.forEach((l,j)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=l;
+   b.onclick=()=>{const right=j===it.a;$$('.opt',o).forEach(e=>e.classList.remove('best','no'));b.classList.add(right?'best':'no');fb.hidden=false;fb.className='fb '+(right?'best':'no');
+    fb.innerHTML=`<span class="tag">${right?'Correct':'Look again'}</span>${right?it.n:(it.hint||it.n)}`;
+    if(right&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildWrite(sec){const ta=$('textarea',sec),wc=$('.wc',sec),msg=$('.cpmsg',sec),key='oe-b7-'+ta.id;
+ try{const v=localStorage.getItem(key);if(v)ta.value=v}catch(e){}
+ const upd=()=>{const n=(ta.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' words';try{localStorage.setItem(key,ta.value)}catch(e){}};ta.addEventListener('input',upd);upd();
+ $('.show',sec).onclick=()=>{$('.after',sec).hidden=false};
+ $('.cpy',sec).onclick=()=>{const t=ta.value;const fall=()=>{ta.focus();ta.select();msg.textContent='Selected. Copy it with your keyboard.'};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{msg.textContent='Copied.'},fall)}else fall()}}
+
+
+function lineChart(el,c){const W=560,H=300,L=56,R=20,T=c.title.length*18+14,B=c.legend?70:52,pw=W-L-R,ph=H-T-B,n=c.x.length;
+ const X=i=>L+pw*i/(n-1),Y=v=>T+ph-ph*v/c.ymax;let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${c.title.join(' ')}. ${c.series.map(se=>se.name+': '+se.v.map((v,i)=>c.x[i]+' '+v).join(', ')).join('. ')}">`;
+ c.title.forEach((t,i)=>s+=`<text x="${W/2}" y="${20+i*18}" text-anchor="middle" class="ct">${t}</text>`);
+ for(let v=0;v<=c.ymax;v+=c.ystep){const y=Y(v);s+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" class="cg"/><text x="${L-8}" y="${y+4}" text-anchor="end" class="cl">${v}</text>`}
+ s+=`<line x1="${L}" x2="${W-R}" y1="${T+ph}" y2="${T+ph}" class="ca"/>`;
+ c.x.forEach((l,i)=>s+=`<text x="${X(i)}" y="${T+ph+18}" text-anchor="middle" class="cl">${l}</text>`);
+ s+=`<text transform="translate(16 ${T+ph/2}) rotate(-90)" text-anchor="middle" class="cy">${c.ylab}</text>`;
+ c.series.forEach(se=>{s+=`<path d="${se.v.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+','+Y(v).toFixed(1)).join(' ')}" fill="none" class="${se.cls}" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"${se.dash?' stroke-dasharray="9 7"':''}/>`;
+  se.v.forEach((v,i)=>s+=`<circle cx="${X(i)}" cy="${Y(v)}" r="3.5" class="${se.cls}-dot"/>`)});
+ if(c.legend){let lx=L;const ly=H-18;c.series.forEach(se=>{s+=`<line x1="${lx}" x2="${lx+30}" y1="${ly}" y2="${ly}" class="${se.cls}" stroke-width="3.2"${se.dash?' stroke-dasharray="9 7"':''}/><text x="${lx+38}" y="${ly+4}" class="cl">${se.name}</text>`;lx+=150})}
+ el.innerHTML=s+'</svg>'}
+
+lineChart($('#c-water'),{title:['Average water use per person per day in three towns,','2004 to 2024'],x:['2004','2009','2014','2019','2024'],ymax:200,ystep:50,ylab:'Litres per person per day',legend:1,series:[{name:'Northport',v:[150,160,170,180,180],cls:'s1'},{name:'Easton',v:[90,105,120,135,150],cls:'s2',dash:1},{name:'Westvale',v:[60,55,50,48,45],cls:'s3'}]});
+buildPick($('#s-problem'),[{"p": "What is the biggest problem with this answer?", "stack": true, "o": [{"t": "It lists the figures for each town but never compares the towns.", "v": "best", "n": "Exactly. Every figure is correct, but the reader has to do the comparing. Task 1 asks you to \u201cmake comparisons where relevant\u201d, and recounting figures one by one like this is typical of a Band 5 answer for Task Achievement."}, {"t": "It has no introduction.", "v": "no", "n": "The first sentence is the introduction. It paraphrases the task."}, {"t": "The tense is wrong.", "v": "no", "n": "The past simple is correct for recorded years."}, {"t": "It doesn\u2019t have enough figures.", "v": "no", "n": "It has too many figures, not too few. Almost every data point is listed."}]}]);
+buildJudge($('#s-judge'),[{"s": "In 2004, Northport used 150 litres per person.", "a": 0, "n": "One figure for one town. Nothing is compared."}, {"s": "Northport used the most water throughout the period.", "a": 1, "n": "\u201cThe most\u201d compares Northport with the other two towns."}, {"s": "Easton\u2019s figure rose by 60 litres, twice as much as Northport\u2019s rise of 30.", "a": 1, "n": "It compares the size of two changes."}, {"s": "Westvale used 55 litres in 2009.", "a": 0, "n": "A single middle figure. It doesn\u2019t compare and isn\u2019t a key feature."}, {"s": "By 2024, water use in Northport was four times as high as in Westvale.", "a": 1, "n": "A multiple compares two towns: 180 \u00f7 45 = 4."}, {"s": "Easton used 120 litres in 2014.", "a": 0, "n": "Another single figure on its own."}, {"s": "While water use rose in Northport and Easton, it fell steadily in Westvale.", "a": 1, "n": "\u201cWhile\u201d contrasts the trends in one sentence."}, {"s": "The gap between Northport and Easton halved, from 60 litres to 30.", "a": 1, "n": "The gap is a comparison of change over time."}],['Lists','Compares']);
+buildPick($('#s-ov'),[{"p": "The student\u2019s overview is \u201cOverall, water use changed in all three towns.\u201d Which is the best replacement?", "stack": true, "o": [{"t": "Overall, water use rose in Northport and Easton but fell in Westvale, and Northport had the highest figure throughout.", "v": "best", "n": "It compares the directions of the lines and names the highest, with no figures."}, {"t": "Overall, Northport used 180 litres in 2024.", "v": "no", "n": "A single figure for one town. An overview compares the main patterns."}, {"t": "Overall, water use rose in Northport. It rose in Easton. It fell in Westvale.", "v": "maybe", "n": "The trends are right, but three separate sentences still read like a list. Join them with \u201cand\u201d, \u201cbut\u201d or \u201cwhile\u201d, and say which town was highest."}]}]);
+buildWrite($('#s-write'));
+</script>
+</body>
+</html>
