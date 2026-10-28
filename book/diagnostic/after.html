@@ -93,17 +93,18 @@ footer{color:var(--muted); font-size:13px; text-align:center}
   <div class="brand">Mastering Line Graphs · Final diagnostic</div>
   <h1>How far have you come?</h1>
   <p>12 questions on a new line graph, testing the same four skills as your first diagnostic. Then see your two scores side by side.</p>
+<p style="margin:12px 0 0"><a href="../#review-6" style="color:#F88B48;font-weight:600">Back to the course review →</a></p>
 </div></header>
 
 <main><div class="wrap" id="app"></div></main>
-<footer><div class="wrap" style="padding-block:0 32px">© Orange English · orangeenglish.nl · Graph data is invented for practice.</div></footer>
+<footer><div class="wrap" style="padding-block:0 32px"><a href="../#review-6" style="color:inherit">Back to the course review</a> · © Orange English · orangeenglish.nl · Graph data is invented for practice.</div></footer>
 
 <script>
 const AREAS = {
-  KF:  {name:"Selecting key features", short:"Key features", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-1\" target=\"_blank\" rel=\"noopener\">Chapter 1: Understanding Line Graphs</a>"},
-  CMP: {name:"Making accurate comparisons", short:"Comparisons", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-4\" target=\"_blank\" rel=\"noopener\">Chapter 4: Making Comparisons</a>"},
-  GR:  {name:"Grammar for describing trends", short:"Trend grammar", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-2\" target=\"_blank\" rel=\"noopener\">Chapter 2: Describing Trends</a>, then <a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-3\" target=\"_blank\" rel=\"noopener\">Chapter 3: Grammar for Data Description</a> for tenses"},
-  ORG: {name:"Organising the report", short:"Organisation", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-5\" target=\"_blank\" rel=\"noopener\">Chapter 5: Structuring the Response</a>"}
+  KF:  {name:"Selecting key features", short:"Key features", lesson:"<a href=\"../#chapter-1\">Chapter 1: Understanding Line Graphs</a>"},
+  CMP: {name:"Making accurate comparisons", short:"Comparisons", lesson:"<a href=\"../#chapter-4\">Chapter 4: Making Comparisons</a>"},
+  GR:  {name:"Grammar for describing trends", short:"Trend grammar", lesson:"<a href=\"../#chapter-2\">Chapter 2: Describing Trends</a>, then <a href=\"../#chapter-3\">Chapter 3: Grammar for Data Description</a> for tenses"},
+  ORG: {name:"Organising the report", short:"Organisation", lesson:"<a href=\"../#chapter-5\">Chapter 5: Structuring the Response</a>"}
 };
 const ORDER = ["KF","CMP","GR","ORG"];
 
@@ -113,7 +114,7 @@ const Q = [
   "Overall, recycling rose in all three towns, and Belford, which started highest, was overtaken by both of the others.",
   "Overall, the graph shows information about recycling in three towns between 2000 and 2020.",
   "Overall, Ardmere is the most environmentally friendly town because it recycles the most."], c:1,
-  e:"An overview summarises the main patterns with no figures. Option A is detail, C just repeats the task, and D gives an opinion and a reason, which Task 1 never asks for."},
+  e:"An overview summarises the main patterns with no figures. The other options give one detail, repeat the task, or give an opinion and a reason, which Task 1 never asks for."},
  {a:"KF", p:"Which point is LEAST important to include in your report?", o:[
   "Recycling rose in all three towns.",
   "Ardmere overtook Belford between 2005 and 2010.",
@@ -131,7 +132,7 @@ const Q = [
   "Ardmere's figure was higher than Belford's from 2010 onwards.",
   "In 2015, Belford was 46% and Corrin was 30%.",
   "In 2020, Corrin's figure was more higher than Ardmere's."], c:1,
-  e:"B is accurate and grammatical. A uses \"most percentage\" (say \"the highest proportion\"), C lists two figures without comparing them, and D is both wrong and ungrammatical (\"more higher\")."},
+  e:"The correct sentence is accurate and grammatical. Of the others, one uses \"most percentage\" (say \"the highest proportion\"), one lists two figures without comparing them, and one is both wrong and ungrammatical (\"more higher\")."},
  {a:"CMP", p:"In 2015, the figure for Corrin was ______ that for Ardmere.", o:[
   "double", "just under half", "about a third of", "exactly half"], c:1,
   e:"30% compared with 62% is just under half (30 ÷ 62 is about 0.48). Divide before you choose a comparison phrase: an inaccurate comparison costs marks."},
@@ -228,7 +229,7 @@ function render(){
     <div class="qhead"><span class="eyebrow">Question ${i+1} of ${Q.length}</span><span class="skill">${AREAS[q.a].short}</span></div>
     ${CHART}
     <p class="prompt">${q.p}</p>
-    <div class="opts">${q.o.map((t,k)=>`<button class="opt" id="opt-${k}" data-k="${k}"><span class="k">${"ABCD"[k]}</span><span>${t}</span></button>`).join("")}</div>
+    <div class="opts">${q.o.map((t,k)=>[Math.random(),t,k]).sort((a,b)=>a[0]-b[0]).map(([r,t,k],pos)=>`<button class="opt" id="opt-${pos}" data-k="${k}"><span class="k">${"ABCD"[pos]}</span><span>${t}</span></button>`).join("")}</div>
     <div id="fb"></div>
   </section>`;
   app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.k));
@@ -257,12 +258,12 @@ function result(){
   try{localStorage.setItem("oe-diagnostic-after",JSON.stringify({total,score:Object.assign({},score),date:Date.now()}))}catch(e){}
   const focus = ORDER.reduce((m,a)=>score[a]<score[m]?a:m, ORDER[0]);
   const P = PROFILE[focus], allGood = score[focus]===3, diff = before?total-before.total:null;
-  const head = before?(diff>0?`Up ${diff} point${diff===1?"":"s"} since you started`:"Your scores, side by side"):"Your final result";
+  const head = before?(diff>=3?`Up ${diff} points since you started`:(diff>0?`Up ${diff} point${diff===1?"":"s"}: a small change`:"Your scores, side by side")):"Your final result";
   app.innerHTML = `
   <section class="card">
     <div class="eyebrow">Final diagnostic · ${total} of ${Q.length} correct</div>
     <h2>${head}</h2>
-    <p>${before?`Before the course: <strong>${before.total} / 12</strong>. Now: <strong>${total} / 12</strong>.`:"You didn't take the first diagnostic in this browser, so there's no earlier score to compare with."}</p>
+    <p>${before?`Before the course: <strong>${before.total} / 12</strong>. Now: <strong>${total} / 12</strong>.`:"You didn't take the first diagnostic in this browser, so there's no earlier score to compare with."}${before&&diff<3?" With only 12 questions, a score can move a point or two either way, so look at the skills below as well as the total.":""}</p>
     <div class="bars">${ORDER.map(a=>`
       <div class="bar ${a===focus&&!allGood?"focus":""}"><span>${AREAS[a].name}</span><b>${before&&before.score?`${before.score[a]} → `:""}${score[a]}/3</b>
       <div class="track"><span style="width:${score[a]/3*100}%"></span></div></div>`).join("")}</div>
@@ -274,6 +275,10 @@ function result(){
     <ul class="tips">${P.tips.map(t=>`<li>${t}</li>`).join("")}</ul>
     <p class="small" style="margin-top:12px">Go back to <strong>${AREAS[focus].lesson}</strong>.</p>
   </section>`}
+  <section class="card">
+    <h3>What this result does and doesn’t show</h3>
+    <p class="small" style="margin:0">This check shows what you can recognise in other people’s writing. Your own writing shows what you can do: compare your timed answer in Chapter 6 with your first draft in Chapter 1.</p>
+  </section>
   <section class="card">
     <h3>Please share your scores</h3>
     <p class="small" style="margin:0">Add both scores to the course survey in your course. It shows me what the course changes, and helps me improve it for the next students.</p>

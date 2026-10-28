@@ -93,17 +93,18 @@ footer{color:var(--muted); font-size:13px; text-align:center}
   <div class="brand">Mastering Line Graphs · Before you start</div>
   <h1>What's holding back your IELTS Task 1?</h1>
   <p>A 10-minute diagnostic designed by a former IELTS examiner. Answer 12 questions about one line graph and find out which skill to work on first. At the end of the course, a second version on a new graph shows how far you’ve come.</p>
+<p style="margin:12px 0 0"><a href="../#chapter-1" style="color:#F88B48;font-weight:600">Go to Chapter 1 of the book →</a></p>
 </div></header>
 
 <main><div class="wrap" id="app"></div></main>
-<footer><div class="wrap" style="padding-block:0 32px">© Orange English · orangeenglish.nl · Graph data is invented for practice.</div></footer>
+<footer><div class="wrap" style="padding-block:0 32px"><a href="../#chapter-1" style="color:inherit">Go to Chapter 1 of the book</a> · © Orange English · orangeenglish.nl · Graph data is invented for practice.</div></footer>
 
 <script>
 const AREAS = {
-  KF:  {name:"Selecting key features", short:"Key features", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-1\" target=\"_blank\" rel=\"noopener\">Chapter 1: Understanding Line Graphs</a>"},
-  CMP: {name:"Making accurate comparisons", short:"Comparisons", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-4\" target=\"_blank\" rel=\"noopener\">Chapter 4: Making Comparisons</a>"},
-  GR:  {name:"Grammar for describing trends", short:"Trend grammar", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-2\" target=\"_blank\" rel=\"noopener\">Chapter 2: Describing Trends</a>, then <a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-3\" target=\"_blank\" rel=\"noopener\">Chapter 3: Grammar for Data Description</a> for tenses"},
-  ORG: {name:"Organising the report", short:"Organisation", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-5\" target=\"_blank\" rel=\"noopener\">Chapter 5: Structuring the Response</a>"}
+  KF:  {name:"Selecting key features", short:"Key features", lesson:"<a href=\"../#chapter-1\">Chapter 1: Understanding Line Graphs</a>"},
+  CMP: {name:"Making accurate comparisons", short:"Comparisons", lesson:"<a href=\"../#chapter-4\">Chapter 4: Making Comparisons</a>"},
+  GR:  {name:"Grammar for describing trends", short:"Trend grammar", lesson:"<a href=\"../#chapter-2\">Chapter 2: Describing Trends</a>, then <a href=\"../#chapter-3\">Chapter 3: Grammar for Data Description</a> for tenses"},
+  ORG: {name:"Organising the report", short:"Organisation", lesson:"<a href=\"../#chapter-5\">Chapter 5: Structuring the Response</a>"}
 };
 const ORDER = ["KF","CMP","GR","ORG"];
 
@@ -113,7 +114,7 @@ const Q = [
   "Overall, internet access rose in all three countries, with Norland highest throughout and Southvale lowest.",
   "Overall, the graph shows information about internet access in three countries between 2000 and 2020.",
   "Overall, Eastport is the best country because its figure increased the most."], c:1,
-  e:"An overview summarises the main patterns with no figures. Option A is detail, C just repeats the task, and D gives an opinion, which Task 1 never asks for."},
+  e:"An overview summarises the main patterns with no figures. The other options give one detail, repeat the task, or give an opinion, which Task 1 never asks for."},
  {a:"KF", p:"Which point is LEAST important to include in your report?", o:[
   "All three countries saw an increase.",
   "Norland had the highest level throughout the period.",
@@ -131,7 +132,7 @@ const Q = [
   "Eastport's figure was higher than Southvale's throughout the period.",
   "In 2010, Eastport was 40% and Norland was 75%.",
   "In 2020, Southvale's access was more higher than Eastport's."], c:1,
-  e:"B is accurate and grammatical. A uses \"most percentage\" (say \"the highest proportion\"), C lists two figures without comparing them, and D is both wrong and ungrammatical (\"more higher\")."},
+  e:"The correct sentence is accurate and grammatical. Of the others, one uses \"most percentage\" (say \"the highest proportion\"), one lists two figures without comparing them, and one is both wrong and ungrammatical (\"more higher\")."},
  {a:"CMP", p:"In 2020, the figure for Southvale was ______ that for Norland.", o:[
   "almost double", "just under half", "about a quarter of", "the same as"], c:1,
   e:"45% compared with 95% is just under half. Divide before you choose a comparison phrase: an inaccurate comparison costs marks."},
@@ -228,7 +229,7 @@ function render(){
     <div class="qhead"><span class="eyebrow">Question ${i+1} of ${Q.length}</span><span class="skill">${AREAS[q.a].short}</span></div>
     ${CHART}
     <p class="prompt">${q.p}</p>
-    <div class="opts">${q.o.map((t,k)=>`<button class="opt" id="opt-${k}" data-k="${k}"><span class="k">${"ABCD"[k]}</span><span>${t}</span></button>`).join("")}</div>
+    <div class="opts">${q.o.map((t,k)=>[Math.random(),t,k]).sort((a,b)=>a[0]-b[0]).map(([r,t,k],pos)=>`<button class="opt" id="opt-${pos}" data-k="${k}"><span class="k">${"ABCD"[pos]}</span><span>${t}</span></button>`).join("")}</div>
     <div id="fb"></div>
   </section>`;
   app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.k));
@@ -261,7 +262,7 @@ function result(){
   <section class="card">
     <div class="eyebrow">Your result · ${total} of ${Q.length} correct</div>
     <h2>${allGood?"You're ready for full practice":"Your focus: "+AREAS[focus].name}</h2>
-    <p>${allGood?"You answered every question correctly. Your next step is writing full reports under time pressure: go straight to <strong><a href='https://orangeenglishielts.github.io/linegraphs/book/#chapter-6' target='_blank' rel='noopener'>Chapter 6: Writing a Complete Answer</a></strong> in Mastering Line Graphs.":P.why}</p>
+    <p>${allGood?"You answered every question correctly. Your next step is writing full reports under time pressure: go straight to <strong><a href='../#chapter-6'>Chapter 6: Writing a Complete Answer</a></strong> in Mastering Line Graphs.":P.why}</p>
     <div class="bars">${ORDER.map(a=>`
       <div class="bar ${a===focus&&!allGood?"focus":""}"><span>${AREAS[a].name}</span><b>${score[a]}/3</b>
       <div class="track"><span style="width:${score[a]/3*100}%"></span></div></div>`).join("")}</div>

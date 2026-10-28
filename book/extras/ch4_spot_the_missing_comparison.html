@@ -92,6 +92,8 @@ td.fit{color:var(--green-ink)} td.avoid{color:var(--red-ink)}
 .recap{background:var(--orange);color:#1f1f1f;border-radius:16px;padding:22px 20px;display:grid;gap:8px}
 .recap h2{color:#1f1f1f}
 .recap ol{margin:0;padding-left:20px;display:grid;gap:4px}
+.backrow{margin:0 0 14px;text-align:left;max-width:720px;margin-inline:auto}
+.back{font:600 14px var(--f-body);color:var(--orange-ink)}
 footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32px;font-size:12px;color:var(--muted);letter-spacing:.5px}
 .reset{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:13px var(--f-body);justify-self:center}
 
@@ -109,7 +111,7 @@ footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32p
 </style>
 </head>
 <body>
-<header class="pad"><div class="eyebrow">Mastering Line Graphs · Chapter 4 extension</div><span class="badge">All levels</span><h1>Spot the missing comparison</h1><p>An answer can have every figure right and still miss what the task asks for. Find out why, and fix it.</p></header>
+<header class="pad"><p class="backrow"><a class="back" href="../#review-4">← Back to the Chapter 4 review</a></p><div class="eyebrow">Mastering Line Graphs · Chapter 4 extension</div><span class="badge">All levels</span><h1>Spot the missing comparison</h1><p>An answer can have every figure right and still miss what the task asks for. Find out why, and fix it.</p></header>
 <main class="pad">
 <section>
  <h2>Describe, then compare</h2>
@@ -171,7 +173,7 @@ footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32p
 <section class="recap"><h2>Before you finish, ask</h2><ol><li>Does my overview compare the lines?</li><li>Does every body paragraph compare, not just describe?</li><li>Could a reader see which line was highest, which changed most, and what happened to the gap?</li><li>Have I listed every year? Cut the middle figures and compare instead.</li></ol></section>
 <button type="button" class="reset" onclick="location.reload()">Start again</button>
 </main>
-<footer class="pad">orangeenglish.nl</footer>
+<footer class="pad"><a class="back" href="../#review-4">← Back to the Chapter 4 review</a><br><br>orangeenglish.nl</footer>
 <script>
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const TAG={best:'Best choice',maybe:'Possible, but less precise',no:'Doesn’t fit'};
@@ -180,7 +182,7 @@ function buildPick(sec,items){const cnt=counter(sec,items.length),host=$('.round
  items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
   r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Round'} ${i+1}</div>${it.data?`<p class="data">${it.data}</p>`:''}<p class="prompt">${it.p.replace('___','<span class="gap">___</span>')}</p><div class="opts ${it.stack?'stack':''}"></div><div class="fb" hidden></div>`;
   const o=$('.opts',r),fb=$('.fb',r);
-  it.o.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=x.t;
+  [...it.o].map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]).forEach(x=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=x.t;
    b.onclick=()=>{$$('.opt',o).forEach(e=>e.classList.remove('best','maybe','no'));b.classList.add(x.v);fb.hidden=false;fb.className='fb '+x.v;fb.innerHTML=`<span class="tag">${TAG[x.v]}</span>${x.n}`;
     if(x.v==='best'&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
   host.appendChild(r)});
