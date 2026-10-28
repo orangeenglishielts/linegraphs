@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Task 1 Diagnostic: Before You Start | Mastering Line Graphs</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap">
+<style>
+/* Layout: dark Orange English header band, then a single centred workbook column on a dot-grid page */
+:root{
+  --bg:#fbf8f5; --dot:#e9dfd6; --surface:#ffffff; --ink:#292929; --muted:#6b625b; --line:#e6ddd4;
+  --orange:#F88B48; --orange-ink:#b4521a; --orange-soft:#fde7d8;
+  --green:#5FB27B; --green-ink:#2f7a49; --green-soft:#dff1e5;
+  --red-ink:#b3402f; --red-soft:#f9e1dc;
+  --header:#292929; --header-ink:#ffffff;
+  --series-3:#7d7068;
+  --f-display:"Montserrat", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Inter", system-ui, -apple-system, sans-serif;
+  --f-hand:"Caveat", "Comic Sans MS", cursive;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1c1a19; --dot:#2c2826; --surface:#252220; --ink:#f3eee9; --muted:#b2a79f; --line:#3a3532;
+  --orange:#F88B48; --orange-ink:#ffab7a; --orange-soft:#3b2619;
+  --green:#5FB27B; --green-ink:#86d39f; --green-soft:#1d3325;
+  --red-ink:#f19a8b; --red-soft:#3a201b;
+  --header:#111010; --header-ink:#ffffff; --series-3:#a99c94; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1c1a19; --dot:#2c2826; --surface:#252220; --ink:#f3eee9; --muted:#b2a79f; --line:#3a3532;
+  --orange:#F88B48; --orange-ink:#ffab7a; --orange-soft:#3b2619;
+  --green:#5FB27B; --green-ink:#86d39f; --green-soft:#1d3325;
+  --red-ink:#f19a8b; --red-soft:#3a201b;
+  --header:#111010; --header-ink:#ffffff; --series-3:#a99c94; color-scheme:dark }
+
+body{background:var(--bg) radial-gradient(var(--dot) 1.2px, transparent 1.3px) 0 0/18px 18px; color:var(--ink); font:16px/1.6 var(--f-body)}
+header{background:var(--header); color:var(--header-ink)}
+.wrap{max-width:640px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px))}
+header .wrap{padding-block:22px 26px}
+.brand{font:700 13px/1 var(--f-display); letter-spacing:.12em; text-transform:uppercase; color:var(--orange)}
+h1{font:800 clamp(26px,6vw,34px)/1.15 var(--f-display); margin:10px 0 8px; text-wrap:balance}
+header p{margin:0; color:#d9d2cc; max-width:52ch}
+main .wrap{padding-block:24px 48px; display:grid; gap:20px}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px}
+h2{font:700 20px/1.25 var(--f-display); margin:0 0 8px; text-wrap:balance}
+h3{font:700 15px/1.3 var(--f-display); margin:0 0 6px}
+.eyebrow{font:600 12px/1 var(--f-body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.hand{font-family:var(--f-hand); font-size:22px; color:var(--orange-ink); line-height:1.2}
+.task{border-left:4px solid var(--orange); padding:4px 0 4px 14px; margin:12px 0; font-size:15px}
+.chart{width:100%; height:auto; display:block}
+.chart text{font-family:var(--f-body); fill:var(--muted)}
+.btn{font:600 16px/1 var(--f-display); background:var(--orange); color:#1d1d1d; border:0; border-radius:999px; padding:14px 22px; cursor:pointer}
+.btn:hover{filter:brightness(1.05)} .btn:focus-visible,.opt:focus-visible,input:focus-visible{outline:3px solid var(--green); outline-offset:2px}
+.btn.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line)}
+.meta{display:flex; gap:16px; flex-wrap:wrap; color:var(--muted); font-size:14px; margin:12px 0 18px}
+.progress{height:6px; background:var(--line); border-radius:6px; overflow:hidden}
+.progress span{display:block; height:100%; background:var(--orange); transition:width .3s}
+.qhead{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin:14px 0 6px}
+.skill{font:600 12px/1 var(--f-body); color:var(--green-ink); background:var(--green-soft); padding:5px 9px; border-radius:999px; white-space:nowrap}
+.prompt{font-weight:600; margin:0 0 14px}
+.opts{display:grid; gap:10px}
+.opt{text-align:left; font:inherit; color:var(--ink); background:var(--surface); border:1.5px solid var(--line); border-radius:10px; padding:12px 14px; cursor:pointer; display:flex; gap:12px; align-items:flex-start}
+.opt:hover:not(:disabled){border-color:var(--orange)}
+.opt .k{font:700 14px/1.6 var(--f-display); color:var(--muted); flex:none; width:18px}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--green); background:var(--green-soft)}
+.opt.wrong{border-color:var(--red-ink); background:var(--red-soft)}
+.feedback{margin-top:16px; padding:14px 16px; border-radius:10px; background:var(--orange-soft)}
+.feedback strong{font-family:var(--f-display)}
+.row{display:flex; justify-content:flex-end; margin-top:16px}
+.bars{display:grid; gap:12px; margin:14px 0 4px}
+.bar{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:4px 12px; font-size:14px}
+.bar .track{grid-column:1/-1; height:10px; background:var(--line); border-radius:6px; overflow:hidden}
+.bar .track span{display:block; height:100%; border-radius:6px; background:var(--green)}
+.bar.focus .track span{background:var(--orange)}
+.bar b{font-variant-numeric:tabular-nums}
+.compare{display:grid; gap:10px; margin-top:12px}
+.sample{border-radius:10px; padding:12px 14px; font-size:15px}
+.sample.b6{background:var(--red-soft)} .sample.b7{background:var(--green-soft)}
+.sample .eyebrow{display:block; margin-bottom:6px}
+ul.tips{margin:8px 0 0; padding-left:20px} ul.tips li{margin:4px 0}
+form{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+input[type=email]{flex:1 1 220px; min-width:0; font:inherit; padding:12px 14px; border-radius:999px; border:1.5px solid var(--line); background:var(--bg); color:var(--ink)}
+.small{font-size:13px; color:var(--muted)}
+a{color:var(--orange-ink)}
+footer{color:var(--muted); font-size:13px; text-align:center}
+@media (prefers-reduced-motion: reduce){ .progress span{transition:none} }
+</style>
+
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand">Mastering Line Graphs · Before you start</div>
+  <h1>What's holding back your IELTS Task 1?</h1>
+  <p>A 10-minute diagnostic designed by a former IELTS examiner. Answer 12 questions about one line graph and find out which skill to work on first. At the end of the course, a second version on a new graph shows how far you’ve come.</p>
+</div></header>
+
+<main><div class="wrap" id="app"></div></main>
+<footer><div class="wrap" style="padding-block:0 32px">© Orange English · orangeenglish.nl · Graph data is invented for practice.</div></footer>
+
+<script>
+const AREAS = {
+  KF:  {name:"Selecting key features", short:"Key features", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-1\" target=\"_blank\" rel=\"noopener\">Chapter 1: Understanding Line Graphs</a>"},
+  CMP: {name:"Making accurate comparisons", short:"Comparisons", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-4\" target=\"_blank\" rel=\"noopener\">Chapter 4: Making Comparisons</a>"},
+  GR:  {name:"Grammar for describing trends", short:"Trend grammar", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-2\" target=\"_blank\" rel=\"noopener\">Chapter 2: Describing Trends</a>, then <a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-3\" target=\"_blank\" rel=\"noopener\">Chapter 3: Grammar for Data Description</a> for tenses"},
+  ORG: {name:"Organising the report", short:"Organisation", lesson:"<a href=\"https://orangeenglishielts.github.io/linegraphs/book/#chapter-5\" target=\"_blank\" rel=\"noopener\">Chapter 5: Structuring the Response</a>"}
+};
+const ORDER = ["KF","CMP","GR","ORG"];
+
+const Q = [
+ {a:"KF", p:"Which sentence is the best overview of this graph?", o:[
+  "In 2000, 35% of households in Norland had internet access, compared with 10% in Eastport and 5% in Southvale.",
+  "Overall, internet access rose in all three countries, with Norland highest throughout and Southvale lowest.",
+  "Overall, the graph shows information about internet access in three countries between 2000 and 2020.",
+  "Overall, Eastport is the best country because its figure increased the most."], c:1,
+  e:"An overview summarises the main patterns with no figures. Option A is detail, C just repeats the task, and D gives an opinion, which Task 1 never asks for."},
+ {a:"KF", p:"Which point is LEAST important to include in your report?", o:[
+  "All three countries saw an increase.",
+  "Norland had the highest level throughout the period.",
+  "Southvale's figure rose from 8% to 12% between 2005 and 2010.",
+  "Eastport saw the largest overall rise, from 10% to 85%."], c:2,
+  e:"A 4-point change in one five-year period is a minor detail. Examiners reward reports that select the significant features, not every number."},
+ {a:"KF", p:"You have space for one more detail about Southvale. Which is the most significant?", o:[
+  "It was 5% in 2000.",
+  "It rose sharply in the final five years, from 20% to 45%.",
+  "It was 12% in 2010.",
+  "It was lower than Norland in 2005."], c:1,
+  e:"The sharp rise at the end is the most striking change in Southvale's line. The others are single data points that don't show a pattern."},
+ {a:"CMP", p:"Which sentence makes an accurate comparison?", o:[
+  "Norland had the most percentage of internet access.",
+  "Eastport's figure was higher than Southvale's throughout the period.",
+  "In 2010, Eastport was 40% and Norland was 75%.",
+  "In 2020, Southvale's access was more higher than Eastport's."], c:1,
+  e:"B is accurate and grammatical. A uses \"most percentage\" (say \"the highest proportion\"), C lists two figures without comparing them, and D is both wrong and ungrammatical (\"more higher\")."},
+ {a:"CMP", p:"In 2020, the figure for Southvale was ______ that for Norland.", o:[
+  "almost double", "just under half", "about a quarter of", "the same as"], c:1,
+  e:"45% compared with 95% is just under half. Divide before you choose a comparison phrase: an inaccurate comparison costs marks."},
+ {a:"CMP", p:"Which sentence compares rather than simply lists?", o:[
+  "Norland was 35% in 2000 and 95% in 2020. Eastport was 10% in 2000 and 85% in 2020.",
+  "While Norland's figure grew steadily, Eastport's rose far more rapidly, from 10% to 85%.",
+  "Norland and Eastport both had internet access.",
+  "The figures for Norland and Eastport are shown on the graph."], c:1,
+  e:"\"While ... far more rapidly\" connects the two countries and tells the reader how they differ. Listing figures side by side leaves the comparison for the reader to do."},
+ {a:"GR", p:"Choose the correct option: \"There was a ______ in Eastport between 2005 and 2015.\"", o:[
+  "dramatically increase", "dramatic increase", "dramatic increased", "increase dramatically"], c:1,
+  e:"After \"There was a\" you need a noun phrase: adjective + noun (\"a dramatic increase\"). With a verb you use an adverb instead: \"Eastport's figure increased dramatically\"."},
+ {a:"GR", p:"\"Internet access in Norland ______ from 35% in 2000 to 95% in 2020.\"", o:[
+  "has risen", "rose", "rises", "was rising"], c:1,
+  e:"The period is finished, so use the past simple. The present perfect (\"has risen\") would suggest the change continues to now."},
+ {a:"GR", p:"Which phrase best describes Southvale between 2000 and 2010 (5% to 12%)?", o:[
+  "rose dramatically", "increased gradually", "fluctuated", "fell slightly"], c:1,
+  e:"A rise of 7 percentage points over ten years is gradual. \"Fluctuated\" means going up and down, which the line doesn't do."},
+ {a:"ORG", p:"Which structure suits this report best?", o:[
+  "Introduction, overview, then two body paragraphs grouping countries with similar patterns",
+  "Introduction, then one paragraph for each year (2000, 2005, 2010, 2015, 2020)",
+  "Introduction, body paragraphs, then a conclusion giving your opinion",
+  "One long paragraph with every figure in order"], c:0,
+  e:"Grouping by pattern lets you compare. Year-by-year paragraphs force you to repeat yourself, and Task 1 never needs your opinion."},
+ {a:"ORG", p:"Where should your overview go?", o:[
+  "Spread across the body paragraphs",
+  "In its own short paragraph, usually straight after the introduction",
+  "You don't need one if you include all the numbers",
+  "In the final sentence, beginning \"In conclusion, I think...\""], c:1,
+  e:"A clear, separate overview is one of the first things an examiner looks for. Without one, a report is unlikely to score above Band 5 for Task Achievement."},
+ {a:"ORG", p:"Which body-paragraph plan groups the information most logically?", o:[
+  "Body 1: Norland. Body 2: Eastport. Body 3: Southvale.",
+  "Body 1: Norland and Eastport, which both reached over 80%. Body 2: Southvale, which stayed far behind until a late rise.",
+  "Body 1: figures for 2000 and 2005. Body 2: figures for 2015.",
+  "Body 1: the highest numbers. Body 2: the numbers I didn't mention yet."], c:1,
+  e:"Grouping the two high-access countries together, then contrasting Southvale, builds comparison into the structure. One country per paragraph usually turns into a list."}
+];
+
+const PROFILE = {
+ KF:{why:"You're reporting data, but not yet choosing what matters. Examiners are looking for the main trends and a clear overview, not every number on the graph.",
+   b6:"In 2000 Norland had 35%, Eastport had 10% and Southvale had 5%. In 2005 Norland had 55%...",
+   b7:"Overall, internet access rose in all three countries, with Norland consistently ahead and Southvale trailing far behind.",
+   tips:["Before writing, spend 2 minutes circling the 3 or 4 biggest features.","Write your overview first, with no numbers in it.","Only include a figure if it supports a feature you've already chosen."]},
+ CMP:{why:"You can describe each line, but your comparisons aren't yet accurate or connected. Band 7 reports compare data, they don't just list it.",
+   b6:"In 2020 Norland was 95% and Southvale was 45%.",
+   b7:"By 2020, Southvale's figure was still just under half that of Norland (45% compared with 95%).",
+   tips:["Check the maths before choosing \"double\", \"half\" or \"a third\".","Use whereas, while and compared with to connect two lines in one sentence.","Avoid \"more higher\" and \"the most percentage\"."]},
+ GR:{why:"Your ideas are there, but the grammar around trends is holding you back. Small errors in word form and tense are easy marks to win back.",
+   b6:"Eastport was increase dramatic from 2005.",
+   b7:"Eastport saw a dramatic increase, from 18% in 2005 to 70% in 2015.",
+   tips:["Learn two patterns: \"rose dramatically\" (verb + adverb) and \"a dramatic rise\" (adjective + noun).","Use the past simple for finished periods.","Match the size of the word to the size of the change: gradual, steady, sharp, dramatic."]},
+ ORG:{why:"Your content is good, but the structure makes it hard to follow. A clear overview and logical paragraphs make every other skill easier to see.",
+   b6:"Paragraph 1: 2000 figures. Paragraph 2: 2005 figures. Paragraph 3: 2010 figures...",
+   b7:"Introduction. Overview. Body 1: the two countries that reached over 80%. Body 2: Southvale, which lagged behind until a late rise.",
+   tips:["Always write four parts: introduction, overview, two body paragraphs.","Group lines that behave the same way.","Never add a conclusion with your opinion."]}
+};
+
+const app = document.getElementById("app");
+let i = 0, answered = false;
+const score = {KF:0,CMP:0,GR:0,ORG:0};
+
+const CHART = `
+<svg class="chart" viewBox="0 0 360 236" role="img" aria-label="Line graph: percentage of households with internet access in Norland, Eastport and Southvale, 2000 to 2020">
+  ${[0,25,50,75,100].map(v=>{const y=200-v*1.6;return `<line x1="44" x2="300" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="36" y="${y+4}" font-size="11" text-anchor="end">${v}%</text>`}).join("")}
+  ${[2000,2005,2010,2015,2020].map(yr=>{const x=44+(yr-2000)/20*256;return `<text x="${x}" y="218" font-size="11" text-anchor="middle">${yr}</text>`}).join("")}
+  ${[["Norland",[35,55,75,88,95],"var(--orange)"],["Eastport",[10,18,40,70,85],"var(--green)"],["Southvale",[5,8,12,20,45],"var(--series-3)"]].map(([n,d,c])=>{
+    const pts=d.map((v,k)=>[44+k*64,200-v*1.6]);
+    const last=pts[pts.length-1];
+    return `<polyline points="${pts.map(p=>p.join(",")).join(" ")}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round"/>`+
+      pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="${c}"/>`).join("")+
+      `<text x="${last[0]+6}" y="${last[1]+4}" font-size="11" font-weight="600" fill="${c}" style="fill:${c}">${n}</text>`;
+  }).join("")}
+</svg>`;
+
+function start(){
+  app.innerHTML = `
+  <section class="card">
+    <div class="eyebrow">Your task</div>
+    <div class="task">The graph below shows the percentage of households with internet access in three countries between 2000 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</div>
+    ${CHART}
+    <div class="meta"><span>12 questions</span><span>About 10 minutes</span><span>Instant feedback</span></div>
+    <p class="hand">Tip from the examiner's chair: look at the whole graph for 30 seconds before you answer anything.</p>
+    <div class="row" style="justify-content:flex-start"><button class="btn" id="go">Start the diagnostic</button></div>
+  </section>`;
+  document.getElementById("go").onclick = render;
+}
+
+function render(){
+  answered = false;
+  const q = Q[i];
+  app.innerHTML = `
+  <section class="card">
+    <div class="progress" aria-hidden="true"><span style="width:${i/Q.length*100}%"></span></div>
+    <div class="qhead"><span class="eyebrow">Question ${i+1} of ${Q.length}</span><span class="skill">${AREAS[q.a].short}</span></div>
+    ${CHART}
+    <p class="prompt">${q.p}</p>
+    <div class="opts">${q.o.map((t,k)=>`<button class="opt" id="opt-${k}" data-k="${k}"><span class="k">${"ABCD"[k]}</span><span>${t}</span></button>`).join("")}</div>
+    <div id="fb"></div>
+  </section>`;
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.k));
+  app.querySelector(".opt").focus({preventScroll:true});
+}
+
+function choose(k){
+  if(answered) return; answered = true;
+  const q = Q[i], ok = k===q.c;
+  if(ok) score[q.a]++;
+  app.querySelectorAll(".opt").forEach(b=>{
+    const n=+b.dataset.k; b.disabled=true;
+    if(n===q.c) b.classList.add("right"); else if(n===k) b.classList.add("wrong");
+  });
+  const last = i===Q.length-1;
+  document.getElementById("fb").innerHTML = `
+    <div class="feedback" role="status"><strong>${ok?"Correct.":"Not quite."}</strong> ${q.e}</div>
+    <div class="row"><button class="btn" id="next">${last?"See my result":"Next question"}</button></div>`;
+  const nb=document.getElementById("next"); nb.focus({preventScroll:true});
+  nb.onclick=()=>{ i++; if(i<Q.length) render(); else result(); window.scrollTo({top:0}); };
+}
+
+function result(){
+  const total = ORDER.reduce((s,a)=>s+score[a],0);
+  const focus = ORDER.reduce((m,a)=>score[a]<score[m]?a:m, ORDER[0]);
+  const P = PROFILE[focus];
+  const allGood = score[focus]===3;
+  try{localStorage.setItem("oe-diagnostic-before",JSON.stringify({total,score:Object.assign({},score),date:Date.now()}))}catch(e){}
+  app.innerHTML = `
+  <section class="card">
+    <div class="eyebrow">Your result · ${total} of ${Q.length} correct</div>
+    <h2>${allGood?"You're ready for full practice":"Your focus: "+AREAS[focus].name}</h2>
+    <p>${allGood?"You answered every question correctly. Your next step is writing full reports under time pressure: go straight to <strong><a href='https://orangeenglishielts.github.io/linegraphs/book/#chapter-6' target='_blank' rel='noopener'>Chapter 6: Writing a Complete Answer</a></strong> in Mastering Line Graphs.":P.why}</p>
+    <div class="bars">${ORDER.map(a=>`
+      <div class="bar ${a===focus&&!allGood?"focus":""}"><span>${AREAS[a].name}</span><b>${score[a]}/3</b>
+      <div class="track"><span style="width:${score[a]/3*100}%"></span></div></div>`).join("")}</div>
+  </section>
+  ${allGood?"":`
+  <section class="card">
+    <h3>What this looks like in a real report</h3>
+    <div class="compare">
+      <div class="sample b6"><span class="eyebrow">Typical Band 6</span>${P.b6}</div>
+      <div class="sample b7"><span class="eyebrow">Band 7 style</span>${P.b7}</div>
+    </div>
+    <h3 style="margin-top:18px">Three things to do this week</h3>
+    <ul class="tips">${P.tips.map(t=>`<li>${t}</li>`).join("")}</ul>
+    <p class="small" style="margin-top:12px">Start with <strong>${AREAS[focus].lesson}</strong> in Mastering Line Graphs, the free Orange English course.</p>
+  </section>`}
+  <section class="card">
+    <h3>What happens next</h3>
+    <p class="small" style="margin:0">Your result is saved in this browser. At the end of Chapter 6, you’ll take a second diagnostic on a new graph and see both scores side by side, so use the same device and browser if you can.</p>
+  </section>
+  <div class="row" style="justify-content:center"><button class="btn ghost" id="again">Try again</button></div>`;
+  document.getElementById("again").onclick=()=>{ i=0; ORDER.forEach(a=>score[a]=0); start(); };
+}
+start();
+</script>
+</body>
+</html>
