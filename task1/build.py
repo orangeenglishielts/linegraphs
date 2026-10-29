@@ -18,6 +18,13 @@ BOOKS = {
     'maps':         {'title': 'Mastering Maps',         'chapters': 6},
     'processes':    {'title': 'Mastering Process Diagrams', 'chapters': 6},
     'mock-exams':   {'title': 'Task 1 Mock Exams', 'chapters': 1, 'pre': ['../maps/content/book.js', '../processes/content/book.js']},
+    'm1-foundations':     {'title': 'Task 1 Foundations', 'chapters': 6, 'pre': ['../maps/content/book.js', '../processes/content/book.js']},
+    'm2-analysing':       {'title': 'Analysing Visual Information', 'chapters': 6, 'pre': ['../maps/content/book.js', '../processes/content/book.js']},
+    'm3-overviews':       {'title': 'Writing Effective Overviews', 'chapters': 6, 'pre': ['../maps/content/book.js', '../processes/content/book.js']},
+    'm4-describing-data': {'title': 'Describing Data Accurately', 'chapters': 6},
+    'm5-trends':          {'title': 'Language for Trends and Change', 'chapters': 6},
+    'm6-comparing':       {'title': 'Comparing and Organising Information', 'chapters': 6},
+    'm15-assessment':     {'title': 'Assessment and Improvement', 'chapters': 1},
 }
 
 def video_titles(folder):
