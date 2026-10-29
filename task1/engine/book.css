@@ -500,7 +500,7 @@ body.printing{background:#fff}
 .dtable caption{caption-side:top;font-family:var(--head);font-weight:700;font-size:13px;color:var(--dark);padding:4px 6px 10px;text-align:center}
 .dtable th,.dtable td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
 .dtable th:first-child{text-align:left;white-space:normal}
-.dtable thead th{font-family:var(--head);font-size:12px;border-bottom:2px solid var(--dark);color:var(--dark);vertical-align:bottom}
+.dtable thead th{font-family:var(--head);font-size:12px;border-bottom:2px solid var(--dark);color:var(--dark);vertical-align:bottom;white-space:normal;min-width:4.2em}
 .dtable tbody th{font-weight:600}
 .dtable td.hlc{background:var(--peach);font-weight:700}
 .dtable .hot{cursor:pointer;outline:none;border-radius:6px}
