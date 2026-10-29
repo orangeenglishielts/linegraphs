@@ -466,6 +466,9 @@ body.printing{background:#fff}
 .hw-keys kbd{display:inline-grid;place-items:center;width:24px;height:24px;border:1px solid #CFC6B4;border-bottom-width:3px;border-radius:5px;background:var(--paper);font-family:var(--body);font-size:13px;color:var(--dark)}
 .hw-rib{width:13px;height:27px;flex:none}
 @media (max-width:420px){.hw-row,.hw-nav{grid-template-columns:1fr}}
+
+/* margin notes that sit directly above an activity card: show as a full-width note, not floated into the card */
+.mnote:has(+ [data-act]),.mnote:has(+ .clear + [data-act]){float:none;width:auto;margin:14px 0 0;border-left:2px solid var(--orange);border-right:0;padding:2px 0 2px 10px;text-align:left}
 </style>
 <script>
 /* VIDEO_LINKS: paste a Loom or YouTube link between the quotes. The script note disappears once a link is set.
@@ -649,7 +652,7 @@ const SPREADS=[
 
 /* 9 */ {id:'c2-s2',ch:2,chLabel:P2,chTitle:CT2,title:'How quickly did it change?',
  left:`${head('Step 2 · Understand','Learn')}<h2>How quickly did it change?</h2><p>The verb gives the direction. The adverb tells the reader how fast or how far the line moved.</p><div data-act="c2-motion"></div><div class="oe-mistake" style="margin-top:14px"><span class="lab">Common mistake</span>Using “dramatically” for every change. If the line moved three percentage points, it rose <i>slightly</i>, whatever the topic.</div>${take('Look at the size of the change before you choose the adverb. Calculate it if you need to.')}`,
- right:`${head('Step 2 · Challenge','Explore')}${chart('ferry')}${note('Work out the change: 51,000 to 70,000 is an increase of about 37%. That is not slight.')}<div data-act="c2-ferry1" style="margin-top:14px"></div><div class="clear"></div><div data-act="c2-ferry2" style="margin-top:14px"></div><div data-act="c2-ferry3" style="margin-top:14px"></div>`},
+ right:`${head('Step 2 · Challenge','Explore')}${chart('ferry')}${note('Work out the size of each change before you choose the adverb. A rise from 100 to 103 is 3%: slight. A rise from 100 to 140 is 40%: sharp.')}<div data-act="c2-ferry1" style="margin-top:14px"></div><div class="clear"></div><div data-act="c2-ferry2" style="margin-top:14px"></div><div data-act="c2-ferry3" style="margin-top:14px"></div>`},
 
 /* 10 */ {id:'c2-s3',ch:2,chLabel:P2,chTitle:CT2,title:'Choosing accurate vocabulary',
  left:`${head('Step 3 · Practise','Learn')}<h2>Choosing accurate vocabulary</h2>${vid(4)}<h3>Worked example: from weak to strong</h3><p style="font-size:15px"><s>The number of users went up a lot between 2010 and 2020.</s></p><ol style="padding-left:20px;display:grid;gap:6px;font-size:15px;margin-bottom:12px"><li><b>Verb:</b> “went up” becomes <i>rose</i>.</li><li><b>Adverb:</b> “a lot” becomes <i>dramatically</i>, because the figure more than quadrupled.</li><li><b>Figures:</b> add the start and end points with units.</li><li><b>Time:</b> keep the period clear.</li></ol><div class="oe-insight"><span class="lab">Stronger</span>The number of users rose dramatically, climbing from 2 million to 9 million between 2010 and 2020.</div>${note('Some verbs carry feelings. “Boomed” sounds positive, “spiralled” sounds out of control. Keep Task 1 neutral.')}<div class="clear"></div>`,
