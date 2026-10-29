@@ -469,6 +469,25 @@ body.printing{background:#fff}
 
 /* margin notes that sit directly above an activity card: show as a full-width note, not floated into the card */
 .mnote:has(+ [data-act]),.mnote:has(+ .clear + [data-act]){float:none;width:auto;margin:14px 0 0;border-left:2px solid var(--orange);border-right:0;padding:2px 0 2px 10px;text-align:left}
+
+/* time-expression mini timelines */
+.tl-g{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 14px}
+.tl-c{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.4}
+.tl-c svg{width:100%;max-width:170px;height:auto;display:block;margin:0 auto 6px;overflow:visible}
+.tl-c b{font-family:var(--head);font-size:14px}
+.tl-m{font-size:12.5px;color:var(--soft)}
+.tl-c i{color:var(--dark)}
+.tl-ax{stroke:var(--dark);stroke-width:1.2;fill:none}
+.tl-tk{stroke:var(--dark);stroke-width:1;fill:none}
+.tl-ln{stroke:#CFC6B4;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+.tl-hi{stroke:var(--orange);stroke-width:3.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+.tl-pt{fill:var(--orange)}
+.tl-dash{stroke:var(--orange);stroke-width:1.2;stroke-dasharray:2 2;fill:none}
+.tl-br,.tl-head{stroke:var(--orange-ink);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tl-pole{stroke:var(--dark);stroke-width:1.4}
+.tl-flag{fill:var(--orange)}
+.tl-t{font:600 7.5px var(--body);fill:var(--mid)}
+@media (max-width:360px){.tl-g{grid-template-columns:1fr}}
 </style>
 <script>
 /* VIDEO_LINKS: paste a Loom or YouTube link between the quotes. The script note disappears once a link is set.
@@ -659,7 +678,7 @@ const SPREADS=[
  right:`${head('Step 3 · Activity','Explore')}<p class="small">Five rounds. The first three test precision, the last two test connotation.</p><div data-act="c2-prec1"></div><div data-act="c2-prec2" style="margin-top:12px"></div><div data-act="c2-prec3" style="margin-top:12px"></div><div data-act="c2-conn1" style="margin-top:12px"></div><div data-act="c2-conn2" style="margin-top:12px"></div>`},
 
 /* 11 */ {id:'c2-s4',ch:2,chLabel:P2,chTitle:CT2,title:'Building descriptions',
- left:`${head('Step 4 · Practise','Learn')}<h2>Building descriptions</h2>${vid(5)}<p>You need two sentence patterns, so you can vary your writing.</p><div class="oe-concept" style="background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:15px"><p><b>Verb pattern:</b> subject + verb + adverb<br><i>Profits decreased slightly between 2010 and 2015.</i></p><p style="margin:0"><b>Noun pattern:</b> there was + a/an + adjective + noun + in<br><i>There was a slight decrease in profits between 2010 and 2015.</i></p></div><h3>Time expressions</h3><ul class="clean" style="font-size:15px"><li>A point: <i>in 2016, in March</i></li><li>A period: <i>between 2010 and 2015, from March to April</i></li><li>An ongoing trend: <i>over the period, throughout the year</i></li><li>An endpoint: <i>by 2024, by the end of June</i></li></ul>${take('Verb with adverb, or adjective with noun. Never mix them: “rose sharply” or “a sharp rise”.')}`,
+ left:`${head('Step 4 · Practise','Learn')}<h2>Building descriptions</h2>${vid(5)}<p>You need two sentence patterns, so you can vary your writing.</p><div class="oe-concept" style="background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:15px"><p><b>Verb pattern:</b> subject + verb + adverb<br><i>Profits decreased slightly between 2010 and 2015.</i></p><p style="margin:0"><b>Noun pattern:</b> there was + a/an + adjective + noun + in<br><i>There was a slight decrease in profits between 2010 and 2015.</i></p></div><h3>Time expressions</h3><div class="tl-g"><div class="tl-c"><svg viewBox="0 0 120 54" role="img" aria-label="A single dot on the line at one year"><path class="tl-ax" d="M6,40 H114"/><path class="tl-tk" d="M10,38 V42 M35,38 V42 M60,38 V42 M85,38 V42 M110,38 V42"/><path class="tl-ln" d="M10,34 L35,30 L60,22 L85,18 L110,12"/><path class="tl-dash" d="M60,22 V40"/><circle class="tl-pt" cx="60" cy="22" r="4.2"/><text class="tl-t" x="60" y="51" text-anchor="middle">2016</text></svg><b>A point</b><span class="tl-m">one moment in time</span><i>in 2016, in March</i></div><div class="tl-c"><svg viewBox="0 0 120 54" role="img" aria-label="The line highlighted between two years"><path class="tl-ax" d="M6,40 H114"/><path class="tl-tk" d="M10,38 V42 M35,38 V42 M60,38 V42 M85,38 V42 M110,38 V42"/><path class="tl-ln" d="M10,34 L35,30 L60,22 L85,18 L110,12"/><path class="tl-hi" d="M35,30 L60,22 L85,18"/><circle class="tl-pt" cx="35" cy="30" r="3"/><circle class="tl-pt" cx="85" cy="18" r="3"/><path class="tl-dash" d="M35,30 V40 M85,18 V40"/><text class="tl-t" x="35" y="51" text-anchor="middle">2010</text><text class="tl-t" x="85" y="51" text-anchor="middle">2015</text></svg><b>A period</b><span class="tl-m">from a start to a finish</span><i>between 2010 and 2015, from March to April</i></div><div class="tl-c"><svg viewBox="0 0 120 54" role="img" aria-label="The whole line highlighted, with an arrow along the full time axis"><path class="tl-ax" d="M6,40 H114"/><path class="tl-tk" d="M10,38 V42 M35,38 V42 M60,38 V42 M85,38 V42 M110,38 V42"/><path class="tl-hi" d="M10,34 L35,30 L60,22 L85,18 L110,12"/><path class="tl-br" d="M12,48 H108"/><path class="tl-head" d="M16,45 L11,48 L16,51 M104,45 L109,48 L104,51"/></svg><b>An ongoing trend</b><span class="tl-m">all the way through</span><i>over the period, throughout the year</i></div><div class="tl-c"><svg viewBox="0 0 120 54" role="img" aria-label="An arrow along the time axis leading up to a flag at the final year"><path class="tl-ax" d="M6,40 H114"/><path class="tl-tk" d="M10,38 V42 M35,38 V42 M60,38 V42 M85,38 V42 M110,38 V42"/><path class="tl-ln" d="M10,34 L35,30 L60,22 L85,18 L110,12"/><path class="tl-dash" d="M110,12 V40"/><circle class="tl-pt" cx="110" cy="12" r="3.4"/><path class="tl-pole" d="M110,12 V1"/><path class="tl-flag" d="M110,1 L100,4.5 L110,8 Z"/><path class="tl-br" d="M10,48 H96"/><path class="tl-head" d="M93,45 L98,48 L93,51"/><text class="tl-t" x="110" y="51" text-anchor="middle">2024</text></svg><b>An endpoint</b><span class="tl-m">at or before this point</span><i>by 2024, by the end of June</i></div></div>${take('Verb with adverb, or adjective with noun. Never mix them: “rose sharply” or “a sharp rise”.')}`,
  right:`${head('Step 4 · Activity','Explore')}<div data-act="c2-build"></div><div data-gate="c2-build" hidden style="margin-top:16px"><div data-act="c2-noun"></div></div>`},
 
 /* 12 */ {id:'c2-s5',ch:2,chLabel:P2,chTitle:CT2,title:'Chapter challenge: describe a whole graph',
