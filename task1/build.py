@@ -17,6 +17,7 @@ BOOKS = {
     'mixed-charts': {'title': 'Mastering Mixed Charts', 'chapters': 6},
     'maps':         {'title': 'Mastering Maps',         'chapters': 6},
     'processes':    {'title': 'Mastering Process Diagrams', 'chapters': 6},
+    'mock-exams':   {'title': 'Task 1 Mock Exams', 'chapters': 1, 'pre': ['../maps/content/book.js', '../processes/content/book.js']},
 }
 
 def video_titles(folder):
@@ -48,7 +49,7 @@ def build(slug):
     chapters = [f'ch{n}.js' for n in range(1, cfg['chapters'] + 1) if os.path.exists(os.path.join(folder, 'content', f'ch{n}.js'))]
     t = html.escape(cfg['title'])
     desc = html.escape(re.search(r"DESC:'((?:[^'\\]|\\.)*)'", open(os.path.join(folder, 'content', 'book.js'), encoding='utf-8').read()).group(1).replace("\\'", "'"))
-    scripts = '\n'.join(f'<script src="content/{c}"></script>' for c in ['book.js'] + chapters)
+    scripts = '\n'.join([f'<script src="{p}"></script>' for p in cfg.get('pre', [])] + [f'<script src="content/{c}"></script>' for c in ['book.js'] + chapters])
     page = f'''<!doctype html>
 <html lang="en-GB">
 <head>
