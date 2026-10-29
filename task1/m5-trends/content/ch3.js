@@ -25,7 +25,7 @@ sp('c3-s1','The past simple',{
  right:`${head('Step 1 · Activity','Explore')}<p class="small">Use the graph on the left page.</p><div data-act="c3-tense"></div>`}),
 
 sp('c3-s2','The past perfect',{
- left:`${head('Step 2 · Understand','Learn')}<h2>The past perfect with by</h2>${vid({title:'The past perfect',len:'90 seconds',script:['Write: by 2005. Say: by means at or before that time.','The change was complete by then: had risen.','Write: By 2005, membership had risen to 52,000.','Contrast: In 2005, membership stood at 52,000. In + year: past simple.']})}<p>“${T('by + year','By + year')}” means “at or before that time”. The change was complete by then, so use the past perfect:</p>${insight('By + year','<b>By 2005</b>, membership <b>had risen</b> to 52,000.')}<ul class="clean"><li><b>In 2005</b>, membership <b>stood at</b> 52,000. (past simple)</li><li><b>By 2005</b>, it <b>had risen</b> to 52,000. (past perfect)</li></ul>${mistake('<s>By 2025, membership rose to 61,000.</s> With “by”, use the past perfect: <i>had risen</i>.')}${take('In + year: past simple. By + year: past perfect (had + past participle).')}`,
+ left:`${head('Step 2 · Understand','Learn')}<h2>The past perfect with by</h2>${vid({title:'The past perfect',len:'90 seconds',script:['Write: by 2005. Say: by means at or before that time.','The change was complete by then: had risen.','Write: By 2005, membership had risen to 52,000.','Contrast: In 2005, membership stood at 52,000. In + year: past simple.']})}<p>“${T('by + year','By + year')}” means “at or before that time”. The change was complete by then, so use the past perfect:</p>${insight('By + year','<b>By 2005</b>, membership <b>had risen</b> to 52,000.')}<ul class="clean"><li><b>In 2005</b>, membership <b>stood at</b> 52,000. (past simple)</li><li><b>By 2005</b>, it <b>had risen</b> to 52,000. (past perfect)</li></ul>${mistake('<s>By 2025, membership rose to 61,000.</s> With “by”, prefer the past perfect: <i>had risen</i>.')}${take('In + year: past simple. By + year: the past perfect is the natural choice (had + past participle).')}`,
  right:`${head('Step 2 · Activity','Explore')}<div data-act="c3-by"></div><div data-act="c3-pp" style="margin-top:16px"></div>`}),
 
 sp('c3-s3','The present perfect',{
@@ -33,7 +33,7 @@ sp('c3-s3','The present perfect',{
  right:`${head('Step 3 · Activity','Explore')}<div data-act="c3-pres"></div>`}),
 
 sp('c3-s4','Prepositions of time',{
- left:`${head('Step 4 · Practise','Learn')}<h2>Prepositions of time</h2><ul class="clean"><li><b>in</b> + year: in 2015</li><li><b>between</b> 2005 <b>and</b> 2015 (never “between … to”)</li><li><b>from</b> 2005 <b>to</b> 2015</li><li><b>by</b> 2025: at or before then</li><li><b>over</b> the period, <b>over</b> the next ten years, <b>in</b> the following decade</li></ul>${mistake('<s>Between 2005 to 2015, membership fell.</s> Between … and; from … to. Don’t mix them.')}${insight('Moving through time','Membership rose <b>over the following decade</b>. It then fell <b>between 2005 and 2015</b>, before recovering <b>in the final ten years</b>.')}${take('Between … and; from … to; in + year; by + year; over the period.')}`,
+ left:`${head('Step 4 · Practise','Learn')}<h2>Prepositions of time</h2><ul class="clean"><li><b>in</b> + year: in 2015</li><li><b>between</b> 2005 <b>and</b> 2015 (never “between … to”)</li><li><b>from</b> 2005 <b>to</b> 2015</li><li><b>by</b> 2025: at or before then</li><li><b>over</b> the period, <b>over</b> the next ten years, <b>in</b> the following decade</li></ul>${mistake('<s>Between 2005 to 2015, membership fell.</s> Between … and; from … to. Don’t mix them.')}${insight('Moving through time','Membership rose <b>between 1995 and 2005</b>. It then fell <b>over the following decade</b>, before recovering <b>in the final ten years</b>.')}${take('Between … and; from … to; in + year; by + year; over the period.')}`,
  right:`${head('Step 4 · Activity','Explore')}<div data-act="c3-prep"></div><div data-act="c3-build" style="margin-top:16px"></div>`}),
 
 sp('c3-s5','Chapter challenge: the library',{
@@ -41,7 +41,7 @@ sp('c3-s5','Chapter challenge: the library',{
  right:`${head('Step 5 · Writing task','Explore')}<div data-act="c3-write"></div>`}),
 
 review({n:3,title:CT,write:'c3-write',next:['c4-open','Start Chapter 4 →'],
-  learned:['Finished years: past simple.','By + year: past perfect (had + past participle).','Present perfect only when the period reaches now, never with a finished year.','Between … and; from … to; in + year; over the period.']})
+  learned:['Finished years: past simple.','By + year: the past perfect is the natural choice (had + past participle).','Present perfect only when the period reaches now, never with a finished year.','Between … and; from … to; in + year; over the period.']})
 ];
 
 const acts={
@@ -53,9 +53,9 @@ const acts={
 'c3-by':{type:'choice',level:'Supported',skill:'By + year',decision:'Choose the best sentence.',
   opts:[{t:'By 2025, membership had risen to 61,000.',ok:1,why:'By + year: past perfect.'},{t:'By 2025, membership has risen to 61,000.',why:'2025 is finished: had risen.'},{t:'By 2025, membership was rising to 61,000.',why:'Use the past perfect with by.'}]},
 'c3-pp':{type:'fix',level:'Supported',skill:'The past perfect',decision:'Fix the verb in each sentence.',prompt:'Type your correction and press Check.',
-  items:[{wrong:'By 2005, membership rose to 52,000.',ok:/had (risen|grown|increased|climbed) to 52,000/i,bad:/membership rose/i,hint:'With “by”, use had + past participle.',err:'rose',fix:'had risen',why:'By + year needs the past perfect.',model:'By 2005, membership had risen to 52,000.'},
+  items:[{wrong:'By 2005, membership rose to 52,000.',ok:/had (risen|grown|increased|climbed) to 52,000|had reached 52,000/i,bad:/membership rose/i,hint:'With “by”, use had + past participle.',err:'rose',fix:'had risen',why:'By + year needs the past perfect.',model:'By 2005, membership had risen to 52,000.'},
          {wrong:'By 2015, it had fell to 47,000.',ok:/had (fallen|dropped|declined|decreased) to 47,000/i,bad:/had fell/i,hint:'The past participle of fall is irregular.',err:'had fell',fix:'had fallen',why:'Had + past participle: fallen.',model:'By 2015, it had fallen to 47,000.'},
-         {wrong:'By 2025, membership had rose to 61,000.',ok:/had (risen|grown|increased|climbed) to 61,000/i,bad:/had rose/i,hint:'Rise, rose, risen.',err:'had rose',fix:'had risen',why:'The past participle of rise is risen.',model:'By 2025, membership had risen to 61,000.'}]},
+         {wrong:'By 2025, membership had rose to 61,000.',ok:/had (risen|grown|increased|climbed) to 61,000|had reached 61,000/i,bad:/had rose/i,hint:'Rise, rose, risen.',err:'had rose',fix:'had risen',why:'The past participle of rise is risen.',model:'By 2025, membership had risen to 61,000.'}]},
 'c3-pres':{type:'sort',level:'Supported',skill:'Choosing the tense',decision:'Which tense does each task need for the changes?',cats:['Past simple','Present perfect','Future'],
   items:[{w:'The graph shows library membership from 1995 to 2025.',c:0,m:'finished years.'},{w:'The graph shows how membership has changed over the last ten years.',c:1,m:'a period that reaches now.'},{w:'The graph shows projected membership from 2030 to 2050.',c:2,m:'projections: will, is expected to.'},{w:'The chart compares sales in 2010 and 2020.',c:0,m:'two finished years.'},{w:'The graph shows sales from 2018 to the present.',c:1,m:'“to the present” reaches now.'}]},
 'c3-prep':{type:'fix',level:'Supported',skill:'Prepositions of time',decision:'Fix the preposition in each sentence.',prompt:'Type your correction and press Check.',
@@ -70,7 +70,7 @@ const acts={
   fields:[{k:'a',label:'Body paragraph',rows:8,ph:'In 1995, the library had…'}],
   checks:[{t:'You covered all four years.',fix:'Include 1995, 2005, 2015 and 2025.',fn:v=>/1995/.test(v.a)&&/2005/.test(v.a)&&/2015/.test(v.a)&&/2025/.test(v.a)},
           {t:'You used the past perfect with “by”.',fix:'Add one: By 2005, membership had risen to 52,000.',fn:v=>/\bby (19|20)\d\d\b[^.]*\bhad\s+(\w+ed|risen|fallen|grown|reached|dropped|climbed|recovered)\b/i.test(v.a)},
-          {t:'No present tenses for finished years.',fix:'Use the past simple: rose, fell, not rises, has risen.',fn:v=>!/\b(rises|falls|grows|has risen|has fallen|has grown|have risen|is rising|is falling)\b/i.test(v.a)},
+          {t:'No present tenses for finished years.',fix:'Use the past simple: rose, fell, not rises, has risen.',fn:v=>!/\b(membership|it)\s+(rises|falls|grows)\b|\b(has risen|has fallen|has grown|have risen|is rising|is falling)\b/i.test(v.a)},
           {t:'Your prepositions of time are correct.',fix:'Check: between … and, from … to, in + year (not on 2015, not between … to).',fn:v=>!/between (19|20)\d\d to|\bon (19|20)\d\d|since (19|20)\d\d to/i.test(v.a)},
           {t:'You gave figures with their units.',fix:'Give figures in full: 52,000 members.',fn:v=>/\d{2},000/.test(v.a)},
           {t:'Your paragraph is a good length (55 words or more).',fix:'Add detail: your paragraph is under 55 words.',fn:v=>(v.a.match(/\S+/g)||[]).length>=55}],

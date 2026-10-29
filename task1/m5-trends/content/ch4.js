@@ -22,7 +22,7 @@ opening({n:4,title:CT,lede:'Real data rarely moves in one direction. It goes up 
   steps:[[1,'c4-s1','The words','Fluctuate, peak, dip, level off','Discover'],[2,'c4-s2','Label the stages','One word per stage','Understand'],[3,'c4-s3','Describing fluctuation','A range, not a list','Understand'],[4,'c4-s4','The prepositions','Peaked at, levelled off at','Practise'],[5,'c4-s5','Chapter challenge','Board games','Apply'],['R','c4-review','Chapter review','Your results and your two drafts','Improve']]}),
 
 sp('c4-s1','The words',{
- left:`${head('Step 1 · Discover','Learn')}<h2>The words</h2>${vid({title:'Peaks, dips and plateaus',len:'90 seconds',script:['Draw a line that goes up and down: fluctuated.','Draw a line with one high point: peaked.','Draw a short drop and recovery: dipped.','Draw a line that flattens out: levelled off, reached a plateau.']})}<ul class="clean"><li><b>fluctuated:</b> went up and down several times</li><li><b>peaked / reached a ${T('peak')}:</b> reached its highest point</li><li><b>dipped / a dip:</b> fell briefly, then recovered</li><li><b>hit a low:</b> reached its lowest point</li><li><b>levelled off / reached a ${T('plateau')}:</b> stopped changing after a rise or fall</li></ul>${take('Fluctuate, peak, dip, low, level off: five patterns that most graphs contain.')}`,
+ left:`${head('Step 1 · Discover','Learn')}<h2>The words</h2>${vid({title:'Peaks, dips and plateaus',len:'90 seconds',script:['Draw a line that goes up and down: fluctuated.','Draw a line with one high point: peaked.','Draw a short drop and recovery: dipped.','Draw a line that flattens out: levelled off, reached a plateau.']})}<ul class="clean"><li><b>fluctuated:</b> went up and down several times</li><li><b>peaked / reached a ${T('peak')}:</b> reached its highest point</li><li><b>dipped / a dip:</b> fell briefly, then recovered</li><li><b>hit a low:</b> reached its lowest point</li><li><b>levelled off / reached a ${T('plateau')}:</b> stopped changing after a rise or fall</li></ul>${take('Fluctuate, peak, dip, low, level off: five patterns that many graphs contain.')}`,
  right:`${head('Step 1 · Activity','Explore')}<div data-act="c4-see"></div>`}),
 
 sp('c4-s2','Label the stages',{
@@ -34,7 +34,7 @@ sp('c4-s3','Describing fluctuation',{
  right:`${head('Step 3 · Activity','Explore')}<p class="small">Use the graph in Step 2.</p><div data-act="c4-fluct"></div><div data-act="c4-fluct2" style="margin-top:16px"></div>`}),
 
 sp('c4-s4','The prepositions',{
- left:`${head('Step 4 · Practise','Learn')}<h2>The prepositions</h2><ul class="clean"><li><b>peaked at</b> 7.5 million / <b>reached a peak of</b> 7.5 million</li><li><b>hit a low of</b> 4.0 million</li><li><b>dipped to</b> 4.2 million</li><li><b>levelled off at</b> 5.6 million</li><li><b>fluctuated between</b> 4.0 <b>and</b> 4.7 million</li></ul>${mistake('<s>Sales peaked to 7.5 million.</s> The verb takes “at”; the noun takes “of”: <i>peaked at</i>, <i>a peak of</i>.')}${take('Peaked at; a peak of; levelled off at; fluctuated between … and.')}`,
+ left:`${head('Step 4 · Practise','Learn')}<h2>The prepositions</h2><ul class="clean"><li><b>peaked at</b> 7.5 million / <b>reached a peak of</b> 7.5 million</li><li><b>dipped to</b> 4.1 million (2014) / <b>hit a low of</b> (for a low point after a fall)</li><li><b>dipped to</b> 4.2 million</li><li><b>levelled off at</b> 5.6 million</li><li><b>fluctuated between</b> 4.0 <b>and</b> 4.7 million</li></ul>${mistake('<s>Sales peaked to 7.5 million.</s> The verb takes “at”; the noun takes “of”: <i>peaked at</i>, <i>a peak of</i>.')}${take('Peaked at; a peak of; levelled off at; fluctuated between … and.')}`,
  right:`${head('Step 4 · Activity','Explore')}<div data-act="c4-prep"></div><div data-act="c4-build" style="margin-top:16px"></div>`}),
 
 sp('c4-s5','Chapter challenge: board games',{
@@ -55,7 +55,7 @@ const acts={
   opts:[{t:'Sales fluctuated between 4.0 and 4.7 million, with no clear trend.',ok:1,why:'A range and the overall direction, in one sentence.'},{t:'Sales rose steadily from 4.0 to 4.2 million.',why:'They went up and down; “steadily” is wrong.'},{t:'Sales were 4.0, 4.6, 4.1, 4.7 and 4.2 million.',why:'Accurate, but a list with no pattern.'}]},
 'c4-fluct2':{type:'binary',level:'Supported',skill:'Accuracy',decision:'Is each sentence accurate?',labels:['Accurate','Not accurate'],
   items:[{t:'Sales peaked at 7.5 million in 2020.',a:0,right:'The highest point on the graph.',wrong:'It is accurate: 7.5 million is the peak.'},
-         {t:'Sales hit a low of 4.0 million in 2010.',a:0,right:'The lowest figure on the graph.',wrong:'It is accurate: 4.0 million is the lowest point.'},
+         {t:'Sales were at their lowest, 4.0 million, in 2010.',a:0,right:'The lowest figure on the graph.',wrong:'It is accurate: 4.0 million is the lowest point.'},
          {t:'After 2022, sales continued to fall.',a:1,right:'Right. They levelled off at 5.6 million.',wrong:'5.6 million in 2022 and 2024: they levelled off.'},
          {t:'Sales in 2024 were higher than in 2010.',a:0,right:'5.6 against 4.0 million: 40% higher.',wrong:'It is accurate: 5.6 is higher than 4.0.'}]},
 'c4-prep':{type:'fix',level:'Supported',skill:'Prepositions',decision:'Fix the preposition in each sentence.',prompt:'Type your correction and press Check.',
@@ -69,14 +69,14 @@ const acts={
   right:'The change, by + size, a peak of + figure and year.',orderMsg:'All the right pieces, but check the order: the change, its size, the peak, the figure.',incompleteMsg:'Good so far, but incomplete. Add the peak.'},
 'c4-write':{type:'write',level:'Independent',skill:'Patterns of change',decision:'Write one body paragraph about sales of board games.',prompt:'Then check your writing.',
   fields:[{k:'a',label:'Body paragraph',rows:8,ph:'Between 2010 and 2018,…'}],
-  checks:[{t:'You described the fluctuation with a range.',fix:'Add: fluctuated between 4.0 and 4.7 million.',fn:v=>/fluctuat/i.test(v.a)&&/between 4\.0 and 4\.7|4\.0 and 4\.7/i.test(v.a)},
+  checks:[{t:'You described the fluctuation with a range.',fix:'Add: fluctuated between 4.0 and 4.7 million.',fn:v=>/fluctuat/i.test(v.a)&&/4(\.0)? (million )?and 4\.7/i.test(v.a)},
           {t:'You described the peak.',fix:'Add the peak: 7.5 million in 2020.',fn:v=>/peak/i.test(v.a)&&/7\.5/.test(v.a)},
           {t:'You described the levelling off.',fix:'Add: levelled off at 5.6 million.',fn:v=>/(levell?ed off|plateau|remained (stable|unchanged)|stayed)/i.test(v.a)},
           {t:'Your prepositions are correct.',fix:'Check: peaked at, a peak of, levelled off at.',fn:v=>!/peaked to|peak at \d|levell?ed off in/i.test(v.a)},
           {t:'You didn’t list every figure.',fix:'Describe the fluctuation with a range instead of listing 4.6, 4.1 and so on.',fn:v=>!(/4\.6/.test(v.a)&&/4\.1/.test(v.a))},
           {t:'Your paragraph is a good length (55 words or more).',fix:'Add detail: your paragraph is under 55 words.',fn:v=>(v.a.match(/\S+/g)||[]).length>=55}],
   modelTitle:'My model paragraph',
-  model:`<p><button type="button" class="hl" data-n="0">Between 2010 and 2018, sales of board games fluctuated between 4.0 and 4.7 million</button>, with no clear upward or downward trend. <button type="button" class="hl" data-n="1">They then rose sharply, by 3.3 million, to reach a peak of 7.5 million in 2020.</button> After this peak, sales fell to 5.6 million in 2022, <button type="button" class="hl" data-n="2">and they levelled off at this level for the rest of the period</button>. <button type="button" class="hl" data-n="3">By 2024, sales were 40% higher than in 2010.</button></p>`,
+  model:`<p><button type="button" class="hl" data-n="0">From 2010 to 2018, sales of board games fluctuated between 4.0 and 4.7 million</button>, with no clear upward or downward trend. <button type="button" class="hl" data-n="1">They then rose sharply, by 3.3 million, to reach a peak of 7.5 million in 2020.</button> After this peak, sales fell to 5.6 million in 2022, <button type="button" class="hl" data-n="2">and they levelled off at this figure for the rest of the period</button>. <button type="button" class="hl" data-n="3">In 2024, sales were 40% higher than in 2010.</button></p>`,
   notes:['A range replaces a list of five figures.','By + the size of the rise; a peak of + figure.','Levelled off at: no change between 2022 and 2024.','An overall comparison: 5.6 ÷ 4.0 = 1.4.'],
   self:['I divided the line into stages.','I gave a range for the fluctuation.','I used peaked at, a peak of and levelled off at correctly.','I didn’t list every figure.'],revise:1}
 };
@@ -84,7 +84,7 @@ const acts={
 const gloss={
   'fluctuated':{term:'fluctuated',def:'Went up and down several times. Give a range: fluctuated between X and Y.',path:'M20,50 L60,30 L100,55 L140,28 L180,52 L220,32',ex:'“Sales fluctuated between 4.0 and 4.7 million.”'},
   'peak':{term:'peak',def:'The highest point. Verb: peaked at. Noun: a peak of.',path:'M20,80 L100,70 L130,10 L170,50 L220,60',ex:'“Sales reached a peak of 7.5 million in 2020.”'},
-  'plateau':{term:'plateau',def:'A period with little or no change after a rise. Reached a plateau = levelled off.',path:'M20,85 L90,35 L220,33',ex:'“Sales reached a plateau at 5.6 million.”'}
+  'plateau':{term:'plateau',def:'A period with little or no change after a rise or a fall. Reached a plateau = levelled off.',path:'M20,85 L90,35 L220,33',ex:'“Sales reached a plateau at 5.6 million.”'}
 };
 
 const retrieval={

@@ -76,7 +76,7 @@ const acts={
           {t:'You gave prices with €.',fix:'Give prices with €.',fn:v=>(v.a.match(/€\s?\d/g)||[]).length>=3},
           {t:'Your paragraph is a good length (55 words or more).',fix:'Add detail: your paragraph is under 55 words.',fn:v=>(v.a.match(/\S+/g)||[]).length>=55}],
   modelTitle:'My model paragraph',
-  model:`<p><button type="button" class="hl" data-n="0">Eastport is the most expensive city for gym membership, at €610 a year</button>, closely followed by Marlow Bay, <button type="button" class="hl" data-n="1">which is almost as expensive at €590</button>. Membership in Norhaven costs €420, €40 more than in Kelby (€380). Stenton is the cheapest city, at €300, <button type="button" class="hl" data-n="2">so a member in Eastport pays about twice as much as one in Stenton</button>. <button type="button" class="hl" data-n="3">Even Kelby, the second-cheapest city, is considerably more expensive than Stenton.</button></p>`,
+  model:`<p><button type="button" class="hl" data-n="0">Eastport is the most expensive city for gym membership, at €610 a year</button>, closely followed by Marlow Bay, <button type="button" class="hl" data-n="1">which is almost as expensive as Eastport, at €590</button>. Membership in Norhaven costs €420, €40 more than in Kelby (€380). Stenton is the cheapest city, at €300, <button type="button" class="hl" data-n="2">so a member in Eastport pays about twice as much as one in Stenton</button>. <button type="button" class="hl" data-n="3">Even Kelby, the second-cheapest city, is considerably more expensive than Stenton.</button></p>`,
   notes:['A superlative for the top, with the figure.','Almost as … as for nearly equal figures.','A multiple: 610 ÷ 300 ≈ 2.','A modifier that matches the gap: €80, more than a quarter.'],
   self:['I named the extremes with superlatives.','I used modifiers that match the size of each gap.','I used as … as correctly.','I used the present simple for undated data.'],revise:1}
 };
@@ -99,7 +99,7 @@ const minitest=[
  {q:'The superlative of “cheap” is…',opts:[{t:'the cheapest',ok:1,why:'Short adjective.'},{t:'the most cheap',why:'Use -est.'},{t:'cheapest',why:'Add “the”.'}],sp:'c1-s1'},
  {q:'The comparative of “little” is…',opts:[{t:'less',ok:1,why:'Irregular.'},{t:'littler',why:'Use less.'},{t:'more little',why:'Use less.'}],sp:'c1-s1'},
  {q:'Which is correct?',opts:[{t:'Eastport is the most expensive city.',ok:1,why:'The most + long adjective.'},{t:'Eastport is the most expensivest city.',why:'One marker.'},{t:'Eastport is most expensive city.',why:'Add “the”.'}],sp:'c1-s2'},
- {q:'Why name the highest and lowest figures?',opts:[{t:'They are always key features',ok:1,why:'The extremes.'},{t:'To add words',why:'Accuracy.'},{t:'They are optional',why:'They are key.'}],sp:'c1-s2'},
+ {q:'Why name the highest and lowest figures?',opts:[{t:'They are almost always key features',ok:1,why:'The extremes.'},{t:'To add words',why:'Accuracy.'},{t:'They are optional',why:'They are key.'}],sp:'c1-s2'},
  {q:'Which modifier fits a small difference?',opts:[{t:'slightly',ok:1,why:'Small.'},{t:'far',why:'Big.'},{t:'very',why:'Not with comparatives.'}],sp:'c1-s3'},
  {q:'Which is correct?',opts:[{t:'much more expensive',ok:1,why:'Much + comparative.'},{t:'very more expensive',why:'Use much or far.'},{t:'more much expensive',why:'Word order.'}],sp:'c1-s3'},
  {q:'Which is correct?',opts:[{t:'not as expensive as',ok:1,why:'As … as.'},{t:'not as expensive than',why:'As.'},{t:'not so expensive than',why:'As.'}],sp:'c1-s4'},

@@ -35,7 +35,7 @@ sp('c1-s3','By, to and from',{
  right:`${head('Step 3 · Activity','Explore')}<p class="small">Use the charts in Step 1.</p><div data-act="c1-by1"></div><div data-act="c1-by2" style="margin-top:14px"></div>`}),
 
 sp('c1-s4','Nouns of change',{
- left:`${head('Step 4 · Practise','Learn')}<h2>Nouns of change</h2><p>Most verbs of change have a noun form. Nouns let you vary your sentences:</p><ul class="clean"><li><b>a rise / an increase / growth</b>; <b>a fall / a decrease / a decline / a drop</b></li><li><b>a ${T('rise in','rise in')} + the thing:</b> <i>a rise in cycling</i></li><li><b>a rise of + the amount:</b> <i>a rise of 32,000</i></li></ul>${insight('Two patterns','<b>There was</b> a rise of 9,000 in the number of cyclists between 2010 and 2015. / The period <b>saw</b> a fall of 14 million in admissions.')}${mistake('<s>There was a rise of cycling.</s> “Of” is for the amount; “in” is for the thing: <i>a rise in cycling</i>.')}${take('A rise in + the thing. A rise of + the amount.')}`,
+ left:`${head('Step 4 · Practise','Learn')}<h2>Nouns of change</h2><p>Most verbs of change have a noun form. Nouns let you vary your sentences:</p><ul class="clean"><li><b>a rise / an increase / growth</b>; <b>a fall / a decrease / a decline / a drop</b></li><li><b>a ${T('rise in','rise in')} + the thing:</b> <i>a rise in cycling</i></li><li><b>a rise of + the amount:</b> <i>a rise of 32,000</i></li></ul>${insight('Two patterns','<b>There was</b> a rise of 9,000 in the number of cyclists between 2010 and 2015. / The period from 2005 to 2010 <b>saw</b> a fall of 14 million in admissions.')}${mistake('<s>There was a rise of cycling.</s> “Of” is for the amount; “in” is for the thing: <i>a rise in cycling</i>.')}${take('A rise in + the thing. A rise of + the amount.')}`,
  right:`${head('Step 4 · Activity','Explore')}<div data-act="c1-noun"></div><div data-act="c1-build" style="margin-top:16px"></div>`}),
 
 sp('c1-s5','Chapter challenge: cycling and cinemas',{
@@ -72,9 +72,9 @@ const acts={
 'c1-write':{type:'write',level:'Independent',skill:'Verbs and nouns of change',decision:'Write one body paragraph about both graphs.',prompt:'Then check your writing.',
   fields:[{k:'a',label:'Body paragraph',rows:8,ph:'The number of people cycling to work…'}],
   checks:[{t:'You described both graphs.',fix:'Describe cycling and cinema admissions.',fn:v=>/cycl/i.test(v.a)&&/cinema|admission/i.test(v.a)},
-          {t:'You used a verb with “by” or “to”.',fix:'Add a verb pattern: rose by 32,000, fell to 80 million.',fn:v=>/\b(rose|fell|grew|increased|decreased|declined|dropped|climbed)\s+(steadily\s+|sharply\s+|gradually\s+)?(by|to)\b/i.test(v.a)},
+          {t:'You used a verb with “by” or “to”.',fix:'Add a verb pattern: rose by 32,000, fell to 80 million.',fn:v=>/\b(rose|fell|grew|increased|decreased|declined|dropped|climbed)\s+(\w+ly\s+)?(by|to)\b/i.test(v.a)},
           {t:'You used a noun phrase of change.',fix:'Add a noun phrase: a rise of 9,000, a fall in admissions.',fn:v=>/\b(a|an|the)\s+(\w+\s+)?(rise|increase|fall|decrease|decline|drop|growth)\s+(of|in)\b/i.test(v.a)},
-          {t:'Your irregular verbs are correct.',fix:'Check: rose, fell, grew (not rised, falled, growed).',fn:v=>!/\b(rised|falled|growed|has rose|have rose|has fell)\b/i.test(v.a)},
+          {t:'Your irregular verbs are correct.',fix:'Check: rose, fell, grew (not rised, falled, growed).',fn:v=>!/\b(rised|falled|growed|has rose|have rose|has fell|have fell|had fell)\b/i.test(v.a)},
           {t:'You gave figures with their units.',fix:'Give figures with units: 50,000 people, 80 million.',fn:v=>/\d{2},000|million/i.test(v.a)},
           {t:'Your paragraph is a good length (60 words or more).',fix:'Add detail: your paragraph is under 60 words.',fn:v=>(v.a.match(/\S+/g)||[]).length>=60}],
   modelTitle:'My model paragraph',
@@ -86,7 +86,7 @@ const acts={
 const gloss={
   'rose by':{term:'rose by',def:'Rose by + the size of the change. Compare: rose to + the end point.',path:'M30,80 L210,20 M210,20 V80',ex:'“Cycling rose by 32,000 to 50,000.”'},
   'rise in':{term:'a rise in',def:'A noun phrase: a rise in + the thing that rose. For the amount, use “a rise of”.',path:'M30,80 L120,60 L210,20',ex:'“There was a rise in cycling.”'},
-  'remain stable':{term:'remain stable',def:'Stay at about the same level.',path:'M20,45 L80,43 L140,46 L220,44',ex:'“Membership remained stable at around 47,000.”'}
+  'remain stable':{term:'remain stable',def:'Stay at about the same level.',path:'M20,45 L80,43 L140,46 L220,44',ex:'“Sales remained stable at 5.6 million between 2022 and 2024.”'}
 };
 
 const retrieval={

@@ -25,7 +25,7 @@ sp('c2-s1','Contrast linkers',{
  right:`${head('Step 1 · Activity','Explore')}<div data-act="c2-link"></div><div data-act="c2-pick" style="margin-top:16px"></div>`}),
 
 sp('c2-s2','Punctuation',{
- left:`${head('Step 2 · Understand','Learn')}<h2>Punctuation</h2>${vid({title:'Punctuating contrast',len:'90 seconds',script:['Write: Women spent 6 hours cleaning, whereas men spent 2.','Point to the comma before whereas.','Write: By contrast, men spent 4 hours on repairs. Point to the comma after the linker.','Show the error: Women cleaned more, however men repaired more.']})}<ul class="clean"><li><b>whereas / while:</b> a comma before them, in the middle of the sentence.</li><li><b>By contrast, / However,</b> at the start of a sentence, followed by a comma.</li></ul>${mistake('<s>Women spent more time cleaning, however men spent more time on repairs.</s> “However” can’t join two sentences with a comma. Use a full stop: <i>… cleaning. However, men…</i>, or use <i>whereas</i>.')}${take('Comma + whereas. Full stop + However, + comma.')}`,
+ left:`${head('Step 2 · Understand','Learn')}<h2>Punctuation</h2>${vid({title:'Punctuating contrast',len:'90 seconds',script:['Write: Women spent 6 hours cleaning, whereas men spent 2.','Point to the comma before whereas.','Write: By contrast, men spent 4 hours on repairs. Point to the comma after the linker.','Show the error: Women cleaned more, however men repaired more.']})}<ul class="clean"><li><b>whereas / while:</b> a comma before them, in the middle of the sentence. They can also start a sentence: <i>Whereas women spent 7 hours, men spent 3.</i> (comma after the first clause)</li><li><b>By contrast, / However,</b> at the start of a sentence, followed by a comma.</li></ul>${mistake('<s>Women spent more time cleaning, however men spent more time on repairs.</s> “However” can’t join two sentences with a comma. Use a full stop: <i>… cleaning. However, men…</i>, or use <i>whereas</i>.')}${take('Comma + whereas. Full stop + However, + comma.')}`,
  right:`${head('Step 2 · Activity','Explore')}<div data-act="c2-punct"></div>`}),
 
 sp('c2-s3','Compared with',{
@@ -66,7 +66,7 @@ const acts={
   right:'Two groups named, then “the latter” for the second one.',orderMsg:'All the right pieces, but check the order: both groups, the shared fact, the latter, the contrast.',incompleteMsg:'Good so far, but incomplete. Add the contrast.'},
 'c2-write':{type:'write',level:'Independent',skill:'Linking comparisons',decision:'Write one body paragraph comparing men and women.',prompt:'Then check your writing.',
   fields:[{k:'a',label:'Body paragraph',rows:8,ph:'Women spent more time than men…'}],
-  checks:[{t:'You used whereas or while.',fix:'Join two facts with whereas or while.',fn:v=>/,\s*(whereas|while)\b/i.test(v.a)},
+  checks:[{t:'You used whereas or while.',fix:'Join two facts with whereas or while.',fn:v=>/\b(whereas|while)\b/i.test(v.a)},
           {t:'You started a sentence with a contrast linker.',fix:'Start a sentence with By contrast, In contrast, or However,.',fn:v=>/(^|[.!?]\s+)(By contrast|In contrast|However|On the other hand),/i.test(v.a)},
           {t:'You used compared with or respectively.',fix:'Add compared with + a noun phrase, or respectively.',fn:v=>/compared with|in comparison with|respectively/i.test(v.a)},
           {t:'No comma splice with however.',fix:'Don’t join two sentences with “, however”. Use a full stop.',fn:v=>!/,\s*however\s+\w/i.test(v.a)},

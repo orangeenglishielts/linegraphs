@@ -72,7 +72,7 @@ const acts={
           {t:'You didn’t list every product in its own sentence.',fix:'Combine products with the same pattern in one sentence.',fn:v=>((v.b1+' '+v.b2).split(/[.!?]/).filter(s=>s.trim()).length)<=7},
           {t:'Your answer is a good length (65 words or more).',fix:'Add detail: your paragraphs are under 65 words.',fn:v=>((v.b1+' '+v.b2).match(/\S+/g)||[]).length>=65}],
   modelTitle:'My model paragraphs',
-  model:`<p><span class="plabel">Body 1</span><button type="button" class="hl" data-n="0">The strongest growth was in three products.</button> Sales of plant-based milk rose by 62%, the largest increase of all, <button type="button" class="hl" data-n="1">while organic fruit and ready salads also grew considerably, by 48% and 40% respectively</button>.</p><p><span class="plabel">Body 2</span>Sales of bread and eggs, by contrast, remained almost unchanged, rising by only 3% and 1%. <button type="button" class="hl" data-n="2">The remaining three products all saw falls in sales, ranging from 12% for frozen meals to 25% for fizzy drinks</button>, <button type="button" class="hl" data-n="3">with sweets in between at 18%</button>.</p>`,
+  model:`<p><span class="plabel">Body 1</span><button type="button" class="hl" data-n="0">The strongest growth was in three products.</button> Sales of plant-based milk rose by 62%, the largest increase of all, <button type="button" class="hl" data-n="1">while organic fruit and ready salads also grew considerably, by 48% and 40% respectively</button>.</p><p><span class="plabel">Body 2</span>Sales of bread and eggs, by contrast, remained almost unchanged, rising by only 3% and 1% respectively. <button type="button" class="hl" data-n="2">The remaining three products all saw falls in sales, ranging from 12% for frozen meals to 25% for fizzy drinks</button>, <button type="button" class="hl" data-n="3">with sweets in between at 18%</button>.</p>`,
   notes:['A topic sentence names the group.','Respectively keeps two figures in order.','One sentence and a range cover three products.','The middle figure completes the group.'],
   self:['Each paragraph has one group or two related groups.','I described groups, not single rows.','I gave a range.','I used percentages correctly for percentage changes.'],revise:1}
 };
@@ -88,7 +88,7 @@ const retrieval={
  'c3-s2':[{q:'How do you describe a group?',opts:[{t:'One sentence with a range',ok:1,why:'Efficient.'},{t:'One sentence per row',why:'That is a list.'}]}],
  'c3-s3':[{q:'When does grouping by category work?',opts:[{t:'When each category tells one story',ok:1,why:'Clear pattern.'},{t:'Always',why:'It can hide patterns.'}]}],
  'c3-s4':[{q:'A phase is…',opts:[{t:'a period with one direction',ok:1,why:'Rising, falling or stable.'},{t:'a single year',why:'A period.'}]}],
- 'c3-s5':[{q:'2.9 million (2020) against 3.0 million (2000) is…',opts:[{t:'slightly below',ok:1,why:'0.1 million lower.'},{t:'much lower',why:'Very small gap.'}]}]
+ 'c3-s5':[{q:'Step 4 graph: 2.9 million (2020) against 3.0 million (2000) is…',opts:[{t:'slightly below',ok:1,why:'0.1 million lower.'},{t:'much lower',why:'Very small gap.'}]}]
 };
 
 const minitest=[

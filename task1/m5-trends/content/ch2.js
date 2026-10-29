@@ -23,7 +23,7 @@ opening({n:2,title:CT,lede:'“Prices rose” is accurate but tells the reader v
   steps:[[1,'c2-s1','Size and speed','Slight to dramatic','Discover'],[2,'c2-s2','Match the words to the data','Calculate first','Understand'],[3,'c2-s3','Adjective or adverb?','A sharp rise, rose sharply','Understand'],[4,'c2-s4','Steady or uneven?','Regular change','Practise'],[5,'c2-s5','Chapter challenge','Prices and salaries','Apply'],['R','c2-review','Chapter review','Your results and your two drafts','Improve']]}),
 
 sp('c2-s1','Size and speed',{
- left:`${head('Step 1 · Discover','Learn')}<h2>Size and speed</h2>${vid({title:'Size and speed',len:'90 seconds',script:['Draw five lines, each rising differently.','Label them: slightly, gradually, steadily, sharply, dramatically.','Say: slightly is small; sharply is big and quick; dramatically is very big.','Add the flat line: remained stable.']})}<ul class="clean"><li><b>Small:</b> slightly, marginally</li><li><b>Slow over time:</b> gradually</li><li><b>Regular:</b> ${T('steadily')}</li><li><b>Big and quick:</b> sharply, rapidly, significantly</li><li><b>Very big:</b> dramatically</li></ul>${note('These words are not decoration. Each one makes a claim about the figures, and the examiner checks it.')}<div class="clear"></div>${take('Each word claims a size or a speed. Choose the one the figures support.')}`,
+ left:`${head('Step 1 · Discover','Learn')}<h2>Size and speed</h2>${vid({title:'Size and speed',len:'90 seconds',script:['Draw five lines, each rising differently.','Label them: slightly, gradually, steadily, sharply, dramatically.','Say: slightly is small; sharply is big and quick; dramatically is very big.','Add the flat line: remained stable.']})}<ul class="clean"><li><b>Small:</b> slightly, marginally</li><li><b>Slow over time:</b> gradually</li><li><b>Regular:</b> ${T('steadily')}</li><li><b>Big and quick:</b> sharply, rapidly</li><li><b>Big:</b> significantly, considerably</li><li><b>Very big:</b> dramatically</li></ul>${note('These words are not decoration. Each one makes a claim about the figures, and the examiner checks it.')}<div class="clear"></div>${take('Each word claims a size or a speed. Choose the one the figures support.')}`,
  right:`${head('Step 1 · Activity','Explore')}<div data-act="c2-see"></div>`}),
 
 sp('c2-s2','Match the words to the data',{
@@ -53,7 +53,7 @@ const acts={
   chart:SEC,labels:['rose slightly','rose sharply','rose dramatically','remained almost unchanged'],
   explain:(sc,j)=>({A:'€200,000 to €204,000: only €4,000, a slight rise.',B:'€204,000 to €230,000: €26,000 in two years, a sharp rise.',C:'€230,000 to €236,000: €6,000, a slight rise.',D:'€236,000 to €290,000: €54,000, the biggest rise on the graph. That is dramatic.',E:'€290,000 to €292,000: only €2,000. Prices remained almost unchanged.'})[sc.lab]},
 'c2-calc':{type:'choice',level:'Supported',skill:'Checking the size',decision:'Which sentence is accurate?',
-  opts:[{t:'The biggest rise in prices came between 2020 and 2022, when they increased by €54,000.',ok:1,why:'290 − 236 = 54, the largest change.'},{t:'Prices rose dramatically between 2014 and 2016.',why:'Only €4,000: a slight rise.'},{t:'Prices fell slightly after 2022.',why:'They rose slightly, from €290,000 to €292,000.'}]},
+  opts:[{t:'The biggest rise in prices came between 2020 and 2022, when they increased by €54,000.',ok:1,why:'290 − 236 = 54, the largest change.'},{t:'Prices rose dramatically between 2014 and 2016.',why:'Only €4,000: a slight rise.'},{t:'Prices fell slightly after 2022.',why:'They remained almost unchanged, rising only from €290,000 to €292,000.'}]},
 'c2-form':{type:'fix',level:'Supported',skill:'Adjectives and adverbs',decision:'Fix the mistake in each sentence.',prompt:'Type your correction and press Check.',
   items:[{wrong:'Prices rose sharp between 2016 and 2018.',ok:/rose sharply/i,bad:/rose sharp\b/i,hint:'After a verb, use the adverb.',err:'rose sharp',fix:'rose sharply',why:'Verb + adverb: rose sharply.',model:'Prices rose sharply between 2016 and 2018.'},
          {wrong:'There was a dramatically rise in prices.',ok:/a dramatic (rise|increase)/i,bad:/dramatically rise/i,hint:'Before a noun, use the adjective.',err:'a dramatically rise',fix:'a dramatic rise',why:'Adjective + noun: a dramatic rise.',model:'There was a dramatic rise in prices.'},
@@ -75,7 +75,7 @@ const acts={
           {t:'You used the dramatic rise in 2020 to 2022.',fix:'Describe the biggest rise: 2020 to 2022, +€54,000.',fn:v=>/(dramatic|sharp|significant|considerabl|rapid)/i.test(v.a)&&/(2022|54,000)/.test(v.a)},
           {t:'You used an adjective + noun.',fix:'Add one: a sharp rise, steady growth.',fn:v=>/\b(slight|gradual|steady|sharp|dramatic|significant|rapid|small|considerable)\s+(rise|increase|growth|fall|decline|drop)\b/i.test(v.a)},
           {t:'You used a verb + adverb.',fix:'Add one: rose sharply, grew steadily.',fn:v=>/\b(rose|grew|increased|climbed|fell|declined)\s+(slightly|gradually|steadily|sharply|dramatically|significantly|rapidly|considerably)\b/i.test(v.a)},
-          {t:'You didn’t call the house prices steady.',fix:'House prices rose unevenly: don’t call them steady.',fn:v=>!/(price[s]?[^.]*(steadily|steady))/i.test(v.a)},
+          {t:'You didn’t call the house prices steady.',fix:'House prices rose unevenly: don’t call them steady.',fn:v=>!/prices[^.,]{0,30}\b(rose|grew|increased)\s+steadily|steady (rise|growth|increase) in (house )?prices/i.test(v.a)},
           {t:'Your paragraph is a good length (60 words or more).',fix:'Add detail: your paragraph is under 60 words.',fn:v=>(v.a.match(/\S+/g)||[]).length>=60}],
   modelTitle:'My model paragraph',
   model:`<p>House prices in the town <button type="button" class="hl" data-n="0">rose only slightly between 2014 and 2016</button>, from €200,000 to €204,000, before climbing sharply to €230,000 in 2018. After another small increase, <button type="button" class="hl" data-n="1">prices rose dramatically between 2020 and 2022, by €54,000 to €290,000</button>, and then remained almost unchanged. Salaries, by contrast, <button type="button" class="hl" data-n="2">grew steadily, by €1,500 every two years</button>, from €30,000 to €37,500. <button type="button" class="hl" data-n="3">Over the decade as a whole, house prices rose by almost half (46%), whereas salaries rose by a quarter.</button></p>`,
@@ -85,8 +85,8 @@ const acts={
 
 const gloss={
   'steadily':{term:'steadily',def:'By a similar amount in each period.',path:'M20,80 L220,20',ex:'“Salaries grew steadily, by €1,500 every two years.”'},
-  'sharp rise':{term:'a sharp rise',def:'A big, quick increase. The adverb is sharply: rose sharply.',path:'M20,80 L110,75 L150,20 L220,15',ex:'“There was a sharp rise in prices in 2018.”'},
-  'dramatically':{term:'dramatically',def:'By a very large amount. Keep it for the biggest changes on a chart.',path:'M20,85 L120,80 L160,8 L220,5',ex:'“Prices rose dramatically between 2020 and 2022.”'}
+  'sharp rise':{term:'a sharp rise',def:'A big, quick increase. The adverb is sharply: rose sharply.',path:'M20,80 L110,75 L150,20 L220,15',ex:'“There was a sharp rise in prices between 2016 and 2018.”'},
+  'dramatically':{term:'dramatically',def:'By a very large amount. Sharply and dramatically can both describe the biggest changes on a chart.',path:'M20,85 L120,80 L160,8 L220,5',ex:'“Prices rose dramatically between 2020 and 2022.”'}
 };
 
 const retrieval={
