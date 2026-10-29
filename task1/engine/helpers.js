@@ -1,0 +1,40 @@
+/* ==========================================================================
+   ORANGE ENGLISH TASK 1 BOOKS · CONTENT HELPERS
+   Loaded before a book's content files. Each content file starts with
+   const {T,head,note,take,chart,vid,contents,mistake,insight,taskbox,words,copied}=OE;
+   ========================================================================== */
+window.OE=(function(){
+const T=(k,label)=>`<button type="button" class="term" data-term="${k}">${label||k}</button>`;
+const head=(eb,side)=>`<div class="pghead"><span class="eyebrow">${eb}</span><span class="side">${side}</span></div>`;
+const note=t=>`<aside class="mnote"><b>Examiner's note</b>${t}</aside>`;
+const take=t=>`<div class="takeaway"><b>Key takeaway</b>${t}</div>`;
+const chart=id=>`<div data-chartph="${id}"></div>`;
+const mistake=t=>`<div class="oe-mistake"><span class="lab">Common mistake</span>${t}</div>`;
+const insight=(lab,t)=>`<div class="oe-insight"><span class="lab">${lab}</span>${t}</div>`;
+const taskbox=t=>`<div class="oe-workshop" style="padding:0;border:0;background:none"><div class="taskbox">${t}<br><br>Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</div></div>`;
+/* videos: register the script and return the slot; the index matches VIDEO_LINKS in index.html */
+const vid=meta=>{const B=window.BOOK;B.VIDEOS.push(meta);return `<div data-video="${B.VIDEOS.length-1}"></div>`};
+const contents=items=>`<ul class="contents">${items.map(([n,go,t,sub,ph])=>`<li><button type="button" data-go="${go}"><span class="n">${n}</span><span class="t">${t}<small>${sub}</small></span><span class="ph">${ph}</span></button></li>`).join('')}</ul>`;
+const words=t=>(String(t).match(/[A-Za-z']+/g)||[]).map(w=>w.toLowerCase());
+const copied=(text,src,n)=>{const a=words(text),b=words(src).join(' ');for(let i=0;i+n<=a.length;i++){if(b.includes(a.slice(i,i+n).join(' ')))return true}return false};
+const figs=t=>String(t).replace(/\b(19|20)\d\d\b/g,'');
+/* the "How this book works" guide, used on each book's first opening page */
+const howto=(noteTxt,word,wordLine)=>`<h3>How this book works</h3><div class="hw"><div class="hw-book"><div class="hw-pg hw-l"><span class="hw-tag">Left page</span><svg class="hw-ic" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#F88B48"/><path d="M16 13 L28 20 L16 27 Z" fill="#fff"/></svg><b>Learn</b><span>A short video or illustration, one idea and a key takeaway</span></div><div class="hw-pg hw-r"><span class="hw-tag">Right page</span><svg class="hw-ic" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#5FB27B"/><path d="M12 20.5 L18 26 L28.5 14.5" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Explore</b><span>An activity with feedback on every answer</span></div></div><div class="hw-row"><div class="hw-item"><span class="hw-note"><i>Examiner’s note</i>${noteTxt}</span><span class="hw-cap">Orange notes give you exam technique</span></div><div class="hw-item"><span class="hw-word">${wordLine.replace(word,`<u>${word}</u>`)}</span><span class="hw-cap">Select dotted words to open the glossary</span></div></div><div class="hw-err"><div class="hw-flow"><span class="hw-save">Save to my journal</span><span class="hw-to"><svg class="hw-arr" viewBox="0 0 28 12" aria-hidden="true"><path d="M2 6 H24 M19 1.5 L25 6 L19 10.5" fill="none" stroke="#A84A12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="hw-book2"><svg viewBox="0 0 28 32" aria-hidden="true"><rect x="5" y="2" width="21" height="28" rx="3" fill="#F88B48"/><rect x="5" y="2" width="5" height="28" rx="2" fill="#A84A12"/><path d="M14 10 H22 M14 15 H22 M14 20 H19" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>My error dictionary</span></span></div><span class="hw-cap"><b>Made a mistake? Save it.</b> When you get an answer wrong, this button appears under the feedback. Select it, and the mistake goes into your error dictionary with a better version and the reason. Read it before you write, and win those marks back.</span></div><div class="hw-nav"><div><span class="hw-keys"><kbd aria-label="Left arrow">←</kbd><kbd aria-label="Right arrow">→</kbd></span><span>Turn the page with the arrows or your arrow keys</span></div><div><svg class="hw-rib" viewBox="0 0 22 46" aria-hidden="true"><path d="M2 0 H20 V44 L11 35 L2 44 Z" fill="#F88B48"/></svg><span>Select the ribbon on a page to bookmark it</span></div></div></div>`;
+/* chapter opening + review spreads, so every chapter has the same frame */
+const opening=(o)=>({id:`c${o.n}-open`,ch:o.n,chLabel:`Chapter ${o.n}`,chTitle:o.title,title:`Chapter ${o.n} opening`,
+  left:`<div class="opening"><div class="bignum">${o.n}</div><p class="chap">Chapter ${o.n}</p><h1>${o.title}</h1><p class="lede">${o.lede}</p><h3>By the end of this chapter, you can</h3><ul class="clean">${o.outcomes.map(x=>`<li>${x}</li>`).join('')}</ul>${o.extraLeft||''}${o.illus||''}</div>`,
+  right:`<div class="opening">${head('In this chapter','Contents')}<h2>${o.stepsTitle||'Five steps, one skill each'}</h2>${contents(o.steps)}${o.extraRight||''}</div>`});
+const review=(o)=>({id:`c${o.n}-review`,ch:o.n,chLabel:`Chapter ${o.n}`,chTitle:o.title,title:`Chapter ${o.n} review`,
+  left:`${head(`Chapter ${o.n} · Improve`,'Review')}<h2>Chapter ${o.n} review</h2><h3>What you learned</h3><ul class="clean">${o.learned.map(x=>`<li>${x}</li>`).join('')}</ul><div data-minitest="${o.n}"></div><div data-extras="${o.n}"></div><h3>Your results</h3><div data-review="${o.n}"></div>${o.last?'<div data-progress="1"></div>':''}`,
+  right:`${head(`Chapter ${o.n} · Portfolio`,'Review')}<div data-cannow="${o.n}"></div><h2>${o.draftsTitle||'Your two drafts'}</h2><p class="small">Compare your first attempt with your revision. What did you change, and why?</p><div data-portfolio="${o.write}"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div class="row" style="margin-top:16px">${o.next?`<button type="button" class="btn" data-go="${o.next[0]}">${o.next[1]}</button>`:''}</div>`});
+const dict=()=>({id:'dict',ch:0,chLabel:'My error dictionary',chTitle:'',title:'My error dictionary',
+  left:`${head('Your notebook','Learn')}<h2>My error dictionary</h2><p>Every time you made a mistake and selected <b>Save to my journal</b>, the mistake was saved here with a better expression and the reason.</p><p>Read it before you write a practice answer. Mistakes you have already noticed are the easiest marks to win back.</p><div class="oe-insight"><span class="lab">How to use it</span>Cover the “Better” column and try to correct each mistake yourself. Then check.</div><div class="row" style="margin-top:16px"><button type="button" class="btn dict-print">Print my error dictionary</button></div><p class="small" style="margin-top:10px">Your entries are saved in this browser on this device.</p>`,
+  right:`${head('Your entries','Explore')}<div id="dict-list" class="rows"></div><div class="row" style="margin-top:16px"><button type="button" class="btn ghost dict-print">Print my error dictionary</button></div>`});
+/* add a chapter: its spreads go before the dictionary, the last spread */
+const addChapter=(c)=>{const B=window.BOOK;B.SPREADS.splice(B.SPREADS.length-1,0,...c.spreads);
+  ['ACTS','GLOSS','CHARTS','RETRIEVAL'].forEach(k=>c[k.toLowerCase()]&&Object.assign(B[k],c[k.toLowerCase()]));
+  if(c.minitest)B.MINITESTS[c.n]=c.minitest;if(c.cannow)B.CANNOW[c.n]=c.cannow;if(c.extra)B.EXTRAS[c.n]=c.extra;if(c.also)B.ALSO[c.n]=c.also};
+const newBook=(cfg)=>{window.BOOK=Object.assign({NCH:6,SPREADS:[dict()],ACTS:{},GLOSS:{},CHARTS:{},VIDEOS:[],RETRIEVAL:{},MINITESTS:{},CANNOW:{},EXTRAS:{},ALSO:{},SHEETS:false,DIAG:null},cfg)};
+return {T,head,note,take,chart,mistake,insight,taskbox,vid,contents,words,copied,figs,howto,opening,review,dict,addChapter,newBook,
+  NAVY:'#292929',GREEN:'#2B6E43',ORANGE:'#F88B48',GREY:'#9C968A',PURPLE:'#4E4178',pct:v=>v+'%'};
+})();
