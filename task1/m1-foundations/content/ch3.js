@@ -25,7 +25,7 @@ opening({n:3,title:CT,lede:'Task 1 comes in seven forms: line graphs, bar charts
   steps:[[1,'c3-s1','Seven task types','Recognise them fast','Discover'],[2,'c3-s2','Charts with numbers','Line, bar, pie, table','Understand'],[3,'c3-s3','Static or dynamic?','Time changes everything','Understand'],[4,'c3-s4','Maps, processes, mixed','Beyond numbers','Practise'],[5,'c3-s5','Chapter challenge','Three introductions','Apply'],['R','c3-review','Chapter review','Your results and your two drafts','Improve']]}),
 
 sp('c3-s1','Seven task types',{
- left:`${head('Step 1 · Discover','Learn')}<h2>Seven task types</h2>${vid({title:'Seven task types',len:'2 minutes',script:['Show seven thumbnails in a row.','Name each and give one word for what it shows: change, comparison, shares, exact figures, two visuals, places, stages.','Say: the task sentence always names the type. Read it first.']})}<ul class="clean"><li><b>Line graph:</b> change over time.</li><li><b>Bar chart:</b> comparison of categories, sometimes over time.</li><li><b>Pie chart:</b> shares of a whole.</li><li><b>Table:</b> exact figures in rows and columns.</li><li><b>Mixed charts:</b> two visuals on one topic.</li><li><b>Map:</b> how a place changed, or will change.</li><li><b>Process diagram:</b> the stages of how something happens or is made.</li></ul>${chart('water')}${take('The task sentence names the type. Read it first, and you know what to look for.')}`,
+ left:`${head('Step 1 · Discover','Learn')}<h2>Seven task types</h2>${vid({title:'Seven task types',len:'2 minutes',script:['Show seven thumbnails in a row.','Name each and give one word for what it shows: change, comparison, shares, exact figures, two visuals, places, stages.','Say: the task sentence usually tells you the type (graph, chart, table, map, diagram). Check the visual too.']})}<ul class="clean"><li><b>Line graph:</b> change over time.</li><li><b>Bar chart:</b> comparison of categories, sometimes over time.</li><li><b>Pie chart:</b> shares of a whole.</li><li><b>Table:</b> exact figures in rows and columns.</li><li><b>Mixed charts:</b> two visuals on one topic.</li><li><b>Map:</b> how a place changed, or will change.</li><li><b>Process diagram:</b> the stages of how something happens or is made.</li></ul>${chart('water')}${take('The task sentence usually tells you the type. Read it first, check the visual too, and you know what to look for.')}`,
  right:`${head('Step 1 · Activity','Explore')}<div data-act="c3-type"></div>`}),
 
 sp('c3-s2','Charts with numbers',{
@@ -37,7 +37,7 @@ sp('c3-s3','Static or dynamic?',{
  right:`${head('Step 3 · Activity','Explore')}<div data-act="c3-sd"></div><div data-act="c3-lang" style="margin-top:16px"></div>`}),
 
 sp('c3-s4','Maps, processes, mixed',{
- left:`${head('Step 4 · Practise','Learn')}<h2>Maps, processes, mixed</h2><ul class="clean"><li><b>Maps</b> show places. Describe what changed and where, usually with the past passive: <i>a car park was built</i>. A plan for the future uses <i>will be built</i>.</li><li><b>Processes</b> show stages. Describe them in order, usually with the present passive: <i>the honey is put into jars</i>.</li><li><b>Mixed charts</b> combine two visuals. Describe each one, and link them where they connect.</li></ul>${chart('village')}${chart('honey')}${take('Maps: changes and places, past passive. Processes: stages in order, present passive. Mixed: both visuals, linked.')}`,
+ left:`${head('Step 4 · Practise','Learn')}<h2>Maps, processes, mixed</h2><ul class="clean"><li><b>Maps</b> show places. With one map, describe where things are; with two maps from different years, describe what changed and where, usually with the past passive: <i>a car park was built</i>. A plan for the future uses <i>will be built</i>.</li><li><b>Processes</b> show stages. Describe them in order, usually with the present passive: <i>the honey is put into jars</i>.</li><li><b>Mixed charts</b> combine two visuals. Describe each one, and link them where they connect.</li></ul>${chart('village')}${chart('honey')}${take('Maps: changes and places, past passive. Processes: stages in order, present passive. Mixed: both visuals, linked.')}`,
  right:`${head('Step 4 · Activity','Explore')}<div data-act="c3-tense"></div><div data-act="c3-mpx" style="margin-top:16px"></div>`}),
 
 sp('c3-s5','Chapter challenge: three introductions',{
@@ -69,7 +69,7 @@ const acts={
 'c3-write':{type:'write',level:'Independent',skill:'Introductions for different types',decision:'Write an introduction for each task.',prompt:'One sentence each. Then check your writing.',
   fields:[{k:'p',label:'1. The pie chart (water use)',rows:2},{k:'t',label:'2. The table (coffee prices)',rows:2},{k:'r',label:'3. The diagram (honey)',rows:2}],
   checks:[{t:'Pie: you kept the details.',fix:'Include water, the home and one country.',fn:v=>/water/i.test(v.p)&&/(home|household)/i.test(v.p)&&/country/i.test(v.p)},
-          {t:'Table: you kept the years and the cities.',fix:'Include coffee, three cities, 2015 and 2025.',fn:v=>/coffee/i.test(v.t)&&/(three|3)\s+cities/i.test(v.t)&&/2015/.test(v.t)&&/2025/.test(v.t)},
+          {t:'Table: you kept the years and the cities.',fix:'Include coffee, three cities, 2015 and 2025.',fn:v=>/coffee/i.test(v.t)&&/(three|3)\s+(\w+\s+)?cities/i.test(v.t)&&/2015/.test(v.t)&&/2025/.test(v.t)},
           {t:'Diagram: you kept the topic.',fix:'Include honey and the idea of production.',fn:v=>/honey/i.test(v.r)&&/(produc|made|making|stages|process)/i.test(v.r)},
           {t:'You paraphrased all three.',fix:'One of your introductions copies eight or more words from its task.',fn:v=>v.p.trim()&&v.t.trim()&&v.r.trim()&&!copied(v.p,TP,8)&&!copied(v.t,TT,8)&&!copied(v.r,TR,8)}],
   modelTitle:'My model introductions',
@@ -89,7 +89,7 @@ const retrieval={
  'c3-s2':[{q:'A pie chart with no totals: write about…',opts:[{t:'shares',ok:1,why:'Not amounts.'},{t:'amounts',why:'Not given.'}]}],
  'c3-s3':[{q:'Age groups, no years: the data is…',opts:[{t:'static',ok:1,why:'Compare.'},{t:'dynamic',why:'No time.'}]}],
  'c3-s4':[{q:'A process usually uses…',opts:[{t:'the present passive',ok:1,why:'is collected.'},{t:'the past passive',why:'That is for past maps.'}]}],
- 'c3-s5':[{q:'€2.40 → €3.60 is a rise of…',opts:[{t:'a half',ok:1,why:'€1.20.'},{t:'a third',why:'That would be €0.80.'}]}]
+ 'c3-s5':[{q:'An introduction should…',opts:[{t:'paraphrase the task',ok:1,why:'New words, same meaning.'},{t:'copy the task',why:'Copied words don’t count.'}]}]
 };
 
 const minitest=[
@@ -100,7 +100,7 @@ const minitest=[
  {q:'Which chart is dynamic?',opts:[{t:'Museum visitors, 2015 to 2025',ok:1,why:'Several years.'},{t:'Exercise by age group',why:'Static.'},{t:'One pie of water use',why:'Static.'}],sp:'c3-s3'},
  {q:'Which verb suits static data?',opts:[{t:'accounted for',ok:1,why:'No change.'},{t:'rose',why:'Change.'},{t:'fell',why:'Change.'}],sp:'c3-s3'},
  {q:'A plan for a park next year uses…',opts:[{t:'will be built',ok:1,why:'Future passive.'},{t:'was built',why:'Past.'},{t:'is built',why:'Process language.'}],sp:'c3-s4'},
- {q:'How many stages are in the honey diagram?',opts:[{t:'Four',ok:1,why:'Count them.'},{t:'Three',why:'Count again.'},{t:'Six',why:'Count again.'}],sp:'c3-s5'}
+ {q:'How many stages are in the honey diagram?',opts:[{t:'Four',ok:1,why:'Count them.'},{t:'Three',why:'Count again.'},{t:'Six',why:'Count again.'}],sp:'c3-s4'}
 ];
 
 const cannow=[['Recognise all seven task types','c3-s1'],['Say what each numerical chart asks','c3-s2'],['Tell static from dynamic data','c3-s3'],['Choose verb forms for maps and processes','c3-s4'],['Write introductions for different task types','c3-s5']];

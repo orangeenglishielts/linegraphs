@@ -21,13 +21,13 @@ const words=t=>(String(t).match(/\S+/g)||[]).length;
 const HOT=Object.assign({},C.sport,{id:'ch-f2sport-hot',hot:1,hotBar:[1,2]});
 
 const spreads=[
-opening({n:6,title:CT,lede:'This chapter brings the whole module together. You’ll read a chart with the five-point check, find its key features, select and compare, and write two complete answers: one untimed and one under exam conditions.',
+opening({n:6,title:CT,lede:'This chapter brings the whole module together. You’ll read a chart with the checks from Chapters 1, 2 and 5, find its key features, select and compare, and write two complete answers: one untimed and one under exam conditions.',
   outcomes:['read a chart fully before writing','find the key features and plan around them','check your answer against the four criteria','write a complete answer of at least 150 words in 20 minutes, using '+T('selection')+' and comparison'],
   illus:illus('apply'),
-  steps:[[1,'c6-s1','Read the question','The five-point check','Discover'],[2,'c6-s2','Plan in two minutes','Key features into paragraphs','Understand'],[3,'c6-s3','Self-editing','The four criteria','Practise'],[4,'c6-s4','Writing practice','A complete answer, untimed','Apply'],[5,'c6-s5','The timed task','20 minutes','Apply'],['R','c6-review','Chapter review','Your results and your two drafts','Improve']]}),
+  steps:[[1,'c6-s1','Read the question','The full check','Discover'],[2,'c6-s2','Plan in two minutes','Key features into paragraphs','Understand'],[3,'c6-s3','Self-editing','The four criteria','Practise'],[4,'c6-s4','Writing practice','A complete answer, untimed','Apply'],[5,'c6-s5','The timed task','20 minutes','Apply'],['R','c6-review','Chapter review','Your results and your two drafts','Improve']]}),
 
 sp('c6-s1','Read the question',{
- left:`${head('Step 1 · Discover','Learn')}<h2>Read the question</h2><p>Run the five-point check from Chapter 1, then find the key features from Chapter 2.</p><ol style="padding-left:20px;margin:12px 0;display:grid;gap:8px;font-size:15px"><li><b>Title:</b> what, who, where, when.</li><li><b>Axes and units:</b> percentages of each group.</li><li><b>Legend:</b> boys and girls.</li><li><b>Static or dynamic:</b> no time, so compare.</li><li><b>Key features:</b> the highest for each group, the biggest gaps, which group leads in each sport.</li></ol>${chart('sport')}${take('Five-point check, then key features, then plan.')}`,
+ left:`${head('Step 1 · Discover','Learn')}<h2>Read the question</h2><p>Run the checks from Chapters 1, 2 and 5: read the visual, decide whether it is static or dynamic, then find the key features.</p><ol style="padding-left:20px;margin:12px 0;display:grid;gap:8px;font-size:15px"><li><b>Title:</b> what, who, where, when.</li><li><b>Axes and units:</b> percentages of each group.</li><li><b>Legend:</b> boys and girls.</li><li><b>Static or dynamic:</b> no time, so compare.</li><li><b>Key features:</b> the highest for each group, the biggest gaps, which group leads in each sport.</li></ol>${chart('sport')}${take('Five-point check, then key features, then plan.')}`,
  right:`${head('Step 1 · Activity','Explore')}<div data-act="c6-parts"></div><div data-act="c6-read" style="margin-top:16px"></div>`}),
 
 sp('c6-s2','Plan in two minutes',{
@@ -61,12 +61,12 @@ const acts={
 'c6-read':{type:'choice',level:'Supported',skill:'Key features',decision:'Which is a key feature?',
   opts:[{t:'Football was most popular among boys, but swimming among girls.',ok:1,why:'The top sport differs between the groups.'},{t:'Basketball was 20% for boys.',why:'A single figure, not a feature.'},{t:'The chart has five sports.',why:'Layout, not data.'}]},
 'c6-plan':{type:'choice',level:'Supported',skill:'Planning',decision:'Which plan is best?',
-  opts:[{t:'Body 1: the sports where boys led. Body 2: the sports where girls led.',ok:1,why:'Every boy–girl comparison stays in one paragraph.'},{t:'Body 1: boys. Body 2: girls.',why:'This separates every comparison.'},{t:'One paragraph per sport.',why:'Five short paragraphs.'}]},
+  opts:[{t:'Body 1: the sports where boys led. Body 2: the sports where girls led.',ok:1,why:'Every boy and girl comparison stays in one paragraph.'},{t:'Body 1: boys. Body 2: girls.',why:'This separates every comparison.'},{t:'One paragraph per sport.',why:'Five short paragraphs.'}]},
 'c6-group':{type:'sort',level:'Supported',skill:'Grouping',decision:'Which paragraph does each sport belong in?',cats:['Body 1: boys led','Body 2: girls led'],
   items:[{w:'Football',c:0,m:'48% against 22%.'},{w:'Swimming',c:1,m:'34% against 30%.'},{w:'Dance',c:1,m:'28% against 6%.'},{w:'Cycling',c:0,m:'25% against 18%.'},{w:'Basketball',c:0,m:'20% against 12%.'}]},
 'c6-crit':{type:'binary',level:'Supported',skill:'The four criteria',decision:'Which criterion does each problem affect most?',labels:['Task Achievement','Coherence and Cohesion','Lexical Resource','Grammatical Range and Accuracy'],
   items:[{t:'There is no overview.',a:0,right:'A clear overview is part of Task Achievement.',wrong:'A missing overview affects Task Achievement.'},
-         {t:'Body 1 is all about boys; Body 2 is all about girls.',a:1,right:'Organisation: Coherence and Cohesion.',wrong:'This is about organisation.'},
+         {t:'The comparisons between boys and girls are split across two paragraphs.',a:1,right:'Less effective organisation: Coherence and Cohesion.',wrong:'This is about organisation: Coherence and Cohesion.'},
          {t:'“Girls were more higher in dance.”',a:3,right:'A comparative error: grammar.',wrong:'“More higher” is a grammar error.'},
          {t:'“A lot more” is used in every comparison.',a:2,right:'Imprecise, repeated wording: Lexical Resource.',wrong:'This is about word choice.'}]},
 'c6-edit':{type:'choice',level:'Independent',skill:'Self-editing',decision:'Which version is stronger?',
@@ -94,7 +94,7 @@ const acts={
           {t:'You wrote numbers in full.',fix:'The graph is in thousands: write 22,000, not 22.',fn:v=>/\d{1,2},000/.test(v.a)},
           {t:'You used paragraphs.',fix:'Leave a line between your paragraphs.',fn:v=>(v.a.trim().split(/\n\s*\n/).length>=3)}],
   modelTitle:'My model answer',
-  model:`<p>The line graph illustrates how many rental e-scooters were available in three cities over the seven years from 2019 to 2025.</p><p>Overall, numbers rose substantially in City X and City Y, with City Y overtaking City X towards the end of the period. In City Z, by contrast, the number of e-scooters rose slightly at first but then declined, finishing lower than it started.</p><p>In 2019, City Z had the most e-scooters, at 4,000, followed by City X with 2,000, while City Y had none at all. City X expanded rapidly to 12,000 by 2022 and then levelled off at around 15,000. City Y grew more slowly at first, but it then rose sharply, overtaking City X between 2023 and 2024 and reaching 22,000 in 2025.</p><p>City Z followed a different pattern. Its fleet grew to 6,000 in 2020 and stayed at that level in 2021, before falling steadily to just 2,000 in 2025, half its 2019 figure.</p>`,
+  model:`<p>The line graph illustrates how many rental e-scooters were available in three cities between 2019 and 2025.</p><p>Overall, numbers rose substantially in City X and City Y, with City Y overtaking City X towards the end of the period. In City Z, by contrast, the number of e-scooters rose slightly at first but then declined, finishing lower than it started.</p><p>In 2019, City Z had the most e-scooters, at 4,000, followed by City X with 2,000, while City Y had none at all. City X expanded rapidly to 12,000 by 2022 and then levelled off at around 15,000. City Y grew more slowly at first, but it then rose sharply, overtaking City X between 2023 and 2024 and reaching 22,000 in 2025.</p><p>City Z followed a different pattern. Its fleet grew to 6,000 in 2020 and stayed at that level in 2021, before falling steadily to just 2,000 in 2025, half its 2019 figure.</p>`,
   self:['I planned for about two minutes.','My overview gives the main trends without figures.','I described change and compared the cities.','I wrote every figure with its unit.']}
 };
 
@@ -113,7 +113,7 @@ const retrieval={
 };
 
 const minitest=[
- {q:'What is the first step with any chart?',opts:[{t:'The five-point check',ok:1,why:'Title, units, legend, time, features.'},{t:'Start writing',why:'Read first.'},{t:'Count the words',why:'Later.'}],sp:'c6-s1'},
+ {q:'What is the first step with any chart?',opts:[{t:'The full check',ok:1,why:'Title, units, legend, time, features.'},{t:'Start writing',why:'Read first.'},{t:'Count the words',why:'Later.'}],sp:'c6-s1'},
  {q:'Which sport was most popular among girls?',opts:[{t:'Swimming',ok:1,why:'34%.'},{t:'Dance',why:'28%.'},{t:'Football',why:'22%.'}],sp:'c6-s1'},
  {q:'Why group by who led?',opts:[{t:'Each comparison stays in one paragraph',ok:1,why:'Clear.'},{t:'It is shorter',why:'It is clearer.'},{t:'It isn’t necessary',why:'It helps coherence.'}],sp:'c6-s2'},
  {q:'Body 1 all boys, Body 2 all girls mainly affects…',opts:[{t:'Coherence and Cohesion',ok:1,why:'Organisation.'},{t:'Lexical Resource',why:'Words may be fine.'},{t:'Grammar',why:'Grammar may be fine.'}],sp:'c6-s3'},

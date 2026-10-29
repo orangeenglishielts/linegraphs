@@ -18,7 +18,7 @@ const TR='The graph below shows the average amount of time per day that adults i
 const TT='The table below shows the population of four towns in one region in 2000 and 2020';
 
 const spreads=[
-opening({n:1,title:CT,lede:'Every Task 1 answer depends on reading the visual correctly. A missed unit or a misread legend can turn an otherwise good answer into an inaccurate one. In this chapter I’ll show you a five-point check that works for any graph, chart or table.',
+opening({n:1,title:CT,lede:'Every Task 1 answer depends on reading the visual correctly. A missed unit or a misread legend can turn an otherwise good answer into an inaccurate one. In this chapter I’ll show you a simple check that works for any graph, chart or table.',
   outcomes:['read a title for what, where and when','find the '+T('unit')+' and write it with every figure','use the legend and categories to tell the data apart','read values and time periods accurately'],
   extraLeft:insight('Your progress','Your answers, drafts and scores are saved in this browser on this device. Use the same device and browser each time, and use Copy or Download under each writing task to keep your own copy.'),
   illus:illus('eye'),
@@ -79,7 +79,7 @@ const acts={
           {t:'Task 2: you kept what, where and when.',fix:'Include population, four towns, the region, 2000 and 2020.',fn:v=>/(population|people|inhabitants|residents|lived)/i.test(v.t)&&/town/i.test(v.t)&&/2000/.test(v.t)&&/2020/.test(v.t)},
           {t:'You paraphrased both tasks.',fix:'One of your introductions copies eight or more words from the task.',fn:v=>v.r.trim()&&v.t.trim()&&!copied(v.r,TR,8)&&!copied(v.t,TT,8)}],
   modelTitle:'My model introductions',
-  model:`<p>1. <button type="button" class="hl" data-n="0">The line graph compares how long adults in one country spent each day, on average,</button> reading printed books and e-books over the period from 2000 to 2024.</p><p>2. <button type="button" class="hl" data-n="1">The table gives figures for the number of people living in four towns</button> in the same region in 2000 and 2020.</p>`,
+  model:`<p>1. <button type="button" class="hl" data-n="0">The line graph compares how long adults in one country spent each day, on average,</button> reading printed books and e-books over the period from 2000 to 2024.</p><p>2. <button type="button" class="hl" data-n="1">The table gives figures for the number of people living in four towns</button> in one region in 2000 and 2020.</p>`,
   notes:['“How long … spent each day” replaces “the average amount of time per day”.','“The number of people living in” replaces “the population of”.'],
   self:['I kept what, where and when.','I changed the words and the structure.','I added no data or opinions.','Each introduction is one sentence.'],revise:1}
 };
