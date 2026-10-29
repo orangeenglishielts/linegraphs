@@ -64,12 +64,12 @@ const acts={
   opts:[{t:'Newspapers’ share fell from a quarter to just a tenth, a drop of 15 percentage points.',ok:1,why:'Accurate fractions and points.'},{t:'Newspapers’ share fell by 15%.',why:'25% → 10% is 15 percentage points (or a 60% fall).'},{t:'Newspapers lost most of their readers.',why:'The pies show shares, not readers.'}]},
 'c6-crit':{type:'binary',level:'Supported',skill:'The criteria',decision:'Which criterion does each accuracy problem affect most?',labels:['Task Achievement','Lexical Resource'],
   items:[{t:'Airport C is said to have doubled (40,000 → 120,000).',a:0,right:'A wrong fact about the data: Task Achievement.',wrong:'The figure is misrepresented: Task Achievement.'},
-         {t:'“The vast majority” is used for 54%.',a:1,right:'Imprecise word choice: Lexical Resource.',wrong:'The data is right, the phrase is imprecise: Lexical Resource.'},
+         {t:'“The amount of flights” instead of “the number of flights”.',a:1,right:'A word-choice error: Lexical Resource.',wrong:'This is about word choice (amount for uncountables, number for countables): Lexical Resource.'},
          {t:'Airport A is said to handle 180 flights.',a:0,right:'A wrong figure: Task Achievement.',wrong:'180 flights is wrong (180,000): Task Achievement.'},
-         {t:'“Twice more than” instead of “twice as many as”.',a:1,right:'A wrong form of an expression: Lexical Resource.',wrong:'This is about the expression: Lexical Resource.'}]},
+         {t:'“Twice more than” instead of “twice as many as”.',a:1,right:'Mainly a wrong form of an expression: Lexical Resource.',wrong:'This is mainly about the expression: Lexical Resource.'}]},
 'c6-edit':{type:'fix',level:'Independent',skill:'The accuracy check',decision:'Fix the accuracy error in each sentence.',prompt:'Type your correction and press Check.',
-  items:[{wrong:'Airport C had three times more flights in 2025.',ok:/three times as many/i,bad:/times more/i,hint:'Use the as … as pattern.',err:'three times more',fix:'three times as many … as',why:'Number + times + as many + as.',model:'Airport C had three times as many flights in 2025 as in 2015.'},
-         {wrong:'Television’s share fell by 15% between 2010 and 2025.',ok:/15 percentage points/i,bad:/by 15%/i,hint:'45% → 30%: subtract.',err:'by 15%',fix:'by 15 percentage points',why:'A change between percentages is in points.',model:'Television’s share fell by 15 percentage points between 2010 and 2025.'},
+  items:[{wrong:'Airport C had three times more flights in 2025.',ok:/three times as many|tripled|trebled/i,bad:/times more/i,hint:'Use the as … as pattern.',err:'three times more',fix:'three times as many … as',why:'Number + times + as many + as.',model:'Airport C had three times as many flights in 2025 as in 2015.'},
+         {wrong:'Television’s share fell by 15% between 2010 and 2025.',ok:/(15|fifteen) percentage points/i,bad:/by 15%/i,hint:'45% → 30%: subtract.',err:'by 15%',fix:'by 15 percentage points',why:'A change between percentages is in points.',model:'Television’s share fell by 15 percentage points between 2010 and 2025.'},
          {wrong:'Airport D handled 45 flights in 2025.',ok:/45,000/i,bad:/45 flights/i,hint:'Check the axis: thousands.',err:'45 flights',fix:'45,000 flights',why:'The chart is in thousands.',model:'Airport D handled 45,000 flights in 2025.'}]},
 'c6-practice':{type:'write',level:'Independent',skill:'A complete answer, untimed',decision:'Write a complete answer.',prompt:'At least 150 words. Introduction, overview and two body paragraphs. Then check your writing.',
   fields:[{k:'intro',label:'Introduction',rows:3,ph:'The two pie charts compare…'},{k:'ov',label:'Overview',rows:3,ph:'Overall,…'},{k:'b1',label:'Body paragraph 1',rows:5},{k:'b2',label:'Body paragraph 2',rows:5}],
@@ -110,7 +110,7 @@ const retrieval={
  'c6-s2':[{q:'Online 15% → 42% is…',opts:[{t:'almost tripled',ok:1,why:'2.8 times.'},{t:'doubled',why:'Double would be 30%.'}]}],
  'c6-s3':[{q:'A wrong figure mainly affects…',opts:[{t:'Task Achievement',ok:1,why:'Accuracy of the data.'},{t:'Coherence and Cohesion',why:'That is organisation.'}]}],
  'c6-s4':[{q:'Newspapers 25% → 10%. Which is accurate?',opts:[{t:'from a quarter to a tenth',ok:1,why:'Accurate fractions.'},{t:'halved',why:'It fell further than half.'}]}],
- 'c6-s5':[{q:'Airport A 120,000 → 180,000 is…',opts:[{t:'a rise of half',ok:1,why:'×1.5.'},{t:'doubled',why:'Double is 240,000.'}]}]
+ 'c6-s5':[{q:'Airport A 120,000 → 180,000 is…',opts:[{t:'a 50% rise',ok:1,why:'×1.5.'},{t:'doubled',why:'Double is 240,000.'}]}]
 };
 
 const minitest=[
@@ -118,7 +118,7 @@ const minitest=[
  {q:'“Television’s share fell by 15%” (45% → 30%). Fix?',opts:[{t:'fell by 15 percentage points',ok:1,why:'Subtract.'},{t:'fell by 45%',why:'No.'},{t:'fell by 30%',why:'No.'}],sp:'c6-s1'},
  {q:'What should your plan include for each key figure?',opts:[{t:'The accurate phrase for it',ok:1,why:'No calculating while writing.'},{t:'An opinion',why:'No opinions.'},{t:'Nothing',why:'Plan accuracy.'}],sp:'c6-s2'},
  {q:'Television 45% in 2010 is…',opts:[{t:'almost half',ok:1,why:'Just under 50%.'},{t:'the majority',why:'Under half.'},{t:'just over half',why:'Under half.'}],sp:'c6-s2'},
- {q:'“The vast majority” for 54% mainly affects…',opts:[{t:'Lexical Resource',ok:1,why:'Imprecise wording.'},{t:'Coherence and Cohesion',why:'Not organisation.'},{t:'Grammar',why:'Grammatically fine.'}],sp:'c6-s3'},
+ {q:'“The amount of flights” mainly affects…',opts:[{t:'Lexical Resource',ok:1,why:'Word choice: the number of flights.'},{t:'Coherence and Cohesion',why:'Not organisation.'},{t:'Grammatical Range and Accuracy',why:'It is a word-choice error.'}],sp:'c6-s3'},
  {q:'Which is safe for pie charts without totals?',opts:[{t:'a smaller share of adults',ok:1,why:'Shares.'},{t:'fewer people',why:'Numbers unknown.'},{t:'5 million fewer',why:'Unknown.'}],sp:'c6-s4'},
  {q:'Airport D 60,000 → 45,000 is…',opts:[{t:'a fall of a quarter',ok:1,why:'15,000 ÷ 60,000.'},{t:'a fall of a third',why:'That would be 40,000.'},{t:'halved',why:'Half would be 30,000.'}],sp:'c6-s5'},
  {q:'How should you divide 20 minutes?',opts:[{t:'2 to plan, 15 to write, 3 to check',ok:1,why:'Every stage has time.'},{t:'20 to write',why:'No plan or check.'},{t:'10 to plan, 10 to write',why:'Too little writing time.'}],sp:'c6-s5'}

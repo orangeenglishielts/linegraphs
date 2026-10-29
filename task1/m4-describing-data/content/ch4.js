@@ -74,7 +74,7 @@ const acts={
   checks:[{t:'You used at least three ratios or fractions.',fix:'Add ratios: twice as much as, five times as much as, three-quarters of.',fn:v=>(v.a.match(/\b(twice|half|three times|four times|five times|six times|two and a half times|three-quarters|a sixth|a third|two-fifths|a quarter)\b/gi)||[]).length>=3},
           {t:'No “times more than”.',fix:'Use “as much as”, not “more than”, with a ratio.',fn:v=>!/\b(twice|times) more than\b/i.test(v.a)},
           {t:'“As much … as”, not “as much … than”.',fix:'The pattern is as much as.',fn:v=>!/as (much|many)( \w+){0,3} than/i.test(v.a)},
-          {t:'You gave salaries in euros.',fix:'Give salaries in full: €120,000.',fn:v=>(v.a.match(/€\s?\d{2,3},000/g)||[]).length>=3},
+          {t:'You gave salaries in euros.',fix:'Give salaries in full: €120,000.',fn:v=>(v.a.match(/€\s?\d{2,3},000|\b\d{2,3},000 euros/gi)||[]).length>=3},
           {t:'Your ratios are accurate.',fix:'Check your division: surgeon/engineer 2; surgeon/waiter 6; electrician/engineer 0.75.',fn:v=>!/surgeon[^.]*(three|four) times as much as (an )?engineer/i.test(v.a)&&!/half as much as an engineer/i.test(v.a)},
           {t:'Your paragraph is a good length (55 words or more).',fix:'Add detail: your paragraph is under 55 words.',fn:v=>(v.a.match(/\S+/g)||[]).length>=55}],
   modelTitle:'My model paragraph',
@@ -102,10 +102,10 @@ const minitest=[
  {q:'60 and 24. Which is accurate?',opts:[{t:'two and a half times as much',ok:1,why:'2.5.'},{t:'twice as much',why:'2 × 24 = 48.'},{t:'three times as much',why:'3 × 24 = 72.'}],sp:'c4-s1'},
  {q:'Choose the correct sentence.',opts:[{t:'An engineer earned three times as much as a waiter.',ok:1,why:'as much as.'},{t:'An engineer earned three times more than a waiter.',why:'Avoid “times more than”.'},{t:'An engineer earned three times as much than a waiter.',why:'as … as.'}],sp:'c4-s2'},
  {q:'“Twice as ___ buses”',opts:[{t:'many',ok:1,why:'Countable.'},{t:'much',why:'Buses are counted.'},{t:'more',why:'Use as many as.'}],sp:'c4-s2'},
- {q:'40 → 60 is…',opts:[{t:'a rise of half',ok:1,why:'×1.5.'},{t:'doubled',why:'×2 = 80.'},{t:'tripled',why:'×3 = 120.'}],sp:'c4-s3'},
+ {q:'40 → 60 is…',opts:[{t:'a 50% rise',ok:1,why:'×1.5.'},{t:'doubled',why:'×2 = 80.'},{t:'tripled',why:'×3 = 120.'}],sp:'c4-s3'},
  {q:'20 → 80 is…',opts:[{t:'quadrupled',ok:1,why:'×4.'},{t:'tripled',why:'×3 = 60.'},{t:'rose by 4',why:'It rose by 60.'}],sp:'c4-s3'},
  {q:'A waiter (€20,000) earned what fraction of a surgeon’s salary (€120,000)?',opts:[{t:'a sixth',ok:1,why:'20 ÷ 120.'},{t:'a fifth',why:'That would be €24,000.'},{t:'a quarter',why:'That would be €30,000.'}],sp:'c4-s4'},
- {q:'24 is what fraction of 60?',opts:[{t:'two-fifths',ok:1,why:'0.4.'},{t:'half',why:'Half is 30.'},{t:'a third',why:'A third is 20.'}],sp:'c4-s5'}
+ {q:'24 is what fraction of 60?',opts:[{t:'two-fifths',ok:1,why:'0.4.'},{t:'half',why:'Half is 30.'},{t:'a third',why:'A third is 20.'}],sp:'c4-s4'}
 ];
 
 const cannow=[['Calculate a ratio before writing it','c4-s1'],['Use twice as much as / three times as many as','c4-s2'],['Describe change with doubled, tripled and quadrupled','c4-s3'],['Express one figure as a fraction of another','c4-s4'],['Write a paragraph with accurate ratios','c4-s5']];

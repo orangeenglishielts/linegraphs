@@ -16,7 +16,7 @@ const P='Chapter 1',CT='What an Overview Is',sp=(id,title,o)=>Object.assign({id,
 const TASK='The graph below shows the number of passengers who used three railway lines in one country between 2005 and 2025';
 
 const spreads=[
-opening({n:1,title:CT,lede:'The overview is the most important paragraph in your Task 1 answer, and the one candidates most often get wrong. As an examiner, it was the first thing I looked for. In this chapter I’ll show you what an overview is, why it matters so much, and how to write one from the main features of a chart.',
+opening({n:1,title:CT,lede:'The overview is the most important paragraph in your Task 1 answer, and the one candidates most often get wrong. When I was an examiner, it was one of the first things I looked for. In this chapter I’ll show you what an overview is, why it matters so much, and how to write one from the main features of a chart.',
   outcomes:['say what an overview is and where it goes','explain why a missing overview holds back your Task Achievement score',`find the ${T('main features')} of a chart by asking three questions`,'write a two-sentence overview with no figures'],
   extraLeft:insight('Your progress','Your answers, drafts and scores are saved in this browser on this device. Use the same device and browser each time, and use Copy or Download under each writing task to keep your own copy.'),
   illus:illus('line'),
@@ -28,7 +28,7 @@ sp('c1-s1','The big picture',{exploreFirst:true,
  right:`${head('Step 1 · Activity','Explore')}<p class="small">Use the graph on the left page.</p><div data-act="c1-which"></div><div data-act="c1-sort" style="margin-top:16px"></div>`}),
 
 sp('c1-s2','Why it matters',{
- left:`${head('Step 2 · Understand','Learn')}<h2>Why it matters</h2>${vid({title:'Why the overview matters',len:'90 seconds',script:['Show the Task Achievement band descriptors side by side.','Band 7: a clear overview of the main trends, differences or stages.','Band 5: no clear overview.','Say: as an examiner, the overview was one of the first things I checked.']})}<p>Task Achievement is one of the four criteria, a quarter of your Task 1 score. The public band descriptors describe the overview directly:</p><ul class="clean"><li><b>Band 7:</b> the answer presents a clear overview of the main trends, differences or stages.</li><li><b>Band 5:</b> there is no clear overview.</li></ul>${insight('The examiner’s view','When I marked Task 1, the overview was one of the first things I looked for. Without a clear overview, your Task Achievement score is likely to be limited to Band 5, however good your details are.')}${note('“Clear” matters. A vague or inaccurate overview doesn’t count as a clear one.')}<div class="clear"></div>${take('No clear overview is likely to limit Task Achievement to Band 5. A clear one is part of Band 7.')}`,
+ left:`${head('Step 2 · Understand','Learn')}<h2>Why it matters</h2>${vid({title:'Why the overview matters',len:'90 seconds',script:['Show the Task Achievement band descriptors side by side.','Band 7: a clear overview of the main trends, differences or stages.','Band 5: no clear overview.','Say: as an examiner, the overview was one of the first things I checked.']})}<p>Task Achievement is one of the four criteria, a quarter of your Task 1 score. The public band descriptors describe the overview directly:</p><ul class="clean"><li><b>Band 7:</b> the answer presents a clear overview of the main trends, differences or stages.</li><li><b>Band 5:</b> there is no clear overview.</li></ul>${insight('The examiner’s view','When I marked Task 1, the overview was one of the first things I looked for. With no overview, Task Achievement is unlikely to go above Band 5, however good your details are. Band 6 needs an overview; Band 7 needs a clear one.')}${note('“Clear” matters for Band 7. A vague or inaccurate overview may still reach Band 6, but not Band 7.')}<div class="clear"></div>${take('With no overview, Task Achievement is unlikely to go above Band 5. Band 6 needs an overview; Band 7 needs a clear one.')}`,
  right:`${head('Step 2 · Activity','Explore')}<div data-act="c1-facts"></div>`}),
 
 sp('c1-s3','Find the main features',{
@@ -44,7 +44,7 @@ sp('c1-s5','Chapter challenge: three railway lines',{
  right:`${head('Step 5 · Writing task','Explore')}<div data-act="c1-write"></div>`}),
 
 review({n:1,title:CT,write:'c1-write',next:['c2-open','Start Chapter 2 →'],
-  learned:['An overview summarises the main features, with no detailed figures.','Without a clear overview, Task Achievement is likely to be limited to Band 5.','Ask three questions: the general pattern, the most striking feature, the exception.','Write one or two sentences with an opener, general words and links.']})
+  learned:['An overview summarises the main features, with no detailed figures.','With no overview, Task Achievement is unlikely to go above Band 5. Band 6 needs an overview; Band 7 needs a clear one.','Ask three questions: the general pattern, the most striking feature, the exception.','Write one or two sentences with an opener, general words and links.']})
 ];
 
 const acts={
@@ -56,7 +56,7 @@ const acts={
   items:[{t:'The overview is part of Task Achievement.',a:0,right:'The band descriptors mention it under Task Achievement.',wrong:'It is true: the overview is assessed under Task Achievement.'},
          {t:'A Band 7 answer presents a clear overview of the main trends, differences or stages.',a:0,right:'That is the Band 7 wording.',wrong:'It is true: that is how the Band 7 descriptor puts it.'},
          {t:'An overview should include the most important figures.',a:1,right:'Right. Figures belong in the body.',wrong:'False: an overview describes patterns, not figures.'},
-         {t:'If your details are excellent, you don’t need an overview.',a:1,right:'Right. Without a clear overview, Task Achievement is likely to be limited to Band 5.',wrong:'False: excellent details can’t replace a clear overview.'}]},
+         {t:'If your details are excellent, you don’t need an overview.',a:1,right:'Right. With no overview, Task Achievement is unlikely to go above Band 5. Band 6 needs an overview; Band 7 needs a clear one.',wrong:'False: excellent details can’t replace a clear overview.'}]},
 'c1-main1':{type:'choice',level:'Supported',skill:'The most striking feature',decision:'What is the most striking feature of the railway graph?',
   opts:[{t:'The Coast line overtook the Valley line to become the busiest.',ok:1,why:'A change of leader is often the most striking feature.'},{t:'The Northern line carried 7 million passengers in 2010.',why:'A single figure, not a main feature.'},{t:'All three lines rose.',why:'The Valley line fell.'}]},
 'c1-main2':{type:'choice',level:'Supported',skill:'The exception',decision:'Which line is the exception?',
@@ -66,7 +66,7 @@ const acts={
   distract:[{t:'from 12 million to 26 million,',why:'No figures in the overview.',fix:'passenger numbers on the Coast line rose,'},{t:'because more people live by the sea,',why:'No reasons: the graph doesn’t give them.',fix:'so that the Coast line'}],
   right:'An opener, two contrasting trends and the change of leader, with no figures.',orderMsg:'All the right pieces, but check the order: Overall, the Coast line, the Valley line, the result.',incompleteMsg:'Good so far, but incomplete. Add the result: which line became the busiest.'},
 'c1-fix':{type:'fix',level:'Supported',skill:'No figures',decision:'Rewrite each overview sentence without figures.',prompt:'Type your correction and press Check.',
-  items:[{wrong:'Overall, the Valley line fell from 18 million to 12 million.',ok:/^overall,? (passenger numbers on |use of |the number of passengers on )?the valley line (fell|declined|decreased|lost)/i,bad:/\d/,hint:'Keep the trend; remove the numbers.',err:'from 18 million to 12 million',fix:'(remove the figures)',why:'An overview gives the trend without figures.',model:'Overall, the number of passengers on the Valley line fell.'},
+  items:[{wrong:'Overall, the Valley line fell from 18 million to 12 million.',ok:/^overall,?[^.]*valley line|^overall,?[^.]*(declin|fall|fell|decreas|drop)[^.]*valley/i,bad:/\d/,hint:'Keep the trend; remove the numbers.',err:'from 18 million to 12 million',fix:'(remove the figures)',why:'An overview gives the trend without figures.',model:'Overall, the number of passengers on the Valley line fell.'},
          {wrong:'Overall, the Northern line stayed between 6 and 8 million passengers.',ok:/(little change|changed (very )?little|remained (fairly |relatively )?(stable|steady|low)|least used|lowest)/i,bad:/\d/,hint:'Describe the pattern: how much did it change?',err:'between 6 and 8 million',fix:'changed very little / remained the least used',why:'Describe the pattern, not the range.',model:'Overall, the Northern line remained the least used, with little change.'}]},
 'c1-write':{type:'write',level:'Independent',skill:'Introduction and overview',decision:'Write the introduction and the overview.',prompt:'Then check your writing.',
   fields:[{k:'intro',label:'Introduction',rows:3,ph:'The line graph illustrates…'},{k:'ov',label:'Overview',rows:4,ph:'Overall,…'}],
@@ -90,7 +90,7 @@ const gloss={
 
 const retrieval={
  'c1-s1':[{q:'Where does the overview usually go?',opts:[{t:'Straight after the introduction',ok:1,why:'Or, less often, at the end.'},{t:'In the middle of the body',why:'It is a separate paragraph.'}]}],
- 'c1-s2':[{q:'No clear overview is likely to limit Task Achievement to…',opts:[{t:'Band 5',ok:1,why:'The Band 5 descriptor mentions it.'},{t:'Band 8',why:'Much lower.'}]}],
+ 'c1-s2':[{q:'No overview at all is likely to limit Task Achievement to…',opts:[{t:'Band 5',ok:1,why:'The Band 5 descriptor mentions it.'},{t:'Band 8',why:'Much lower.'}]}],
  'c1-s3':[{q:'Which question finds the exception?',opts:[{t:'Is there a category that behaves differently?',ok:1,why:'The exception.'},{t:'What is the highest figure?',why:'That finds a main feature.'}]}],
  'c1-s4':[{q:'Can an overview include figures?',opts:[{t:'No: patterns only',ok:1,why:'Figures go in the body.'},{t:'Yes, the key ones',why:'Keep them for the body.'}]}],
  'c1-s5':[{q:'What happened to the Valley line?',opts:[{t:'Its passenger numbers fell',ok:1,why:'18 to 12 million.'},{t:'It became the busiest',why:'That is the Coast line.'}]}]
