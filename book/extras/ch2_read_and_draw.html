@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Read and Draw</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: Orange English activity page. Light header band, one 720px column of rounds, reference blocks set off by fill rather than shadow. */
+:root{
+  --bg:#FAF8F3; --surface:#FFFFFF; --ink:#292929; --muted:#6B6359; --line:#E5E1D8;
+  --orange:#F88B48; --orange-ink:#B9541A; --orange-soft:#FEF0E6;
+  --green:#5FB27B; --green-ink:#2F7A49; --green-soft:#EDF7F1;
+  --amber-ink:#8A5A00; --amber-soft:#FFF5DB;
+  --red:#D9534F; --red-ink:#A8322E; --red-soft:#FBE9E8;
+  --f-display:"Montserrat","Segoe UI",system-ui,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1D1B19; --surface:#262320; --ink:#F2EDE7; --muted:#B4AAA0; --line:#3B3631;
+  --orange-ink:#FFAD7D; --orange-soft:#3A271B; --green-ink:#8AD7A3; --green-soft:#1D3326;
+  --amber-ink:#F1C766; --amber-soft:#3A3018; --red-ink:#F29C97; --red-soft:#3D2120; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);margin:0}
+.pad{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{border-bottom:1px solid var(--line);text-align:center;padding-block:32px 24px}
+.eyebrow{font:700 11px/1 var(--f-display);letter-spacing:2px;text-transform:uppercase;color:var(--orange-ink)}
+.badge{display:inline-block;margin-top:12px;font:800 12px/1 var(--f-display);letter-spacing:.5px;background:var(--orange);color:#1f1f1f;border-radius:20px;padding:6px 12px}
+h1{font:800 clamp(22px,5vw,28px)/1.2 var(--f-display);margin:10px 0 6px;text-wrap:balance}
+header p{margin:0 auto;color:var(--muted);font-size:15px;max-width:56ch}
+main{max-width:720px;margin:0 auto;padding-block:28px 40px;display:grid;gap:36px}
+section{display:grid;gap:14px;min-width:0}
+h2{font:700 19px/1.3 var(--f-display);margin:0;text-wrap:balance}
+h3{font:700 15px/1.3 var(--f-display);margin:0}
+p{margin:0}
+.lede{color:var(--muted);font-size:15px}
+.note{background:var(--orange-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.note b{font-family:var(--f-display)}
+.ok{background:var(--green-soft)}
+.pattern{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;min-width:0}
+.pattern .form{font:700 14px/1.4 var(--f-display);color:var(--orange-ink)}
+.pattern .ex{font-size:15px}
+.pattern .why{font-size:14px;color:var(--muted)}
+.patterns{display:grid;gap:10px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font:700 12px/1.3 var(--f-display);letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.fit{color:var(--green-ink)} td.avoid{color:var(--red-ink)}
+.toprow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.count{font:600 13px/1 var(--f-body);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:6px 12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.count.done{color:var(--green-ink);border-color:var(--green);background:var(--green-soft)}
+.round{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:12px;min-width:0}
+.round.solved{border-color:var(--green)}
+.rlabel{font:700 11px/1 var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.prompt{font-size:16px;font-weight:500}
+.data{font-size:14px;color:var(--muted)}
+.gap{display:inline-block;min-width:80px;border-bottom:2px dashed var(--muted);text-align:center;color:var(--orange-ink);font-weight:700}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts.stack{flex-direction:column}
+.opt{font:600 14px/1.35 var(--f-body);text-align:left;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:9px 16px;cursor:pointer}
+.opts.stack .opt{border-radius:12px}
+.opt:hover{border-color:var(--orange)}
+.opt:focus-visible,.btn:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.opt.best{border-color:var(--green);background:var(--green-soft);color:var(--green-ink)}
+.opt.maybe{border-color:#D9A520;background:var(--amber-soft);color:var(--amber-ink)}
+.opt.no{border-color:var(--red);background:var(--red-soft);color:var(--red-ink)}
+.fb{border-left:3px solid var(--orange);background:var(--orange-soft);border-radius:0 10px 10px 0;padding:10px 14px;font-size:14px}
+.fb.best{border-left-color:var(--green);background:var(--green-soft)}
+.fb.maybe{border-left-color:#D9A520;background:var(--amber-soft)}
+.fb.no{border-left-color:var(--red);background:var(--red-soft)}
+.fb .tag{display:block;font:800 11px/1.4 var(--f-display);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.fb.best .tag{color:var(--green-ink)} .fb.maybe .tag{color:var(--amber-ink)} .fb.no .tag{color:var(--red-ink)}
+.write textarea{width:100%;min-height:150px;font:15px/1.6 var(--f-body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:700 14px/1 var(--f-display);background:var(--orange);color:#1f1f1f;border:0;border-radius:999px;padding:12px 18px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.small{font-size:13px;color:var(--muted)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px}
+.checks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.checks input{margin-top:5px;accent-color:var(--green)}
+.model{background:var(--green-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.model mark{background:transparent;color:var(--green-ink);font-weight:700}
+.wc{font-variant-numeric:tabular-nums}
+.recap{background:var(--orange);color:#1f1f1f;border-radius:16px;padding:22px 20px;display:grid;gap:8px}
+.recap h2{color:#1f1f1f}
+.recap ol{margin:0;padding-left:20px;display:grid;gap:4px}
+.backrow{margin:0 0 14px;text-align:left;max-width:720px;margin-inline:auto}
+.back{font:600 14px var(--f-body);color:var(--orange-ink)}
+footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32px;font-size:12px;color:var(--muted);letter-spacing:.5px}
+.reset{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:13px var(--f-body);justify-self:center}
+
+.dnd{display:grid;gap:14px}
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:52px;padding:10px;border:2px dashed var(--line);border-radius:12px;background:var(--bg)}
+.pool:empty::after{content:'All placed. Now check your answers.';color:var(--muted);font-size:13px;align-self:center}
+.tile{font:600 14px/1.35 var(--f-body);color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:8px 12px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;text-align:left;max-width:100%}
+.tile:hover{border-color:var(--orange)}
+.tile[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft);box-shadow:0 0 0 3px var(--orange-soft)}
+.tile.right{border-color:var(--green);background:var(--green-soft);color:var(--green-ink);cursor:default}
+.tile.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red-ink)}
+.tile:focus-visible,.slot:focus-visible,.word:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.dragcopy{position:fixed;pointer-events:none;z-index:50;opacity:.9;box-shadow:0 6px 18px rgba(0,0,0,.18);transform:rotate(-2deg)}
+.slots{display:grid;gap:10px}
+.slotrow{display:grid;gap:8px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+@media (max-width:560px){.slotrow{grid-template-columns:1fr}}
+.slotrow.tight{grid-template-columns:72px minmax(0,1fr);padding:6px 10px}
+.slotrow.tight .slot{min-height:40px}
+.slot{min-height:46px;border:2px dashed var(--muted);border-radius:10px;padding:5px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--bg);cursor:pointer;font:13px var(--f-body);color:var(--muted);text-align:left}
+.slot.hot{border-color:var(--orange);background:var(--orange-soft)}
+.slot:empty::before{content:attr(data-ph);padding:0 6px}
+.bins{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.bin{display:grid;gap:8px;align-content:start}
+.bin h3{font-size:14px}
+.bin .slot{min-height:120px;align-content:flex-start;flex-direction:column;align-items:stretch}
+.seq{display:flex;flex-wrap:wrap;gap:6px;min-height:52px;padding:10px;border:2px dashed var(--muted);border-radius:12px;background:var(--bg);align-items:center}
+.seq:empty::before{content:'Tap or drag the words here in order';color:var(--muted);font-size:13px}
+.seq .tile,.wpool .tile{padding:6px 10px}
+.order{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:o}
+.order .slotrow{grid-template-columns:28px minmax(0,1fr);counter-increment:o}
+.order .slotrow::before{content:counter(o);width:26px;height:26px;border-radius:50%;background:var(--orange);color:#1f1f1f;font:800 13px/26px var(--f-display);text-align:center}
+.notes{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.notes li{font-size:14px;border-left:3px solid var(--red);background:var(--red-soft);border-radius:0 10px 10px 0;padding:8px 12px}
+.notes li.okn{border-left-color:var(--green);background:var(--green-soft)}
+.spot{font-size:17px;line-height:2.1}
+.word{font:inherit;color:inherit;background:none;border:0;border-bottom:2px solid transparent;padding:0;margin:0;cursor:pointer;border-radius:4px}
+.word:hover{background:var(--orange-soft)}
+.word.miss{background:var(--red-soft);text-decoration:line-through;text-decoration-color:var(--red)}
+.word.hit{background:var(--green-soft);color:var(--green-ink);font-weight:700}
+.word.nope{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+@media (prefers-reduced-motion:reduce){.word.nope{animation:none}}
+
+.drawbox{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:12px}
+.drawbox.solved{border-color:var(--green)}
+.desc{font-size:16px;font-weight:500;background:var(--bg);border-radius:10px;padding:10px 14px;border-left:4px solid var(--orange)}
+.plot{width:100%;max-width:520px;justify-self:center;touch-action:none;user-select:none;-webkit-user-select:none;cursor:crosshair}
+.plot .grid line{stroke:var(--line)}
+.plot .ax{font:11px var(--f-body);fill:var(--muted)}
+.plot .you{fill:none;stroke:var(--orange);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.plot .model{fill:none;stroke:var(--green);stroke-width:2.5;stroke-dasharray:6 5}
+.plot .pt{fill:var(--surface);stroke:var(--orange);stroke-width:3;cursor:ns-resize}
+.plot .pt:focus{outline:none;stroke:var(--ink)}
+.plot .pt:focus-visible{stroke-width:5}
+.hint{font-size:13px;color:var(--muted)}
+.minis .slotrow{grid-template-columns:110px minmax(0,1fr)}
+@media (max-width:560px){.minis .slotrow{grid-template-columns:96px minmax(0,1fr)}}
+.mini{width:100px;height:46px}
+.mini polyline{fill:none;stroke:var(--orange);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.mini line{stroke:var(--line)}
+.vocab{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+</style>
+</head>
+<body>
+<header class="pad"><p class="backrow"><a class="back" href="../#review-2">← Back to the Chapter 2 review</a></p><div class="eyebrow">Mastering Line Graphs · Chapter 2 extension</div><span class="badge">All levels</span><h1>Read and draw</h1><p>Read a description, draw the line, and see whether the words match the picture in your head.</p></header>
+<main class="pad">
+<section>
+ <h2>Read it, then draw it</h2>
+ <p>If you can draw a line from a description, you really understand the words. In this activity you’ll read short descriptions of a company’s sales over one year and draw each one. Then you’ll draw a graph of your own day and describe it.</p>
+</section>
+<section id="s-voc"><div class="toprow"><h2>Match the words to the lines</h2><span class="count">0 / 8</span></div>
+<p class="lede">Drag each phrase to the line it describes.</p><div class="dnd"><div><div class="steplab small" style="margin-bottom:6px">Phrases</div><div class="pool" aria-label="Phrases"></div></div><div class="slots minis"><div class="slotrow"><svg class="mini" viewBox="0 0 100 46" aria-hidden="true"><line x1="4" y1="43" x2="96" y2="43"/><polyline points="6,38.4 28,31.2 50,24.0 72,16.8 94,9.6"/></svg><div class="slot" data-key="0" data-ph="Drop a phrase here"></div></div><div class="slotrow"><svg class="mini" viewBox="0 0 100 46" aria-hidden="true"><line x1="4" y1="43" x2="96" y2="43"/><polyline points="6,34.8 28,24.0 50,7.8 72,24.0 94,31.2"/></svg><div class="slot" data-key="1" data-ph="Drop a phrase here"></div></div><div class="slotrow"><svg class="mini" viewBox="0 0 100 46" aria-hidden="true"><line x1="4" y1="43" x2="96" y2="43"/><polyline points="6,38.4 28,18.6 50,18.6 72,18.6 94,18.6"/></svg><div class="slot" data-key="2" data-ph="Drop a phrase here"></div></div><div class="slotrow"><svg class="mini" viewBox="0 0 100 46" aria-hidden="true"><line x1="4" y1="43" x2="96" y2="43"/><polyline points="6,11.4 28,12.5 50,11.4 72,37.7 94,38.4"/></svg><div class="slot" data-key="3" data-ph="Drop a phrase here"></div></div><div class="slotrow"><svg class="mini" viewBox="0 0 100 46" aria-hidden="true"><line x1="4" y1="43" x2="96" y2="43"/><polyline points="6,24.0 28,15.0 50,31.2 72,16.1 94,27.6"/></svg><div class="slot" data-key="4" data-ph="Drop a phrase here"></div></div><div class="slotrow"><svg class="mini" viewBox="0 0 100 46" aria-hidden="true"><line x1="4" y1="43" x2="96" y2="43"/><polyline points="6,11.4 28,25.8 50,37.7 72,29.4 94,22.2"/></svg><div class="slot" data-key="5" data-ph="Drop a phrase here"></div></div><div class="slotrow"><svg class="mini" viewBox="0 0 100 46" aria-hidden="true"><line x1="4" y1="43" x2="96" y2="43"/><polyline points="6,27.6 28,26.9 50,26.2 72,25.4 94,24.4"/></svg><div class="slot" data-key="6" data-ph="Drop a phrase here"></div></div><div class="slotrow"><svg class="mini" viewBox="0 0 100 46" aria-hidden="true"><line x1="4" y1="43" x2="96" y2="43"/><polyline points="6,11.4 28,16.1 50,20.4 72,24.7 94,29.0"/></svg><div class="slot" data-key="7" data-ph="Drop a phrase here"></div></div></div>
+<div class="row"><button type="button" class="btn chk">Check</button><span class="small">Drag a card, or tap a card and then tap where it goes.</span></div>
+<div class="fb" hidden></div><ul class="notes"></ul></div></section>
+<section id="s-draw"><div class="toprow"><h2>Read and draw</h2><span class="count">0 / 7</span></div>
+<p class="lede">Each point shows sales at the end of a quarter, from 0 to 100. Read the description, draw the line, then check it.</p>
+<div class="rounds" style="display:grid;gap:16px"></div></section>
+<section id="s-day">
+ <h2>Draw your day</h2>
+ <p>How happy are you at different times of a normal day? Draw your own line from 0 (not happy at all) to 10 (very happy).</p>
+ <div class="drawbox"><svg class="plot" viewBox="0 0 320 200" role="application" aria-label="Your happiness line"></svg><p class="hint">Tap or drag above each time. Your line is saved on this device.</p></div>
+</section>
+<section class="write" id="s-write">
+ <h2>Describe your day</h2>
+ <p>Write a short paragraph about your line for someone who can’t see it. Select the main features, describe the changes with the words from this page, and compare different parts of the day.</p>
+ <label for="rd-ta" class="small">Your description</label>
+ <textarea id="rd-ta" placeholder="My happiness was lowest at 6 am, when…"></textarea>
+ <div class="row"><button type="button" class="btn show">Show an example</button><button type="button" class="btn ghost cpy">Copy my answer</button><span class="small wc"></span><span class="small cpmsg" aria-live="polite"></span></div>
+ <div class="after" hidden>
+  <div class="model"><p>The graph shows how happy one person felt at different times on a normal day. My happiness was at its <mark>lowest</mark> point at 6 am, when I woke up, but it <mark>rose sharply</mark> after breakfast, reaching 7 by 9 am. It then <mark>remained stable</mark> until lunchtime before <mark>dipping</mark> slightly in the afternoon. In the evening, it <mark>climbed steadily</mark> and <mark>peaked</mark> at 9 at 9 pm, <mark>more than three times as high as</mark> at the start of the day, before <mark>falling back</mark> to 6 at midnight.</p></div>
+  <ul class="checks" style="margin-top:12px">
+   <li><label><input type="checkbox"><span>I described the highest and lowest points.</span></label></li>
+   <li><label><input type="checkbox"><span>I used at least three different verbs of change.</span></label></li>
+   <li><label><input type="checkbox"><span>I compared two parts of the day.</span></label></li>
+   <li><label><input type="checkbox"><span>I gave figures to support each point.</span></label></li>
+  </ul>
+ </div>
+</section>
+<section class="recap"><h2>Remember</h2><ol><li>Picture the line before you choose the word.</li><li>Check the size and speed: <i>marginal</i> or <i>dramatic</i>, <i>steadily</i> or <i>sharply</i>?</li><li>After a rise or fall, say what happened next: did it <i>level off</i>, <i>peak</i>, <i>bottom out</i> or <i>recover</i>?</li></ol></section>
+<button type="button" class="reset" onclick="location.reload()">Start again</button>
+</main>
+<footer class="pad"><a class="back" href="../#review-2">← Back to the Chapter 2 review</a><br><br>orangeenglish.nl</footer>
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const TAG={best:'Best choice',maybe:'Possible, but less precise',no:'Doesn’t fit'};
+function counter(sec,total){const c=$('.count',sec);let n=0;return{inc(){n++;c.textContent=n+' / '+total+(sec.dataset.unit||'');if(n===total)c.classList.add('done')},reset(){n=0;c.textContent='0 / '+total+(sec.dataset.unit||'');c.classList.remove('done')}}}
+function buildPick(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Round'} ${i+1}</div>${it.data?`<p class="data">${it.data}</p>`:''}<p class="prompt">${it.p.replace('___','<span class="gap">___</span>')}</p><div class="opts ${it.stack?'stack':''}"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  [...it.o].map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]).forEach(x=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=x.t;
+   b.onclick=()=>{$$('.opt',o).forEach(e=>e.classList.remove('best','maybe','no'));b.classList.add(x.v);fb.hidden=false;fb.className='fb '+x.v;fb.innerHTML=`<span class="tag">${TAG[x.v]}</span>${x.n}`;
+    if(x.v==='best'&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildJudge(sec,items,labels){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Sentence'} ${i+1}</div><p class="prompt">${it.s}</p><div class="opts"></div><div class="fb" hidden></div>`;
+  const o=$('.opts',r),fb=$('.fb',r);
+  labels.forEach((l,j)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=l;
+   b.onclick=()=>{const right=j===it.a;$$('.opt',o).forEach(e=>e.classList.remove('best','no'));b.classList.add(right?'best':'no');fb.hidden=false;fb.className='fb '+(right?'best':'no');
+    fb.innerHTML=`<span class="tag">${right?'Correct':'Look again'}</span>${right?it.n:(it.hint||it.n)}`;
+    if(right&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
+  host.appendChild(r)});
+ return cnt}
+function buildWrite(sec){const ta=$('textarea',sec),wc=$('.wc',sec),msg=$('.cpmsg',sec),key='oe-b7-'+ta.id;
+ try{const v=localStorage.getItem(key);if(v)ta.value=v}catch(e){}
+ const upd=()=>{const n=(ta.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' words';try{localStorage.setItem(key,ta.value)}catch(e){}};ta.addEventListener('input',upd);upd();
+ $('.show',sec).onclick=()=>{$('.after',sec).hidden=false};
+ $('.cpy',sec).onclick=()=>{const t=ta.value;const fall=()=>{ta.focus();ta.select();msg.textContent='Selected. Copy it with your keyboard.'};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{msg.textContent='Copied.'},fall)}else fall()}}
+
+
+/* ---- drag or tap tiles into slots ----
+ cfg: {sec, tiles:[{t,key,n}], mode:'match'|'bins'|'order'|'sentence', answers (sentence mode)} */
+function buildDnd(sec,cfg){
+ const host=$('.dnd',sec),pool=$('.pool',sec),cnt=$('.count',sec),fb=$('.fb',sec),notes=$('.notes',sec);
+ let sel=null,solved=false;
+ const tiles=cfg.tiles.map((d,i)=>{const b=document.createElement('button');b.type='button';b.className='tile';b.textContent=d.t;b.dataset.key=d.key;b.dataset.i=i;b.setAttribute('aria-pressed','false');return b});
+ tiles.map(t=>[Math.random(),t]).sort((a,b)=>a[0]-b[0]).forEach(x=>pool.appendChild(x[1]));
+ const slots=()=>$$('.slot,.seq',sec);
+ const cap=s=>s.classList.contains('seq')||s.dataset.many?99:1;
+ function select(t){if(sel)sel.setAttribute('aria-pressed','false');sel=(sel===t)?null:t;if(sel)sel.setAttribute('aria-pressed','true')}
+ function place(t,s){if(!s||t.classList.contains('right'))return;
+  if(s!==pool&&cap(s)===1&&s.firstElementChild&&s.firstElementChild!==t)pool.appendChild(s.firstElementChild);
+  s.appendChild(t);t.classList.remove('wrong');t.setAttribute('aria-pressed','false');sel=null;fb.hidden=true}
+ slots().forEach(s=>s.addEventListener('click',e=>{if(e.target.closest('.tile'))return;if(sel)place(sel,s)}));
+ pool.addEventListener('click',e=>{if(e.target===pool&&sel)place(sel,pool)});
+ tiles.forEach(t=>{
+  let sx,sy,drag=null,moved=false;
+  t.addEventListener('pointerdown',e=>{if(t.classList.contains('right')||e.button>0)return;sx=e.clientX;sy=e.clientY;moved=false;t.setPointerCapture(e.pointerId)});
+  t.addEventListener('pointermove',e=>{if(sx===undefined)return;
+   if(!drag&&Math.hypot(e.clientX-sx,e.clientY-sy)>6){moved=true;const r=t.getBoundingClientRect();drag=t.cloneNode(true);drag.classList.add('dragcopy');drag.style.width=r.width+'px';drag.dx=sx-r.left;drag.dy=sy-r.top;document.body.appendChild(drag);t.style.opacity='.35'}
+   if(drag){if(e.clientY<70)scrollBy(0,-14);else if(e.clientY>innerHeight-70)scrollBy(0,14);drag.style.left=(e.clientX-drag.dx)+'px';drag.style.top=(e.clientY-drag.dy)+'px';
+    const over=document.elementFromPoint(e.clientX,e.clientY);slots().concat(pool).forEach(s=>s.classList.remove('hot'));const s=over&&over.closest('.slot,.seq,.pool');if(s&&host.contains(s))s.classList.add('hot')}});
+  const end=e=>{if(sx===undefined)return;sx=undefined;
+   if(drag){const over=document.elementFromPoint(e.clientX,e.clientY);drag.remove();drag=null;t.style.opacity='';slots().concat(pool).forEach(s=>s.classList.remove('hot'));
+    const s=over&&over.closest('.slot,.seq,.pool');if(s&&host.contains(s)){if(s.classList.contains('seq')){const near=over.closest('.tile');if(near&&near!==t&&s.contains(near)){s.insertBefore(t,near);fb.hidden=true}else place(t,s)}else place(t,s)}}};
+  t.addEventListener('pointerup',end);t.addEventListener('pointercancel',end);
+  t.addEventListener('click',e=>{if(moved){moved=false;return}if(t.classList.contains('right'))return;
+   if(cfg.mode==='sentence'&&t.parentElement===pool&&!sel){place(t,$('.seq',sec));return}
+   if(t.parentElement!==pool&&!sel){place(t,pool);return}
+   if(sel&&sel!==t&&t.parentElement!==pool){const s=t.parentElement;if(s.classList.contains('seq')){s.insertBefore(sel,t);sel.setAttribute('aria-pressed','false');sel=null;return}place(sel,s);return}
+   select(t)})});
+ $('.chk',sec).onclick=()=>{if(solved)return;fb.hidden=false;notes.innerHTML='';
+  if(cfg.mode==='sentence'){const seq=$('.seq',sec),words=$$('.tile',seq).map(x=>x.textContent).join(' ');
+   if($$('.tile',pool).length){fb.className='fb maybe';fb.innerHTML='<span class="tag">Not finished</span>Use all the words.';return}
+   const ok=cfg.answers.map(a=>a.toLowerCase()).includes(words.toLowerCase());
+   fb.className='fb '+(ok?'best':'no');fb.innerHTML=ok?`<span class="tag">Correct</span>${cfg.note||''}`:`<span class="tag">Not yet</span>${cfg.hint}`;
+   if(ok){solved=true;$$('.tile',seq).forEach(x=>x.classList.add('right'));cnt&&(cnt.textContent='1 / 1',cnt.classList.add('done'));sec.dispatchEvent(new Event('solved'))}return}
+  const placed=$$('.slot .tile',sec);let right=0,need=$$('.slot',sec).length;
+  if(cfg.mode==='bins')need=tiles.length;
+  placed.forEach(t=>{const s=t.closest('.slot'),d=cfg.tiles[t.dataset.i];const ok=s.dataset.key===String(d.key);
+   t.classList.toggle('right',ok);t.classList.toggle('wrong',!ok);if(ok)right++;
+   if(d.n&&(!ok||cfg.mode==='bins')){const li=document.createElement('li');li.className=ok?'okn':'';li.innerHTML=`<b>${d.t}</b> ${d.n}`;if(!ok||cfg.showAll)notes.appendChild(li)}});
+  cnt&&(cnt.textContent=right+' / '+need+(sec.dataset.unit||''));
+  if(right===need){solved=true;cnt&&cnt.classList.add('done');fb.className='fb best';fb.innerHTML='<span class="tag">All correct</span>'+(cfg.done||'Well done.');
+   if(cfg.showAll){notes.innerHTML='';cfg.tiles.forEach(d=>{if(d.n){const li=document.createElement('li');li.className='okn';li.innerHTML=`<b>${d.t}</b> ${d.n}`;notes.appendChild(li)}})}}
+  else{fb.className='fb maybe';fb.innerHTML=`<span class="tag">${right} of ${need} correct</span>${placed.length<need?'Place all the cards first, or look at the ones in red. ':'Look at the ones in red. '}Tap a red card to send it back, then try again.`}};
+}
+
+/* ---- short typed answers ---- items: [{p (with ___), ok:[...], n}] */
+function buildType(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';const parts=it.p.split('___');
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label} ${i+1}</div><p class="prompt">${parts[0]}<span class="gap">___</span>${parts[1]}</p><div class="typ"><input aria-label="Answer for gap ${i+1}" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="btn ghost">Check</button></div><div class="fb" hidden></div>`;
+  const inp=$('input',r),fb=$('.fb',r);
+  const go=()=>{const w=inp.value.toLowerCase().trim();if(!w)return;const ok=it.ok.includes(w);
+   inp.classList.toggle('good',ok);inp.classList.toggle('bad',!ok);fb.hidden=false;fb.className='fb '+(ok?'best':'no');
+   fb.innerHTML=ok?`<span class="tag">Correct</span>${it.n}${/^\d+$/.test(w)?' In a sentence, write the number as a word.':''}`:`<span class="tag">Not quite</span>Think of the fraction first. What fraction is the percentage?`;
+   if(ok&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};
+  $('button',r).onclick=go;inp.addEventListener('keydown',e=>{if(e.key==='Enter')go()});host.appendChild(r)});return cnt}
+
+/* ---- click the mistake ---- items: [{w:[words], bad:index, fix, n}] */
+function buildSpot(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
+ items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
+  r.innerHTML=`<div class="rlabel">${sec.dataset.label} ${i+1}</div><p class="spot"></p><div class="fb" hidden></div>`;
+  const p=$('.spot',r),fb=$('.fb',r);let tries=0;
+  it.w.forEach((w,j)=>{const b=document.createElement('button');b.type='button';b.className='word';b.textContent=w;
+   b.onclick=()=>{if(r.classList.contains('solved'))return;
+    if(j===it.bad){if(it.fix){b.classList.add('miss');const fx=document.createElement('span');fx.className='word hit';fx.textContent=it.fix;b.after(document.createTextNode(' '),fx)}else b.classList.add('hit');
+     fb.hidden=false;fb.className='fb best';fb.innerHTML=`<span class="tag">${it.fix?'Found it':'That’s the one'}</span>${it.n}`;r.classList.add('solved');cnt.inc()}
+    else{tries++;b.classList.remove('nope');void b.offsetWidth;b.classList.add('nope');fb.hidden=false;fb.className='fb no';fb.innerHTML=`<span class="tag">${it.fix?'That word is fine':'Not that one'}</span>${tries>1?it.hint:(it.fix?'Look again. Check the grammar, the figure and what the percentage is of.':'Look again. Find the main noun before “of” or before the description.')}`}};
+   p.appendChild(b);if(j<it.w.length-1)p.appendChild(document.createTextNode(' '))});
+  host.appendChild(r)});return cnt}
+
+const SEGNAME=['the first quarter','the second quarter','the third quarter','the fourth quarter'];
+const SEGRULE={up:[d=>d>=5,'go up'],down:[d=>d<=-5,'go down'],flat:[d=>Math.abs(d)<=5,'stay level'],
+ steep_up:[d=>d>=25,'rise sharply: make it steeper'],steep_down:[d=>d<=-25,'fall sharply: make it steeper'],
+ gentle_up:[d=>d>=5&&d<=20,'rise steadily: not too steep, not flat'],gentle_down:[d=>d<=-5&&d>=-20,'fall slightly'],any:[d=>true,'']};
+function lineChart(svg,vals,cls){const W=320,H=200,L=34,R=12,T=12,B=28;const x=i=>L+i*(W-L-R)/4,y=v=>T+(100-v)*(H-T-B)/100;
+ return {x,y,W,H,L,R,T,B}}
+function buildDraw(sec,items){const host=$('.rounds',sec),cnt=counter(sec,items.length);
+ items.forEach((it,k)=>{const r=document.createElement('div');r.className='drawbox';
+  r.innerHTML=`<div class="rlabel">Description ${k+1}</div><p class="desc">${it.d}</p>
+  <svg class="plot" viewBox="0 0 320 200" role="application" aria-label="Drawing area. Use the five points to draw the line."></svg>
+  <p class="hint">Tap or drag above each quarter to set the line. On a keyboard, tab to a point and use the arrow keys.</p>
+  <div class="row"><button type="button" class="btn chk">Check my line</button><button type="button" class="btn ghost shw" hidden>Show a model</button></div><div class="fb" hidden></div>`;
+  host.appendChild(r);
+  const svg=$('svg',r),g=lineChart(),NS='http://www.w3.org/2000/svg';let vals=[50,50,50,50,50],tries=0;
+  const labs=['Start','Q1','Q2','Q3','Q4'];
+  let grid='';for(let v=0;v<=100;v+=20)grid+=`<line x1="${g.L}" x2="${g.W-g.R}" y1="${g.y(v)}" y2="${g.y(v)}"/><text class="ax" x="${g.L-6}" y="${g.y(v)+4}" text-anchor="end">${v}</text>`;
+  labs.forEach((l,i)=>grid+=`<text class="ax" x="${g.x(i)}" y="${g.H-8}" text-anchor="middle">${l}</text>`);
+  svg.innerHTML=`<g class="grid">${grid}</g><polyline class="model" points="" style="display:none"/><polyline class="you" points=""/>`+labs.map((l,i)=>`<circle class="pt" r="7" tabindex="0" data-i="${i}" role="slider" aria-label="${l}" aria-valuemin="0" aria-valuemax="100"></circle>`).join('');
+  const you=$('.you',svg),pts=$$('.pt',svg),fb=$('.fb',r),model=$('.model',svg);
+  const draw=()=>{you.setAttribute('points',vals.map((v,i)=>g.x(i)+','+g.y(v)).join(' '));pts.forEach((p,i)=>{p.setAttribute('cx',g.x(i));p.setAttribute('cy',g.y(vals[i]));p.setAttribute('aria-valuenow',vals[i])})};draw();
+  const toVal=e=>{const b=svg.getBoundingClientRect(),sx=320/b.width,px=(e.clientX-b.left)*sx,py=(e.clientY-b.top)*sx;
+   let i=Math.round((px-g.L)/((g.W-g.L-g.R)/4));i=Math.max(0,Math.min(4,i));let v=100-(py-g.T)/((g.H-g.T-g.B)/100);v=Math.max(0,Math.min(100,Math.round(v/5)*5));return [i,v]};
+  let dragI=null;
+  svg.addEventListener('pointerdown',e=>{if(r.classList.contains('solved'))return;const [i,v]=toVal(e);dragI=i;vals[i]=v;draw();fb.hidden=true;svg.setPointerCapture(e.pointerId);e.preventDefault()});
+  svg.addEventListener('pointermove',e=>{if(dragI===null)return;const [,v]=toVal(e);vals[dragI]=v;draw()});
+  const up=()=>{dragI=null};svg.addEventListener('pointerup',up);svg.addEventListener('pointercancel',up);
+  pts.forEach((p,i)=>p.addEventListener('keydown',e=>{if(r.classList.contains('solved'))return;if(e.key==='ArrowUp'||e.key==='ArrowRight'){vals[i]=Math.min(100,vals[i]+5)}else if(e.key==='ArrowDown'||e.key==='ArrowLeft'){vals[i]=Math.max(0,vals[i]-5)}else return;e.preventDefault();draw();fb.hidden=true}));
+  $('.shw',r).onclick=()=>{model.setAttribute('points',it.model.map((v,i)=>g.x(i)+','+g.y(v)).join(' '));model.style.display=''};
+  $('.chk',r).onclick=()=>{const probs=[];
+   it.segs.forEach((s,i)=>{const d=vals[i+1]-vals[i],[ok,msg]=SEGRULE[s];if(!ok(d))probs.push(`In ${SEGNAME[i]}, the line should ${msg}.`)});
+   if(it.pts)Object.entries(it.pts).forEach(([i,[lo,hi]])=>{const v=vals[+i];if(v<lo||v>hi)probs.push(`At ${labs[+i]==='Start'?'the start':'the end of '+labs[+i]}, sales should be about ${Math.round((lo+hi)/2)}. Yours is at ${v}.`)});
+   if(it.allpts&&vals.some(v=>v<it.allpts[0]||v>it.allpts[1]))probs.push(`Keep every point between ${it.allpts[0]+5} and ${it.allpts[1]-5}.`);
+   if(it.fluct){const ds=vals.slice(1).map((v,i)=>v-vals[i]);if(ds.some(d=>Math.abs(d)<5)||ds.some((d,i)=>i&&Math.sign(d)===Math.sign(ds[i-1])))probs.push('Fluctuating means up, down, up, down: change direction every quarter.')}
+   if(it.lt)it.lt.forEach(([a,b,m])=>{if(!(vals[a]<vals[b]))probs.push(m)});
+   if(it.accel){const ds=vals.slice(1,4).map((v,i)=>v-vals[i]);if(!(ds[1]>ds[0]&&ds[2]>ds[1]))probs.push('“More and more quickly”: each of the first three rises should be bigger than the one before.')}
+   fb.hidden=false;
+   if(!probs.length){fb.className='fb best';fb.innerHTML=`<span class="tag">That matches</span>${it.n}`;$('.shw',r).hidden=false;$('.shw',r).click();
+    if(!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}}
+   else{tries++;fb.className='fb maybe';fb.innerHTML=`<span class="tag">Not quite</span>${probs.slice(0,2).join(' ')}`;if(tries>=2)$('.shw',r).hidden=false}}})}
+function buildDay(sec){const svg=$('svg',sec),NS='http://www.w3.org/2000/svg';const W=320,H=200,L=30,R=12,T=12,B=28,N=7;
+ const labs=['6 am','9 am','12 pm','3 pm','6 pm','9 pm','12 am'],x=i=>L+i*(W-L-R)/(N-1),y=v=>T+(10-v)*(H-T-B)/10;
+ let vals;try{vals=JSON.parse(localStorage.getItem('oe-rd-day'))}catch(e){}if(!Array.isArray(vals)||vals.length!==N)vals=[5,5,5,5,5,5,5];
+ let grid='';for(let v=0;v<=10;v+=2)grid+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-6}" y="${y(v)+4}" text-anchor="end">${v}</text>`;
+ labs.forEach((l,i)=>grid+=`<text class="ax" x="${x(i)}" y="${H-8}" text-anchor="middle">${l}</text>`);
+ svg.innerHTML=`<g class="grid">${grid}</g><polyline class="you"/>`+labs.map((l,i)=>`<circle class="pt" r="7" tabindex="0" role="slider" aria-label="${l}" aria-valuemin="0" aria-valuemax="10"></circle>`).join('');
+ const you=$('.you',svg),pts=$$('.pt',svg);
+ const draw=()=>{you.setAttribute('points',vals.map((v,i)=>x(i)+','+y(v)).join(' '));pts.forEach((p,i)=>{p.setAttribute('cx',x(i));p.setAttribute('cy',y(vals[i]));p.setAttribute('aria-valuenow',vals[i])});try{localStorage.setItem('oe-rd-day',JSON.stringify(vals))}catch(e){}};draw();
+ const toVal=e=>{const b=svg.getBoundingClientRect(),s=W/b.width,px=(e.clientX-b.left)*s,py=(e.clientY-b.top)*s;let i=Math.round((px-L)/((W-L-R)/(N-1)));i=Math.max(0,Math.min(N-1,i));let v=Math.round(10-(py-T)/((H-T-B)/10));return [i,Math.max(0,Math.min(10,v))]};
+ let di=null;svg.addEventListener('pointerdown',e=>{const [i,v]=toVal(e);di=i;vals[i]=v;draw();svg.setPointerCapture(e.pointerId);e.preventDefault()});
+ svg.addEventListener('pointermove',e=>{if(di===null)return;vals[di]=toVal(e)[1];draw()});svg.addEventListener('pointerup',()=>di=null);svg.addEventListener('pointercancel',()=>di=null);
+ pts.forEach((p,i)=>p.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='ArrowRight')vals[i]=Math.min(10,vals[i]+1);else if(e.key==='ArrowDown'||e.key==='ArrowLeft')vals[i]=Math.max(0,vals[i]-1);else return;e.preventDefault();draw()}))}
+
+buildDnd($('#s-voc'),{tiles:[{"t": "rose steadily", "key": 0, "n": "A regular rise at the same speed."}, {"t": "peaked, then fell", "key": 1, "n": "Reached its highest point, then went down."}, {"t": "reached a plateau", "key": 2, "n": "Rose, then stayed at the same level. Also: levelled off, flattened out."}, {"t": "plunged", "key": 3, "n": "Fell suddenly and a long way."}, {"t": "fluctuated", "key": 4, "n": "Went up and down. Not an overall rise or fall."}, {"t": "bottomed out, then made a partial recovery", "key": 5, "n": "Fell to its lowest point, then rose, but not back to where it started."}, {"t": "showed a marginal rise", "key": 6, "n": "Rose very slightly."}, {"t": "fell gradually", "key": 7, "n": "Fell slowly and evenly."}],mode:'match',showAll:true,done:'Keep these lines in mind for the drawing activity.'});
+buildDraw($('#s-draw'),[{"d": "Sales rose steadily throughout the year, from 20 to 80.", "segs": ["gentle_up", "gentle_up", "gentle_up", "gentle_up"], "pts": {"0": [15, 25], "4": [75, 85]}, "model": [20, 35, 50, 65, 80], "n": "<b>Rose steadily</b>: the same rise every quarter, with no sudden jumps."}, {"d": "Sales climbed rapidly in the first quarter, from 20 to about 70, and then reached a plateau for the rest of the year.", "segs": ["steep_up", "flat", "flat", "flat"], "pts": {"0": [15, 25], "1": [60, 80]}, "model": [20, 70, 70, 70, 70], "n": "<b>Reached a plateau</b>: stayed at the same level after rising."}, {"d": "After remaining stable at 60 for the first half of the year, sales plunged to 20 in the third quarter and then levelled off.", "segs": ["flat", "flat", "steep_down", "flat"], "pts": {"0": [55, 65], "3": [15, 25]}, "model": [60, 60, 60, 20, 20], "n": "<b>Plunged</b>: a sudden, large fall. <b>Levelled off</b>: stopped falling and stayed level."}, {"d": "Sales fell considerably over the first two quarters and bottomed out at 20. They then made a partial recovery, reaching 50 by the end of the year.", "segs": ["down", "down", "up", "up"], "pts": {"2": [15, 25], "4": [45, 55]}, "lt": [[4, 0, "A <b>partial</b> recovery means sales didn\u2019t get back to where they started. Make the starting point higher than 50."]], "model": [70, 45, 20, 35, 50], "n": "<b>Bottomed out</b>: reached the lowest point and stopped falling. <b>Partial recovery</b>: rose again, but not back to the start."}, {"d": "Sales fluctuated between 40 and 60 all year.", "segs": ["any", "any", "any", "any"], "fluct": true, "allpts": [35, 65], "model": [50, 60, 40, 60, 40], "n": "<b>Fluctuated</b>: up and down, with no clear overall rise or fall."}, {"d": "There was a marginal rise in the first three quarters, from 50 to 55, followed by a dramatic fall to 10 in the final quarter.", "segs": ["any", "any", "any", "steep_down"], "pts": {"0": [45, 55], "3": [50, 60], "4": [5, 15]}, "lt": [[0, 3, "A marginal <b>rise</b>: the third-quarter point should be a little higher than the start."]], "model": [50, 52, 53, 55, 10], "n": "<b>Marginal</b>: very small. <b>Dramatic</b>: very large."}, {"d": "Sales grew more and more quickly, peaking at 90 at the end of the third quarter, then fell back slightly to 80.", "segs": ["up", "up", "up", "gentle_down"], "pts": {"3": [85, 95], "4": [75, 85]}, "accel": true, "model": [30, 40, 60, 90, 80], "n": "<b>More and more quickly</b>: each rise is bigger than the one before. <b>Fell back slightly</b>: a small fall after the peak."}]);
+buildDay($('#s-day'));
+buildWrite($('#s-write'));
+</script>
+</body>
+</html>
