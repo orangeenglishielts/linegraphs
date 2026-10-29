@@ -103,10 +103,91 @@ footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32p
 .cg{stroke:var(--line)} .ca{stroke:var(--ink);stroke-width:1.2}
 .s1{stroke:var(--orange)} .s1-dot{fill:var(--orange)} .s2{stroke:var(--muted)} .s2-dot{fill:var(--muted)}
 .cap{font-size:13px;color:var(--muted)}
+
+.cheer{display:flex;gap:10px;align-items:center;background:var(--green-soft);border:2px solid var(--green);border-radius:12px;padding:12px 14px;font-size:15px;font-weight:600;color:var(--green-ink)}
+.cheer[hidden]{display:none}
+.cheer .em{font-size:22px;line-height:1}
+.cheer.pop{animation:cpop .45s ease-out}
+@keyframes cpop{0%{transform:scale(.96);opacity:0}60%{transform:scale(1.02);opacity:1}100%{transform:scale(1)}}
+.fb .lift{display:block;margin-top:4px;font-weight:600;color:var(--green-ink)}
+.fb.no .lift,.fb.maybe .lift{color:var(--muted);font-weight:500}
+.tpanel .cheer{margin-top:2px}
+@media (prefers-reduced-motion:reduce){.cheer.pop{animation:none}}
+/* ===== Interactive additions: graph tour, reveal cards, which-word flow ===== */
+.tour{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.tour .chart{border:0;border-radius:0;padding:12px 8px 4px}
+.ring{fill:none;stroke:var(--orange);stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;transition:stroke-dashoffset .7s ease-out,opacity .2s}
+.ring.on{stroke-dashoffset:0;opacity:1}
+.ringfill{fill:var(--orange);opacity:0;transition:opacity .4s}
+.ringfill.on{opacity:.12}
+.tpanel{border-top:1px solid var(--line);padding:14px 16px 16px;display:grid;gap:8px;background:var(--orange-soft)}
+.tstep{font:700 11px/1 var(--f-display);letter-spacing:1px;text-transform:uppercase;color:var(--orange-ink)}
+.tpanel h3{font-size:17px}
+.tpanel .use{background:var(--surface);border-radius:10px;padding:10px 12px;font-size:15px}
+.tpanel .use b{display:block;font:800 10.5px/1.4 var(--f-display);letter-spacing:.8px;text-transform:uppercase;color:var(--green-ink)}
+.tnav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px}
+.tdots{display:flex;gap:6px;flex-wrap:wrap}
+.tdots button{width:12px;height:12px;border-radius:50%;border:2px solid var(--orange);background:transparent;padding:0;cursor:pointer}
+.tdots button[aria-current="step"]{background:var(--orange)}
+.tnav .btn{padding:10px 16px;white-space:nowrap}
+@media (max-width:480px){.tnav{gap:6px}.tnav .btn{padding:9px 12px;font-size:13px}.tdots{gap:4px;flex-wrap:nowrap}.tdots button{width:10px;height:10px}}
+.btn:disabled{opacity:.4;cursor:default}
+
+.flips{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.flip{position:relative;display:grid;text-align:left;font:inherit;color:inherit;background:transparent;border:0;padding:0;cursor:pointer;perspective:900px;min-height:118px}
+.flip .face{grid-area:1/1;display:flex;flex-direction:column;gap:6px;border-radius:12px;padding:12px 14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .5s ease}
+.flip .front{background:var(--surface);border:2px solid var(--line)}
+.flip .back{background:var(--green-soft);border:2px solid var(--green);transform:rotateY(180deg)}
+.flip[aria-expanded="true"] .front{transform:rotateY(-180deg)}
+.flip[aria-expanded="true"] .back{transform:rotateY(0)}
+.flip:hover .front{border-color:var(--orange)}
+.flip:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:12px}
+.flip .k{font:800 10.5px/1.4 var(--f-display);letter-spacing:.8px;text-transform:uppercase}
+.flip .front .k{color:var(--red-ink)} .flip .back .k{color:var(--green-ink)}
+.flip .txt{font-size:15px;font-weight:600;line-height:1.35}
+.flip .back .txt{color:var(--green-ink)}
+.flip .front .txt{color:var(--ink);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:1.5px}
+.flip .hint{margin-top:auto;font-size:12px;color:var(--muted)}
+.flip svg{width:64px;height:30px;display:block}
+.flip svg .a{stroke:var(--orange);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.flip svg .b{stroke:var(--muted);stroke-width:2.6;fill:none;stroke-dasharray:4 3;stroke-linecap:round}
+.flip svg .p{fill:var(--orange)}
+.flip svg .t{font:700 9px var(--f-display);fill:var(--muted)}
+.fliprow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){.flip .face,.ring,.ringfill{transition:none}}
+
+.flow{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:minmax(0,1.25fr) 56px minmax(0,1fr);row-gap:6px;align-items:center}
+.fq,.fa{border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.4;transition:box-shadow .25s,opacity .25s,background .25s}
+.fq{background:var(--bg);border:2px solid var(--line)}
+.fq b{font-family:var(--f-display);display:block;font-size:14.5px}
+.fq small{color:var(--muted);font-size:12.5px}
+.fa{border:2px solid var(--line);text-align:center}
+.fa b{display:block;font:800 15px/1.3 var(--f-display)}
+.fa small{color:var(--muted);font-size:12.5px}
+.fa.pct b{color:var(--orange-ink)} .fa.num b{color:var(--green-ink)} .fa.amt b{color:#5B4BA0}
+:root[data-theme="dark"] .fa.amt b{color:#B7A9F0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .fa.amt b{color:#B7A9F0}}
+.farr{font:700 12px/1.2 var(--f-display);color:var(--muted);text-align:center;transition:color .25s}
+.farr.down{justify-self:start;padding-left:18px}
+.flow.picked .fq,.flow.picked .fa,.flow.picked .farr{opacity:.35}
+.flow.picked .lit{opacity:1;box-shadow:0 0 0 3px var(--orange)}
+.flow.picked .farr.lit{opacity:1;box-shadow:none;color:var(--orange-ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:600 13.5px/1.3 var(--f-body);background:var(--surface);color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer}
+.chip:hover{border-color:var(--orange)}
+.chip[aria-pressed="true"]{border-color:var(--orange);background:var(--orange-soft)}
+.chip:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.fout{border-left:3px solid var(--orange);background:var(--orange-soft);border-radius:0 10px 10px 0;padding:10px 14px;font-size:15px;min-height:48px}
+.fout .tag{display:block;font:800 11px/1.4 var(--f-display);letter-spacing:.5px;text-transform:uppercase;color:var(--orange-ink)}
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.tip{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px;display:grid;gap:4px;align-content:start}
+.tip b{font:700 13.5px/1.3 var(--f-display)}
+.tip .ex{color:var(--muted)}
+@media (max-width:480px){.flow{grid-template-columns:minmax(0,1.2fr) 40px minmax(0,1fr);padding:12px}.fq,.fa{padding:8px 9px;font-size:13px}.fa b{font-size:13.5px}}
 </style>
 </head>
 <body>
-<header class="pad"><p class="backrow"><a class="back" href="../#review-1">← Back to the Chapter 1 review</a></p><div class="eyebrow">Mastering Line Graphs · Chapter 1 extension</div><span class="badge">Foundation · Band 5–6</span><h1>Describe the data, not the line</h1><p>Why “the line goes up” loses marks, and how to say what actually changed.</p></header>
+<header class="pad"><p class="backrow"><a class="back" href="../#review-1">← Back to the Chapter 1 review</a></p><div class="eyebrow">Mastering Line Graphs · Chapter 1 extension</div><span class="badge">Foundation · Band 5–6</span><h1>Describe the data, not the line</h1><p>Why “the line goes up” loses marks, and how to say what actually changed.</p><p style="margin-top:8px;font-weight:600;color:var(--green-ink)">You already know what the graph shows. This page helps you say it like a Band 6+ writer.</p></header>
 <main class="pad">
 <section>
  <h2>Describe the data, not the picture</h2>
@@ -114,30 +195,32 @@ footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32p
  <div class="note"><b>Weak:</b> The blue line goes up and then the red line goes down.<br><b>Better:</b> The number of people who cycled to work rose, while car use fell.</div>
  <p>You can look at the lines to find the story. When you write, describe what each line measures.</p>
 </section>
+<section id="s-tour">
+ <h2>What to look for on a line graph</h2>
+ <p class="lede">Before you write anything, read the graph in this order. Use <b>Next</b> to move through it. Each step circles one thing to check and shows how to use it in your answer.</p>
+ <div class="tour" id="tour">
+  <div class="chart" id="c-tour"></div>
+  <div class="tpanel" aria-live="polite">
+   <span class="tstep"></span>
+   <h3 class="ttitle"></h3>
+   <p class="twhat"></p>
+   <div class="use"><b>In your answer</b><span class="tuse"></span></div>
+   <div class="tnav"><button type="button" class="btn ghost tprev">← Back</button><div class="tdots" role="group" aria-label="Steps"></div><button type="button" class="btn tnext">Next →</button></div>
+  </div>
+ </div>
+</section>
 <section>
  <h2>Three steps for every sentence</h2>
  <div class="patterns">
   <div class="pattern"><span class="form">1 · Find what is measured</span><span class="ex">Read the title, the vertical axis and the legend.</span><span class="why">The legend says the solid line is “online”, and the axis says “% of adults”.</span></div>
-  <div class="pattern"><span class="form">2 · Build the subject</span><span class="ex"><b>the number of</b> + countable noun · <b>the amount of</b> + uncountable noun · <b>the percentage / proportion of</b> + noun</span><span class="why">the percentage of adults who read the news online · the number of visitors · the amount of water used</span></div>
+  <div class="pattern"><span class="form">2 · Build the subject</span><span class="ex"><b>the number of</b> + countable noun · <b>the amount of</b> + uncountable noun · <b>the percentage / proportion of</b> + noun</span><span class="why">the percentage of adults who read the news online · the number of visitors · the amount of water used · <a href="#s-which">Which one? See the guide below</a></span></div>
   <div class="pattern"><span class="form">3 · Add a trend verb, the figures and the time</span><span class="ex">The percentage of adults who read the news online <b>rose from 18% in 2004 to 74% in 2024</b>.</span><span class="why">What, what happened, how much, when.</span></div>
  </div>
 </section>
 <section>
  <h2>Instead of the line, say…</h2>
- <div class="tbl"><table>
-  <thead><tr><th>Don’t write</th><th>Write</th></tr></thead>
-  <tbody>
-   <tr><td class="avoid">The line goes up.</td><td class="fit">The number of visitors rose.</td></tr>
-   <tr><td class="avoid">The line goes down a lot.</td><td class="fit">Car use fell sharply.</td></tr>
-   <tr><td class="avoid">The line is flat.</td><td class="fit">Sales remained stable.</td></tr>
-   <tr><td class="avoid">The line goes up and down.</td><td class="fit">Prices fluctuated.</td></tr>
-   <tr><td class="avoid">The line is at the top in August.</td><td class="fit">Visitor numbers peaked in August.</td></tr>
-   <tr><td class="avoid">The lines cross.</td><td class="fit">Online reading overtook print reading.</td></tr>
-   <tr><td class="avoid">The orange line / the dotted one</td><td class="fit">online reading / the figure for Japan</td></tr>
-   <tr><td class="avoid">Print is above online.</td><td class="fit">Print reading was higher than online reading.</td></tr>
-   <tr><td class="avoid">The line graph below shows…</td><td class="fit">The line graph illustrates…</td></tr>
-   <tr><td class="avoid">Japan is below Norway.</td><td class="fit">The figure for Japan was lower than Norway’s.</td></tr>
-  </tbody></table></div>
+ <div class="fliprow"><p class="lede">Each card shows a sentence that describes the picture. Think how you would say it, then select the card to see a better version.</p><button type="button" class="btn ghost" id="flip-all">Reveal all</button></div>
+ <div class="flips" id="flips"></div>
  <div class="note"><b>Above and below</b> make the reader picture the lines. To compare two figures, prefer <i>higher than</i>, <i>lower than</i>, <i>more than</i> or <i>less than</i>. (With a figure, <i>fell below 20%</i> is fine.)</div>
  <div class="note"><b>In your introduction</b>, don’t copy “below” from the task. The task says <i>The graph below shows…</i> because the graph is under the question on the exam paper. In your answer, “the graph above” or “the graph below” makes no sense. Write <i>The line graph illustrates…</i> or <i>The line graph compares…</i></div>
  <div class="note"><b>After the first mention</b>, you don’t need the full subject every time. Use a shorter form: <i>the figure for Japan</i>, <i>this figure</i>, <i>visitor numbers</i>, <i>online reading</i>. Use <i>it</i> only when there is just one thing it could mean.</div>
@@ -165,14 +248,42 @@ footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32p
  <div class="chart" id="c-book"></div>
  <div class="rounds"></div>
 </section>
+<section id="s-which">
+ <h2>Number, amount or percentage: which one?</h2>
+ <p>Your subject needs the right word in front of the noun. Ask two questions, in this order. The first is about the <b>graph</b>, the second about the <b>noun</b>.</p>
+ <div class="flow" id="flow">
+  <div class="fq" id="f-q1"><b>1 · Are the figures percentages?</b><small>Look at the vertical axis. Does it say %?</small></div>
+  <div class="farr" id="f-y1">Yes →</div>
+  <div class="fa pct" id="f-pct"><b>the percentage of<br>the proportion of</b><small>households, adults, electricity</small></div>
+  <div class="farr down" id="f-n1">No ↓</div><div></div><div></div>
+  <div class="fq" id="f-q2"><b>2 · Can you count it?</b><small>Can you say one, two, three of them? (one visitor, two visitors)</small></div>
+  <div class="farr" id="f-y2">Yes →</div>
+  <div class="fa num" id="f-num"><b>the number of</b><small>visitors, people, cars</small></div>
+  <div></div>
+  <div class="farr" id="f-n2">No →</div>
+  <div class="fa amt" id="f-amt"><b>the amount of</b><small>water, money, rice</small></div>
+ </div>
+ <p class="small">Try it: select something that might be on a graph, and follow the path.</p>
+ <div class="chips" id="chips" role="group" aria-label="Examples"></div>
+ <div class="fout" id="fout" aria-live="polite"><span class="tag">Your result</span>Select an example above.</div>
+ <div class="tips">
+  <div class="tip"><b>Percentage or proportion?</b><span>When the figures are %, both are correct. Use one in the first sentence and the other later for variety.</span><span class="ex">the percentage of households… the proportion who…</span></div>
+  <div class="tip"><b>The % on the axis decides</b><span>If the axis shows %, don’t write “number of”, even with countable nouns. The graph doesn’t tell you how many households there were.</span><span class="ex">✗ the number of households rose to 85%</span></div>
+  <div class="tip"><b>People are always “number”</b><span>Never “the amount of people”. People, students, tourists and cars can be counted.</span><span class="ex">✓ the number of tourists</span></div>
+  <div class="tip"><b>Money is “amount”</b><span>You can count euros, but money itself is uncountable. Or name the measure instead.</span><span class="ex">✓ the amount of money spent · spending rose</span></div>
+  <div class="tip"><b>The verb is singular</b><span>The subject is “the number”, “the amount” or “the percentage”, so use a singular verb.</span><span class="ex">✓ The number of visitors was 4,000.</span></div>
+  <div class="tip"><b>Percentage points</b><span>From 40% to 50% is a rise of 10 <i>percentage points</i>. Saying it rose by 10% is a different number.</span><span class="ex">✓ rose by 10 percentage points</span></div>
+ </div>
+</section>
 <section id="s-subj" data-label="Sentence">
  <div class="toprow"><h2>Number, amount or percentage?</h2><span class="count">0 / 5</span></div>
- <p class="lede">Check two things: can you count it, and what unit are the figures in?</p>
+ <p class="lede">Now practise. Use the two questions: are the figures %, and can you count it?</p>
  <div class="rounds"></div>
 </section>
 <section class="write" id="s-write">
  <h2>Your turn</h2>
  <p>Rewrite this paragraph about the news graph. Don’t use the words <i>line</i>, <i>solid</i>, <i>dashed</i> or any colours.</p>
+ <p class="small" style="color:var(--green-ink);font-weight:600">You’ve practised every piece of this. Now put it together. It doesn’t need to be perfect.</p>
  <div class="chart" id="c-news2"></div>
  <div class="note">The solid line starts at 18% and goes up to 74%. The dashed line goes down from 64% to 26%. The lines cross between 2012 and 2016. After 2020 the solid line only goes up a little.</div>
  <label for="line-ta" class="small">Your paragraph</label>
@@ -196,13 +307,19 @@ footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32p
 <script>
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const TAG={best:'Best choice',maybe:'Possible, but less precise',no:'Doesn’t fit'};
-function counter(sec,total){const c=$('.count',sec);let n=0;return{inc(){n++;c.textContent=n+' / '+total+(sec.dataset.unit||'');if(n===total)c.classList.add('done')},reset(){n=0;c.textContent='0 / '+total+(sec.dataset.unit||'');c.classList.remove('done')}}}
+const YES=['Spot on!','That’s examiner language.','Exactly right.','Nice work. You’re reading the data, not the picture.','Great choice.','You’ve got it.','Yes! That’s a Band 6+ sentence.','Perfect.'];
+const TRY=['Not quite, but this is how you learn. Try again.','Close. Have another look.','Good try. Read the feedback and pick again.','Mistakes here mean fewer in the exam. Try again.'];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function cheer(after,em,msg){let c=after.nextElementSibling;if(!c||!c.classList.contains('cheer')){c=document.createElement('div');c.className='cheer';c.setAttribute('role','status');after.after(c)}
+ c.innerHTML=`<span class="em" aria-hidden="true">${em}</span><span>${msg}</span>`;c.hidden=false;c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop')}
+const DONE={'s-pick':['🎉','All seven! You’re already describing graphs the way examiners want.'],'s-num':['💪','Four out of four. Million, thousand, millions of: sorted.'],'s-subj':['⭐','All five correct. Number, amount and percentage are under control.']};
+function counter(sec,total){const c=$('.count',sec);let n=0;return{inc(){n++;c.textContent=n+' / '+total+(sec.dataset.unit||'');if(n===total){c.classList.add('done');const d=DONE[sec.id];if(d)cheer($('.rounds',sec),d[0],d[1])}},reset(){n=0;c.textContent='0 / '+total+(sec.dataset.unit||'');c.classList.remove('done')}}}
 function buildPick(sec,items){const cnt=counter(sec,items.length),host=$('.rounds',sec);
  items.forEach((it,i)=>{const r=document.createElement('div');r.className='round';
   r.innerHTML=`<div class="rlabel">${sec.dataset.label||'Round'} ${i+1}</div>${it.data?`<p class="data">${it.data}</p>`:''}<p class="prompt">${it.p.replace('___','<span class="gap">___</span>')}</p><div class="opts ${it.stack?'stack':''}"></div><div class="fb" hidden></div>`;
   const o=$('.opts',r),fb=$('.fb',r);
   [...it.o].map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]).forEach(x=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=x.t;
-   b.onclick=()=>{$$('.opt',o).forEach(e=>e.classList.remove('best','maybe','no'));b.classList.add(x.v);fb.hidden=false;fb.className='fb '+x.v;fb.innerHTML=`<span class="tag">${TAG[x.v]}</span>${x.n}`;
+   b.onclick=()=>{$$('.opt',o).forEach(e=>e.classList.remove('best','maybe','no'));b.classList.add(x.v);fb.hidden=false;fb.className='fb '+x.v;fb.innerHTML=`<span class="tag">${TAG[x.v]}</span>${x.n}<span class="lift">${x.v==='best'?pick(YES):pick(TRY)}</span>`;
     if(x.v==='best'&&!r.classList.contains('solved')){r.classList.add('solved');cnt.inc()}};o.appendChild(b)});
   host.appendChild(r)});
  return cnt}
@@ -219,7 +336,7 @@ function buildJudge(sec,items,labels){const cnt=counter(sec,items.length),host=$
 function buildWrite(sec){const ta=$('textarea',sec),wc=$('.wc',sec),msg=$('.cpmsg',sec),key='oe-b7-'+ta.id;
  try{const v=localStorage.getItem(key);if(v)ta.value=v}catch(e){}
  const upd=()=>{const n=(ta.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' words';try{localStorage.setItem(key,ta.value)}catch(e){}};ta.addEventListener('input',upd);upd();
- $('.show',sec).onclick=()=>{$('.after',sec).hidden=false};
+ $('.show',sec).onclick=()=>{$('.after',sec).hidden=false;const n=(ta.value.trim().match(/\S+/g)||[]).length;cheer($('.row',sec),n>=20?'🌟':'💡',n>=20?'Well done for writing your own version first. Compare it with mine and tick off the checklist.':'Try writing your own version first. Even a rough draft helps you notice what to change.')};
  $('.cpy',sec).onclick=()=>{const t=ta.value;const fall=()=>{ta.focus();ta.select();msg.textContent='Selected. Copy it with your keyboard.'};
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{msg.textContent='Copied.'},fall)}else fall()}}
 
@@ -241,6 +358,125 @@ buildPick($('#s-pick'),[{"data": "Graph: percentage of adults who read the news 
 buildPick($('#s-num'),[{"data": "Axis label: Book sales (millions). The line reaches 10 in 2020.", "p": "In 2020, ___.", "stack": true, "o": [{"t": "book sales reached 10 million", "v": "best", "n": "Copy the number, not the axis label. After a number, million has no -s."}, {"t": "book sales reached 10 millions", "v": "no", "n": "The axis says \u201cmillions\u201d, but after a number we write \u201cmillion\u201d: 10 million."}, {"t": "book sales reached 10", "v": "no", "n": "10 what? The axis tells you the figures are in millions, so write 10 million."}]}, {"data": "Same graph. The figure for 2010 is 2.", "p": "In 2010, ___ were sold.", "stack": true, "o": [{"t": "2 million books", "v": "best", "n": "Million stays singular, but the noun after it stays plural: 2 million books."}, {"t": "2 million book", "v": "no", "n": "Only \u201cmillion\u201d loses the -s. There were two million of them, so \u201cbooks\u201d is plural."}, {"t": "2 millions books", "v": "no", "n": "After a number, write million, not millions."}]}, {"data": "Axis label: Thousands of visitors. The figure for January is 4.", "p": "In January, the museum had ___ a day.", "stack": true, "o": [{"t": "4,000 visitors", "v": "best", "n": "The axis is in thousands, so 4 means 4,000. Writing the full number avoids the problem completely."}, {"t": "4 thousands visitors", "v": "no", "n": "After a number, thousand has no -s. Better still, write 4,000."}, {"t": "4 visitors", "v": "no", "n": "The axis says thousands. 4 visitors a day would be a very empty museum."}]}, {"data": "No exact number, just a very large group.", "p": "___ shopped online every week in 2024.", "stack": true, "o": [{"t": "Millions of people", "v": "best", "n": "With no number before it, use \u201cmillions of\u201d. After a number or a word like several or a few, write million: 5 million, several million."}, {"t": "Million of people", "v": "no", "n": "Without a number, use the plural: millions of people."}, {"t": "5 millions of people", "v": "no", "n": "With a number: 5 million people. No -s and no \u201cof\u201d."}]}]);
 buildPick($('#s-subj'),[{"p": "The ___ of visitors to the museum rose from 4,000 to 8,000 a day.", "o": [{"t": "number", "v": "best", "n": "Visitors can be counted, so use \u201cnumber of\u201d."}, {"t": "amount", "v": "no", "n": "\u201cAmount of\u201d is for things you can\u2019t count, like water or money. Visitors are countable."}, {"t": "percentage", "v": "no", "n": "The figures are thousands of visitors, not percentages. Check the axis."}]}, {"p": "The ___ of water used per person fell from 150 to 120 litres a day.", "o": [{"t": "amount", "v": "best", "n": "Water is uncountable, so use \u201camount of\u201d."}, {"t": "number", "v": "no", "n": "You can\u2019t count water as separate things. Use \u201camount of\u201d, or name the measure: water use."}, {"t": "percentage", "v": "no", "n": "The unit is litres, not %."}]}, {"p": "The ___ of households with broadband internet rose from 40% to 85%.", "o": [{"t": "percentage", "v": "best", "n": "The figures are percentages, so \u201cthe percentage of households\u201d is exact. \u201cThe proportion of\u201d also works."}, {"t": "number", "v": "no", "n": "The graph gives %, not how many households. \u201cNumber of\u201d would need figures like 2 million."}, {"t": "amount", "v": "no", "n": "Households can be counted, and the figures are percentages."}]}, {"p": "The ___ of electricity generated from coal fell from 50% to 12%.", "o": [{"t": "proportion", "v": "best", "n": "Coal\u2019s share of the total, given in %: \u201cthe proportion of\u201d or \u201cthe percentage of\u201d."}, {"t": "number", "v": "no", "n": "Electricity is uncountable, and the figures are percentages."}, {"t": "line", "v": "no", "n": "Never \u201cthe line of electricity\u201d. Name what was measured."}]}, {"p": "The ___ of cars sold rose from 3.8 million to 4.2 million.", "o": [{"t": "number", "v": "best", "n": "Cars are countable and the figures are millions of cars, so use \u201cnumber of\u201d."}, {"t": "amount", "v": "no", "n": "Cars are countable. Use \u201cnumber of\u201d."}, {"t": "percentage", "v": "no", "n": "The figures are millions of cars, not %."}]}]);
 buildWrite($('#s-write'));
+
+/* ---------- 1. graph tour ---------- */
+(function(){
+ const W=560,H=300,L=56,R=20,T=50,B=70,pw=W-L-R,ph=H-T-B;
+ const X=i=>L+pw*i/5,Y=v=>T+ph-ph*v/80;
+ const on=[18,30,45,58,70,74],pr=[64,60,52,41,30,26],xs=['2004','2008','2012','2016','2020','2024'];
+ const path=a=>a.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+','+Y(v).toFixed(1)).join(' ');
+ let g=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Percentage of adults in one country who read the news online and in print, 2004 to 2024. Online: ${on.map((v,i)=>xs[i]+' '+v+'%').join(', ')}. Print: ${pr.map((v,i)=>xs[i]+' '+v+'%').join(', ')}.">`;
+ g+=`<text x="${W/2}" y="20" text-anchor="middle" class="ct h-title">Percentage of adults in one country who read the news</text><text x="${W/2}" y="38" text-anchor="middle" class="ct h-title">online and in print, 2004 to 2024</text>`;
+ for(let v=0;v<=80;v+=20){const y=Y(v);g+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" class="cg"/><text x="${L-8}" y="${y+4}" text-anchor="end" class="cl h-y">${v}</text>`}
+ g+=`<line x1="${L}" x2="${W-R}" y1="${T+ph}" y2="${T+ph}" class="ca"/>`;
+ xs.forEach((l,i)=>g+=`<text x="${X(i)}" y="${T+ph+18}" text-anchor="middle" class="cl h-x">${l}</text>`);
+ g+=`<text transform="translate(16 ${T+ph/2}) rotate(-90)" text-anchor="middle" class="cy h-y">% of adults</text>`;
+ g+=`<clipPath id="tclip"><rect x="0" y="0" width="0" height="${H}"><animate id="tanim" attributeName="width" from="0" to="${W}" dur="1.8s" begin="indefinite" fill="freeze" calcMode="spline" keySplines=".3 .1 .3 1" keyTimes="0;1"/></rect></clipPath><g clip-path="url(#tclip)">`;
+ g+=`<path d="${path(pr)}" fill="none" class="s2" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="9 7"/>`;
+ g+=`<path d="${path(on)}" fill="none" class="s1" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>`;
+ pr.forEach((v,i)=>g+=`<circle cx="${X(i)}" cy="${Y(v)}" r="3.5" class="s2-dot"/>`);
+ on.forEach((v,i)=>g+=`<circle cx="${X(i)}" cy="${Y(v)}" r="3.5" class="s1-dot"/>`);
+ g+='</g>';
+ const ly=H-18;g+=`<g class="h-leg"><line x1="${L}" x2="${L+30}" y1="${ly}" y2="${ly}" class="s1" stroke-width="3.2"/><text x="${L+38}" y="${ly+4}" class="cl">Online</text><line x1="${L+150}" x2="${L+180}" y1="${ly}" y2="${ly}" class="s2" stroke-width="3.2" stroke-dasharray="9 7"/><text x="${L+188}" y="${ly+4}" class="cl">Print</text></g>`;
+ // crossing point
+ const t=(52-45)/((58-45)+(52-41)),cx=X(2+t),cy=Y(45+13*t);
+ const E=(cx,cy,rx,ry,rot)=>({cx,cy,rx,ry,rot:rot===undefined?-3:rot}),Bx=sel=>({sel});
+ const STEPS=[
+  {k:'Title',r:[Bx('.h-title')],what:'The title tells you <b>what</b> was measured, <b>where</b> and <b>when</b>: adults reading the news, in one country, from 2004 to 2024.',use:'Paraphrase it for your introduction: <i>The line graph illustrates what proportion of adults in one country read the news online and in print from 2004 to 2024.</i>'},
+  {k:'The vertical axis',r:[Bx('.h-y')],what:'This gives the <b>unit</b>. Here it is <b>% of adults</b>, so every figure is a percentage, not a number of people.',use:'Write <i>the percentage of adults</i> or <i>the proportion of adults</i>, never <i>the number of adults</i>. <a href="#s-which">Why?</a>'},
+  {k:'The horizontal axis',r:[Bx('.h-x')],what:'This shows the <b>time period</b>: 2004 to 2024, in steps of four years. These years are in the past.',use:'Use the past simple, and give the period: <i>from 2004 to 2024</i>, <i>over the twenty-year period</i>.'},
+  {k:'The legend',r:[Bx('.h-leg')],what:'The legend tells you <b>what each line measures</b>. Online is the solid line; print is the dashed one.',use:'Use these names, not the look of the lines: <i>online reading</i>, <i>print reading</i>. Never <i>the orange line</i> or <i>the dashed one</i>.'},
+  {k:'Where each line starts and ends',r:[E(X(0),Y(18),15,15,0),E(X(0),Y(64),15,15,0),E(X(5),Y(74),15,15,0),E(X(5),Y(26),15,15,0)],what:'Compare the <b>first</b> and <b>last</b> figures for each line. This gives you the overall trend and the size of the change.',use:'<i>Online reading rose from 18% to 74%, while print reading fell from 64% to 26%.</i>'},
+  {k:'Where the lines cross',r:[E(cx,cy,24,24,0)],what:'Where two lines cross, one figure <b>becomes higher</b> than the other. This is often the main story of the graph.',use:'<i>Online reading overtook print reading between 2012 and 2016.</i>'},
+  {k:'Where the trend changes speed',r:[E((X(4)+X(5))/2,(Y(70)+Y(74))/2,64,20,-5)],what:'Look for where a trend <b>speeds up</b>, <b>slows down</b> or <b>levels off</b>. Here, online reading grew much more slowly after 2020.',use:'<i>After 2020, growth in online reading slowed, with the figure rising by only four percentage points.</i>'}
+ ];
+ STEPS.forEach((st,i)=>st.r.forEach(e=>{if(e.sel)return;g+=`<g class="hl" data-i="${i}" transform="rotate(${e.rot} ${e.cx} ${e.cy})"><ellipse class="ringfill" cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}"/><ellipse class="ring" pathLength="1" cx="${e.cx}" cy="${e.cy}" rx="${e.rx}" ry="${e.ry}"/></g>`}));
+ const tour=$('#tour');$('#c-tour').innerHTML=g+'</svg>';
+ const svg=$('#c-tour svg'),NS='http://www.w3.org/2000/svg';
+ function boxes(){$$('g.hl.bx',svg).forEach(n=>n.remove());
+  STEPS.forEach((st,i)=>st.r.forEach(e=>{if(!e.sel)return;let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+   $$(e.sel,svg).forEach(el=>{const b=el.getBBox(),m=el.getCTM&&el.getCTM(),sm=svg.getCTM();let pts=[[b.x,b.y],[b.x+b.width,b.y],[b.x,b.y+b.height],[b.x+b.width,b.y+b.height]];
+    if(m&&sm){const inv=sm.inverse(),M=inv.multiply(m);pts=pts.map(([x,y])=>{const pt=svg.createSVGPoint();pt.x=x;pt.y=y;const q=pt.matrixTransform(M);return[q.x,q.y]})}
+    pts.forEach(([x,y])=>{x0=Math.min(x0,x);y0=Math.min(y0,y);x1=Math.max(x1,x);y1=Math.max(y1,y)})});
+   const pd=6,gg=document.createElementNS(NS,'g');gg.setAttribute('class','hl bx');gg.dataset.i=i;
+   const mk=c=>{const r=document.createElementNS(NS,'rect');r.setAttribute('class',c);r.setAttribute('x',Math.max(1,x0-pd));r.setAttribute('y',Math.max(1,y0-pd));r.setAttribute('width',Math.min(W-2,x1-x0+2*pd));r.setAttribute('height',y1-y0+2*pd);r.setAttribute('rx',10);if(c==='ring')r.setAttribute('pathLength','1');return r};
+   gg.appendChild(mk('ringfill'));gg.appendChild(mk('ring'));svg.appendChild(gg)}));
+  show(cur)}
+ const dots=$('.tdots',tour),prev=$('.tprev',tour),next=$('.tnext',tour);let cur=0;
+ STEPS.forEach((st,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Step '+(i+1)+': '+st.k);b.onclick=()=>show(i);dots.appendChild(b)});
+ function show(i){cur=i;const st=STEPS[i];
+  $$('.ring,.ringfill',tour).forEach(e=>e.classList.toggle('on',+e.parentNode.dataset.i===i));
+  $('.tstep',tour).textContent='Step '+(i+1)+' of '+STEPS.length;$('.ttitle',tour).textContent=st.k;$('.twhat',tour).innerHTML=st.what;$('.tuse',tour).innerHTML=st.use;
+  $$('button',dots).forEach((b,j)=>{if(j===i)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});
+  prev.disabled=i===0;next.textContent=i===STEPS.length-1?'Restart ↺':'Next →';
+  const pc=$('.tpanel .cheer',tour);if(i===STEPS.length-1)cheer($('.use',tour),'🙌','That’s it! You’ve just read a graph the way an examiner does. Do this every time and the writing gets much easier.');else if(pc)pc.hidden=true}
+ prev.onclick=()=>cur>0&&show(cur-1);
+ next.onclick=()=>show(cur===STEPS.length-1?0:cur+1);
+ boxes();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(boxes);
+ const go=()=>{const r=$('#tclip rect',tour),a=$('#tanim',tour);if(matchMedia('(prefers-reduced-motion: reduce)').matches||!a||!a.beginElement){r.setAttribute('width',W);return}a.beginElement()};
+ if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){go();io.disconnect()}},{threshold:.35});io.observe(tour)}else go();
+})();
+
+/* ---------- 2. reveal cards ---------- */
+(function(){
+ const S={
+  up:'<path class="a" d="M4 25 L60 5"/>',
+  down:'<path class="a" d="M4 4 L22 7 L60 27"/>',
+  flat:'<path class="a" d="M4 15 L60 15"/>',
+  zig:'<path class="a" d="M4 20 L13 9 L22 21 L31 6 L40 19 L49 8 L60 16"/>',
+  peak:'<path class="a" d="M4 24 L18 18 L30 14 L40 4 L50 15 L60 19"/><circle class="p" cx="40" cy="4" r="3.2"/>',
+  cross:'<path class="b" d="M4 6 L60 25"/><path class="a" d="M4 25 L60 6"/>',
+  two:'<path class="a" d="M4 22 L60 10"/><path class="b" d="M4 12 L60 24"/>',
+  above:'<path class="b" d="M4 7 L60 9"/><path class="a" d="M4 23 L60 20"/>',
+  paper:'<rect x="18" y="2" width="28" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="2" opacity=".5"/><path class="a" d="M23 21 L30 15 L35 18 L41 9"/>',
+  bars:'<path class="a" d="M4 10 L60 10"/><path class="b" d="M4 22 L60 22"/><text class="t" x="40" y="7">NO</text><text class="t" x="40" y="30">JP</text>'
+ };
+ const C=[
+  ['up','The line goes up.','The number of visitors rose.'],
+  ['down','The line goes down a lot.','Car use fell sharply.'],
+  ['flat','The line is flat.','Sales remained stable.'],
+  ['zig','The line goes up and down.','Prices fluctuated.'],
+  ['peak','The line is at the top in August.','Visitor numbers peaked in August.'],
+  ['cross','The lines cross.','Online reading overtook print reading.'],
+  ['two','The orange line / the dotted one','online reading / the figure for Japan'],
+  ['above','Print is above online.','Print reading was higher than online reading.'],
+  ['paper','The line graph below shows…','The line graph illustrates…'],
+  ['bars','Japan is below Norway.','The figure for Japan was lower than Norway’s.']
+ ];
+ const host=$('#flips');
+ C.forEach(([k,bad,good])=>{const b=document.createElement('button');b.type='button';b.className='flip';b.setAttribute('aria-expanded','false');
+  b.innerHTML=`<span class="face front"><svg viewBox="0 0 64 30" aria-hidden="true">${S[k]}</svg><span class="k">Don’t write</span><span class="txt">${bad}</span><span class="hint">Select to see a better version</span></span><span class="face back" aria-hidden="true"><span class="k">Write</span><span class="txt">${good}</span><span class="hint">Select to flip back</span></span>`;
+  b.setAttribute('aria-label','Don’t write: '+bad+'. Select to reveal a better version.');
+  b.onclick=()=>{const o=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',o);$('.back',b).setAttribute('aria-hidden',!o);$('.front',b).setAttribute('aria-hidden',o);
+   b.setAttribute('aria-label',o?'Write: '+good+'. Instead of: '+bad+'.':'Don’t write: '+bad+'. Select to reveal a better version.')};
+  b.addEventListener('click',()=>{b.dataset.seen=1;if($$('.flip',host).every(x=>x.dataset.seen)&&!host.dataset.cheered){host.dataset.cheered=1;cheer(host,'✨','You’ve seen all ten. Swap these into your writing and you’ll sound far more precise.')}});
+  host.appendChild(b)});
+ const all=$('#flip-all');all.onclick=()=>{const open=all.textContent==='Reveal all';$$('.flip',host).forEach(b=>{if((b.getAttribute('aria-expanded')==='true')!==open)b.click()});all.textContent=open?'Hide all':'Reveal all'};
+})();
+
+/* ---------- 3. which word? ---------- */
+(function(){
+ const X=[
+  {t:'visitors to a museum (thousands)',pct:0,cnt:1,r:'the number of visitors',n:'The axis shows thousands, not %, and you can count visitors.'},
+  {t:'households with internet (%)',pct:1,r:'the percentage of households / the proportion of households',n:'The figures are %, so this is the answer, even though households can be counted.'},
+  {t:'water used (litres)',pct:0,cnt:0,r:'the amount of water used',n:'Litres, not %, and you can’t say “one water, two waters”. You could also write water use.'},
+  {t:'cars sold (millions)',pct:0,cnt:1,r:'the number of cars sold',n:'Millions of cars, not %, and cars can be counted.'},
+  {t:'money spent on books ($ millions)',pct:0,cnt:0,r:'the amount of money spent on books',n:'You can count dollars, but money itself is uncountable. Or write spending on books.'},
+  {t:'electricity from coal (% of total)',pct:1,r:'the proportion of electricity generated from coal',n:'A share of the total in %. “The percentage of” also works.'},
+  {t:'students who passed (%)',pct:1,r:'the percentage of students who passed',n:'Students can be counted, but the figures are %, so question 1 decides.'},
+  {t:'rice exported (tonnes)',pct:0,cnt:0,r:'the amount of rice exported',n:'Tonnes, not %, and rice is uncountable.'}
+ ];
+ const flow=$('#flow'),out=$('#fout'),chips=$('#chips');
+ const ids={q1:'#f-q1',y1:'#f-y1',n1:'#f-n1',q2:'#f-q2',y2:'#f-y2',n2:'#f-n2',pct:'#f-pct',num:'#f-num',amt:'#f-amt'};
+ X.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=x.t;b.setAttribute('aria-pressed','false');
+  b.onclick=()=>{$$('.chip',chips).forEach(c=>c.setAttribute('aria-pressed',String(c===b)));
+   const lit=x.pct?['q1','y1','pct']:['q1','n1','q2',x.cnt?'y2':'n2',x.cnt?'num':'amt'];
+   flow.classList.add('picked');Object.values(ids).forEach(s=>$(s).classList.remove('lit'));lit.forEach(k=>$(ids[k]).classList.add('lit'));
+   const path=x.pct?'1 · % on the axis? <b>Yes</b>':'1 · % on the axis? <b>No</b> → 2 · Can you count it? <b>'+(x.cnt?'Yes':'No')+'</b>';
+   out.innerHTML=`<span class="tag">${path.replace(/<[^>]+>/g,'')}</span><b>${x.r}</b><br><span class="small">${x.n}</span>`;
+   chips.dataset.n=(+chips.dataset.n||0)+1;if(+chips.dataset.n===3)cheer(out,'👍','Two questions, every time. You’ll be doing this without thinking soon.')}
+  ;chips.appendChild(b)});
+})();
 </script>
 </body>
 </html>
