@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="What band would an examiner give your IELTS Task 1?">
+<meta property="og:description" content="A 2-minute quiz by a former IELTS Writing examiner.">
+<title>What's Your Task 1 Band?</title>
+<meta name="description" content="A 2-minute quiz by a former IELTS examiner: estimate your IELTS Academic Writing Task 1 band.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Caveat:wght@500;700&family=Montserrat:wght@500;600;700;800&family=Special+Elite&display=swap">
+<style>
+/* Layout: one paper "page" per screen, pinned in a phone-sized column on a kraft desk; cards, slips and stickers taped on top */
+:root{
+  --kraft:#d9c3a0; --kraft-dark:#c4a97f;
+  --paper:#fffdf8; --paper-2:#f6f0e4;
+  --ink:#292929; --ink-soft:#5b544b;
+  --orange:#F88B48; --orange-deep:#e2692a;
+  --green:#5FB27B; --red:#d94b3d;
+  --tape:rgba(248,139,72,.55);
+  --f-display:"Abril Fatface", Georgia, "Times New Roman", serif;
+  --f-type:"Special Elite", "Courier New", monospace;
+  --f-hand:"Caveat", "Comic Sans MS", cursive;
+  --f-body:"Montserrat", "Helvetica Neue", Arial, sans-serif;
+  color-scheme:light;
+}
+html,body{height:100%}
+body{
+  margin:0; background-color:var(--kraft); color:var(--ink); font-family:var(--f-body);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .12 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(120% 80% at 50% 0%, #e6d3b3 0%, var(--kraft) 55%, var(--kraft-dark) 100%);
+  -webkit-tap-highlight-color:transparent;
+}
+#app{
+  min-height:100%; max-width:460px; margin:0 auto; box-sizing:border-box;
+  padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px));
+  padding-block:14px 28px; display:flex; flex-direction:column; gap:14px; position:relative;
+}
+
+/* top bar: story-style progress */
+.top{display:flex; align-items:center; gap:10px; min-height:34px}
+.logo{height:38px; width:auto}
+.prog{flex:1; display:flex; gap:4px}
+.prog i{flex:1; height:5px; border-radius:3px; background:rgba(41,41,41,.18); overflow:hidden; position:relative}
+.prog i.on::after{content:""; position:absolute; inset:0; background:var(--ink)}
+.prog i.now::after{content:""; position:absolute; inset:0; background:var(--orange)}
+.back{border:0; background:none; font:600 13px var(--f-body); color:var(--ink); padding:6px 4px; cursor:pointer}
+.back:focus-visible,.opt:focus-visible,.btn:focus-visible,input:focus-visible{outline:3px solid var(--ink); outline-offset:3px}
+
+/* paper card */
+.card{
+  background:var(--paper); position:relative; padding:26px 20px 22px; box-shadow:0 1px 0 rgba(0,0,0,.05),0 10px 22px -10px rgba(60,40,10,.45);
+  clip-path:polygon(0 1.2%,4% 0,11% .9%,19% .2%,27% 1%,36% 0,44% .8%,53% .1%,61% 1%,70% 0,78% .9%,86% .2%,93% 1%,100% 0,100% 100%,0 100%);
+}
+.card.tilt{transform:rotate(-.8deg)}
+.card.grid{background-color:var(--paper);background-image:linear-gradient(rgba(95,178,123,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(95,178,123,.16) 1px,transparent 1px);background-size:18px 18px}
+.tape{position:absolute; width:86px; height:24px; background:var(--tape); z-index:3;
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.25) 0 6px,transparent 6px 12px);
+  clip-path:polygon(3% 0,97% 4%,100% 50%,96% 100%,2% 96%,0 50%)}
+.tape.tl{top:-10px; left:18px; transform:rotate(-6deg)}
+.tape.tr{top:-8px; right:16px; transform:rotate(7deg); background-color:rgba(95,178,123,.5)}
+.wrap{position:relative; padding-top:10px}
+
+/* ransom-note headline */
+.ransom{display:flex; flex-wrap:wrap; gap:6px 5px; align-items:center; line-height:1; margin:0}
+.ransom span{display:inline-block; padding:5px 7px 6px; box-shadow:1px 2px 0 rgba(0,0,0,.18)}
+.r1{font:400 30px var(--f-display); background:var(--paper); transform:rotate(-2deg)}
+.r2{font:400 24px var(--f-type); background:var(--ink); color:var(--paper); transform:rotate(1.5deg)}
+.r3{font:800 26px var(--f-body); background:var(--orange); color:var(--ink); transform:rotate(-1deg); text-transform:uppercase; letter-spacing:.02em}
+.r4{font:400 28px var(--f-display); background:#fff3c4; transform:rotate(2deg)}
+.r5{font:400 22px var(--f-type); background:var(--paper-2); transform:rotate(-2.5deg); text-decoration:underline; text-decoration-color:var(--orange); text-decoration-thickness:3px}
+.r6{font:800 34px var(--f-body); background:var(--green); color:var(--paper); transform:rotate(-1.5deg)}
+.jit{animation:jit .5s steps(1) infinite}
+@keyframes jit{0%{translate:0 0}25%{translate:1px -1px}50%{translate:-1px 1px}75%{translate:1px 1px}}
+
+.hand{font:700 22px/1.15 var(--f-hand); color:var(--orange-deep)}
+.hand.ink{color:var(--ink)}
+.eyebrow{font:400 13px var(--f-type); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft)}
+.q{font:700 20px/1.3 var(--f-body); margin:6px 0 0; text-wrap:balance}
+.sub{font:500 15px/1.5 var(--f-body); color:var(--ink-soft); margin:8px 0 0}
+p{margin:0}
+
+/* answer slips */
+.opts{display:flex; flex-direction:column; gap:10px; margin-top:4px}
+.opt{
+  text-align:left; border:0; cursor:pointer; background:var(--paper); color:var(--ink);
+  font:600 15px/1.4 var(--f-body); padding:14px 16px 14px 46px; position:relative;
+  box-shadow:1px 3px 0 rgba(60,40,10,.25); transition:transform .12s;
+  clip-path:polygon(0 3%,98% 0,100% 50%,99% 100%,1% 97%,0 50%);
+}
+.opt:nth-child(odd){transform:rotate(-.6deg)} .opt:nth-child(even){transform:rotate(.5deg)}
+.opt::before{content:attr(data-k); position:absolute; left:12px; top:50%; translate:0 -50%; width:24px; height:24px; border-radius:50%;
+  border:2px solid var(--ink); font:700 13px/20px var(--f-body); text-align:center; box-sizing:border-box}
+.opt:hover{transform:rotate(0) translateX(3px)}
+.opt.picked{background:#fff3c4}
+.opt.picked::before{background:var(--orange); border-color:var(--orange); color:var(--ink)}
+.opt.quote{font:400 15px/1.45 var(--f-type)}
+
+/* buttons */
+.btn{display:block; width:100%; border:0; cursor:pointer; background:var(--ink); color:var(--paper); font:800 17px var(--f-body);
+  padding:17px 18px; letter-spacing:.02em; box-shadow:3px 4px 0 var(--orange); text-transform:uppercase}
+.btn:active{translate:2px 2px; box-shadow:1px 2px 0 var(--orange)}
+.btn[disabled]{opacity:.5; cursor:default}
+
+/* intro */
+.meta{display:flex; flex-wrap:wrap; gap:8px}
+.chip{font:400 13px var(--f-type); background:var(--paper-2); padding:5px 9px; border:1px dashed var(--ink-soft)}
+.sticker{position:absolute; z-index:4; filter:drop-shadow(1px 3px 2px rgba(0,0,0,.3))}
+.stamp{display:inline-block; font:400 14px var(--f-type); color:var(--red); border:2px solid var(--red); padding:4px 8px; transform:rotate(-6deg); letter-spacing:.05em; text-transform:uppercase}
+
+/* chart */
+.chart{width:100%; height:auto; display:block}
+.chart text{font-family:var(--f-body); fill:var(--ink-soft)}
+
+/* result */
+.band{font:400 64px/1 var(--f-display); margin:4px 0}
+.gap{font:600 15px/1.5 var(--f-body)}
+.crit{display:flex; flex-direction:column; gap:14px; transition:filter .6s}
+.crit.locked{filter:blur(6px); user-select:none; pointer-events:none}
+.row{display:grid; grid-template-columns:1fr auto; gap:4px 10px; align-items:baseline}
+.row b{font:700 14px var(--f-body)} .row .v{font:400 18px var(--f-display)}
+.bar{grid-column:1/-1; height:10px; background:var(--paper-2); position:relative; border:1px solid rgba(41,41,41,.2)}
+.bar i{position:absolute; inset:0 auto 0 0; background:var(--orange)}
+.row .tip{grid-column:1/-1; font:500 14px/1.5 var(--f-body); color:var(--ink-soft)}
+.lockwrap{position:relative}
+.lock{position:absolute; inset:0; display:grid; place-items:center; z-index:2}
+.lock span{background:var(--ink); color:var(--paper); font:400 15px var(--f-type); padding:8px 12px; transform:rotate(-3deg); box-shadow:2px 3px 0 var(--orange)}
+form{display:flex; flex-direction:column; gap:10px}
+label.f{font:400 13px var(--f-type); text-transform:uppercase; letter-spacing:.05em}
+input[type=text],input[type=email]{width:100%; box-sizing:border-box; font:600 16px var(--f-body); padding:13px 12px; border:2px solid var(--ink); background:var(--paper); color:var(--ink); border-radius:0}
+.consent{display:flex; gap:10px; align-items:flex-start; font:500 12.5px/1.45 var(--f-body); color:var(--ink-soft)}
+.consent input{width:20px; height:20px; margin:1px 0 0; accent-color:var(--orange); flex:none}
+.err{font:700 13px var(--f-body); color:var(--red)}
+.fine{font:500 12px/1.5 var(--f-body); color:var(--ink-soft); text-align:center}
+.screen{display:flex; flex-direction:column; gap:16px; animation:in .35s steps(3)}
+@keyframes in{from{translate:0 10px; opacity:.4} to{translate:0 0; opacity:1}}
+@media (prefers-reduced-motion:reduce){.jit,.screen{animation:none}.crit{transition:none}}
+</style>
+
+</head>
+<body>
+<div id="app" aria-live="polite"></div>
+
+<script>
+/* ===== SETTINGS: fill these in before going live ===== */
+const CONFIG = {
+  // GoDaddy Email Marketing signup form: paste the form's action URL and field names from its embed code
+  formAction: "",                 // e.g. "https://....madmimi.com/signups/subscribe/123456"
+  emailField: "signup[email]",
+  nameField:  "signup[name]",
+  extraFields: {},                // optional, e.g. { band: "signup[band]", target: "signup[target]", testDate: "signup[test_date]" }
+  privacyUrl: "https://orangeenglish.nl/privacy-policy"
+};
+/* ==================================================== */
+
+const LOGO = "data:image/webp;base64,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";
+const TULIP = `<svg width="64" height="78" viewBox="0 0 64 78" aria-hidden="true"><g stroke="#fff" stroke-width="7" stroke-linejoin="round" fill="#fff"><path d="M32 74V38"/><path d="M14 10c4 6 8 8 10 6 2-6 6-12 8-14 2 2 6 8 8 14 2 2 6 0 10-6 2 14-2 30-18 30S12 24 14 10z"/><path d="M32 60c-6-10-16-12-20-10 4 8 12 12 20 10z"/></g><path d="M32 74V38" stroke="#3f8f5a" stroke-width="3"/><path d="M32 60c-6-10-16-12-20-10 4 8 12 12 20 10z" fill="#5FB27B"/><path d="M14 10c4 6 8 8 10 6 2-6 6-12 8-14 2 2 6 8 8 14 2 2 6 0 10-6 2 14-2 30-18 30S12 24 14 10z" fill="#F88B48"/><path d="M32 2c-2 4-4 12-3 20" stroke="#e2692a" stroke-width="1.6" fill="none"/></svg>`;
+
+const CHART = `<svg class="chart" viewBox="0 0 320 210" role="img" aria-label="Line graph: visitors to three museums in Amsterdam, 2010 to 2020, in millions. Museum A rises from 1.5 to 2.7. Museum B stays around 1.0 to 1.1. Museum C falls from 1.4 to 0.6.">
+<text x="160" y="14" text-anchor="middle" font-size="11" font-weight="700" style="fill:#292929">Visitors to three museums in Amsterdam, 2010–2020</text>
+<g font-size="9">${[0,1,2,3].map(v=>{const y=180-v*48;return `<line x1="38" x2="306" y1="${y}" y2="${y}" stroke="#292929" stroke-opacity=".15"/><text x="32" y="${y+3}" text-anchor="end">${v}</text>`}).join("")}
+${[2010,2012,2014,2016,2018,2020].map((yr,i)=>`<text x="${48+i*50}" y="194" text-anchor="middle">${yr}</text>`).join("")}
+<text x="10" y="104" transform="rotate(-90 10 104)" text-anchor="middle">millions</text></g>
+${[["A","#e2692a",[1.5,1.7,1.9,2.2,2.5,2.7]],["B","#292929",[1.0,1.05,1.0,1.1,1.05,1.1]],["C","#5FB27B",[1.4,1.3,1.1,0.9,0.75,0.6]]].map(([n,c,d])=>{
+ const pts=d.map((v,i)=>`${48+i*50},${180-v*48}`).join(" ");const last=d[5];
+ return `<polyline points="${pts}" fill="none" stroke="${c}" stroke-width="2.6" stroke-linejoin="round"/>${d.map((v,i)=>`<circle cx="${48+i*50}" cy="${180-v*48}" r="2.6" fill="${c}"/>`).join("")}<text x="312" y="${180-last*48+3}" font-size="10" font-weight="700" style="fill:${c}">${n}</text>`}).join("")}
+</svg>`;
+
+/* type: "pre" = about you (not scored); "q" = scored. crit: TA, CC, LR, GRA */
+const STEPS = [
+ {id:"target", type:"pre", eyebrow:"First, about you", q:"What band do you need in Writing?",
+  opts:["6","6.5","7","7.5 or higher"]},
+ {id:"testDate", type:"pre", eyebrow:"First, about you", q:"When is your IELTS test?",
+  opts:["In the next month","In 1–3 months","In 3+ months","I haven't booked yet"]},
+ {id:"time", type:"q", crit:"TA", eyebrow:"Your habits", q:"How long do you usually spend on Task 1?",
+  opts:[["Under 15 minutes",1],["About 20 minutes",3],["25 minutes or more",1],["I've never timed it",0]]},
+ {id:"overview", type:"q", crit:"TA", eyebrow:"Your habits", q:"Do you write an overview?",
+  opts:[["Always: the main trends, with no numbers",3],["Sometimes, if I have time",1],["I write a conclusion with my opinion",0],["I'm not sure what an overview is",0]]},
+ {id:"words", type:"q", crit:"TA", eyebrow:"Your habits", q:"How many words do you usually write?",
+  opts:[["Under 150",0],["150 to 190",3],["200 to 250",2],["As many as I can",1]]},
+ {id:"para", type:"q", crit:"LR", eyebrow:"Quick skill check", q:"Here's the task. Which is the best opening sentence?", chart:true,
+  prompt:"The graph below shows the number of visitors to three museums in Amsterdam between 2010 and 2020.", quote:true,
+  opts:[["The graph below shows the number of visitors to three museums in Amsterdam between 2010 and 2020.",0],["The line graph illustrates how many people visited three Amsterdam museums over the ten years from 2010.",3],["The graph show visitor of three museum in Amsterdam.",0],["This graph is about museums and how much people like them.",0]]},
+ {id:"ov", type:"q", crit:"TA", eyebrow:"Quick skill check", q:"Which is the best overview of this graph?", chart:true, quote:true,
+  opts:[["Museum A went from 1.5 million visitors in 2010 to 2.7 million in 2020.",1],["Overall, Museum A became far more popular, while visits to Museum C fell and Museum B changed little.",3],["In conclusion, I think museums are becoming more popular.",0],["The graph shows visitors to three museums from 2010 to 2020.",1]]},
+ {id:"acc", type:"q", crit:"LR", eyebrow:"Quick skill check", q:"Which sentence describes Museum B most accurately?", chart:true, quote:true,
+  opts:[["Visitor numbers at Museum B rocketed.",0],["Museum B remained fairly stable at around one million visitors.",3],["Museum B increased dramatically from 1.0 to 1.1 million.",0],["Museum B changed.",1]]},
+ {id:"gram", type:"q", crit:"GRA", eyebrow:"Quick skill check", q:"Which sentence is grammatically correct?", quote:true,
+  opts:[["There was a steadily decline in visitors to Museum C.",0],["Visitors to Museum C declined steady.",0],["There was a steady decline in visitors to Museum C.",3],["Visitors to Museum C has declined steadily.",1]]},
+ {id:"link", type:"q", crit:"CC", eyebrow:"Quick skill check", q:"Which sentence links the two trends best?", quote:true,
+  opts:[["Museum A rose. Museum C fell.",1],["While Museum A grew steadily, Museum C saw the opposite trend.",3],["Museum A rose, however, Museum C fell.",1],["Firstly Museum A rose, secondly Museum C fell.",0]]},
+ {id:"plan", type:"q", crit:"CC", eyebrow:"Last one", q:"How would you organise your two body paragraphs?",
+  opts:[["One paragraph per year, from 2010 to 2020",0],["Group the data: Museum A in one, B and C compared in the other",3],["List every number so nothing is missed",1],["Only describe the biggest museum",0]]}
+];
+
+const CRIT = {
+ TA:{name:"Task Achievement", low:"Your overview is the biggest lever. Without a clear one, examiners can't award above band 5 here.", high:"Strong. You pick out key features instead of listing data. Keep the overview free of numbers."},
+ CC:{name:"Coherence & Cohesion", low:"Group your data by trend, not by year. Organisation is where many 6s get stuck.", high:"Good structure. Now vary your linking so it doesn't sound mechanical."},
+ LR:{name:"Lexical Resource", low:"Watch for big words used wrongly. 'Rocketed' for a tiny change costs marks.", high:"Accurate trend vocabulary. Next step: precise paraphrasing of the question."},
+ GRA:{name:"Grammatical Range & Accuracy", low:"Small errors like 'steadily decline' add up across 150 words.", high:"Accurate. Add complex sentences with 'while' and 'whereas' to push higher."}
+};
+
+const state = {i:-1, ans:{}, unlocked:false};
+const app = document.getElementById("app");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function topBar(showBack){
+  const n=STEPS.length;
+  const bars = state.i<0 ? "" : `<div class="prog" aria-label="Question ${Math.min(state.i+1,n)} of ${n}">${STEPS.map((_,k)=>`<i class="${k<state.i?'on':k===state.i?'now':''}"></i>`).join("")}</div>`;
+  return `<div class="top">${showBack?`<button class="back" id="back" aria-label="Previous question">←</button>`:""}<img class="logo" src="${LOGO}" alt="Orange English">${bars}</div>`;
+}
+
+function intro(){
+  app.innerHTML = `${topBar(false)}
+  <div class="screen">
+   <div class="wrap"><span class="tape tl"></span><span class="sticker" style="right:-6px;top:-14px;transform:rotate(12deg)">${TULIP}</span>
+   <div class="card tilt">
+    <p class="eyebrow">IELTS Academic · Writing Task 1</p>
+    <h1 class="ransom jit" style="margin-top:12px"><span class="r1">What</span><span class="r2">BAND</span><span class="r3">would</span><span class="r4">an</span><span class="r6">examiner</span><span class="r5">give you?</span></h1>
+    <p class="sub" style="margin-top:16px">Answer 11 quick questions and get your estimated Task 1 band, plus what's holding it back.</p>
+    <p class="hand" style="margin-top:12px;transform:rotate(-2deg)">I marked IELTS Writing for 4 years. This is what I look for. – Lindsey</p>
+   </div></div>
+   <div class="meta"><span class="chip">⏱ 2 minutes</span><span class="chip">11 questions</span><span class="chip">Free</span></div>
+   <button class="btn" id="go">Find my band →</button>
+   <p class="fine">Built by a former IELTS Writing examiner · DELTA · 15+ years teaching IELTS</p>
+  </div>`;
+  document.getElementById("go").onclick=()=>{state.i=0;render();};
+}
+
+function question(){
+  const s=STEPS[state.i]; const picked=state.ans[s.id];
+  const opts=s.opts.map((o,k)=>{const t=Array.isArray(o)?o[0]:o;return `<button class="opt${s.quote?' quote':''}${picked===k?' picked':''}" data-k="${"ABCD"[k]}" data-i="${k}">${esc(t)}</button>`}).join("");
+  app.innerHTML = `${topBar(true)}
+  <div class="screen">
+   ${s.chart?`<div class="wrap"><span class="tape tr"></span><div class="card grid" style="padding:18px 12px 10px">${s.prompt?`<p class="eyebrow" style="padding:0 6px 8px">${esc(s.prompt)}</p>`:""}${CHART}</div></div>`:""}
+   <div>
+    <p class="eyebrow">${s.eyebrow}</p>
+    <h2 class="q">${s.q}</h2>
+   </div>
+   <div class="opts">${opts}</div>
+  </div>`;
+  document.getElementById("back").onclick=()=>{state.i--;render();};
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    state.ans[s.id]=+b.dataset.i;
+    app.querySelectorAll(".opt").forEach(x=>x.classList.remove("picked"));b.classList.add("picked");
+    setTimeout(()=>{state.i++;render();},280);
+  });
+}
+
+function roundBand(x){ // IELTS-style rounding to nearest half band
+  const f=x-Math.floor(x); return Math.floor(x)+(f<.25?0:f<.75?.5:1);
+}
+function compute(){
+  const by={TA:[0,0],CC:[0,0],LR:[0,0],GRA:[0,0]};
+  STEPS.filter(s=>s.type==="q").forEach(s=>{const a=state.ans[s.id];by[s.crit][0]+=a==null?0:s.opts[a][1];by[s.crit][1]+=3;});
+  const crit={};
+  for(const k in by){const r=by[k][0]/by[k][1]; crit[k]={r, band:roundBand(4.5+r*3)};}
+  const overall=roundBand((crit.TA.band+crit.CC.band+crit.LR.band+crit.GRA.band)/4);
+  return {crit, overall};
+}
+const fmt=b=>b%1?b.toFixed(1):b.toFixed(0);
+
+function result(){
+  const {crit,overall}=compute();
+  const lo=overall, hi=overall+.5;
+  const label = lo>=7.5?"7.5+": lo<=4.5?"5 or below":`${fmt(lo)}–${fmt(hi)}`;
+  const tIdx=state.ans.target; const target=[6,6.5,7,7.5][tIdx??2];
+  const gap=target-lo;
+  const gapText = gap<=0 ? `That's at or above the ${fmt(target)} you need. Now make it consistent on test day.`
+    : `You need ${fmt(target)}${tIdx===3?"+":""}. That's a gap of about ${fmt(gap)} band${gap>1?"s":""}, and Task 1 is the fastest place to close it.`;
+  const weakest = Object.keys(crit).sort((a,b)=>crit[a].r-crit[b].r)[0];
+  state.label=label;
+  const rows=Object.entries(crit).map(([k,c])=>`<div class="row"><b>${CRIT[k].name}</b><span class="v">${fmt(c.band)}</span>
+    <div class="bar"><i style="width:${Math.max(8,((c.band-4)/5)*100)}%"></i></div>
+    <p class="tip">${c.r<.7?CRIT[k].low:CRIT[k].high}</p></div>`).join("");
+
+  app.innerHTML = `${topBar(false)}
+  <div class="screen">
+   <div class="wrap"><span class="tape tl"></span><span class="sticker" style="right:-4px;top:-18px;transform:rotate(-10deg)">${TULIP}</span>
+    <div class="card tilt">
+     <p class="eyebrow">Your estimated Task 1 band</p>
+     <p class="band">${label}</p>
+     <span class="stamp">Examiner estimate</span>
+     <p class="gap" style="margin-top:14px">${gapText}</p>
+     <p class="hand" style="margin-top:10px;transform:rotate(-1.5deg)">Your biggest lever: ${CRIT[weakest].name} ↓</p>
+    </div></div>
+
+   <div class="card">
+    <p class="eyebrow" style="margin-bottom:14px">Your breakdown by marking criterion</p>
+    <div class="lockwrap">
+     <div class="crit${state.unlocked?"":" locked"}" id="crit">${rows}</div>
+     ${state.unlocked?"":`<div class="lock" id="lock"><span>🔒 Unlock below</span></div>`}
+    </div>
+   </div>
+
+   <div class="wrap" id="formwrap"><span class="tape tr"></span>
+    <div class="card" style="background:#fff3c4">${state.unlocked?unlockedHTML():formHTML()}</div>
+   </div>
+   <p class="fine">This is an estimate from 9 questions, not an official IELTS score.</p>
+   <button class="back" id="redo" style="align-self:center;text-decoration:underline">Take the quiz again</button>
+  </div>`;
+  if(!state.unlocked) bindForm();
+  document.getElementById("redo").onclick=()=>{state.i=-1;state.ans={};state.unlocked=false;render();};
+}
+
+function formHTML(){
+  return `<div class="ransom" style="margin-bottom:12px"><span class="r3">Free</span><span class="r1">course</span><span class="r2">+ breakdown</span></div>
+  <p class="sub" style="margin:0 0 14px;color:var(--ink)">See your score for each criterion, and get a place on my free course, <b>IELTS Academic Writing Task 1: Mastering Line Graphs</b>. Six short lessons that take you through exactly what examiners reward.</p>
+  <form id="f" novalidate>
+   <label class="f" for="fname">First name</label><input type="text" id="fname" autocomplete="given-name" required>
+   <label class="f" for="femail">Email</label><input type="email" id="femail" autocomplete="email" inputmode="email" required>
+   <label class="consent"><input type="checkbox" id="fok" required><span>Yes, email me my results, the free course and IELTS tips from Orange English. Unsubscribe any time. <a href="${CONFIG.privacyUrl}" target="_blank" rel="noopener" style="color:inherit">Privacy policy</a></span></label>
+   <p class="err" id="ferr" hidden></p>
+   <button class="btn" type="submit">Unlock my results →</button>
+  </form>`;
+}
+function unlockedHTML(){
+  return `<div class="ransom" style="margin-bottom:12px"><span class="r6">You're</span><span class="r1">in!</span></div>
+  <p class="sub" style="margin:0;color:var(--ink)">Your breakdown is unlocked above. Check your inbox: I'm sending your place on <b>Mastering Line Graphs</b> to <b>${esc(state.email)}</b>.</p>
+  <p class="hand ink" style="margin-top:12px">Start with Lesson 1 and the overview. That's where the quickest marks are. – Lindsey</p>`;
+}
+
+function bindForm(){
+  const f=document.getElementById("f"), err=document.getElementById("ferr");
+  f.addEventListener("submit",async e=>{
+    e.preventDefault();
+    const name=document.getElementById("fname").value.trim(), email=document.getElementById("femail").value.trim(), ok=document.getElementById("fok").checked;
+    let msg="";
+    if(!name) msg="Add your first name.";
+    else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) msg="Check your email address. It needs an @ and a domain, like name@gmail.com.";
+    else if(!ok) msg="Tick the box so I can email you the course.";
+    if(msg){err.textContent=msg;err.hidden=false;return;}
+    err.hidden=true; const btn=f.querySelector("button"); btn.disabled=true; btn.textContent="Unlocking…";
+    if(CONFIG.formAction){
+      const body=new URLSearchParams(); body.append(CONFIG.emailField,email); body.append(CONFIG.nameField,name);
+      const ex=CONFIG.extraFields, tgt=STEPS[0].opts[state.ans.target], td=STEPS[1].opts[state.ans.testDate];
+      if(ex.band) body.append(ex.band,state.label); if(ex.target&&tgt) body.append(ex.target,tgt); if(ex.testDate&&td) body.append(ex.testDate,td);
+      try{ await fetch(CONFIG.formAction,{method:"POST",mode:"no-cors",body}); }catch(_){}
+    }
+    state.email=email; state.unlocked=true; result();
+    document.getElementById("crit").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
+  });
+}
+
+function render(){
+  if(state.i<0) intro(); else if(state.i>=STEPS.length) result(); else question();
+  window.scrollTo(0,0);
+}
+render();
+</script>
+
+</body>
+</html>
