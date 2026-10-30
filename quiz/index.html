@@ -17,7 +17,7 @@
   --ink:#292929; --ink-soft:#5b544b;
   --orange:#F88B48; --orange-deep:#e2692a;
   --green:#5FB27B; --red:#d94b3d;
-  --tape:rgba(248,139,72,.55);
+  --tape:rgba(248,139,72,.35);
   --f-display:"Abril Fatface", Georgia, "Times New Roman", serif;
   --f-type:"Special Elite", "Courier New", monospace;
   --f-hand:"Caveat", "Comic Sans MS", cursive;
@@ -53,26 +53,19 @@ body{
   background:var(--paper); position:relative; padding:26px 20px 22px; box-shadow:0 1px 0 rgba(0,0,0,.05),0 10px 22px -10px rgba(60,40,10,.45);
   clip-path:polygon(0 1.2%,4% 0,11% .9%,19% .2%,27% 1%,36% 0,44% .8%,53% .1%,61% 1%,70% 0,78% .9%,86% .2%,93% 1%,100% 0,100% 100%,0 100%);
 }
-.card.tilt{transform:rotate(-.8deg)}
+.card.tilt{transform:rotate(-.4deg)}
 .card.grid{background-color:var(--paper);background-image:linear-gradient(rgba(95,178,123,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(95,178,123,.16) 1px,transparent 1px);background-size:18px 18px}
 .tape{position:absolute; width:86px; height:24px; background:var(--tape); z-index:3;
   background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.25) 0 6px,transparent 6px 12px);
   clip-path:polygon(3% 0,97% 4%,100% 50%,96% 100%,2% 96%,0 50%)}
 .tape.tl{top:-10px; left:18px; transform:rotate(-6deg)}
-.tape.tr{top:-8px; right:16px; transform:rotate(7deg); background-color:rgba(95,178,123,.5)}
+.tape.tr{top:-8px; right:16px; transform:rotate(7deg); background-color:rgba(95,178,123,.32)}
 .wrap{position:relative; padding-top:10px}
 
-/* ransom-note headline */
-.ransom{display:flex; flex-wrap:wrap; gap:6px 5px; align-items:center; line-height:1; margin:0}
-.ransom span{display:inline-block; padding:5px 7px 6px; box-shadow:1px 2px 0 rgba(0,0,0,.18)}
-.r1{font:400 30px var(--f-display); background:var(--paper); transform:rotate(-2deg)}
-.r2{font:400 24px var(--f-type); background:var(--ink); color:var(--paper); transform:rotate(1.5deg)}
-.r3{font:800 26px var(--f-body); background:var(--orange); color:var(--ink); transform:rotate(-1deg); text-transform:uppercase; letter-spacing:.02em}
-.r4{font:400 28px var(--f-display); background:#fff3c4; transform:rotate(2deg)}
-.r5{font:400 22px var(--f-type); background:var(--paper-2); transform:rotate(-2.5deg); text-decoration:underline; text-decoration-color:var(--orange); text-decoration-thickness:3px}
-.r6{font:800 34px var(--f-body); background:var(--green); color:var(--paper); transform:rotate(-1.5deg)}
-.jit{animation:jit .5s steps(1) infinite}
-@keyframes jit{0%{translate:0 0}25%{translate:1px -1px}50%{translate:-1px 1px}75%{translate:1px 1px}}
+/* headlines: calm serif + highlighter */
+.h1{font:400 36px/1.12 var(--f-display); margin:12px 0 0; text-wrap:balance; letter-spacing:.005em}
+.h2{font:400 27px/1.15 var(--f-display); margin:0 0 12px; text-wrap:balance}
+.hl{background:linear-gradient(transparent 58%, #fcd2b4 58%, #fcd2b4 90%, transparent 90%); padding:0 2px}
 
 .hand{font:700 22px/1.15 var(--f-hand); color:var(--orange-deep)}
 .hand.ink{color:var(--ink)}
@@ -86,28 +79,29 @@ p{margin:0}
 .opt{
   text-align:left; border:0; cursor:pointer; background:var(--paper); color:var(--ink);
   font:600 15px/1.4 var(--f-body); padding:14px 16px 14px 46px; position:relative;
-  box-shadow:1px 3px 0 rgba(60,40,10,.25); transition:transform .12s;
-  clip-path:polygon(0 3%,98% 0,100% 50%,99% 100%,1% 97%,0 50%);
+  box-shadow:0 2px 6px -2px rgba(60,40,10,.3); transition:transform .15s;
+  border-radius:3px;
 }
-.opt:nth-child(odd){transform:rotate(-.6deg)} .opt:nth-child(even){transform:rotate(.5deg)}
+
 .opt::before{content:attr(data-k); position:absolute; left:12px; top:50%; translate:0 -50%; width:24px; height:24px; border-radius:50%;
   border:2px solid var(--ink); font:700 13px/20px var(--f-body); text-align:center; box-sizing:border-box}
-.opt:hover{transform:rotate(0) translateX(3px)}
-.opt.picked{background:#fff3c4}
+.opt:hover{transform:translateX(3px)}
+
 .opt.picked::before{background:var(--orange); border-color:var(--orange); color:var(--ink)}
-.opt.quote{font:400 15px/1.45 var(--f-type)}
+.opt.picked{background:#fdeee3}
+.opt.quote{font:500 15px/1.5 var(--f-body); font-style:italic}
 
 /* buttons */
-.btn{display:block; width:100%; border:0; cursor:pointer; background:var(--ink); color:var(--paper); font:800 17px var(--f-body);
-  padding:17px 18px; letter-spacing:.02em; box-shadow:3px 4px 0 var(--orange); text-transform:uppercase}
-.btn:active{translate:2px 2px; box-shadow:1px 2px 0 var(--orange)}
+.btn{display:block; width:100%; border:0; cursor:pointer; background:var(--ink); color:var(--paper); font:700 17px var(--f-body);
+  padding:17px 18px; border-radius:4px; box-shadow:0 6px 16px -6px rgba(41,41,41,.5)}
+.btn:active{translate:0 1px}
 .btn[disabled]{opacity:.5; cursor:default}
 
 /* intro */
 .meta{display:flex; flex-wrap:wrap; gap:8px}
 .chip{font:400 13px var(--f-type); background:var(--paper-2); padding:5px 9px; border:1px dashed var(--ink-soft)}
 .sticker{position:absolute; z-index:4; filter:drop-shadow(1px 3px 2px rgba(0,0,0,.3))}
-.stamp{display:inline-block; font:400 14px var(--f-type); color:var(--red); border:2px solid var(--red); padding:4px 8px; transform:rotate(-6deg); letter-spacing:.05em; text-transform:uppercase}
+.note{font:600 20px/1.2 var(--f-hand); color:var(--ink-soft)}
 
 /* chart */
 .chart{width:100%; height:auto; display:block}
@@ -125,7 +119,7 @@ p{margin:0}
 .row .tip{grid-column:1/-1; font:500 14px/1.5 var(--f-body); color:var(--ink-soft)}
 .lockwrap{position:relative}
 .lock{position:absolute; inset:0; display:grid; place-items:center; z-index:2}
-.lock span{background:var(--ink); color:var(--paper); font:400 15px var(--f-type); padding:8px 12px; transform:rotate(-3deg); box-shadow:2px 3px 0 var(--orange)}
+.lock span{background:var(--paper); color:var(--ink); font:600 14px var(--f-body); padding:9px 14px; border-radius:20px; box-shadow:0 4px 14px -4px rgba(60,40,10,.35)}
 form{display:flex; flex-direction:column; gap:10px}
 label.f{font:400 13px var(--f-type); text-transform:uppercase; letter-spacing:.05em}
 input[type=text],input[type=email]{width:100%; box-sizing:border-box; font:600 16px var(--f-body); padding:13px 12px; border:2px solid var(--ink); background:var(--paper); color:var(--ink); border-radius:0}
@@ -135,7 +129,7 @@ input[type=text],input[type=email]{width:100%; box-sizing:border-box; font:600 1
 .fine{font:500 12px/1.5 var(--f-body); color:var(--ink-soft); text-align:center}
 .screen{display:flex; flex-direction:column; gap:16px; animation:in .35s steps(3)}
 @keyframes in{from{translate:0 10px; opacity:.4} to{translate:0 0; opacity:1}}
-@media (prefers-reduced-motion:reduce){.jit,.screen{animation:none}.crit{transition:none}}
+@media (prefers-reduced-motion:reduce){.screen{animation:none}.crit{transition:none}}
 </style>
 
 </head>
@@ -217,7 +211,7 @@ function intro(){
    <div class="wrap"><span class="tape tl"></span><span class="sticker" style="right:-6px;top:-14px;transform:rotate(12deg)">${TULIP}</span>
    <div class="card tilt">
     <p class="eyebrow">IELTS Academic · Writing Task 1</p>
-    <h1 class="ransom jit" style="margin-top:12px"><span class="r1">What</span><span class="r2">BAND</span><span class="r3">would</span><span class="r4">an</span><span class="r6">examiner</span><span class="r5">give you?</span></h1>
+    <h1 class="h1">What band would an <span class="hl">examiner</span> give you?</h1>
     <p class="sub" style="margin-top:16px">Answer 11 quick questions and get your estimated Task 1 band, plus what's holding it back.</p>
     <p class="hand" style="margin-top:12px;transform:rotate(-2deg)">I marked IELTS Writing for 4 years. This is what I look for. – Lindsey</p>
    </div></div>
@@ -281,7 +275,7 @@ function result(){
     <div class="card tilt">
      <p class="eyebrow">Your estimated Task 1 band</p>
      <p class="band">${label}</p>
-     <span class="stamp">Examiner estimate</span>
+     <p class="note">estimated from your answers</p>
      <p class="gap" style="margin-top:14px">${gapText}</p>
      <p class="hand" style="margin-top:10px;transform:rotate(-1.5deg)">Your biggest lever: ${CRIT[weakest].name} ↓</p>
     </div></div>
@@ -290,12 +284,12 @@ function result(){
     <p class="eyebrow" style="margin-bottom:14px">Your breakdown by marking criterion</p>
     <div class="lockwrap">
      <div class="crit${state.unlocked?"":" locked"}" id="crit">${rows}</div>
-     ${state.unlocked?"":`<div class="lock" id="lock"><span>🔒 Unlock below</span></div>`}
+     ${state.unlocked?"":`<div class="lock" id="lock"><span>Unlock with your email ↓</span></div>`}
     </div>
    </div>
 
    <div class="wrap" id="formwrap"><span class="tape tr"></span>
-    <div class="card" style="background:#fff3c4">${state.unlocked?unlockedHTML():formHTML()}</div>
+    <div class="card" style="background:#fdf4ec">${state.unlocked?unlockedHTML():formHTML()}</div>
    </div>
    <p class="fine">This is an estimate from 9 questions, not an official IELTS score.</p>
    <button class="back" id="redo" style="align-self:center;text-decoration:underline">Take the quiz again</button>
@@ -305,7 +299,7 @@ function result(){
 }
 
 function formHTML(){
-  return `<div class="ransom" style="margin-bottom:12px"><span class="r3">Free</span><span class="r1">course</span><span class="r2">+ breakdown</span></div>
+  return `<h2 class="h2">Your full breakdown <span class="hl">+ a free course</span></h2>
   <p class="sub" style="margin:0 0 14px;color:var(--ink)">See your score for each criterion, and get a place on my free course, <b>IELTS Academic Writing Task 1: Mastering Line Graphs</b>. Six short lessons that take you through exactly what examiners reward.</p>
   <form id="f" novalidate>
    <label class="f" for="fname">First name</label><input type="text" id="fname" autocomplete="given-name" required>
@@ -316,7 +310,7 @@ function formHTML(){
   </form>`;
 }
 function unlockedHTML(){
-  return `<div class="ransom" style="margin-bottom:12px"><span class="r6">You're</span><span class="r1">in!</span></div>
+  return `<h2 class="h2">You're <span class="hl">in</span></h2>
   <p class="sub" style="margin:0;color:var(--ink)">Your breakdown is unlocked above. Check your inbox: I'm sending your place on <b>Mastering Line Graphs</b> to <b>${esc(state.email)}</b>.</p>
   <p class="hand ink" style="margin-top:12px">Start with Lesson 1 and the overview. That's where the quickest marks are. – Lindsey</p>`;
 }
