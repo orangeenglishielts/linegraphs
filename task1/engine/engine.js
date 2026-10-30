@@ -94,7 +94,7 @@ function barChart(o){
   s+=hz?grp('x','Categories',ct,`<rect class="hit" x="2" y="${T-4}" width="${L-6}" height="${ph+8}" rx="6"/>`):grp('x','Horizontal axis',ct,`<rect class="hit" x="${L-14}" y="${T+ph+4}" width="${pw+28}" height="${o.xlab?44:26}" rx="6"/>`);
   ser.forEach((se,j)=>se.vals.forEach((v,i)=>{if(v==null)return;const a=(hz?T:L)+band*i+(band-gw)/2+bw*j,len=(hz?pw:ph)*(V(v)-V(Math.max(ymin,0)));
     const r=hz?`x="${base}" y="${a+1}" width="${Math.max(0,len)}" height="${bw-2}"`:`x="${a+1}" y="${base-len}" width="${bw-2}" height="${Math.max(0,len)}"`;
-    const col=se.color||PAL[j],tip=`${se.name?se.name+', ':''}${o.x[i]}: ${fmtv(o,v)}`;
+    const col=(se.colors&&se.colors[i])||se.color||PAL[j],tip=`${se.name?se.name+', ':''}${o.x[i]}: ${fmtv(o,v)}`;
     const rect=`<rect class="bar tipa" ${r} fill="${col}" rx="2"${se.hatch?' fill-opacity=".55"':''}/>`;
     let lbl='';if(o.labels){lbl=hz?`<text x="${base+len+5}" y="${a+bw/2+4}" font-size="11" font-weight="600" fill="#292929">${esc(o.labelFmt?o.labelFmt(v):fmtv(o,v))}</text>`:`<text x="${a+bw/2}" y="${base-len-5}" text-anchor="middle" font-size="11" font-weight="600" fill="#292929">${esc(o.labelFmt?o.labelFmt(v):fmtv(o,v))}</text>`}
     if(hot&&o.hotBar&&o.hotBar[0]===j&&o.hotBar[1]===i)s+=`<g class="hot" data-part="point" tabindex="0" role="button" aria-label="One bar, ${esc(tip)}"><rect class="hit" ${hz?`x="${base-4}" y="${a-3}" width="${len+8}" height="${bw+6}"`:`x="${a-3}" y="${base-len-4}" width="${bw+6}" height="${len+8}"`} rx="4"/>${rect}</g>`;
@@ -276,6 +276,71 @@ A.timer=(el,o)=>{el.classList.add('oe-try','oe-timer');const total=o.phases.redu
     else{const r=rem()>0?rem():total;st={rem:r,end:Date.now()+r*1000};S.set('t-'+o.id,st);goB.textContent='Pause';run()}};
   $('.tm-reset',el).onclick=()=>{stop();st={rem:total,end:null};S.set('t-'+o.id,st);goB.textContent='Start '+fmt(total);paint()};
   if(st.end&&rem()>0){goB.textContent='Pause';run()}else{if(st.end){st={rem:0,end:null};S.set('t-'+o.id,st)}if(st.rem<total)goB.textContent=st.rem>0?'Resume':'Start again';paint()}};
+
+
+/* ---------------- predict the data (draw it, then reveal) ----------------
+   {type:'drawit', chart:{bar or line spec, one series}, hide:[indices], min, max, step, tol, note}
+   Students set each hidden value with a slider, then compare with the real data. */
+A.drawit=(el,o)=>{el.classList.add('oe-try','drawit');const se=o.chart.series[0],real=se.vals,isBar=o.chart.type==='bar',fmt=v=>o.chart.fmt?o.chart.fmt(v):v;
+  const st=S.get('a-'+o.id,null)||{g:{},done:false};o.hide.forEach(i=>{if(st.g[i]==null)st.g[i]=o.start!=null?o.start:Math.round(((o.min+o.max)/2)/o.step)*o.step});
+  el.innerHTML=head(o)+`<figure class="chart chart-${isBar?'bar':'line'}"><div class="dw-svg"></div><span class="tip" aria-hidden="true"></span></figure><div class="dw-ctl">${o.hide.map(i=>`<label class="dw-row"><span class="dw-lab">${esc(o.chart.x[i])}</span><input type="range" min="${o.min}" max="${o.max}" step="${o.step}" value="${st.g[i]}" data-i="${i}" aria-label="Your prediction for ${esc(o.chart.x[i])}"><output>${esc(fmt(st.g[i]))}</output></label>`).join('')}</div><div class="row" style="margin-top:10px"><button type="button" class="btn dw-go">Show the real data</button></div><div class="fb" aria-live="polite"></div><div class="jhost"></div>`;
+  const box=$('.dw-svg',el),fb=$('.fb',el),ORANGE='#F88B48',NAVY=se.color||'#292929';
+  const spec=()=>{const g=i=>st.g[i];let series;
+    if(isBar){series=st.done?[{name:'Real data',vals:real,color:NAVY},{name:'Your prediction',vals:real.map((v,i)=>o.hide.includes(i)?g(i):null),color:ORANGE}]
+      :[{name:se.name,vals:real.map((v,i)=>o.hide.includes(i)?g(i):v),color:NAVY,colors:real.map((v,i)=>o.hide.includes(i)?ORANGE:NAVY)}]}
+    else{const first=Math.min(...o.hide),pred=real.map((v,i)=>i===first-1?v:(o.hide.includes(i)?g(i):null));
+      series=st.done?[{name:'Real data',vals:real,color:NAVY},{name:'Your prediction',vals:pred,color:ORANGE,dash:1}]
+      :[{name:se.name,vals:real.map((v,i)=>o.hide.includes(i)?null:v),color:NAVY},{name:'Your prediction',vals:pred,color:ORANGE,dash:1}]}
+    return Object.assign({},o.chart,{id:o.chart.id+'-dw',series,labels:0})};
+  const draw=()=>{box.innerHTML=drawChart(spec());const ch=$('.chart',el);ch._en=0;enhanceCharts(el)};
+  const inputs=$$('input[type=range]',el);
+  inputs.forEach(inp=>inp.addEventListener('input',()=>{const i=+inp.dataset.i;st.g[i]=+inp.value;inp.nextElementSibling.textContent=fmt(+inp.value);S.set('a-'+o.id,st);draw()}));
+  const reveal=init=>{st.done=true;S.set('a-'+o.id,st);inputs.forEach(x=>x.disabled=true);$('.dw-go',el).hidden=true;draw();
+    const res=o.hide.map(i=>{const d=st.g[i]-real[i],ok=Math.abs(d)<=o.tol;return {i,d,ok}}),allOk=res.every(r=>r.ok);
+    fb.innerHTML=(allOk?'<b>Good prediction.</b> ':'<b>Here is the real data.</b> ')+`<ul class="clean" style="margin:6px 0">${res.map(r=>`<li><b>${esc(o.chart.x[r.i])}:</b> you said ${esc(fmt(st.g[r.i]))}, the real figure was ${esc(fmt(real[r.i]))}${r.ok?' (close)':r.d>0?' (too high)':' (too low)'}.</li>`).join('')}</ul>`+(o.note||'');fb.classList.add('show');
+    if(!init)track(o.id,null,allOk,o._spread);gate(o.id)};
+  $('.dw-go',el).onclick=()=>reveal(false);draw();if(st.done)reveal(true)};
+
+/* ---------------- mark the key features ----------------
+   {type:'keyfeat', chart, pick:3, keys:[{j,i,why}], notes:{'j-i':'why not'}, other:'default reason'}
+   Students select points or bars they would write about, then compare with my choices. */
+A.keyfeat=(el,o)=>{el.classList.add('oe-try','keyfeat');const spec=Object.assign({},o.chart,{id:o.chart.id+'-kf',points:1});
+  el.innerHTML=head(o)+chartBox(spec)+`<p class="small kf-count" aria-live="polite"></p><div class="row" style="margin-top:6px"><button type="button" class="btn kf-go" disabled>Compare with my choices</button><button type="button" class="btn ghost kf-clear">Clear</button></div><div class="fb" aria-live="polite"></div>`;
+  const map=[];spec.series.forEach((se,j)=>se.vals.forEach((v,i)=>{if(v!=null)map.push(j+'-'+i)}));
+  const pts=$$('.chart .pt',el);pts.forEach((g,n)=>{g.dataset.kf=map[n];g.setAttribute('role','button');g.setAttribute('aria-pressed','false')});
+  const st=S.get('a-'+o.id,null)||{sel:[],done:false},isKey=k=>o.keys.some(x=>x.j+'-'+x.i===k),fb=$('.fb',el),go=$('.kf-go',el);
+  const label=k=>{const [j,i]=k.split('-').map(Number),se=spec.series[j];return (spec.series.length>1?se.name+', ':'')+spec.x[i]+': '+fmtv(spec,se.vals[i])};
+  const paint=()=>{pts.forEach(g=>{const k=g.dataset.kf,on=st.sel.includes(k);g.classList.toggle('kf-sel',on);g.setAttribute('aria-pressed',on);
+      g.classList.toggle('kf-key',st.done&&isKey(k));g.classList.toggle('kf-no',st.done&&on&&!isKey(k))});
+    $('.kf-count',el).textContent=st.done?'':`${st.sel.length} of ${o.pick} selected`;go.disabled=st.done||st.sel.length!==o.pick;$('.kf-clear',el).hidden=st.done};
+  const toggle=k=>{if(st.done)return;const n=st.sel.indexOf(k);if(n>=0)st.sel.splice(n,1);else if(st.sel.length<o.pick)st.sel.push(k);S.set('a-'+o.id,st);paint()};
+  pts.forEach(g=>{g.addEventListener('click',()=>toggle(g.dataset.kf));g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(g.dataset.kf)}})});
+  $('.kf-clear',el).onclick=()=>{st.sel=[];S.set('a-'+o.id,st);paint()};
+  const reveal=init=>{st.done=true;S.set('a-'+o.id,st);paint();const hits=o.keys.filter(x=>st.sel.includes(x.j+'-'+x.i)).length,wrong=st.sel.filter(k=>!isKey(k));
+    fb.innerHTML=`<b>You chose ${hits} of my ${o.keys.length} key features.</b><ul class="clean" style="margin:6px 0">`+o.keys.map(x=>{const k=x.j+'-'+x.i,got=st.sel.includes(k);return `<li class="${got?'kf-got':'kf-miss'}"><b>${got?'✓':'Missed:'} ${esc(label(k))}.</b> ${x.why}</li>`}).join('')+wrong.map(k=>`<li class="kf-wr"><b>Not a key feature: ${esc(label(k))}.</b> ${(o.notes&&o.notes[k])||o.other||'A detail, not one of the features a reader needs.'}</li>`).join('')+'</ul>';
+    fb.classList.add('show');if(!init)track(o.id,null,hits===o.keys.length,o._spread);gate(o.id)};
+  go.onclick=()=>reveal(false);paint();if(st.done)reveal(true)};
+
+/* ---------------- error hunt ----------------
+   {type:'errhunt', text:'…[[wrong|right|why]]…', tries:3}
+   Students select the mistakes in a paragraph. Every word can be selected. */
+A.errhunt=(el,o)=>{el.classList.add('oe-try','errhunt');const parts=o.text.split(/\[\[(.+?)\]\]/),errs=[];let html='';
+  parts.forEach((p,n)=>{if(n%2){const [w,r,why]=p.split('|');errs.push({w,r,why});html+=`<span class="eh-w eh-e" tabindex="0" role="button" data-k="${errs.length-1}">${esc(w)}</span>`}
+    else html+=p.split(/(\s+)/).map(t=>/^\s+$/.test(t)||!t?t:`<span class="eh-w" tabindex="0" role="button">${esc(t)}</span>`).join('')});
+  el.innerHTML=head(o)+`<p class="eh-text">${html}</p><p class="small eh-count" aria-live="polite"></p><div class="fb" aria-live="polite"></div><div class="row" style="margin-top:8px"><button type="button" class="btn ghost eh-show" hidden>Show me the rest</button></div><div class="jhost"></div>`;
+  const st=S.get('a-'+o.id,null)||{found:{},miss:0,shown:false},fb=$('.fb',el),count=$('.eh-count',el);
+  const fix=(k,how)=>{const sp=$(`.eh-e[data-k="${k}"]`,el),e=errs[k];sp.classList.add(how==='found'?'eh-found':'eh-shown');sp.innerHTML=`<s>${esc(e.w)}</s> <ins>${esc(e.r)}</ins>`;sp.removeAttribute('tabindex');sp.removeAttribute('role')};
+  const paint=()=>{const n=Object.keys(st.found).length;count.textContent=st.shown?`You found ${Object.values(st.found).filter(v=>v==='found').length} of ${errs.length} mistakes.`:`Found ${n} of ${errs.length} mistakes`+(st.miss?` · ${st.miss} wrong ${st.miss===1?'guess':'guesses'}`:'');
+    $('.eh-show',el).hidden=st.shown||n>=errs.length||st.miss<(o.tries||3);if(n>=errs.length&&!st.shown)gate(o.id)};
+  Object.entries(st.found).forEach(([k,how])=>fix(+k,how));
+  const pick=sp=>{if(sp.classList.contains('eh-found')||sp.classList.contains('eh-shown')||st.shown)return;
+    if(sp.classList.contains('eh-e')){const k=+sp.dataset.k,e=errs[k];st.found[k]='found';fix(k,'found');track(o.id,k,true,o._spread);fb.innerHTML=`<b>Found it.</b> “${esc(e.w)}” → “${esc(e.r)}”. ${e.why}`}
+    else{st.miss++;sp.classList.add('eh-no');setTimeout(()=>sp.classList.remove('eh-no'),700);fb.innerHTML=`<b>No mistake there.</b> “${esc(sp.textContent)}” is fine. Keep looking.`}
+    fb.classList.add('show');S.set('a-'+o.id,st);paint();if(Object.keys(st.found).length>=errs.length&&!st.shown)fb.innerHTML+=`<br><b>All ${errs.length} found.</b> ${o.done||''}`};
+  $$('.eh-w',el).forEach(sp=>{sp.addEventListener('click',()=>pick(sp));sp.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(sp)}})});
+  $('.eh-show',el).onclick=()=>{errs.forEach((e,k)=>{if(!st.found[k]){st.found[k]='shown';fix(k,'shown');track(o.id,k,false,o._spread);journalBtn($('.jhost',el),jEntry(o,k,e.w,e.r,e.why))}});st.shown=true;S.set('a-'+o.id,st);
+    fb.innerHTML='<b>Here are the ones you missed</b>, in orange. '+errs.map((e,k)=>st.found[k]==='shown'?`<br>“${esc(e.w)}” → “${esc(e.r)}”. ${e.why}`:'').join('');fb.classList.add('show');paint();gate(o.id)};
+  paint()};
 
 /* ---------------- gates (explanations that appear after a first try) ---------------- */
 function gate(id){$$(`[data-gate="${id}"]`).forEach(g=>{g.hidden=false});$$(`[data-gateph="${id}"]`).forEach(g=>{g.hidden=true})}

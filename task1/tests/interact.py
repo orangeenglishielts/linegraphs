@@ -41,6 +41,9 @@ async () => {
       $$('.f1 textarea',el).forEach(t=>{t.value=vals[t.dataset.k]||'';t.dispatchEvent(new Event('input'))});$('.chk',el).click();if($('.after',el).hidden)out.push(id+': model answer did not appear')}
   else if(o.type==='timer'){$('.tm-go',el).click();await sleep(300);$('.tm-reset',el).click()}
   else if(o.type==='motion'){$$('.chip',el)[0].click()}
+  else if(o.type==='drawit'){const real=o.chart.series[0].vals;$$('input[type=range]',el).forEach(inp=>{inp.value=real[+inp.dataset.i];inp.dispatchEvent(new Event('input'))});$('.dw-go',el).click();if(!/Good prediction/.test($('.fb',el).textContent))out.push(id+': real values not accepted');if(o.hide.some(i=>real[i]<o.min||real[i]>o.max||Math.round((real[i]-o.min)/o.step)*o.step+o.min!==real[i]))out.push(id+': a real value is off the slider scale')}
+  else if(o.type==='keyfeat'){for(const k of o.keys){const g=$(`.pt[data-kf="${k.j}-${k.i}"]`,el);if(!g){out.push(id+': no point '+k.j+'-'+k.i);break}g.dispatchEvent(new MouseEvent('click',{bubbles:true}))}if(o.keys.length!==o.pick)out.push(id+': pick count differs from key count');$('.kf-go',el).click();const t=$('.fb',el).textContent;if(!new RegExp('chose '+o.keys.length+' of my '+o.keys.length).test(t))out.push(id+': keys not accepted: '+t.slice(0,80))}
+  else if(o.type==='errhunt'){const n=(o.text.match(/\[\[/g)||[]).length;$$('.eh-e',el).forEach(sp=>sp.dispatchEvent(new MouseEvent('click',{bubbles:true})));if(!new RegExp('Found '+n+' of '+n).test($('.eh-count',el).textContent))out.push(id+': not all errors found');if(o.text.split(/\[\[.+?\]\]/).some(p=>/\[\[|\]\]/.test(p)))out.push(id+': malformed markers')}
   else out.push(id+': type '+o.type+' not tested');
   }catch(e){out.push(id+': ERROR '+e.message)}
  }
