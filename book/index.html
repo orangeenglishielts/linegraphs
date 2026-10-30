@@ -258,7 +258,8 @@ body{background:var(--desk)}
 
 /* video slot */
 .vid{position:relative;aspect-ratio:16/9;background:#EDE8DD;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;text-align:center;margin-bottom:14px}
-.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid video{background:#000;object-fit:contain}
 .vid .play{width:52px;height:52px;border-radius:50%;background:var(--dark);display:flex;align-items:center;justify-content:center}
 .vid .play::after{content:"";border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
 .vid .cap{font-family:var(--head);font-weight:700;font-size:13.5px}
@@ -504,14 +505,14 @@ body.printing{background:#fff}
 @media (max-width:600px){.bk-top img{width:44px}}
 </style>
 <script>
-/* VIDEO_LINKS: paste a Loom or YouTube link between the quotes. The script note disappears once a link is set.
+/* VIDEO_LINKS: paste a Loom or YouTube link between the quotes, or the path to an .mp4 in book/videos/ (a .jpg poster and .vtt subtitles with the same name are picked up automatically). The script note disappears once a link is set.
    0 Ch1 Spread 1 Meet the line graph · 1 Ch1 Spread 2 Read the axes · 2 Ch1 Spread 4 Find the overall trend
    3 Ch2 Spread 1 Up, down or stable? · 4 Ch2 Spread 3 Choosing the precise word · 5 Ch2 Spread 4 Building a description
    6 Ch3 Spread 1 Which tense? · 7 Ch3 Spread 2 Prepositions for amounts · 8 Ch3 Spread 4 Linking two trends
    9 Ch4 Spread 1 Like with like · 10 Ch4 Spread 2 Multiples and fractions · 11 Ch4 Spread 4 Crossovers and turning points
    12 Ch5 Spread 1 The four-part shape · 13 Ch5 Spread 3 Writing the overview
    14 Ch6 Spread 2 Planning in two minutes · 15 Ch6 Spread 5 The 20-minute budget */
-window.VIDEO_LINKS=['','','','','','','','','','','','','','','',''];
+window.VIDEO_LINKS=['videos/c1-meet-the-line-graph.mp4','','','','','','','','','','','','','','',''];
 </script>
 </head>
 <body>
@@ -1757,6 +1758,7 @@ $$('[data-chartph]').forEach(ph=>{ph.outerHTML=chartBox(C.CHARTS[ph.dataset.char
 const VL=window.VIDEO_LINKS||[];
 $$('[data-video]').forEach(v=>{const k=+v.dataset.video,url=(VL[k]||'').trim(),meta=C.VIDEOS[k];let src='';
   if(url){const yt=url.match(/(?:youtu\.be\/|v=|embed\/)([\w-]{6,})/),lm=url.match(/loom\.com\/(?:share|embed)\/([\w]+)/);src=yt?'https://www.youtube.com/embed/'+yt[1]:(lm?'https://www.loom.com/embed/'+lm[1]:url)}
+  if(src&&/\.mp4(\?|$)/i.test(src)){const b=src.replace(/\.mp4(\?.*)?$/i,'');v.outerHTML=`<div class="vid"><video controls playsinline preload="none" poster="${esc(b)}.jpg" aria-label="${esc(meta.title)}"><source src="${esc(src)}" type="video/mp4"><track kind="captions" srclang="en" label="English" src="${esc(b)}.vtt" default></video></div>`;return}
   v.outerHTML=src?`<div class="vid"><iframe src="${esc(src)}" title="${esc(meta.title)}" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`:
    `<div class="vid" role="img" aria-label="Video placeholder: ${esc(meta.title)}"><span class="play"></span><span class="cap">${esc(meta.title)}</span><span class="len">Video · about ${esc(meta.len)}</span></div><div class="script"><b>Video script for Lindsey (hidden once a link is added)</b><ol>${meta.script.map(s=>`<li>${s}</li>`).join('')}</ol></div>`});
 // activities
