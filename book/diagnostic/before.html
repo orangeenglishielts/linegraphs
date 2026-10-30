@@ -222,6 +222,13 @@ const CHART = `
 function start(){
   app.innerHTML = `
   <section class="card">
+    <div class="eyebrow" style="margin-bottom:10px">Welcome</div>
+    <video controls playsinline preload="none" poster="welcome-poster.jpg" aria-label="Welcome video from Lindsey" style="display:block; width:100%; height:auto; aspect-ratio:16/9; border-radius:10px; background:#000">
+      <source src="welcome.mp4" type="video/mp4">
+    </video>
+    <p class="small" style="margin:8px 0 0">A short welcome from Lindsey before you start. Subtitles are included.</p>
+  </section>
+  <section class="card">
     <div class="eyebrow">Your task</div>
     <div class="task">The graph below shows the percentage of households with internet access in three countries between 2000 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</div>
     ${CHART}
