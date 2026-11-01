@@ -1905,7 +1905,7 @@ const FB_URL='__FB_URL__';
 function fbSid(){let id=S.get('fb-sid',null);if(!id){id=Math.random().toString(36).slice(2,10);S.set('fb-sid',id)}return id}
 function fbRadio(name,opts,cls){return `<div class="opts${cls?' '+cls:''}">${opts.map(([v,t,aria])=>`<label><input type="radio" name="${name}" value="${v}"${aria?` aria-label="${aria}"`:''}><span>${t}</span></label>`).join('')}</div>`}
 function fbCheck(name,opts){return `<div class="opts">${opts.map(t=>`<label><input type="checkbox" name="${name}" value="${t}"><span>${t}</span></label>`).join('')}</div>`}
-function fbBox(box){const key=box.dataset.feedback,course=key==='course',n=key,id='fb'+key;
+function fbBox(box){if(!FB_URL||FB_URL.startsWith('__'))return;const key=box.dataset.feedback,course=key==='course',n=key,id='fb'+key;
   const sent=S.get('fb-'+key,null);
   const thanks=`<div class="done"><b>Thank you!</b> Your feedback has reached me, and I read every reply. It helps me make the course better for the next students.</div>`;
   const head=course?`<span class="lab">Course survey · 2 minutes</span><h3>How was the whole course?</h3><p class="small" style="margin:0">Your honest answers shape the next version of this book.</p>`
