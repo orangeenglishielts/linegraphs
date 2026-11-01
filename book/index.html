@@ -1901,7 +1901,7 @@ function progressBox(box){let bf=null,af=null;try{bf=JSON.parse(localStorage.get
 $$('[data-extras]').forEach(extrasBox);$$('[data-cannow]').forEach(canBox);$$('[data-progress]').forEach(progressBox);
 $$('[data-minitest]').forEach(miniCard);
 /* ---------------- feedback cards (one per chapter, plus end of course) ---------------- */
-const FB_URL='__FB_URL__';
+const FB_URL='https://script.google.com/macros/s/AKfycbywq7vZSYzAbXk_a8na06pvbnNxuJLMFWnJzyONNZCiiyi6FJRJRyPuzkcUGCwOdnDR/exec';
 function fbSid(){let id=S.get('fb-sid',null);if(!id){id=Math.random().toString(36).slice(2,10);S.set('fb-sid',id)}return id}
 function fbRadio(name,opts,cls){return `<div class="opts${cls?' '+cls:''}">${opts.map(([v,t,aria])=>`<label><input type="radio" name="${name}" value="${v}"${aria?` aria-label="${aria}"`:''}><span>${t}</span></label>`).join('')}</div>`}
 function fbCheck(name,opts){return `<div class="opts">${opts.map(t=>`<label><input type="checkbox" name="${name}" value="${t}"><span>${t}</span></label>`).join('')}</div>`}
