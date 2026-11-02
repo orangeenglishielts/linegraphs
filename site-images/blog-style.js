@@ -80,7 +80,7 @@ function quiz(body){
     if(e.dataset.oeq)return;
     var t=(e.textContent||'').trim(),m;
     // Red flag or green flag: choose first, then see the explanation
-    if(e.tagName==='P'&&(m=t.match(/^(Red|Green) flag\./))&&kids[i-1]&&kids[i-1].tagName==='P'&&!/flag\./i.test((kids[i-1].textContent||'').slice(0,12))){
+    if(e.tagName==='P'&&(m=t.match(/^(Red|Green) flag\./))&&e.previousElementSibling&&!/^(Red|Green) flag/i.test(e.previousElementSibling.textContent.trim())){
       e.dataset.oeq='1';e.classList.add('oe-hide');var right=m[1];var w0=d.createElement('div');
       ['Green','Red'].forEach(function(c){var x=mkBtn(c+' flag',c==='Green'?'g':'r');x.addEventListener('click',function(){[].forEach.call(w0.querySelectorAll('button'),function(q){q.disabled=true});var v=d.createElement('span');v.className='oe-v'+(c===right?'':' no');v.textContent=c===right?'You’re right!':'Not quite.';e.insertBefore(v,e.firstChild);e.classList.remove('oe-hide');e.classList.add('oe-shown');ev('blog_exercise_answer')});w0.appendChild(x)});
       e.parentNode.insertBefore(w0,e);return}
