@@ -104,7 +104,7 @@ function quiz(body){
       F.opts.forEach(function(c,ci){var x=mkBtn(c,F.cls?F.cls[ci]:'');x.addEventListener('click',function(){[].forEach.call(w0.querySelectorAll('button'),function(q){q.disabled=true});var v=d.createElement('span');v.className='oe-v'+(c===right?'':' no');v.textContent=c===right?'You’re right!':'Not quite.';e.insertBefore(v,e.firstChild);e.classList.remove('oe-hide');e.classList.add('oe-shown');ev('blog_exercise_answer')});w0.appendChild(x)});
       e.parentNode.insertBefore(w0,e);return}}
     // A heading such as "Answers": hide everything up to the next heading
-    if(isHead(e)&&/^(\d+\.\s*)?(answers?|answer key.*|show answers?|suggested answers?|possible answers?)$/i.test(t)){
+    if(isHead(e)&&/^(\d+\.\s*)?(answers?|answer key.*|show answers?|suggested answers?|possible answers?|possible rewrites)$/i.test(t)){
       e.dataset.oeq='1';var top=topOf(e,body),els=[],n=top.nextElementSibling;
       while(n&&!isHead(n)&&!n.classList.contains('oe-cta')){els.push(n);n=n.nextElementSibling}
       if(!els.length)return;
