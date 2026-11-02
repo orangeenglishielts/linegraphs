@@ -118,8 +118,9 @@ function quiz(body){
       e.dataset.oeq='1';relabel(e);var tgt=e.tagName==='LI'?e.parentNode:e;tgt.classList.add('oe-hide');
       var q=mkBtn(/^[a-z ]*answers\b/i.test(t)?'Show answers':'Show answer');q.dataset.show=q.textContent;q.setAttribute('aria-expanded','false');revealAll([tgt],q);tgt.parentNode.insertBefore(q,tgt)}
   })}
+function lst(n){return !n?null:/^(UL|OL)$/.test(n.tagName)?n:n.querySelector('ol,ul')}
 function tfng(top,els){
-  var ans=els.filter(function(x){return x.tagName==='OL'})[0],st=top.previousElementSibling;if(!ans||!st||st.tagName!=='OL')return false;
+  var ans=lst(els[0]),st=lst(top.previousElementSibling);if(!ans||!st)return false;
   var A=[].slice.call(ans.children),S=[].slice.call(st.children);if(A.length!==S.length||!A.every(function(l){return /^(True|False|Not Given)\./.test(l.textContent.trim())}))return false;
   top.classList.add('oe-hide');
   S.forEach(function(li,i){var a=A[i].textContent.trim(),right=a.match(/^(True|False|Not Given)/)[1],w=d.createElement('div'),o=d.createElement('p');o.className='oe-hide';o.textContent=a;
@@ -127,7 +128,7 @@ function tfng(top,els){
     li.appendChild(w);li.appendChild(o)});return true}
 function mcq(e,list){
   var qs=[],n=e.previousElementSibling,A=[].slice.call(list.children);
-  while(n&&!isHead(n)){if(n.tagName==='P'&&/^A[.)]\s/.test(n.textContent.trim())&&/\bB[.)]\s/.test(n.textContent))qs.unshift(n);n=n.previousElementSibling}
+  while(n&&!isHead(n)){if(n.tagName==='P'&&/^A[.)]\s/.test(n.textContent.trim())&&/B[.)]\s/.test(n.textContent))qs.unshift(n);n=n.previousElementSibling}
   if(qs.length<2||qs.length!==A.length||!A.every(function(l){return /^[A-D][,:.]/.test(l.textContent.trim())}))return false;
   qs.forEach(function(q,i){var a=A[i].textContent.trim(),right=a.charAt(0),lines=q.innerText.split('\n').map(function(x){return x.trim()}).filter(Boolean),fb=d.createElement('p'),opts=[];fb.className='oe-hide';fb.textContent=a;q.dataset.oeq='1';q.classList.add('oe-hide');
     lines.forEach(function(l){var o=d.createElement('p');o.className='oe-opt';o.dataset.oeq='1';o.tabIndex=0;o.setAttribute('role','button');o.textContent=l;opts.push(o);
@@ -147,10 +148,10 @@ function labels(body){
   [].forEach.call(body.querySelectorAll('p'),function(e){
     if(e.dataset.oeq||!/^(suggested (answers?|corrections?)|possible answers?|answers?|show answers?|(show )?(the )?model answer):?$/i.test((e.textContent||'').trim()))return;
     e.dataset.oeq='1';var els=[],n=e.nextElementSibling;
-    if(n&&/^(UL|OL)$/.test(n.tagName))els=[n];else while(n&&!isHead(n)){els.push(n);n=n.nextElementSibling}
+    if(n&&lst(n)&&(n.textContent.trim().length-lst(n).textContent.trim().length)<3)els=[n];else while(n&&!isHead(n)){els.push(n);n=n.nextElementSibling}
     if(!els.length)return;
     els.forEach(function(x){x.classList.add('oe-hide');x.dataset.oeq='1';[].forEach.call(x.querySelectorAll('p,li'),function(y){y.dataset.oeq='1'})});
-    if(/^(UL|OL)$/.test(els[0].tagName)&&mcq(e,els[0])){e.classList.add('oe-hide');return}
+    if(lst(els[0])&&mcq(e,lst(els[0]))){e.classList.add('oe-hide');return}
     var b=mkBtn(/model/i.test(e.textContent)?'Show model answer':/answers?/i.test(e.textContent)?'Show answers':'Show corrections');b.dataset.show=b.textContent;b.setAttribute('aria-expanded','false');revealAll(els,b);e.parentNode.insertBefore(b,e.nextSibling);e.classList.add('oe-hide')})}
 function lvl(e){var h=/^H[1-6]$/.test(e.tagName)?e:e.firstElementChild;return +h.tagName.charAt(1)}
 function panels(body){
