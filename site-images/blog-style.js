@@ -22,14 +22,53 @@ var css=""
 +".oe-post img{border-radius:16px}"
 +".oe-post strong,.oe-post b{color:#292929}"
 +"@media (max-width:767px){.oe-pgrid{flex-direction:column!important;flex-wrap:nowrap!important}.oe-pgrid>.oe-side{order:2!important;margin-top:24px}}"
++".oe-cta{background:#FBF1E8;border:1px solid #F0DCCB;border-radius:22px;padding:26px 24px;margin:36px 0 28px;font-family:'DM Sans',Arial,sans-serif}"
++".oe-cta *{box-sizing:border-box}"
++".oe-cta .k{margin:0 0 6px!important;font-size:13px!important;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#B4501A!important;line-height:1.4!important}"
++".oe-cta .h{margin:0 0 8px!important;font-family:Fraunces,Georgia,serif;font-weight:700;font-size:clamp(24px,3.4vw,30px)!important;line-height:1.15!important;color:#292929!important}"
++".oe-cta .p{margin:0 0 16px!important;font-size:17px!important;line-height:1.55!important;color:#3A3530!important}"
++".oe-cta form{margin:0}.oe-cta .r{display:flex;flex-wrap:wrap;gap:10px}"
++".oe-cta input[type=email]{flex:1 1 220px;min-width:0;padding:13px 18px;border-radius:999px;border:2px solid #E7DFD3;background:#fff;color:#292929;font:16px 'DM Sans',Arial,sans-serif}"
++".oe-cta button,.oe-cta a.b{flex:0 0 auto;display:inline-block;background:#C4521E;color:#fff!important;border:0;border-radius:999px;padding:14px 24px;font:700 16px 'DM Sans',Arial,sans-serif;cursor:pointer;text-decoration:none}"
++".oe-cta .hp{position:absolute;left:-9999px;height:0;overflow:hidden}"
++".oe-cta .s{margin:10px 0 0!important;font-size:13.5px!important;line-height:1.45!important;color:#5E564E!important}"
++".oe-cta .s a{color:#B4501A!important;font-weight:700}"
++".oe-cta .e{margin:8px 0 0!important;font-size:14px!important;color:#A3361A!important}"
++".oe-cta .d{display:none;background:#DCE8D8;border-radius:16px;padding:16px;font-size:16px;line-height:1.5;color:#292929}"
 +".oe-post blockquote{border-left:4px solid #5FB27B;background:#EEF6F0;margin:1.4em 0;padding:14px 18px;border-radius:0 12px 12px 0}";
 var st=d.createElement('style');st.id='oe-blog-style';st.textContent=css;d.head.appendChild(st);
+var OPEN=new Date('2026-11-27T00:00:00+01:00').getTime(),SUB='https://gem.godaddy.com/signups/subscribe/5cdfe95f1e574a818971f13fe0557ea2',QUIZ='https://orangeenglishielts.github.io/linegraphs/quiz/?utm_source=blog&utm_medium=post_cta';
+function ev(n){try{if(w.gtag)w.gtag('event',n,{page_path:w.location.pathname})}catch(e){}}
+function ctaCopy(topic,title){
+  var when=Date.now()<OPEN?'It opens on Friday 27 November.':'It\u2019s open now.';
+  if(/ielts|band\b|task [12]\b/.test(topic+' '+title)){
+    var c={k:'Free course from a former IELTS examiner',h:'Master IELTS Task 1 line graphs',p:'Short videos, quizzes and practice you can do at your own pace. '+when};
+    if(/task 1\b/.test(topic+' '+title))c.h='Want a higher Task 1 score?';
+    else if(/task 2\b|writing/.test(topic+' '+title)){c.h='Now pick up marks on Task 1';c.p='Task 1 counts for a third of your Writing score, and my free line graphs course shows you what examiners look for. '+when}
+    return c}
+  return null}
+function addCta(body,topic,title){
+  if(d.getElementById('oe-cta'))return;
+  var c=ctaCopy(topic,title),b=d.createElement('aside');b.id='oe-cta';b.className='oe-cta';
+  if(!c){b.innerHTML='<p class="k">Business English coaching</p><p class="h">Want to use this at work?</p><p class="p">I coach professionals one to one, online or in person in Amsterdam, around the real meetings, emails and presentations you deal with.</p><a class="b" href="/business-english">See how it works</a>';body.parentNode.insertBefore(b,body.nextSibling);return}
+  var soon=Date.now()<OPEN?' on 27 November':'';
+  b.innerHTML='<p class="k">'+c.k+'</p><p class="h">'+c.h+'</p><p class="p">'+c.p+'</p><form novalidate><div class="r"><input name="signup[email]" type="email" autocomplete="email" aria-label="Your email address" placeholder="you@example.com" required><button type="submit">Send me the free course</button></div><div class="hp" aria-hidden="true"><input type="text" name="d55f345b6aaa74773d072714bd2e52e0" tabindex="-1" autocomplete="off"><input type="checkbox" name="beacon" tabindex="-1"></div><p class="e" hidden></p><p class="s">Free, no card needed. I\u2019ll email you the link'+soon+'. I never share your email, and you can unsubscribe any time. Not sure of your level? <a href="'+QUIZ+'" target="_blank" rel="noopener">Take the band quiz</a>.</p></form><div class="d"><b>Nearly done! Check your inbox.</b><br>Click the link in the email I\u2019ve just sent you to confirm your place. Can\u2019t see it? Look in your spam or promotions folder.</div>';
+  body.parentNode.insertBefore(b,body.nextSibling);
+  var f=b.querySelector('form'),err=b.querySelector('.e'),done=b.querySelector('.d'),inp=f.querySelector('input[type=email]');
+  f.addEventListener('submit',function(e){e.preventDefault();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value.trim())){err.textContent='Check your email address, for example name@gmail.com.';err.hidden=false;return}
+    err.hidden=true;var q='signup%5Bemail%5D='+encodeURIComponent(inp.value.trim())+'&d55f345b6aaa74773d072714bd2e52e0=';
+    var cb='oecb'+Date.now(),s=d.createElement('script'),fin=false;
+    function fail(){if(fin)return;fin=true;err.textContent='Sorry, that didn\u2019t go through. Please try again, or use the form on my free course page.';err.hidden=false}
+    w[cb]=function(res){if(fin)return;fin=true;if(res&&res.success){f.style.display='none';done.style.display='block';ev('blog_signup')}else fail()};
+    s.onerror=fail;setTimeout(fail,8000);s.src=SUB+'.json?callback='+cb+'&'+q;d.body.appendChild(s)})}
+function isPost(){return /^\/(blog\/)?f\//.test(w.location.pathname)}
 function run(){
   var secs=[].slice.call(d.querySelectorAll('section'));
   var blog=secs.filter(function(s){return s.querySelector('[data-aid=RSS_POST_DATE],[data-aid=RSS_FEEDS_RENDERED],[data-ux=BlogMainHeading]')&&/All Posts/.test(s.textContent)});
   var outer=blog[0]; if(!outer)return;
   outer.classList.add('oe-blog');
-  if(!/^\/f\//.test(w.location.pathname))return;
+  if(!isPost())return;
   outer.classList.add('oe-post');
   // Post pages: show only the header, the post and the footer
   secs.forEach(function(s,i){
@@ -41,7 +80,9 @@ function run(){
   [].forEach.call(d.querySelectorAll('h1'),function(h){if(outer.contains(h))return;var p=d.createElement('p');p.className=h.className;p.innerHTML=h.innerHTML;h.replaceWith(p)});
   var t=outer.querySelector('[data-ux=BlogMainHeading]');
   if(t&&t.tagName!=='H1'){var h1=d.createElement('h1');[].forEach.call(t.attributes,function(a){h1.setAttribute(a.name,a.value)});h1.classList.add('oe-title');h1.innerHTML=t.innerHTML;t.replaceWith(h1)}
+  var pb=outer.querySelector('[data-ux=BlogContent]'),pc=outer.querySelector('[data-aid=RSS_POST_CATEGORIES]');if(pb&&t0())addCta(pb,(pc?pc.textContent:'').toLowerCase(),(t0().textContent||'').toLowerCase());
   if(!top0){top0=1;w.scrollTo(0,0)}
 }
-var top0=0,n=0,iv=setInterval(function(){run();if(n<12&&/^\/f\//.test(w.location.pathname)&&w.scrollY>1500)w.scrollTo(0,0);if(++n>50)clearInterval(iv)},300);run();
+function t0(){return d.querySelector('.oe-post [data-ux=BlogMainHeading]')}
+var top0=0,n=0,iv=setInterval(function(){run();if(n<12&&isPost()&&w.scrollY>1500)w.scrollTo(0,0);if(++n>50)clearInterval(iv)},300);run();
 }catch(e){}})();
