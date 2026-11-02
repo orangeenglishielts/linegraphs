@@ -1,6 +1,9 @@
+/* Orange English blog styling for orangeenglish.nl (GoDaddy). Loaded by an HTML section on the homepage.
+   GoDaddy rebuilds that section's iframe after the page loads, so this file re-adds itself to the main page and runs there. */
 (function(){try{
-var w=window.parent,d=w.document;
-if(/godaddy\.com/.test(w.location.hostname)||w.__oeBlog)return; w.__oeBlog=1;
+if(window.parent!==window){var pd=window.parent.document;if(!/godaddy\.com/.test(window.parent.location.hostname)&&!pd.getElementById('oe-blog-js')){var sc=pd.createElement('script');sc.id='oe-blog-js';sc.src=(document.currentScript&&document.currentScript.src)||'https://orangeenglishielts.github.io/linegraphs/site-images/blog-style.js';pd.head.appendChild(sc)}return}
+var w=window,d=document;
+if(w.__oeBlog)return; w.__oeBlog=1;
 var css=""
 +".oe-blog [data-ux=SectionHeading]{letter-spacing:-.01em}"
 +".oe-blog [data-ux=NavHorizontalList]{gap:8px 8px!important;justify-content:center}"
