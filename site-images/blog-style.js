@@ -43,7 +43,7 @@ var css=""
 +".oe-rv[disabled]{opacity:.55;cursor:default;background:#fff}"
 +".oe-post .oe-shown{background:#FBF1E8;border-radius:12px;padding:12px 16px!important}"
 +".oe-post .oe-v{display:block;font-weight:700;color:#2F6A40}.oe-post .oe-v.no{color:#A3361A}"
-+".oe-post [data-ux=SectionHeading]{display:none!important}"
++".oe-post [data-ux=SectionHeading],.oe-post [data-aid=RSS_SECTION_TITLE_RENDERED]{display:none!important}"
 +".oe-post,.oe-post section{padding-top:8px!important}"
 +".oe-post .oe-side{display:none!important}"
 +".oe-post .oe-pgrid{justify-content:center}.oe-post .oe-pgrid>*:not(.oe-side){flex:0 1 760px!important;max-width:760px!important;width:100%}"
@@ -135,7 +135,7 @@ function labels(body){
 function lvl(e){var h=/^H[1-6]$/.test(e.tagName)?e:e.firstElementChild;return +h.tagName.charAt(1)}
 function panels(body){
   if(body.dataset.oeP)return;body.dataset.oeP='1';
-  var EX=/practi[sc]e|exercise|drill|activity|quiz|\bgame\b|challenge|your turn|try it|common errors|test yourself|^(\d+\.\s*)?answers?\b|answer key/i,MD=/model (answer|response)|sample answer/i;
+  var EX=/practi[sc]e|exercise|drill|activity|quiz|\bgame\b|challenge|your turn|try it|common errors|test yourself|^(\d+\.\s*)?answers?\b|answer key/i,MD=/model (answer|response)|sample answer|practice charts?/i;
   [].slice.call(body.children).forEach(function(e){
     if(e.parentNode!==body||!isHead(e))return;var t=(e.textContent||'').trim();
     var md=MD.test(t),ex=EX.test(t);if(!md&&!ex)return;
@@ -148,6 +148,7 @@ function toc(body){
   var f=body.firstElementChild,im=f&&(f.tagName==='IMG'||f.querySelector('img'))?f:null;body.insertBefore(o,im?im.nextSibling:f)}
 function isPost(){return /^\/(blog\/)?f\//.test(w.location.pathname)}
 function run(){
+  [].forEach.call(d.querySelectorAll('img[src*="orangeenglishielts.github.io"]'),function(i){var u=i.getAttribute('src').split('/:/')[0];if(u!==i.getAttribute('src'))i.setAttribute('src',u)});
   var secs=[].slice.call(d.querySelectorAll('section'));
   var blog=secs.filter(function(s){return s.querySelector('[data-aid=RSS_POST_DATE],[data-aid=RSS_FEEDS_RENDERED],[data-ux=BlogMainHeading]')&&/All Posts/.test(s.textContent)});
   var outer=blog[0]; if(!outer)return;
