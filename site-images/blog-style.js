@@ -28,21 +28,17 @@ function run(){
   outer.classList.add('oe-blog');
   if(!/^\/f\//.test(w.location.pathname))return;
   outer.classList.add('oe-post');
-  // Post pages: show only header, the post, the newsletter sign-up and the footer
-  var keepNews=null;
+  // Post pages: show only the header, the post and the footer
   secs.forEach(function(s,i){
     if(i===0||s===outer||outer.contains(s)||s.contains(outer)||i===secs.length-1)return;
-    if(/Free IELTS tips in your inbox/.test(s.textContent)){keepNews=s;return;}
-    s.style.setProperty('display','none','important');
+    if(s.style.display!=='none')s.style.setProperty('display','none','important');
   });
-  if(keepNews&&outer.nextSibling!==keepNews)outer.parentNode.insertBefore(keepNews,outer.nextSibling);
   var sb=outer.querySelector('[data-aid=RSS_VIEWPOST_SIDEBAR]');var cell=sb&&sb.closest('[data-ux=GridCell]');if(cell){cell.classList.add('oe-side');cell.parentElement.classList.add('oe-pgrid')}
   // One H1 per post page: the post title
-  var heroH1=[].filter.call(d.querySelectorAll('h1'),function(h){return !outer.contains(h)});
-  heroH1.forEach(function(h){var p=d.createElement('p');p.className=h.className;p.innerHTML=h.innerHTML;h.replaceWith(p)});
+  [].forEach.call(d.querySelectorAll('h1'),function(h){if(outer.contains(h))return;var p=d.createElement('p');p.className=h.className;p.innerHTML=h.innerHTML;h.replaceWith(p)});
   var t=outer.querySelector('[data-ux=BlogMainHeading]');
   if(t&&t.tagName!=='H1'){var h1=d.createElement('h1');[].forEach.call(t.attributes,function(a){h1.setAttribute(a.name,a.value)});h1.classList.add('oe-title');h1.innerHTML=t.innerHTML;t.replaceWith(h1)}
-  w.scrollTo(0,0);
+  if(!top0){top0=1;w.scrollTo(0,0)}
 }
-run();setTimeout(run,600);setTimeout(function(){if(/^\/f\//.test(w.location.pathname)&&w.scrollY>1500)w.scrollTo(0,0)},1500);
+var top0=0,n=0,iv=setInterval(function(){run();if(n<12&&/^\/f\//.test(w.location.pathname)&&w.scrollY>1500)w.scrollTo(0,0);if(++n>50)clearInterval(iv)},300);run();
 }catch(e){}})();
