@@ -113,7 +113,7 @@ function quiz(body){
       var b=mkBtn('Show answers');b.dataset.show='Show answers';b.setAttribute('aria-expanded','false');revealAll(els,b);top.parentNode.insertBefore(b,top.nextSibling);
       if(/^show/i.test(t))top.classList.add('oe-hide');return}
     // A line such as "Answers: A rose slightly"
-    if(/^(P|LI)$/.test(e.tagName)&&/^(show answers?|answers?|suggested answers?|possible answers?|correct answers?)\s*:/i.test(t)){
+    if(/^(P|LI)$/.test(e.tagName)&&/^(show answers?|answers?|suggested answers?|possible answers?|correct answers?|possible completion|corrected answers|answer key|check your answers)\s*:/i.test(t)){
       if(e.tagName==='LI'&&e.parentNode.children.length>1)return;
       e.dataset.oeq='1';relabel(e);var tgt=e.tagName==='LI'?e.parentNode:e;tgt.classList.add('oe-hide');
       var q=mkBtn(/^[a-z ]*answers\b/i.test(t)?'Show answers':'Show answer');q.dataset.show=q.textContent;q.setAttribute('aria-expanded','false');revealAll([tgt],q);tgt.parentNode.insertBefore(q,tgt)}
@@ -137,7 +137,8 @@ function mcq(e,list){
     q.parentNode.insertBefore(fb,q)});return true}
 function options(body){
   [].forEach.call(body.querySelectorAll('p'),function(e){
-    if(e.dataset.oeq)return;var m=(e.textContent||'').trim().match(/^(?:Best|Correct) answer:\s*([A-D])\b/);if(!m)return;
+    if(e.dataset.oeq)return;var m=(e.textContent||'').trim().match(/^(?:Best|Correct) answer:\s*([A-D])\b/i);if(!m)return;
+    var one=e.previousElementSibling;if(one&&/^A[.)]\s/.test(one.textContent.trim())&&/B[.)]\s/.test(one.textContent)){one.innerText.split('\n').map(function(x){return x.trim()}).filter(Boolean).forEach(function(l){var o=d.createElement('p');o.textContent=l;e.parentNode.insertBefore(o,e)});one.classList.add('oe-hide');one.dataset.oeq='1'}
     var opts=[],n=e.previousElementSibling;
     while(n&&/^[A-D][.)]\s/.test((n.textContent||'').trim())){opts.unshift(n);n=n.previousElementSibling}
     e.dataset.oeq='1';if(opts.length<2)return;e.classList.add('oe-hide');
@@ -146,7 +147,7 @@ function options(body){
       o.addEventListener('click',pick);o.addEventListener('keydown',function(k){if(k.key==='Enter'||k.key===' '){k.preventDefault();pick()}})})})}
 function labels(body){
   [].forEach.call(body.querySelectorAll('p'),function(e){
-    if(e.dataset.oeq||!/^(suggested (answers?|corrections?)|possible answers?|answers?|show answers?|(show )?(the )?model answer):?$/i.test((e.textContent||'').trim()))return;
+    if(e.dataset.oeq||!/^(suggested (answers?|corrections?|grouping)|possible answers?|answers?|show answers?|(show )?(the )?model answer|a stronger version might be|formal versions):?$/i.test((e.textContent||'').trim()))return;
     e.dataset.oeq='1';var els=[],n=e.nextElementSibling;
     if(n&&lst(n)&&(n.textContent.trim().length-lst(n).textContent.trim().length)<3)els=[n];else while(n&&!isHead(n)){els.push(n);n=n.nextElementSibling}
     if(!els.length)return;
