@@ -71,7 +71,8 @@ function addCta(body,topic,title){
     w[cb]=function(res){if(fin)return;fin=true;if(res&&res.success){f.style.display='none';done.style.display='block';ev('blog_signup')}else fail()};
     s.onerror=fail;setTimeout(fail,8000);s.src=SUB+'.json?callback='+cb+'&'+q;d.body.appendChild(s)})}
 function mkBtn(label,cls){var x=d.createElement('button');x.type='button';x.className='oe-rv'+(cls?' '+cls:'');x.textContent=label;return x}
-function isHead(e){return /^H[1-6]$/.test(e.tagName)}
+function isHead(e){return /^H[1-6]$/.test(e.tagName)||(e.children.length===1&&/^H[1-6]$/.test(e.firstElementChild.tagName))}
+function topOf(e,body){while(e.parentNode!==body)e=e.parentNode;return e}
 function revealAll(els,b){b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';els.forEach(function(e){e.classList.toggle('oe-hide',o);if(!o&&els.length===1)e.classList.add('oe-shown')});b.setAttribute('aria-expanded',o?'false':'true');b.textContent=o?b.dataset.show:'Hide '+b.dataset.show.replace(/^Show /,'');if(!o)ev('blog_exercise_reveal')})}
 function relabel(e){var n=e;while(n&&n.nodeType!==3)n=n.firstChild;if(n&&/^Show answers?/i.test(n.nodeValue))n.nodeValue=n.nodeValue.replace(/^Show answers/i,'Answers').replace(/^Show answer/i,'Answer')}
 function quiz(body){
@@ -86,12 +87,12 @@ function quiz(body){
       e.parentNode.insertBefore(w0,e);return}
     // A heading such as "Answers": hide everything up to the next heading
     if(isHead(e)&&/^(\d+\.\s*)?(answers?|answer key.*|show answers?|suggested answers?|possible answers?)$/i.test(t)){
-      e.dataset.oeq='1';var els=[],n=e.nextElementSibling;
+      e.dataset.oeq='1';var top=topOf(e,body),els=[],n=top.nextElementSibling;
       while(n&&!isHead(n)&&!n.classList.contains('oe-cta')){els.push(n);n=n.nextElementSibling}
       if(!els.length)return;
       els.forEach(function(x){x.classList.add('oe-hide');x.dataset.oeq='1';[].forEach.call(x.querySelectorAll('p,li'),function(y){y.dataset.oeq='1'})});
-      var b=mkBtn('Show answers');b.dataset.show='Show answers';b.setAttribute('aria-expanded','false');revealAll(els,b);e.parentNode.insertBefore(b,e.nextSibling);
-      if(/^show/i.test(t))e.classList.add('oe-hide');return}
+      var b=mkBtn('Show answers');b.dataset.show='Show answers';b.setAttribute('aria-expanded','false');revealAll(els,b);top.parentNode.insertBefore(b,top.nextSibling);
+      if(/^show/i.test(t))top.classList.add('oe-hide');return}
     // A line such as "Answers: A rose slightly"
     if(/^(P|LI)$/.test(e.tagName)&&/^(show answers?|answers?|suggested answers?|possible answers?|correct answers?)\s*:/i.test(t)){
       if(e.tagName==='LI'&&e.parentNode.children.length>1)return;
