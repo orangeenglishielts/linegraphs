@@ -26,7 +26,7 @@ var css=""
 var st=d.createElement('style');st.id='oe-blog-style';st.textContent=css;d.head.appendChild(st);
 function run(){
   var secs=[].slice.call(d.querySelectorAll('section'));
-  var blog=secs.filter(function(s){return s.querySelector('[data-aid=RSS_POST_DATE],[data-ux=BlogMainHeading]')&&/All Posts/.test(s.textContent)});
+  var blog=secs.filter(function(s){return s.querySelector('[data-aid=RSS_POST_DATE],[data-aid=RSS_FEEDS_RENDERED],[data-ux=BlogMainHeading]')&&/All Posts/.test(s.textContent)});
   var outer=blog[0]; if(!outer)return;
   outer.classList.add('oe-blog');
   if(!/^\/f\//.test(w.location.pathname))return;
