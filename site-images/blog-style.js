@@ -91,22 +91,25 @@ function isHead(e){return /^H[1-6]$/.test(e.tagName)||(e.children.length===1&&/^
 function topOf(e,body){while(e.parentNode!==body)e=e.parentNode;return e}
 function revealAll(els,b){b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';els.forEach(function(e){e.classList.toggle('oe-hide',o);if(!o&&els.length===1)e.classList.add('oe-shown')});b.setAttribute('aria-expanded',o?'false':'true');b.textContent=o?b.dataset.show:'Hide '+b.dataset.show.replace(/^Show /,'');if(!o)ev('blog_exercise_reveal')})}
 function relabel(e){var n=e;while(n&&n.nodeType!==3)n=n.firstChild;if(n&&/^Show answers?/i.test(n.nodeValue))n.nodeValue=n.nodeValue.replace(/^Show answers/i,'Answers').replace(/^Show answer/i,'Answer')}
+var FAM=[{re:/^(Red flag|Green flag)\./,opts:['Green flag','Red flag'],cls:['g','r']},{re:/^(Accurate|Not accurate)\./,opts:['Accurate','Not accurate']},{re:/^(Same meaning|Meaning changed)\./,opts:['Same meaning','Meaning changed']},{re:/^(Main feature|Minor detail)\./,opts:['Main feature','Minor detail']}];
 function quiz(body){
   var kids=[].slice.call(body.querySelectorAll('h1,h2,h3,h4,p,li'));
   kids.forEach(function(e,i){
     if(e.dataset.oeq)return;
     var t=(e.textContent||'').trim(),m;
-    // Red flag or green flag: choose first, then see the explanation
-    if(e.tagName==='P'&&(m=t.match(/^(Red|Green) flag\./))&&e.previousElementSibling&&!/^(Red|Green) flag/i.test(e.previousElementSibling.textContent.trim())){
+    // Choose first, then see the explanation (red/green flags, accurate or not, and so on)
+    if(e.tagName==='P'){var F=null;FAM.forEach(function(f){var mm=t.match(f.re);if(mm){m=mm;F=f}});
+      if(F&&e.previousElementSibling&&!F.re.test(e.previousElementSibling.textContent.trim())){
       e.dataset.oeq='1';e.classList.add('oe-hide');var right=m[1];var w0=d.createElement('div');
-      ['Green','Red'].forEach(function(c){var x=mkBtn(c+' flag',c==='Green'?'g':'r');x.addEventListener('click',function(){[].forEach.call(w0.querySelectorAll('button'),function(q){q.disabled=true});var v=d.createElement('span');v.className='oe-v'+(c===right?'':' no');v.textContent=c===right?'You’re right!':'Not quite.';e.insertBefore(v,e.firstChild);e.classList.remove('oe-hide');e.classList.add('oe-shown');ev('blog_exercise_answer')});w0.appendChild(x)});
-      e.parentNode.insertBefore(w0,e);return}
+      F.opts.forEach(function(c,ci){var x=mkBtn(c,F.cls?F.cls[ci]:'');x.addEventListener('click',function(){[].forEach.call(w0.querySelectorAll('button'),function(q){q.disabled=true});var v=d.createElement('span');v.className='oe-v'+(c===right?'':' no');v.textContent=c===right?'You’re right!':'Not quite.';e.insertBefore(v,e.firstChild);e.classList.remove('oe-hide');e.classList.add('oe-shown');ev('blog_exercise_answer')});w0.appendChild(x)});
+      e.parentNode.insertBefore(w0,e);return}}
     // A heading such as "Answers": hide everything up to the next heading
     if(isHead(e)&&/^(\d+\.\s*)?(answers?|answer key.*|show answers?|suggested answers?|possible answers?)$/i.test(t)){
       e.dataset.oeq='1';var top=topOf(e,body),els=[],n=top.nextElementSibling;
       while(n&&!isHead(n)&&!n.classList.contains('oe-cta')){els.push(n);n=n.nextElementSibling}
       if(!els.length)return;
       els.forEach(function(x){x.classList.add('oe-hide');x.dataset.oeq='1';[].forEach.call(x.querySelectorAll('p,li'),function(y){y.dataset.oeq='1'})});
+      if(tfng(top,els))return;
       var b=mkBtn('Show answers');b.dataset.show='Show answers';b.setAttribute('aria-expanded','false');revealAll(els,b);top.parentNode.insertBefore(b,top.nextSibling);
       if(/^show/i.test(t))top.classList.add('oe-hide');return}
     // A line such as "Answers: A rose slightly"
@@ -115,6 +118,22 @@ function quiz(body){
       e.dataset.oeq='1';relabel(e);var tgt=e.tagName==='LI'?e.parentNode:e;tgt.classList.add('oe-hide');
       var q=mkBtn(/^[a-z ]*answers\b/i.test(t)?'Show answers':'Show answer');q.dataset.show=q.textContent;q.setAttribute('aria-expanded','false');revealAll([tgt],q);tgt.parentNode.insertBefore(q,tgt)}
   })}
+function tfng(top,els){
+  var ans=els.filter(function(x){return x.tagName==='OL'})[0],st=top.previousElementSibling;if(!ans||!st||st.tagName!=='OL')return false;
+  var A=[].slice.call(ans.children),S=[].slice.call(st.children);if(A.length!==S.length||!A.every(function(l){return /^(True|False|Not Given)\./.test(l.textContent.trim())}))return false;
+  top.classList.add('oe-hide');
+  S.forEach(function(li,i){var a=A[i].textContent.trim(),right=a.match(/^(True|False|Not Given)/)[1],w=d.createElement('div'),o=d.createElement('p');o.className='oe-hide';o.textContent=a;
+    ['True','False','Not Given'].forEach(function(c){var x=mkBtn(c);x.addEventListener('click',function(){[].forEach.call(w.querySelectorAll('button'),function(q){q.disabled=true});var v=d.createElement('span');v.className='oe-v'+(c===right?'':' no');v.textContent=c===right?'You’re right!':'Not quite.';o.insertBefore(v,o.firstChild);o.classList.remove('oe-hide');o.classList.add('oe-shown');ev('blog_exercise_answer')});w.appendChild(x)});
+    li.appendChild(w);li.appendChild(o)});return true}
+function mcq(e,list){
+  var qs=[],n=e.previousElementSibling,A=[].slice.call(list.children);
+  while(n&&!isHead(n)){if(n.tagName==='P'&&/^A[.)]\s/.test(n.textContent.trim())&&/\bB[.)]\s/.test(n.textContent))qs.unshift(n);n=n.previousElementSibling}
+  if(qs.length<2||qs.length!==A.length||!A.every(function(l){return /^[A-D][,:.]/.test(l.textContent.trim())}))return false;
+  qs.forEach(function(q,i){var a=A[i].textContent.trim(),right=a.charAt(0),lines=q.innerText.split('\n').map(function(x){return x.trim()}).filter(Boolean),fb=d.createElement('p'),opts=[];fb.className='oe-hide';fb.textContent=a;q.dataset.oeq='1';q.classList.add('oe-hide');
+    lines.forEach(function(l){var o=d.createElement('p');o.className='oe-opt';o.dataset.oeq='1';o.tabIndex=0;o.setAttribute('role','button');o.textContent=l;opts.push(o);
+      function pick(){if(fb.dataset.done)return;fb.dataset.done='1';var c=l.charAt(0);o.classList.add(c===right?'ok':'no');if(c!==right)opts.forEach(function(x){if(x.textContent.charAt(0)===right)x.classList.add('ok')});fb.classList.remove('oe-hide');fb.classList.add('oe-shown');ev('blog_exercise_answer')}
+      o.addEventListener('click',pick);o.addEventListener('keydown',function(k){if(k.key==='Enter'||k.key===' '){k.preventDefault();pick()}});q.parentNode.insertBefore(o,q)});
+    q.parentNode.insertBefore(fb,q)});return true}
 function options(body){
   [].forEach.call(body.querySelectorAll('p'),function(e){
     if(e.dataset.oeq)return;var m=(e.textContent||'').trim().match(/^(?:Best|Correct) answer:\s*([A-D])\b/);if(!m)return;
@@ -126,12 +145,13 @@ function options(body){
       o.addEventListener('click',pick);o.addEventListener('keydown',function(k){if(k.key==='Enter'||k.key===' '){k.preventDefault();pick()}})})})}
 function labels(body){
   [].forEach.call(body.querySelectorAll('p'),function(e){
-    if(e.dataset.oeq||!/^(suggested (answers?|corrections?)|possible answers?|answers?|show answers?):?$/i.test((e.textContent||'').trim()))return;
+    if(e.dataset.oeq||!/^(suggested (answers?|corrections?)|possible answers?|answers?|show answers?|(show )?(the )?model answer):?$/i.test((e.textContent||'').trim()))return;
     e.dataset.oeq='1';var els=[],n=e.nextElementSibling;
     if(n&&/^(UL|OL)$/.test(n.tagName))els=[n];else while(n&&!isHead(n)){els.push(n);n=n.nextElementSibling}
     if(!els.length)return;
     els.forEach(function(x){x.classList.add('oe-hide');x.dataset.oeq='1';[].forEach.call(x.querySelectorAll('p,li'),function(y){y.dataset.oeq='1'})});
-    var b=mkBtn(/answers?/i.test(e.textContent)?'Show answers':'Show corrections');b.dataset.show=b.textContent;b.setAttribute('aria-expanded','false');revealAll(els,b);e.parentNode.insertBefore(b,e.nextSibling);e.classList.add('oe-hide')})}
+    if(/^(UL|OL)$/.test(els[0].tagName)&&mcq(e,els[0])){e.classList.add('oe-hide');return}
+    var b=mkBtn(/model/i.test(e.textContent)?'Show model answer':/answers?/i.test(e.textContent)?'Show answers':'Show corrections');b.dataset.show=b.textContent;b.setAttribute('aria-expanded','false');revealAll(els,b);e.parentNode.insertBefore(b,e.nextSibling);e.classList.add('oe-hide')})}
 function lvl(e){var h=/^H[1-6]$/.test(e.tagName)?e:e.firstElementChild;return +h.tagName.charAt(1)}
 function panels(body){
   if(body.dataset.oeP)return;body.dataset.oeP='1';
