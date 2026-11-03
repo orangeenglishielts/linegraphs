@@ -306,19 +306,19 @@ function result(){
 }
 
 function formHTML(){
-  return `<h2 class="h2">Your full breakdown <span class="hl">+ a free practice pack</span></h2>
-  <p class="sub" style="margin:0 0 12px;color:var(--ink)">See your score for each criterion and get my free PDF, ten charts for practising introductions and overviews. You’ll also get a place on my free course, <b>IELTS Academic Writing Task 1: Mastering Line Graphs</b>. Six short lessons that take you through exactly what examiners reward.</p>
+  return `<h2 class="h2">Your full breakdown <span class="hl">+ a free course</span></h2>
+  <p class="sub" style="margin:0 0 12px;color:var(--ink)">See your score for each criterion, and get a place on my free course, <b>IELTS Academic Writing Task 1: Mastering Line Graphs</b>. Six short lessons that take you through exactly what examiners reward.</p>
   <form id="f" novalidate>
    <label class="f" for="fname">First name</label><input type="text" id="fname" autocomplete="given-name" required>
    <label class="f" for="femail">Email</label><input type="email" id="femail" autocomplete="email" inputmode="email" required>
-   <label class="consent"><input type="checkbox" id="fok" required><span>Yes, email me my practice pack, the free course and IELTS tips from Orange English. Unsubscribe any time. <a href="${CONFIG.privacyUrl}" target="_blank" rel="noopener" style="color:inherit">Privacy policy</a></span></label>
+   <label class="consent"><input type="checkbox" id="fok" required><span>Yes, email me my results, the free course and IELTS tips from Orange English. Unsubscribe any time. <a href="${CONFIG.privacyUrl}" target="_blank" rel="noopener" style="color:inherit">Privacy policy</a></span></label>
    <p class="err" id="ferr" hidden></p>
    <button class="btn" type="submit">Unlock my results →</button>
   </form>`;
 }
 function unlockedHTML(){
   return `<h2 class="h2">You're <span class="hl g">in</span> ✓</h2>
-  <p class="sub" style="margin:0;color:var(--ink)">Your breakdown is unlocked above. One last step: check your inbox at <b>${esc(state.email)}</b> and click the confirmation link to download your practice pack and secure your place on <b>Mastering Line Graphs</b>. It may be in your spam or promotions folder.</p>
+  <p class="sub" style="margin:0;color:var(--ink)">Your breakdown is unlocked above. One last step: check your inbox at <b>${esc(state.email)}</b> and click the confirmation link, so I can send you your place on <b>Mastering Line Graphs</b>. It may be in your spam or promotions folder.</p>
   <p class="hand" style="margin-top:14px">Start with Lesson 1 and the overview. That's where the quickest marks are. – Lindsey</p>`;
 }
 
