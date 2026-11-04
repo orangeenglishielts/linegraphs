@@ -4,6 +4,100 @@
 if(location.href==='about:srcdoc'){var pd=window.parent.document;if(!/godaddy\.com/.test(window.parent.location.hostname)&&!pd.getElementById('oe-blog-js')){var sc=pd.createElement('script');sc.id='oe-blog-js';sc.src=(document.currentScript&&document.currentScript.src)||'https://orangeenglishielts.github.io/linegraphs/site-images/blog-style.js';pd.head.appendChild(sc)}return}
 var w=window,d=document;
 if(w.__oeBlog)return; w.__oeBlog=1;
+/* Orange English interactive blog exercises.
+   Loaded by blog-style.js on post pages. The plain exercise stays in the post text,
+   so search engines and readers without JavaScript still get it. */
+(function(){
+var w=window,d=document;
+var DRILLS=[
+{title:/don.t know what to say/i,head:/^Try it/i,until:/^Notice how the answer/i,steps:[
+ {type:'sort',title:'Step 1: Repeated or developed?',intro:'Does each sentence explain the idea, or just say it again?',opts:['Repeated','Developed'],items:[
+  {t:'Exercise is healthy because it is good for your body.',a:0,why:'"Healthy" and "good for your body" say the same thing, so we learn nothing new.'},
+  {t:'Walking to school can help children stay active because it builds exercise into their day.',a:1,why:'This explains how the benefit happens.'},
+  {t:'Libraries are useful because they are helpful places.',a:0,why:'"Useful" and "helpful" repeat each other. What can people do there?'},
+  {t:'Public libraries can support students who have no quiet place to study at home.',a:1,why:'This names a group of people and a reason the library matters to them.'}]},
+ {type:'build',title:'Step 2: Build your own idea',intro:'Start with this statement: Public parks are useful for communities. Make a quick note for each question.',qs:['What can people do in a park?','Who might particularly benefit?','Why does that matter?'],
+  out:'Now turn your notes into two or three connected sentences.',model:'Public parks provide space for people to exercise and spend time outdoors without paying an entrance fee. This can be particularly useful for families who do not have a garden, as children have somewhere to play close to home.',
+  check:['I named a specific benefit','I said who benefits','I explained why it matters','I didn’t need a statistic']}]},
+{title:/sound more academic/i,head:/^Try it/i,until:/^These are possible rewrites/i,steps:[
+ {type:'pick',title:'Step 1: Choose the best broader version',intro:'Keep the meaning, but avoid suggesting that everyone has the same experience.',items:[
+  {q:'My sister studies online because she needs to fit her course around her job.',o:[['Everyone who works should study online.',0,'That turns one person’s situation into a rule for everyone.'],['Online study can help people fit education around their work commitments.',1,'The personal detail has gone, and "can" keeps the claim careful.'],['My sister finds online study very convenient for her job.',0,'This is still about your sister, not the wider issue.']]},
+  {q:'My dad drives to work because there isn’t a bus early enough.',o:[['Workers may depend on cars when public transport does not operate at the times they need.',1,'This keeps the idea and shows when it applies.'],['Buses are useless.',0,'One missing early bus doesn’t show that.'],['My dad has to use his car every day.',0,'This is still a personal detail.']]},
+  {q:'My friend gets distracted by notifications when she’s doing homework.',o:[['Phones destroy every student’s concentration.',0,'"Destroy" and "every" claim far more than your example shows.'],['My friend is always on her phone.',0,'This moves away from the point and stays personal.'],['Phone notifications can interrupt students’ concentration while they are studying.',1,'The idea is the same, and now it’s about a wider issue.']]}]},
+ {type:'write',title:'Step 2: Now write your own',intro:'Rewrite this one yourself: My grandmother finds shopping apps difficult to use.',model:'Some older adults may find shopping apps difficult to use, particularly if they are unfamiliar with the technology.',note:'You could also write "people who are unfamiliar with the technology" if age is not relevant to your argument.',check:['I removed the personal detail','I didn’t claim it’s true of everyone','I kept the original meaning']}]},
+{title:/careful language/i,head:/^Try it/i,until:/^Notice that the rewrites/i,steps:[
+ {type:'tap',title:'Step 1: Find the word that claims too much',intro:'Tap the word you would find hardest to defend.',items:[
+  {s:'All teenagers spend too much time online.',a:'All',why:'Can you defend "all"? "Many" or "some" is easier to support, if it fits what you mean.'},
+  {s:'Online courses are always cheaper than classroom courses.',a:'always',why:'One exception breaks "always". Try "can be" or "are often".'},
+  {s:'Nobody reads printed newspapers now.',a:'Nobody',why:'You don’t have to look far for an exception. "Fewer people" is more accurate.'}]},
+ {type:'pick',title:'Step 2: Pick the most careful claim',intro:'Which sentence gives the reader a claim you could defend?',items:[
+  {q:'Social media makes teenagers anxious.',o:[['Social media always makes every teenager anxious.',0,'This makes the claim even larger.'],['Social media can contribute to anxiety among some teenagers.',1,'"Can" and "some" keep the claim proportionate.'],['It might perhaps be possible that social media could potentially affect some teenagers.',0,'This is so cautious that the point gets lost.']]},
+  {q:'Free public transport will stop people driving.',o:[['Free public transport may encourage some drivers to switch, especially if services are reliable and convenient.',1,'It adds a condition as well as a hedge, so the idea goes further.'],['Free public transport will stop everyone driving.',0,'"Everyone" makes this easier to disprove.'],['Free public transport is good.',0,'This is vague, and we lose the actual claim.']]}]},
+ {type:'write',title:'Step 3: Now write your own',intro:'Rewrite this statement: University graduates earn more money than people without degrees.',model:'A university degree can improve earning prospects in some occupations, although earnings also depend on factors such as experience and industry.',check:['I used a word such as can, may or some','I added a condition or explanation','My point is still clear']}]},
+{title:/nowadays/i,head:/^Try it/i,until:/^Neither needs/i,steps:[
+ {type:'sort',title:'Step 1: Specific or rehearsed?',intro:'Could this opening fit almost any essay, or does it start with a particular topic?',opts:['Rehearsed','Specific'],items:[
+  {t:'In today’s modern world, technology is very important.',a:0,why:'This could open hundreds of essays, and it tells us very little.'},
+  {t:'Heavy traffic can make city centres noisy and difficult for pedestrians to navigate.',a:1,why:'We immediately know the topic and the problem.'},
+  {t:'Nowadays, there are many advantages and disadvantages to everything.',a:0,why:'It doesn’t tell us what the essay is about.'},
+  {t:'Online courses allow people to study without travelling to a classroom.',a:1,why:'This gives us something specific to build on.'}]},
+ {type:'pick',title:'Step 2: Match the opening',intro:'Which starting point has the writer used?',items:[
+  {q:'Digital technology has expanded the ways in which university courses can be delivered.',o:[['A change over time',1,'The present perfect links a development to the present.'],['A practical issue',0,'Look at what the sentence describes: something that has changed.'],['The debate itself',0,'Nobody is disagreeing yet.']]},
+  {q:'Attending university in person can be difficult for students who live far from campus.',o:[['A change over time',0,'Nothing here describes a change.'],['A practical issue',1,'It shows why the topic matters to real people.'],['The debate itself',0,'It raises a problem, but not a disagreement.']]},
+  {q:'Whether online courses can fully replace classroom teaching remains a subject of debate.',o:[['A current situation',0,'It does describe now, but look at what it focuses on.'],['A practical issue',0,'It names the disagreement, not a problem people face.'],['The debate itself',1,'It introduces what people disagree about.']]}]},
+ {type:'write',title:'Step 3: Write two openings',intro:'Some people think city centres should have fewer private cars. To what extent do you agree or disagree? Write one sentence that introduces a problem, and one that introduces the debate.',model:'1. Heavy traffic can make city centres noisy and difficult for pedestrians to navigate.\n2. Restricting private cars in city centres raises questions about convenience, accessibility and the quality of public spaces.',check:['Neither sentence needs "Nowadays"','Each is about city centres and cars','I could build an introduction on it']}]}
+];
+var CSS=".oe-d{font-family:'DM Sans',Arial,sans-serif;display:grid;gap:22px;margin:14px 0 8px}"
++".oe-ds{background:#fff;border-radius:16px;padding:18px;display:grid;gap:12px}"
++".oe-post .oe-ds h3.oe-dt{margin:0!important;font-size:20px!important;line-height:1.25!important}"
++".oe-post .oe-ds p{margin:0!important;font-size:17px!important;line-height:1.5!important}"
++".oe-post .oe-ds .oe-qt{font-weight:700;color:#292929!important}"
++".oe-di{display:grid;gap:8px;border-top:1px solid #E7DFD3;padding-top:12px}.oe-di:first-of-type{border-top:0;padding-top:0}"
++".oe-dr{display:flex;flex-wrap:wrap;gap:8px}"
++".oe-db{font:700 15.5px 'DM Sans',Arial,sans-serif;line-height:1.3;text-align:left;padding:10px 16px;border-radius:14px;border:2px solid #E7DFD3;background:#fff;color:#292929;cursor:pointer;min-height:44px}"
++".oe-db:hover:not([disabled]){border-color:#C4521E}.oe-db:focus-visible{outline:3px solid #292929;outline-offset:2px}"
++".oe-db[disabled]{cursor:default;color:#292929}.oe-db.ok{border-color:#3F8A57;background:#EEF6F0}.oe-db.no{border-color:#B8392B;background:#FBEDEA}"
++".oe-dw{display:block;width:100%}.oe-db.oe-go{background:#C4521E;border-color:#C4521E;color:#fff;border-radius:999px;justify-self:start}"
++".oe-post .oe-df{font-size:16px!important;padding:10px 14px;border-radius:12px;background:#FBF1E8}.oe-post .oe-df b{color:#2F6A40}.oe-post .oe-df.no b{color:#A3361A}"
++".oe-dta{width:100%;box-sizing:border-box;min-height:72px;padding:12px 14px;border:2px solid #E7DFD3;border-radius:12px;font:16px/1.5 'DM Sans',Arial,sans-serif;color:#292929;background:#FBF6EF;resize:vertical}"
++".oe-dta:focus{outline:0;border-color:#C4521E}"
++".oe-dl{font-weight:700;font-size:16px;color:#292929;display:block;margin-bottom:6px}"
++".oe-dc{display:flex;gap:10px;align-items:flex-start;font-size:16px;line-height:1.4;color:#3A3530;cursor:pointer}.oe-dc input{width:20px;height:20px;margin:1px 0 0;accent-color:#3F8A57;flex:none}"
++".oe-dw2{display:inline-block;padding:2px 4px;margin:0 1px;border:0;border-radius:6px;background:transparent;font:inherit;font-size:18px;line-height:1.6;color:#292929;cursor:pointer;border-bottom:2px dotted #D9C9B7}"
++".oe-dw2:hover:not([disabled]){background:#FBF1E8}.oe-dw2:focus-visible{outline:3px solid #292929}.oe-dw2[disabled]{cursor:default;border-bottom-color:transparent}.oe-dw2.ok{background:#EEF6F0;color:#2F6A40;font-weight:700}.oe-dw2.no{background:#FBEDEA;text-decoration:line-through}"
++".oe-post .oe-dsc{font-weight:700;color:#8A5A3C!important;font-size:15px!important}";
+function el(t,c,x){var e=d.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function ev(n){try{if(w.gtag)w.gtag('event',n,{page_path:w.location.pathname})}catch(e){}}
+function fb(box,good,txt){var f=el('p','oe-df'+(good?'':' no'));var b=el('b','',good?'You’re right. ':'Not quite. ');f.appendChild(b);f.appendChild(d.createTextNode(txt));box.appendChild(f);ev('blog_exercise_answer')}
+function score(s,total){var p=el('p','oe-dsc');p.hidden=true;s.appendChild(p);var got=0,done=0;return function(ok){done++;if(ok)got++;if(done===total){p.hidden=false;p.textContent='You got '+got+' out of '+total+'.'}}}
+function btnBox(s,labels,right,cls,onDone,why){var r=el('div','oe-dr');var box=s;var bs=labels.map(function(l,i){var b=el('button','oe-db'+(cls||''),l);b.type='button';b.addEventListener('click',function(){bs.forEach(function(x){x.disabled=true});var ok=right(i);b.classList.add(ok?'ok':'no');if(!ok)bs.forEach(function(x,j){if(right(j))x.classList.add('ok')});fb(box,ok,why(i));onDone(ok)});r.appendChild(b);return b});box.appendChild(r)}
+function sort(s,st){var sc;st.items.forEach(function(it){var i=el('div','oe-di');i.appendChild(el('p','oe-qt',it.t));btnBox(i,st.opts,function(k){return k===it.a},'',function(ok){sc(ok)},function(){return it.why});s.appendChild(i)});sc=score(s,st.items.length)}
+function pick(s,st){var sc;st.items.forEach(function(it){var i=el('div','oe-di');i.appendChild(el('p','oe-qt',it.q));btnBox(i,it.o.map(function(o){return o[0]}),function(k){return it.o[k][1]===1},' oe-dw',function(ok){sc(ok)},function(k){return it.o[k][2]});s.appendChild(i)});sc=score(s,st.items.length)}
+function tap(s,st){var sc;st.items.forEach(function(it){var i=el('div','oe-di');var p=el('p');var bs=it.s.split(' ').map(function(raw){var wd=raw.replace(/[.,]$/,'');var b=el('button','oe-dw2',raw);b.type='button';b.dataset.w=wd;b.addEventListener('click',function(){bs.forEach(function(x){x.disabled=true});var ok=wd===it.a;b.classList.add(ok?'ok':'no');if(!ok)bs.forEach(function(x){if(x.dataset.w===it.a)x.classList.add('ok')});fb(i,ok,it.why);sc(ok)});p.appendChild(b);p.appendChild(d.createTextNode(' '));return b});i.appendChild(p);s.appendChild(i)});sc=score(s,st.items.length)}
+function area(id,label,ph){var w0=el('div');var l=el('label','oe-dl',label);l.htmlFor=id;var t=el('textarea','oe-dta');t.id=id;if(ph)t.placeholder=ph;w0.appendChild(l);w0.appendChild(t);return [w0,t]}
+function finish(s,st,uid){var b=el('button','oe-db oe-go','Show a possible answer');b.type='button';s.appendChild(b);var c=el('div','oe-di');c.hidden=true;c.appendChild(el('p','oe-qt','Check your answer'));(st.check||[]).forEach(function(x,i){var l=el('label','oe-dc');var k=el('input');k.type='checkbox';k.id=uid+'c'+i;l.appendChild(k);l.appendChild(d.createTextNode(x));c.appendChild(l)});c.appendChild(el('p','oe-qt','One possible answer'));String(st.model).split('\n').forEach(function(m){c.appendChild(el('p','',m))});if(st.note)c.appendChild(el('p','',st.note));s.appendChild(c);b.addEventListener('click',function(){c.hidden=false;b.hidden=true;ev('blog_exercise_reveal')})}
+function write(s,st,uid){var a=area(uid+'t','Your version','Type here. Nothing is saved or sent.');s.appendChild(a[0]);finish(s,st,uid)}
+function build(s,st,uid){var ts=st.qs.map(function(q,i){var a=area(uid+'q'+i,q);s.appendChild(a[0]);return a[1]});s.appendChild(el('p','',st.out));var a=area(uid+'o','Your two or three sentences');s.appendChild(a[0]);finish(s,st,uid)}
+var KIND={sort:sort,pick:pick,tap:tap,write:write,build:build};
+function apply(){
+ var t=d.querySelector('.oe-post [data-ux=BlogMainHeading]'),body=d.querySelector('.oe-post [data-ux=BlogContent]');
+ if(!t||!body||body.dataset.oeDrill)return;
+ var D=DRILLS.filter(function(x){return x.title.test(t.textContent)})[0];if(!D)return;
+ var all=[].slice.call(body.querySelectorAll('h1,h2,h3,h4,p,li,ul,ol,div'));
+ var h=all.filter(function(e){return /^H[1-6]$/.test(e.tagName)&&D.head.test(e.textContent.trim())})[0];if(!h)return;
+ var top=h;while(top.parentNode!==body)top=top.parentNode;
+ var kids=[].slice.call(body.children),from=kids.indexOf(top),end=-1;
+ for(var i=from+1;i<kids.length;i++)if(D.until.test((kids[i].textContent||'').trim())){end=i;break}
+ if(end<0)return;
+ body.dataset.oeDrill='1';
+ if(!d.getElementById('oe-drill-css')){var c=d.createElement('style');c.id='oe-drill-css';c.textContent=CSS;d.head.appendChild(c)}
+  var wrap=el('div','oe-d');
+ D.steps.forEach(function(st,n){var s=el('div','oe-ds');s.appendChild(el('h3','oe-dt',st.title));s.appendChild(el('p','',st.intro));KIND[st.type](s,st,'oe'+n);wrap.appendChild(s)});
+ top.parentNode.insertBefore(wrap,kids[end]);
+ for(i=from+1;i<end;i++)kids[i].remove();
+}
+w.oeDrills=apply;
+})();
+
 var css=""
 +".oe-blog [data-ux=SectionHeading]{letter-spacing:-.01em}"
 +".oe-blog [data-ux=NavHorizontalList]{gap:8px 8px!important;justify-content:center}"
@@ -187,7 +281,7 @@ function run(){
   [].forEach.call(d.querySelectorAll('h1'),function(h){if(h.classList.contains('oe-title'))return;var p=d.createElement('p');if(outer.contains(h)&&/^Orange English Blog$/.test(h.textContent.trim()))p.style.setProperty('display','none','important');p.className=h.className;p.innerHTML=h.innerHTML;h.replaceWith(p)});
   var t=outer.querySelector('[data-ux=BlogMainHeading]');
   if(t&&t.tagName!=='H1'){var h1=d.createElement('h1');[].forEach.call(t.attributes,function(a){h1.setAttribute(a.name,a.value)});h1.classList.add('oe-title');h1.innerHTML=t.innerHTML;t.replaceWith(h1)}
-  var pb=outer.querySelector('[data-ux=BlogContent]'),pc=outer.querySelector('[data-aid=RSS_POST_CATEGORIES]');if(pb){options(pb);labels(pb);quiz(pb);if(n>=3){panels(pb);toc(pb)}}if(pb&&t0())addCta(pb,(pc?pc.textContent:'').toLowerCase(),(t0().textContent||'').toLowerCase());
+  var pb=outer.querySelector('[data-ux=BlogContent]'),pc=outer.querySelector('[data-aid=RSS_POST_CATEGORIES]');if(pb&&w.oeDrills)w.oeDrills();if(pb){options(pb);labels(pb);quiz(pb);if(n>=3){panels(pb);toc(pb)}}if(pb&&t0())addCta(pb,(pc?pc.textContent:'').toLowerCase(),(t0().textContent||'').toLowerCase());
   if(!top0){top0=1;w.scrollTo(0,0)}
 }
 function t0(){return d.querySelector('.oe-post [data-ux=BlogMainHeading]')}
