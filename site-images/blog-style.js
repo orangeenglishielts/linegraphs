@@ -10,7 +10,7 @@ if(w.__oeBlog)return; w.__oeBlog=1;
 (function(){
 var w=window,d=document;
 var DRILLS=[
-{title:/don.t know what to say/i,head:/^Try it/i,until:/^Notice how the answer/i,steps:[
+{title:/don.t know what to say/i,head:/^Try it/i,until:/^Notice how the answer/i,imgs:[{before:/^You don.t need a statistic/,src:'ideas-room-to-grow.png',alt:'Three growing cards showing a claim about cycling developed by asking how, who and when'},{before:/^For cycling, you might consider/,src:'ideas-zoom-out.png',alt:'Nested circles from individual through community, regional and national to global'}],steps:[
  {type:'sort',title:'Step 1: Repeated or developed?',intro:'Does each sentence explain the idea, or just say it again?',opts:['Repeated','Developed'],items:[
   {t:'Exercise is healthy because it is good for your body.',a:0,why:'"Healthy" and "good for your body" say the same thing, so we learn nothing new.'},
   {t:'Walking to school can help children stay active because it builds exercise into their day.',a:1,why:'This explains how the benefit happens.'},
@@ -89,6 +89,7 @@ function apply(){
  for(var i=from+1;i<kids.length;i++)if(D.until.test((kids[i].textContent||'').trim())){end=i;break}
  if(end<0)return;
  body.dataset.oeDrill='1';
+ (D.imgs||[]).forEach(function(m){var n=[].slice.call(body.children).filter(function(k){return m.before.test((k.textContent||'').trim())})[0];if(!n)return;var i0=d.createElement('img');i0.src='https://orangeenglishielts.github.io/linegraphs/site-images/'+m.src;i0.alt=m.alt;i0.loading='lazy';i0.style.cssText='display:block;width:100%;height:auto;margin:24px 0';n.parentNode.insertBefore(i0,n)});
  if(!d.getElementById('oe-drill-css')){var c=d.createElement('style');c.id='oe-drill-css';c.textContent=CSS;d.head.appendChild(c)}
   var wrap=el('div','oe-d');
  D.steps.forEach(function(st,n){var s=el('div','oe-ds');s.appendChild(el('h3','oe-dt',st.title));s.appendChild(el('p','',st.intro));KIND[st.type](s,st,'oe'+n);wrap.appendChild(s)});
