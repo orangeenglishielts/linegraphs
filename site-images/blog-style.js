@@ -98,6 +98,9 @@ function apply(){
 w.oeDrills=apply;
 })();
 
+// If an article is failing on GoDaddy's side, send readers who click through the site to the Orange English error page
+w.addEventListener('click',function(ev0){var a=ev0.target&&ev0.target.closest&&ev0.target.closest('a[href]');if(!a||ev0.metaKey||ev0.ctrlKey||ev0.shiftKey||a.target==='_blank')return;var u;try{u=new URL(a.href,w.location.href)}catch(e){return}if(u.hostname!==w.location.hostname||!/^\/(blog\/)?f\//.test(u.pathname))return;ev0.preventDefault();ev0.stopPropagation();var go=function(){w.location.href=u.href};var t=setTimeout(go,2500);fetch(u.href,{cache:'no-store'}).then(function(r){clearTimeout(t);if(r.status>=500)w.location.href='https://orangeenglishielts.github.io/linegraphs/error/?from='+encodeURIComponent(u.href);else go()}).catch(function(){clearTimeout(t);go()})},true);
+
 var css=""
 +".oe-blog [data-ux=SectionHeading]{letter-spacing:-.01em}"
 +".oe-blog [data-ux=NavHorizontalList]{gap:8px 8px!important;justify-content:center}"
