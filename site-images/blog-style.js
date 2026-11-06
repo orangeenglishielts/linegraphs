@@ -285,9 +285,24 @@ function run(){
   [].forEach.call(d.querySelectorAll('h1'),function(h){if(h.classList.contains('oe-title'))return;var p=d.createElement('p');if(outer.contains(h)&&/^Orange English Blog$/.test(h.textContent.trim()))p.style.setProperty('display','none','important');p.className=h.className;p.innerHTML=h.innerHTML;h.replaceWith(p)});
   var t=outer.querySelector('[data-ux=BlogMainHeading]');
   if(t&&t.tagName!=='H1'){var h1=d.createElement('h1');[].forEach.call(t.attributes,function(a){h1.setAttribute(a.name,a.value)});h1.classList.add('oe-title');h1.innerHTML=t.innerHTML;t.replaceWith(h1)}
-  var pb=outer.querySelector('[data-ux=BlogContent]'),pc=outer.querySelector('[data-aid=RSS_POST_CATEGORIES]');if(pb&&w.oeDrills)w.oeDrills();if(pb){options(pb);labels(pb);quiz(pb);if(n>=3){panels(pb);toc(pb)}}if(pb&&t0())addCta(pb,(pc?pc.textContent:'').toLowerCase(),(t0().textContent||'').toLowerCase());
+  var pb=outer.querySelector('[data-ux=BlogContent]'),pc=outer.querySelector('[data-aid=RSS_POST_CATEGORIES]');if(pb&&w.oeDrills)w.oeDrills();if(pb){options(pb);labels(pb);quiz(pb);if(n>=3){panels(pb);toc(pb)}}if(pb)share(pb);if(pb&&t0())addCta(pb,(pc?pc.textContent:'').toLowerCase(),(t0().textContent||'').toLowerCase());
   if(!top0){top0=1;w.scrollTo(0,0)}
 }
+function share(pb){
+  if(d.querySelector('.oe-share'))return;
+  if(!d.getElementById('oe-share-css')){var c=d.createElement('style');c.id='oe-share-css';c.textContent='.oe-share{margin:32px 0 8px;padding:18px 20px;border:1px solid #E6DCCD;border-radius:18px;background:#FFFDF8;font-family:inherit}.oe-share p{margin:0 0 12px!important;font-weight:700;font-size:16px;color:#292929}.oe-share div{display:flex;flex-wrap:wrap;gap:10px}.oe-share a,.oe-share button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid #292929;background:#fff;color:#292929!important;font-family:inherit;font-size:15px;font-weight:600;line-height:1;text-decoration:none!important;cursor:pointer}.oe-share a:hover,.oe-share button:hover{background:#292929;color:#FBF7F0!important}.oe-share svg{width:18px;height:18px;flex:none}';d.head.appendChild(c)}
+  var u=w.location.origin+w.location.pathname,t=((t0()&&t0().textContent)||d.title||'').trim(),U=encodeURIComponent(u),T=encodeURIComponent(t);
+  var I=function(p){return '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'};
+  var b=d.createElement('div');b.className='oe-share';
+  b.innerHTML='<p>Share this post</p><div>'+
+   '<a href="https://wa.me/?text='+T+'%20'+U+'" target="_blank" rel="noopener">'+I('<path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/>')+'WhatsApp</a>'+
+   '<a href="https://www.linkedin.com/sharing/share-offsite/?url='+U+'" target="_blank" rel="noopener">'+I('<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>')+'LinkedIn</a>'+
+   '<a href="mailto:?subject='+T+'&amp;body='+T+'%0A%0A'+U+'">'+I('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>')+'Email</a>'+
+   '<button type="button" class="oe-copy">'+I('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>')+'<span>Copy link</span></button></div>';
+  pb.parentNode.insertBefore(b,pb.nextSibling);
+  b.querySelector('.oe-copy').addEventListener('click',function(){var sp=this.querySelector('span'),ok=function(){sp.textContent='Link copied';setTimeout(function(){sp.textContent='Copy link'},2000)};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(ok,function(){fb()})}else fb();
+    function fb(){var a=d.createElement('textarea');a.value=u;d.body.appendChild(a);a.select();try{d.execCommand('copy');ok()}catch(e){}a.remove()}})}
 function t0(){return d.querySelector('.oe-post [data-ux=BlogMainHeading]')}
 var top0=0,n=0,iv=setInterval(function(){run();if(n<12&&isPost()&&w.scrollY>1500)w.scrollTo(0,0);if(++n>50)clearInterval(iv)},300);run();
 }catch(e){}})();
