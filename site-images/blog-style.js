@@ -303,6 +303,31 @@ function share(pb){
   b.querySelector('.oe-copy').addEventListener('click',function(){var sp=this.querySelector('span'),ok=function(){sp.textContent='Link copied';setTimeout(function(){sp.textContent='Copy link'},2000)};
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(ok,function(){fb()})}else fb();
     function fb(){var a=d.createElement('textarea');a.value=u;d.body.appendChild(a);a.select();try{d.execCommand('copy');ok()}catch(e){}a.remove()}})}
+/* Scroll reveal: sections gently fade up as they come into view (pages that load this file, not blog posts) */
+function scrollReveal(){
+  if(w.__oeRv||isPost()||!('IntersectionObserver' in w))return;
+  if(w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  w.__oeRv=1;
+  var c=d.createElement('style');c.id='oe-rv-css';c.textContent='html body .oe-rv{transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)!important}@media screen{html body .oe-rv:not(.oe-in){opacity:0!important;transform:translateY(28px)!important}}';d.head.appendChild(c);
+  var items=[],secs=[].slice.call(d.querySelectorAll('section'));
+  secs.forEach(function(s,i){
+    if(i<2)return;
+    var box=s.querySelector('[data-ux=Container],[data-ux=SplitLayout]')||s;
+    [].forEach.call(box.children,function(ch){
+      var cells=ch.querySelectorAll(':scope > [data-ux=GridCell], :scope > [data-ux=Grid] > [data-ux=GridCell]');
+      if(cells.length>1)[].forEach.call(cells,function(g,k){g.style.transitionDelay=(k%3)*110+'ms';items.push(g)});
+      else items.push(ch);
+    });
+  });
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('oe-in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:0.08});
+  items.forEach(function(el){
+    if(el.offsetHeight<2||el.getBoundingClientRect().top<w.innerHeight)return;
+    el.classList.add('oe-rv');io.observe(el);
+  });
+  // Backup in case the observer is slow: show anything that has scrolled into view
+  var tk=0;function chk(){tk=0;var v=w.innerHeight;[].forEach.call(d.querySelectorAll('.oe-rv:not(.oe-in)'),function(el){if(el.getBoundingClientRect().top<v*0.95)el.classList.add('oe-in')})}
+  w.addEventListener('scroll',function(){if(!tk)tk=setTimeout(chk,250)},{passive:true});
+}
 function t0(){return d.querySelector('.oe-post [data-ux=BlogMainHeading]')}
-var top0=0,n=0,iv=setInterval(function(){run();if(n<12&&isPost()&&w.scrollY>1500)w.scrollTo(0,0);if(++n>50)clearInterval(iv)},300);run();
+var top0=0,n=0,iv=setInterval(function(){run();if(n<12&&isPost()&&w.scrollY>1500)w.scrollTo(0,0);if(n===4)scrollReveal();if(++n>50)clearInterval(iv)},300);run();
 }catch(e){}})();
