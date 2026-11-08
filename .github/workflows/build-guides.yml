@@ -1,0 +1,21 @@
+name: Build Task 1 guides
+on:
+  push:
+    paths: ["tools/build_guides.py", ".github/workflows/build-guides.yml"]
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: guides
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/build_guides.py
+      - run: |
+          git add guides
+          git diff --cached --quiet && exit 0
+          git -c user.name="Orange English Guides" -c user.email="hello@orangeenglish.nl" commit -m "Guides: update from the blog"
+          git push
