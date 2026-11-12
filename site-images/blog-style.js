@@ -12,6 +12,23 @@ try{var nav0=w.performance&&performance.getEntriesByType&&performance.getEntries
 (function(){
 var w=window,d=document;
 var DRILLS=[
+{title:/speaking questions 2027/i,head:/^Test yourself/i,until:/^Be ready for the conversation/i,steps:[
+ {type:'sort',title:'Step 1: Too short, overprepared or natural?',intro:'Read each Part 1 answer. What kind of answer is it?',opts:['Too short','Overprepared','Natural'],items:[
+  {t:'Do you like reading? “Yes.”',a:0,why:'A direct answer is good, but give the examiner something more: a reason, an example or a contrast.'},
+  {t:'Do you like reading? “Reading constitutes an indispensable pastime that enriches the intellect.”',a:1,why:'This sounds like a memorised essay sentence, not a reply to a friendly question.'},
+  {t:'Do you like reading? “I do, mostly on the train to work. It’s about the only time I get to read without interruptions.”',a:2,why:'A direct answer plus a real detail, in natural spoken English.'},
+  {t:'How often do you use public transport? “Public transport is an essential component of urban infrastructure.”',a:1,why:'It doesn’t answer “how often”, and nobody talks like this in conversation.'},
+  {t:'How often do you use public transport? “Most days, actually. I take the tram to work because parking in the city centre is so expensive.”',a:2,why:'It answers the question first, then adds a reason.'},
+  {t:'How often do you use public transport? “Not often.”',a:0,why:'Fine as a start. Now say why, or when you do use it.'}]},
+ {type:'tap',title:'Step 2: Find the word that claims too much',intro:'In Part 3, tap the word that would be hard to defend.',items:[
+  {s:'Everyone uses AI to do their homework now.',a:'Everyone',why:'Can you defend “everyone”? “Many students” or “some students” is easier to support.'},
+  {s:'Older people never learn new technology.',a:'never',why:'One exception breaks “never”. Try “may find it harder to learn”.'},
+  {s:'Working from home is always more productive.',a:'always',why:'It depends on the person and the job. Try “can be” or “is often”.'}]},
+ {type:'pick',title:'Step 3: Which Part 3 answer is better developed?',intro:'Choose the answer that explains the idea best.',items:[
+  {q:'Why do some people prefer flexible working?',o:[['Because it is flexible.',0,'This repeats the question and explains nothing.'],['One reason is that it lets parents fit work around school times. That said, it may not suit people who need a clear routine.',1,'A reason, a specific group of people and a qualification.'],['Flexible working is the best thing in the modern world for everyone.',0,'A big claim with no reason or example.']]},
+  {q:'What can younger and older people learn from each other?',o:[['Older people can learn technology and younger people can learn things.',0,'“Things” is too vague to tell the examiner anything.'],['Everyone can learn everything from everyone.',0,'This sounds positive but says nothing specific.'],['Quite a lot, I think. Younger people might help grandparents use video calls, while older people often have practical skills, like cooking or repairing things, that younger people may never have learned.',1,'Both directions, with a clear example of each.']]}]},
+ {type:'write',title:'Step 4: Make this Part 1 answer more natural',intro:'Question: Do you prefer making plans or being spontaneous? Answer: “I prefer making plans.” Write a better answer.',model:'I usually like to plan, especially for things like holidays, because I don’t enjoy last-minute stress. But at weekends I’m happy to see what happens.',note:'Your answer will be different, and that’s the point. Check it against the list below.',check:['I answered the question directly','I added a reason, example or contrast','It sounds like speech, not an essay']}]},
+
 {title:/don.t know what to say/i,head:/^Try it/i,until:/^Notice how the answer/i,imgs:[{before:/^You don.t need a statistic/,src:'ideas-room-to-grow.png',alt:'Three growing cards showing a claim about cycling developed by asking how, who and when'},{before:/^For cycling, you might consider/,src:'ideas-zoom-out.png',alt:'Nested circles from individual through community, regional and national to global'}],steps:[
  {type:'sort',title:'Step 1: Repeated or developed?',intro:'Does each sentence explain the idea, or just say it again?',opts:['Repeated','Developed'],items:[
   {t:'Exercise is healthy because it is good for your body.',a:0,why:'"Healthy" and "good for your body" say the same thing, so we learn nothing new.'},
