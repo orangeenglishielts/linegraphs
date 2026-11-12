@@ -4,6 +4,8 @@
 if(location.href==='about:srcdoc'){var pd=window.parent.document;if(!/godaddy\.com/.test(window.parent.location.hostname)&&!pd.getElementById('oe-blog-js')){var sc=pd.createElement('script');sc.id='oe-blog-js';sc.src=(document.currentScript&&document.currentScript.src)||'https://orangeenglishielts.github.io/linegraphs/site-images/blog-style.js';pd.head.appendChild(sc)}return}
 var w=window,d=document;
 if(w.__oeBlog)return; w.__oeBlog=1;
+/* Old /f/ post addresses: GoDaddy serves them with the homepage title and canonical, so send them to the /blog/f/ address with a real redirect (drops ?blogcategory). */
+try{var nav0=w.performance&&performance.getEntriesByType&&performance.getEntriesByType('navigation')[0];var p0=nav0?new URL(nav0.name).pathname:w.location.pathname;if(/^\/f\/[^\/]+/.test(p0)){w.location.replace(w.location.origin+'/blog'+p0);return}}catch(e){}
 /* Orange English interactive blog exercises.
    Loaded by blog-style.js on post pages. The plain exercise stays in the post text,
    so search engines and readers without JavaScript still get it. */
