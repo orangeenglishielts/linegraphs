@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free IELTS Speaking game: Don't Say "Umm" · Orange English</title><meta name="robots" content="noindex">
+<meta name="description" content="Download Don't Say &quot;Umm&quot;, a free printable IELTS Speaking fluency game for class or a study buddy.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,800&display=swap">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#FBF6EF;color:#292929;font:17px/1.55 Inter,Arial,sans-serif}
+main{max-width:620px;margin:0 auto;padding:32px 20px 48px}.logo{height:66px;display:block;margin-bottom:34px}
+.k{margin:0 0 8px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#B4501A}
+h1{margin:0 0 14px;font:800 clamp(32px,7vw,46px)/1.08 Fraunces,Georgia,serif}
+h1 span{background:linear-gradient(transparent 58%,rgba(248,139,72,.45) 58%)}
+ul{margin:14px 0 22px;padding-left:20px}li{margin-bottom:6px}
+form,.done{background:#fff;border-radius:22px;padding:22px;box-shadow:0 8px 24px rgba(41,41,41,.08)}
+label.l{display:block;font-weight:700;margin-bottom:10px}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+input[type=email]{flex:1 1 220px;min-width:0;padding:14px 18px;border-radius:999px;border:2px solid #E7DFD3;font:16px Inter,Arial,sans-serif}
+button,.b{flex:0 0 auto;background:#C4521E;color:#fff;border:0;border-radius:999px;padding:14px 26px;font:700 16px Inter,Arial,sans-serif;cursor:pointer;text-decoration:none;display:inline-block}
+.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+small{display:block;margin-top:10px;color:#5E564E;font-size:13px}
+.err{color:#A3361A;font-size:14px;margin:8px 0 0}
+.done{display:none;background:#E6F0E3}.done.show{display:block}.done h2{margin:0 0 6px;font:800 26px/1.2 Fraunces,Georgia,serif}.done p{margin:0 0 16px}
+.s{font-size:14px;color:#5E564E;margin-top:28px}.s a{color:#B4501A;font-weight:700}
+</style></head>
+<body><main><a href="https://orangeenglish.nl"><img class="logo" src="logo.png" alt="Orange English"></a>
+<p class="k">Free download · from a former IELTS examiner</p>
+<h1>Don't Say <span>"Umm"</span>: the printable IELTS Speaking game</h1>
+<p>A fluency game for class or a study buddy. One person asks, one answers and one keeps score.</p>
+<ul>
+<li>A one-page guide to playing and scoring</li>
+<li>Five listener cards and a score sheet</li>
+<li>20 IELTS-style questions for Parts 1, 2 and 3, ready to cut out</li>
+</ul>
+<form id="f" action="https://gem.godaddy.com/signups/subscribe/6d107a08a3c945718225aa2ea5fdc766" method="post" novalidate>
+<label class="l" for="e">Enter your email to download it now</label>
+<div class="row"><input id="e" name="signup[email]" type="email" autocomplete="email" placeholder="you@example.com" required><button type="submit">Get the game</button></div>
+<div class="hp" aria-hidden="true"><input type="text" name="69c5ddcc0dd8a84bcfd86d4450ecda9b" tabindex="-1" autocomplete="off"><input type="checkbox" name="beacon" tabindex="-1"></div>
+<p class="err" id="err" hidden></p>
+<small>Free, 6 pages, PDF. Your download appears straight away. I never share your email, and you can unsubscribe any time.</small>
+</form>
+<div class="done" id="done"><h2>Here's your game</h2><p>Thanks! Print pages 2 to 6 for each group of three.</p>
+<a class="b" href="Orange-English-IELTS-Speaking-Game-Dont-Say-Umm.pdf" download>Download the PDF</a>
+<p style="margin:14px 0 0;font-size:14px;color:#5E564E">You may also get a short email from GoDaddy asking you to confirm your subscription.</p></div>
+<p class="s">How to play: <a href="https://orangeenglish.nl/blog">read the full post on the Orange English blog</a>.</p>
+</main>
+<script>
+(function(){
+var f=document.getElementById('f'),err=document.getElementById('err'),done=document.getElementById('done');
+function show(){f.style.display='none';done.classList.add('show');}
+f.addEventListener('submit',function(ev){
+ev.preventDefault();
+var email=document.getElementById('e').value.trim();
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent='Check your email address, for example name@gmail.com.';err.hidden=false;return;}
+err.hidden=true;
+var q=[];for(var i=0;i<f.elements.length;i++){var el=f.elements[i];if(!el.name)continue;if(el.type==='checkbox'&&!el.checked)continue;q.push(encodeURIComponent(el.name)+'='+encodeURIComponent(el.value));}
+var cb='oecb'+Date.now(),s=document.createElement('script'),fin=false;
+function fallback(){if(fin)return;fin=true;try{f.target='_blank';HTMLFormElement.prototype.submit.call(f);}catch(e){}show();}
+window[cb]=function(res){if(fin)return;fin=true;if(res&&res.success){show();}else if(res&&res.errors){err.textContent='Something went wrong. Check your email address and try again.';err.hidden=false;}else{show();}};
+s.onerror=fallback;setTimeout(fallback,8000);
+s.src=f.action+'.json?callback='+cb+'&'+q.join('&');document.body.appendChild(s);
+});
+})();
+</script>
+</body></html>
