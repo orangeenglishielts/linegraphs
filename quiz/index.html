@@ -222,7 +222,7 @@ function intro(){
    <div class="card accent">
     <p class="eyebrow">IELTS Academic · Writing Task 1</p>
     <h1 class="h1">What band would an <span class="hl">examiner</span> give you?</h1>
-    <p class="sub">Answer 11 quick questions and get your estimated Task 1 band, plus what's holding it back.</p>
+    <p class="sub">Answer 11 quick questions (2 about you, 9 on a sample graph) and get your estimated Task 1 band, plus what's holding it back.</p>
     <div class="sig"><div><p class="hand">"I marked IELTS Writing for 4 years. This is what I look for."</p><small>Lindsey, former IELTS examiner</small></div></div>
    </div>
    <div class="meta"><span class="chip o">⏱ 2 minutes</span><span class="chip">11 questions</span><span class="chip g">Free</span></div>
@@ -298,7 +298,7 @@ function result(){
    </div>
 
    <div class="card ${state.unlocked?"gtint":"tint"}" id="formwrap">${state.unlocked?unlockedHTML():formHTML()}</div>
-   <p class="fine">This is an estimate from 9 questions, not an official IELTS score.</p>
+   <p class="fine">This is an estimate from the 9 graph questions, not an official IELTS score.</p>
    <button class="link" id="redo">Take the quiz again</button>
   </div>`;
   if(!state.unlocked) bindForm();
