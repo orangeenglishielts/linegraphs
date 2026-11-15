@@ -161,21 +161,18 @@ footer a{color:var(--ink)}
     <div id="formArea">
       <h2 id="join-title">Join the waitlist</h2>
       <p class="lead">The course opens on Friday 27 November. Leave your email and I'll send you the link the day it goes live.</p>
-      <form id="waitlist" action="https://gem.godaddy.com/signups/subscribe/5cdfe95f1e574a818971f13fe0557ea2" method="post" target="_blank" novalidate>
+      <form id="waitlist" action="https://app.kit.com/forms/10193083/subscriptions" method="post" target="_blank" novalidate>
         <label class="vh" for="email">Email address</label>
-        <input id="email" name="signup[email]" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
-        <div class="hp" aria-hidden="true">
-          <input type="text" name="d55f345b6aaa74773d072714bd2e52e0" tabindex="-1" autocomplete="off">
-          <input type="checkbox" name="beacon" tabindex="-1">
-        </div>
+        <input id="email" name="email_address" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
         <button type="submit" id="btn">Save my free place</button>
       </form>
       <p class="msg" id="msg" role="status" aria-live="polite"></p>
-      <p class="small">You'll get a quick email to confirm. Free, no spam, unsubscribe any time.</p>
+      <p class="small">Free, no spam, unsubscribe any time. Your practice pack arrives straight away.</p>
     </div>
     <div class="done" id="done" role="status" aria-live="polite">
       <h3>You're on the list!</h3>
-      <p>Check your inbox and click the confirmation link, otherwise I can't email you when the course opens. It may be in your spam or promotions folder.</p>
+      <p>Your free Task 1 practice pack is ready now, and it's in your inbox too. I'll email you the course link on Friday 27 November.</p>
+      <p><a href="https://orangeenglishielts.github.io/linegraphs/free-practice-pack/" style="font-weight:700">Open the practice pack →</a></p>
     </div>
   </section>
 
@@ -242,32 +239,25 @@ footer a{color:var(--ink)}
     email.value=v;
     btn.disabled=true; btn.textContent='Saving…'; msg.className='msg'; msg.textContent='';
 
-    var cb='ema_cb_'+Math.round(Math.random()*1e9), s=document.createElement('script'), finished=false;
+    var finished=false;
     var timer=setTimeout(function(){
-      if(finished) return; finished=true; cleanup();
-      // Fall back to GoDaddy's own page so the sign-up still goes through.
+      if(finished) return; finished=true;
       HTMLFormElement.prototype.submit.call(form);
       fail('Opening the sign-up in a new tab…');
     },10000);
-    function cleanup(){ clearTimeout(timer); try{ delete window[cb]; }catch(_){ window[cb]=undefined; } if(s.parentNode) s.parentNode.removeChild(s); }
-    window[cb]=function(res){
-      if(finished) return; finished=true; cleanup();
-      if(res && res.success){
-        var r=res.result||{};
-        if(r.has_redirect && r.redirect){ window.location.href=r.redirect; return; }
-        area.style.display='none'; done.classList.add('show');
-      } else {
+    var fd=new FormData(); fd.append('email_address',v);
+    fetch(form.action,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
+      .then(function(r){return r.json();})
+      .then(function(res){
+        if(finished) return; finished=true; clearTimeout(timer);
+        if(res && res.status==='success'){ area.style.display='none'; done.classList.add('show'); }
+        else { fail('Something went wrong. Check your email address and try again.'); }
+      })
+      .catch(function(){
+        if(finished) return; finished=true; clearTimeout(timer);
         HTMLFormElement.prototype.submit.call(form);
-        fail('Something went wrong here, so I opened the sign-up in a new tab.');
-      }
-    };
-    s.onerror=function(){
-      if(finished) return; finished=true; cleanup();
-      HTMLFormElement.prototype.submit.call(form);
-      fail('Opening the sign-up in a new tab…');
-    };
-    s.src=form.action+'.json?callback='+cb+'&'+serialize(form);
-    document.body.appendChild(s);
+        fail('Opening the sign-up in a new tab…');
+      });
   });
 })();
 </script>

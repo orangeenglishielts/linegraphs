@@ -151,9 +151,9 @@ input[type=text]:focus,input[type=email]:focus{border-color:var(--orange)}
 /* ===== SETTINGS: fill these in before going live ===== */
 const CONFIG = {
   // GoDaddy Email Marketing signup form: paste the form's action URL and field names from its embed code
-  formAction: "https://gem.godaddy.com/signups/subscribe/5cdfe95f1e574a818971f13fe0557ea2",  // GoDaddy Email Marketing: "Free IELTS Course Waitlist" form
-  emailField: "signup[email]",
-  nameField:  "signup[name]",
+  formAction: "https://app.kit.com/forms/10193083/subscriptions",  // Kit form "Free IELTS Course sign-up" (auto-confirm, sends the practice pack)
+  emailField: "email_address",
+  nameField:  "first_name",
   extraFields: {},                // optional, e.g. { band: "signup[band]", target: "signup[target]", testDate: "signup[test_date]" }
   privacyUrl: "https://orangeenglish.nl/privacy-policy"
 };
@@ -318,7 +318,7 @@ function formHTML(){
 }
 function unlockedHTML(){
   return `<h2 class="h2">You're <span class="hl g">in</span> ✓</h2>
-  <p class="sub" style="margin:0;color:var(--ink)">Your breakdown is unlocked above. One last step: check your inbox at <b>${esc(state.email)}</b> and click the confirmation link. I’ll then email you your practice pack and your place on <b>Mastering Line Graphs</b>. It may be in your spam or promotions folder.</p>
+  <p class="sub" style="margin:0;color:var(--ink)">Your breakdown is unlocked above. Your practice pack is on its way to <b>${esc(state.email)}</b>, and you can <a href="https://orangeenglishielts.github.io/linegraphs/free-practice-pack/" target="_blank" rel="noopener" style="font-weight:700;color:inherit">open it now</a>. I’ll email you your place on <b>Mastering Line Graphs</b> on Friday 27 November.</p>
   <p class="hand" style="margin-top:14px">Start with Lesson 1 and the overview. That's where the quickest marks are. – Lindsey</p>`;
 }
 
