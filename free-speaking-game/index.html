@@ -30,16 +30,15 @@ small{display:block;margin-top:10px;color:#5E564E;font-size:13px}
 <li>Five listener cards and a score sheet</li>
 <li>20 IELTS-style questions for Parts 1, 2 and 3, ready to cut out</li>
 </ul>
-<form id="f" action="https://gem.godaddy.com/signups/subscribe/6d107a08a3c945718225aa2ea5fdc766" method="post" novalidate>
+<form id="f" action="https://app.kit.com/forms/10193153/subscriptions" method="post" target="_blank" novalidate>
 <label class="l" for="e">Enter your email to download it now</label>
-<div class="row"><input id="e" name="signup[email]" type="email" autocomplete="email" placeholder="you@example.com" required><button type="submit">Get the game</button></div>
-<div class="hp" aria-hidden="true"><input type="text" name="69c5ddcc0dd8a84bcfd86d4450ecda9b" tabindex="-1" autocomplete="off"><input type="checkbox" name="beacon" tabindex="-1"></div>
+<div class="row"><input id="e" name="email_address" type="email" autocomplete="email" placeholder="you@example.com" required><button type="submit">Get the game</button></div>
 <p class="err" id="err" hidden></p>
 <small>Free, 6 pages, PDF. Your download appears straight away. I never share your email, and you can unsubscribe any time.</small>
 </form>
 <div class="done" id="done"><h2>Here's your game</h2><p>Thanks! Print pages 2 to 6 for each group of three.</p>
 <a class="b" href="Orange-English-IELTS-Speaking-Game-Dont-Say-Umm.pdf" download>Download the PDF</a>
-<p style="margin:14px 0 0;font-size:14px;color:#5E564E">You may also get a short email from GoDaddy asking you to confirm your subscription.</p></div>
+<p style="margin:14px 0 0;font-size:14px;color:#5E564E">I&#39;ve also emailed you a copy, so you can find it again later.</p></div>
 <p class="s">How to play: <a href="https://orangeenglish.nl/blog/f/dont-say-umm-an-ielts-speaking-game-for-class-or-a-study-buddy">read the full post on the Orange English blog</a>.</p>
 </main>
 <script>
@@ -51,12 +50,10 @@ ev.preventDefault();
 var email=document.getElementById('e').value.trim();
 if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent='Check your email address, for example name@gmail.com.';err.hidden=false;return;}
 err.hidden=true;
-var q=[];for(var i=0;i<f.elements.length;i++){var el=f.elements[i];if(!el.name)continue;if(el.type==='checkbox'&&!el.checked)continue;q.push(encodeURIComponent(el.name)+'='+encodeURIComponent(el.value));}
-var cb='oecb'+Date.now(),s=document.createElement('script'),fin=false;
-function fallback(){if(fin)return;fin=true;try{f.target='_blank';HTMLFormElement.prototype.submit.call(f);}catch(e){}show();}
-window[cb]=function(res){if(fin)return;fin=true;if(res&&res.success){show();}else if(res&&res.errors){err.textContent='Something went wrong. Check your email address and try again.';err.hidden=false;}else{show();}};
-s.onerror=fallback;setTimeout(fallback,8000);
-s.src=f.action+'.json?callback='+cb+'&'+q.join('&');document.body.appendChild(s);
+var fd=new FormData();fd.append('email_address',email);
+var fin=false;function fallback(){if(fin)return;fin=true;try{HTMLFormElement.prototype.submit.call(f);}catch(e){}show();}
+setTimeout(fallback,10000);
+fetch(f.action,{method:'POST',body:fd,headers:{'Accept':'application/json'}}).then(function(r){return r.json();}).then(function(res){if(fin)return;fin=true;if(res&&res.status==='success'){show();}else{err.textContent='Something went wrong. Check your email address and try again.';err.hidden=false;}}).catch(fallback);
 });
 })();
 </script>
