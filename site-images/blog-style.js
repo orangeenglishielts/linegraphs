@@ -319,6 +319,12 @@ function share(pb){
    '<a href="https://www.linkedin.com/sharing/share-offsite/?url='+U+'" target="_blank" rel="noopener">'+I('<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>')+'LinkedIn</a>'+
    '<a href="mailto:?subject='+T+'&amp;body='+T+'%0A%0A'+U+'">'+I('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>')+'Email</a>'+
    '<button type="button" class="oe-copy">'+I('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>')+'<span>Copy link</span></button></div>';
+  b.innerHTML+='<p class="oe-follow-h">More quick IELTS tips</p><div class="oe-follow">'+
+   '<a href="https://www.youtube.com/@Orange-English-IELTS" target="_blank" rel="noopener">'+I('<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z"/>')+'YouTube</a>'+
+   '<a href="https://www.instagram.com/orange_english_ielts/" target="_blank" rel="noopener">'+I('<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5v.01"/>')+'Instagram</a></div>';
+  if(!d.getElementById('oe-follow-css')){var fc=d.createElement('style');fc.id='oe-follow-css';fc.textContent='.oe-share .oe-follow-h{margin:20px 0 12px!important;padding-top:16px;border-top:1px solid #E6DCCD}';d.head.appendChild(fc)}
+  // Hide GoDaddy's built-in share row (empty while Facebook and X sharing are switched off)
+  [].forEach.call(d.querySelectorAll('[data-aid^=RSS_SOCIAL_SHARE_BOTTOM]'),function(i){var k=i.closest('[data-ux=Block]');if(k)k.style.setProperty('display','none','important')});
   pb.parentNode.insertBefore(b,pb.nextSibling);
   b.querySelector('.oe-copy').addEventListener('click',function(){var sp=this.querySelector('span'),ok=function(){sp.textContent='Link copied';setTimeout(function(){sp.textContent='Copy link'},2000)};
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(ok,function(){fb()})}else fb();
