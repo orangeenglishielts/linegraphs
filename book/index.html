@@ -124,6 +124,28 @@ a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
 .oe-try .opt.right{border-color:var(--green);background:var(--mint)}
 .oe-try .opt.wrong{border-color:var(--orange);background:var(--peach)}
 .oe-try .opt[disabled]{cursor:default}
+
+/* added activities */
+.oe-try .chart .pt{cursor:pointer}
+.oe-try .chart .pt.sel circle.dot{fill:#F88B48;stroke:#292929;r:6.5}
+.oe-try .chart .pt.ok circle.dot{fill:#5FB27B;stroke:#2F6A40;r:6.5}
+.oe-try .chart .pt.no circle.dot{fill:#FBE1D3;stroke:#C4521E;r:6.5}
+.oe-try .chart .pt.miss circle.dot{fill:#fff;stroke:#5FB27B;stroke-width:3;stroke-dasharray:3 2;r:7}
+.tapfb{display:grid;gap:8px;margin-top:10px}.tapfb p{margin:0;font-size:14.5px;padding:8px 10px;border-radius:8px;background:var(--cream)}
+.tapfb p.k{background:var(--mint)}.tapfb p.m{background:var(--peach)}
+.abq{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px}
+.abq .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media (max-width:520px){.abq .pair{grid-template-columns:1fr}}
+.abq .opt b.ab{font-family:var(--head);color:var(--orange-ink);margin-right:6px}
+.abq .why{font-size:14.5px;margin:8px 0 0}
+.pen{font-size:15.5px;line-height:1.9;background:var(--cream);border-radius:10px;padding:14px 16px;white-space:pre-line}
+.pen .w{cursor:pointer;border-radius:4px;padding:1px 0;transition:background .12s}
+.pen .w:hover{background:#F3E9D6}.pen .w.sel{background:#FFD9C2;box-shadow:0 0 0 2px #F88B48}
+.pen.done .w{cursor:default}.pen .w.found{background:var(--mint);box-shadow:0 0 0 2px #5FB27B}
+.pen .w.missed{background:#FFE8DA;text-decoration:underline wavy #C4521E}.pen .w.false{background:none;box-shadow:none;text-decoration:line-through #9A958C}
+.pen sup.n{font-family:var(--head);font-weight:800;color:#C4521E;font-size:11px;margin-left:2px}
+.penfb{display:grid;gap:8px;margin-top:12px}.penfb .e{padding:10px 12px;border-radius:8px;background:var(--paper);border:1px solid var(--line);font-size:14.5px}
+.penfb .e .lab{font-family:var(--head);font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink)}
+.warmup{margin-top:18px}.warmup .rq{display:grid;gap:10px}
 .oe-try .opt .why{display:block;font-size:14px;color:var(--mid);margin-top:6px}
 .oe-try .opt .why::before{font-family:var(--head);font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-right:6px}
 .oe-try .opt.right .why::before{content:"Accurate";color:var(--green-ink)}
@@ -677,7 +699,7 @@ const SPREADS=[
 
 /* 3 */ {id:'c1-s3',ch:1,chLabel:P1,chTitle:CT1,title:'Identify the key features',
  left:`${head('Step 3 · Understand','Learn')}<h2>Identify the key features</h2><p>You can't describe every number in 150 words, and the examiner doesn't want you to. Look for these five features.</p>${chart('newsMarks')}<ol style="padding-left:20px;margin:12px 0;display:grid;gap:6px;font-size:15px"><li><b>The overall trend:</b> online up, print down.</li><li><b>Start and end points:</b> online began at 18% and ended at 74%.</li><li><b>Significant changes:</b> online growth slowed after 2020.</li><li><b>Peaks and troughs:</b> print was highest at the start, at 64%.</li><li><b>Comparisons:</b> online ${T('overtook')} print between 2012 and 2016.</li></ol><div class="oe-mistake"><span class="lab">Common mistake</span><s>The number went up a lot.</s> This is vague. Stronger: <i>“The number increased sharply.”</i></div>${take('Select, describe, compare. Report the features, not every figure.')}`,
- right:`${head('Step 3 · Activity','Explore')}${note('If a detail would still be true of almost any graph, it is not a key feature.')}<div data-act="c1-select"></div><div class="clear"></div><div data-act="c1-stronger" style="margin-top:16px"></div>`},
+ right:`${head('Step 3 · Activity','Explore')}${note('If a detail would still be true of almost any graph, it is not a key feature.')}<div data-act="c1-tap"></div><div class="clear"></div><div data-act="c1-select" style="margin-top:16px"></div><div class="clear"></div><div data-act="c1-stronger" style="margin-top:16px"></div>`},
 
 /* 4 */ {id:'c1-s4',ch:1,chLabel:P1,chTitle:CT1,title:'Spot the overall trend',
  left:`${head('Step 4 · Practise','Learn')}<h2>Spot the overall trend</h2>${vid(2)}<h3>Worked example</h3>${chart('cafe')}<ol style="padding-left:20px;margin:12px 0;display:grid;gap:8px;font-size:15px"><li><b>Compare the start and the end.</b> 20 cups at 7am, 40 cups at 1pm: sales doubled.</li><li><b>Find the highest and lowest points.</b> Sales peaked at 60 cups between 8am and 9am. 7am was the lowest point.</li><li><b>Describe the shape in between.</b> Sales rose sharply, stayed stable for an hour, fell, then ${T('fluctuated')}.</li></ol><div class="oe-insight"><span class="lab">My overview</span>Overall, coffee sales doubled over the morning, with the busiest period between 8am and 9am.</div>${take('An overview gives the big picture without numbers. Start with “Overall,”.')}`,
@@ -937,7 +959,7 @@ const S3=[
 <tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">from… to</th><td style="padding:7px 0">the start and end points<br><i>Cycling rose from 12% to 34%.</i></td></tr>
 <tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head)">at</th><td style="padding:7px 0">a level at one point<br><i>Cycling stood at 12% in 2000.</i></td></tr>
 <tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head)">of</th><td style="padding:7px 0">after a noun, for the size<br><i>There was a rise of 22 points.</i></td></tr></tbody></table>${note('Percentages that change are measured in percentage points: 12% to 34% is a rise of 22 percentage points.')}<div class="clear"></div>${take('Verb + by: rose by 22 points. Noun + of: a rise of 22 points.')}`,
- right:`${head('Step 2 · Activity','Explore')}${chart('com')}<div data-act="c3-prep" style="margin-top:14px"></div>`},
+ right:`${head('Step 2 · Activity','Explore')}${chart('com')}<div data-act="c3-prep" style="margin-top:14px"></div><div data-act="c3-ab" style="margin-top:16px"></div>`},
 
 /* 17 */ {id:'c3-s3',ch:3,chLabel:'Chapter 3',chTitle:'Grammar for Data Description',title:'Comparing data',
  left:`${head('Step 3 · Understand','Learn')}<h2>Comparing data</h2><p>Use a ${T('comparative')} for two things and a ${T('superlative')} for one thing against the whole set.</p>${chart('comMarks')}<ol style="padding-left:20px;margin:10px 0;display:grid;gap:5px;font-size:14.5px"><li>The rise in cycling between 2010 and 2015 was <b>the sharpest</b> in the period.</li><li>Car use fell <b>more sharply</b> between 2010 and 2015 than at any other time.</li><li>Cycling was at <b>its highest</b> in 2020, at 34%.</li><li>Car use was <b>higher than</b> cycling in every year.</li></ol><table style="width:100%;border-collapse:collapse;font-size:14px;margin:8px 0"><tbody><tr><td style="padding:4px 0">sharp · steep · steady</td><td>sharper · steeper · steadier</td></tr><tr style="border-top:1px solid var(--line)"><td style="padding:4px 0">rapid · gradual · significant</td><td>more rapid · more gradual · more significant</td></tr></tbody></table><div class="oe-mistake"><span class="lab">Common mistakes</span><s>gradualer</s> is not a word: use <i>more gradual</i>. Superlatives <i>usually</i> take “the”, but not after a possessive or in “at its highest”.</div>${take('Compare like with like: a figure with a figure, a trend with a trend.')}`,
@@ -1268,7 +1290,7 @@ const S5=[
 
 /* 31 */ sp({id:'c5-s3',title:'The overview',
  left:`${head('Step 3 · Understand','Learn')}<h2>The overview</h2>${vid(13)}<p>The ${T('overview')} sums up the two or three biggest patterns in one or two sentences. In this course it comes straight after the introduction. IELTS also accepts an overview at the end, but putting it early means you won't run out of time before you write it.</p><ul class="clean" style="font-size:15px"><li>The overall direction of the lines: did they rise, fall or both?</li><li>Which line was highest or lowest, and whether that changed</li><li>A crossover, or one line that changed much faster than the others</li></ul><p>Save the detailed figures for the body paragraphs. An overview that lists figures recounts detail instead of summarising the pattern. Years used as time references, such as “after 2015”, are fine.</p><div class="oe-mistake"><span class="lab">Common mistake</span><s>Overall, museum A had 1.2 million visitors in 2020, while museum C only had 300,000.</s> These are body paragraph details.</div><div class="oe-insight" style="margin-top:12px"><span class="lab">Stronger</span>Overall, museum A consistently attracted far more visitors than the other two, and all three venues saw long-term growth.</div>${note('Band 7 for Task Achievement asks for a clear overview of the main trends, differences or stages. It is one of the first things the examiner looks for.')}<div class="clear"></div>${take('Overall, plus two or three main patterns. Summarise; don\'t recount detail.')}`,
- right:`${head('Step 3 · Activity','Explore')}<div data-act="c5-spot"></div><div style="margin-top:16px">${chart('commute')}</div><p class="legend-note">Move over or tab to a point to see its value.</p><div data-act="c5-ovpick" style="margin-top:12px"></div>`}),
+ right:`${head('Step 3 · Activity','Explore')}<div data-act="c5-spot"></div><div style="margin-top:16px">${chart('commute')}</div><p class="legend-note">Move over or tab to a point to see its value.</p><div data-act="c5-ovpick" style="margin-top:12px"></div><div data-act="c5-build" style="margin-top:16px"></div>`}),
 
 /* 32 */ sp({id:'c5-s4',title:'The body paragraphs',
  left:`${head('Step 4 · Practise','Learn')}<h2>The body paragraphs</h2><p>The two ${T('body paragraph','body paragraphs')} give the figures that support your overview. Don't describe the lines one by one in a list. ${T('grouping','Group')} the data so that each paragraph makes a comparison.</p><table style="width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0 12px"><tbody>
@@ -1454,7 +1476,7 @@ const S6=[
 
 /* 38 */ sp({id:'c6-s3',title:'Self-editing',
  left:`${head('Step 3 · Practise','Learn')}<h2>Self-editing</h2><p>Run through these questions every time you finish an answer. They are for self-review, not for working out a band score.</p><ol style="padding-left:20px;margin:6px 0 12px;display:grid;gap:6px;font-size:14.5px"><li><b>Selection:</b> have I covered the main features, and are my figures accurate?</li><li><b>Overview:</b> is it clear, and does it summarise rather than recount detail?</li><li><b>Comparisons:</b> do I compare equivalent things, figures with figures?</li><li><b>Grouping:</b> is each line or period described in one logical place?</li><li><b>Vocabulary and tense:</b> are the words precise, and does the tense match the time reference? (5 million, not 5 millions.)</li><li><b>Connections:</b> do the links between sentences make sense?</li></ol><div class="oe-mistake"><span class="lab">Weak</span>Visitors increased to 6 million. It increased to 3 million. It increased to 2.5 million.</div><div class="oe-insight" style="margin-top:10px"><span class="lab">Stronger</span>Visitor numbers at the British Museum climbed to 6 million, twice the Tate's figure, while the Science Museum reached only 2.5 million.</div>${take('A precise verb, a comparison of equivalent figures and a clear connection turn a list into a description.')}`,
- right:`${head('Step 3 · Activity','Explore')}<div data-act="c6-edit"></div>`}),
+ right:`${head('Step 3 · Activity','Explore')}<div data-act="c6-pen"></div><div data-act="c6-edit" style="margin-top:16px"></div>`}),
 
 /* 39 */ sp({id:'c6-s4',title:'Writing practice',
  left:`${head('Step 4 · Apply','Learn')}<h2>Writing practice</h2><p>Write a complete answer. There is no time limit: focus on accuracy, not speed. Plan first, then run the checklist before you check your writing.</p><div class="oe-workshop" style="padding:0;border:0;background:none"><div class="taskbox">The graph below shows the average number of books read per year by adults in Norway, Japan and Brazil between 2005 and 2020.<br><br>Summarise the information by selecting and reporting the main features, and make comparisons where relevant.<br><br>Write at least 150 words.</div></div>${chart('books')}${note('Look at the gap between Japan and Brazil at the start and at the end. That is a comparison worth making.')}<div class="clear"></div>`,
@@ -1540,6 +1562,53 @@ Object.assign(B.RETRIEVAL,{
  'c6-s5':[{q:'How do you split 20 minutes?',opts:[{t:'2 plan, 15 write, 3 check',ok:1,why:'Protect the checking time.'},{t:'20 minutes writing, no plan',why:'Without a plan and a check, structure and accuracy slip.'}]},
           {q:'Your answer is 130 words. What is the risk?',opts:[{t:'It may not develop the key features enough',ok:1,why:'Task 1 asks for at least 150 words, and a short answer gives the examiner less to credit.'},{t:'None, if the language is good',why:'Good language can\'t make up for key features that aren\'t there.'}]}]
 });
+})();
+</script>
+<script>
+/* ---------- added activities: tap the graph, which is better, build the overview, examiner's pen ---------- */
+(function(){const B=window.BOOK,GREEN='#5FB27B',NAVY='#2F3E5C',M=v=>v+' million';
+Object.assign(B.CHARTS,{
+  trainAir:{id:'ch-trainair',title:['Passengers travelling between two cities by train and by air','(millions), 2000 to 2024'],x:['2000','2004','2008','2012','2016','2020','2024'],
+    series:[{name:'Train',vals:[2,2.5,3,4,6,6.5,7],color:GREEN},{name:'Air',vals:[5,6.5,7.5,8,6,4.5,4],color:NAVY,dash:1,noPt:[4]}],ymax:10,ystep:2,ylab:'Millions of passengers',xlab:'Year',points:1,fmt:M},
+  comPen:{id:'ch-compen',title:['Percentage of journeys to work made by bicycle and by car','in one city, 2000 to 2020'],x:['2000','2005','2010','2015','2020'],
+    series:[{name:'Car',vals:[58,56,49,41,37],color:NAVY,dash:1},{name:'Bicycle',vals:[12,15,21,28,34],color:GREEN}],ymax:60,ystep:10,ylab:'% of journeys to work',xlab:'Year',points:1,fmt:v=>v+'%'}
+});
+Object.assign(B.ACTS,{
+'c1-tap':{type:'tapgraph',level:'Supported',skill:'Selecting key features',decision:'Which three points tell the main story?',
+  prompt:'Tap three points on the graph, then select Check. Tap a point again to deselect it.',chart:'trainAir',
+  groups:{peak:'the air travel peak',cross:'the point where the lines crossed',end:'where the two lines finished'},
+  pts:{'1-3':{g:'peak',why:'The peak. Air travel reached its highest point, 8 million, in 2012, and then fell for the rest of the period.'},
+       '0-4':{g:'cross',why:'The crossover. Both lines reached 6 million in 2016, and train travel was more popular from then on. In a two-line graph, this is often the main comparison.'},
+       '0-6':{g:'end',why:'The end point. Train travel finished highest, at 7 million, almost twice the air figure.'},
+       '1-6':{g:'end',why:'The end point. Air travel finished at 4 million, about half the train figure.'},
+       '0-0':{why:'A starting point. You will give it in a body paragraph, but the main story is what happened after 2000.'},
+       '1-0':{why:'A starting point. You will give it in a body paragraph, but the main story is what happened after 2000.'}},
+  minor:'A step along the way. It is part of a steady change, so on its own it is not a key feature.'},
+'c3-ab':{type:'ab',level:'Supported',skill:'Prepositions and precise verbs',decision:'Which sentence is better?',prompt:'Use the commuting graph above. Choose A or B.',
+  items:[{a:'Cycling rose by 34% in 2020.',b:'Cycling rose to 34% in 2020.',ok:'b',why:'34% is the end point, so you need <b>to</b>. <b>By</b> gives the size of the change: cycling rose by 22 percentage points.'},
+         {a:'Car use fell by 21 percentage points between 2000 and 2020.',b:'Car use fell by 21% between 2000 and 2020.',ok:'a',why:'58% to 37% is a fall of 21 <b>percentage points</b>. A fall of 21% would mean car use dropped to about 46%.'},
+         {a:'Car use plummeted between 2000 and 2005.',b:'Car use dipped slightly between 2000 and 2005.',ok:'b',why:'58% to 56% is a small fall. <b>Plummeted</b> means a very large, fast fall, which doesn\'t match the data.'},
+         {a:'Cycling stood on 12% in 2000.',b:'Cycling stood at 12% in 2000.',ok:'b',why:'Use <b>at</b> for a level at one point in time: stood at 12%.'}]},
+'c5-build':{type:'builder',level:'Independent',skill:'Writing the overview',decision:'Build an overview for the commuting graph above.',prompt:'Select the pieces in order. Select a piece in your sentence to remove it. Three pieces are wrong.',
+  chips:['Overall,','commuting times','increased','in all three cities,','and','Oakhaven','went from the shortest commute','to the longest.'],
+  distract:[{t:'from 20 to 45 minutes',why:'Figures belong in the body paragraphs. An overview summarises the pattern.',fix:'went from the shortest commute to the longest'},
+            {t:'decreased',why:'All three lines finish higher than they started.',fix:'increased'},
+            {t:'in 2015,',why:'An overview covers the whole period, not one year.',fix:'(no year: the whole period)'}],
+  incomplete:'Good so far, but the overview is incomplete. Give the general trend for all three cities, then the biggest change.',
+  orderMsg:'All the right pieces, but check the order: start with Overall, give the trend for all three cities, then the biggest change.',
+  right:'Overall, commuting times increased in all three cities, and Oakhaven went from the shortest commute to the longest. Two main patterns, and no figures.'},
+'c6-pen':{type:'pen',level:'Independent',skill:'Self-editing',decision:'Find the five mistakes in this answer.',chart:'comPen',
+  prompt:'Read the answer as an examiner would. Tap each word or phrase you think is wrong, then select Show the examiner\'s marks.',
+  text:['The line graph shows the percentage of journeys to work made by bicycle and by car in one city between 2000 and 2020. ',
+    {t:'Overall, cycling rose from 12% to 34%,',fix:'Overall, cycling became steadily more popular,',why:'An overview summarises the pattern. The figures belong in the body paragraphs.',lab:'Overview'},
+    ' while car use fell over the period.\n\nIn 2000, 58% of journeys were made by car, compared with only 12% by bicycle. Over the next twenty years, car use declined steadily and ',
+    {t:'decreased by 37% in 2020.',fix:'fell to 37% by 2020.',why:'37% is the end point, so you need <b>to</b>. The fall was 21 percentage points.',lab:'Preposition'},
+    ' Cycling, on the other hand, ',{t:'has risen',fix:'rose',why:'The period is finished, so use the past simple.',lab:'Tense'},
+    ' every five years. ',{t:'In 2010, car journeys were three times as common as bicycle journeys.',fix:'In 2010, car journeys were more than twice as common as bicycle journeys.',why:'49 divided by 21 is about 2.3, not 3. Divide before you write a multiple.',lab:'Accuracy'},
+    ' ',{t:'Cycling overtook driving in 2015,',fix:'The gap narrowed to just 3 percentage points,',why:'The lines never cross. Car use was still higher in 2020 (37% compared with 34%).',lab:'Key feature'},
+    ' and by the end of the period the two figures were close.']}
+});
+B.SPREADS.forEach(sp=>{const m=/^c([2-6])-open$/.exec(sp.id);if(m)sp.right+=`<div data-warmup="${m[1]}"></div>`});
 })();
 </script>
 <script>
@@ -1688,12 +1757,63 @@ A.builder=(el,o)=>{el.classList.add('oe-try');el.innerHTML=head(o)+`<div class="
   $('.chk',el).onclick=()=>{const got=$$('.chip',built).map(b=>b.textContent);const bad=o.distract.filter(d=>got.includes(d.t));let ok=false,msg='';
     if(!got.length)msg='Add some pieces first. Select them in order.';
     else if(bad.length)msg=bad.map(d=>`<b>“${d.t}”</b>: ${d.why}`).join('<br>');
-    else if(got.length<o.chips.length)msg='Good so far, but the sentence is incomplete. A full description needs what changed, how, the figures and the time.';
-    else if(got.join(' ')!==o.chips.join(' '))msg='All the right pieces, but check the order: what changed, the verb, the adverb, the figures, then the time.';
+    else if(got.length<o.chips.length)msg=o.incomplete||'Good so far, but the sentence is incomplete. A full description needs what changed, how, the figures and the time.';
+    else if(got.join(' ')!==o.chips.join(' '))msg=o.orderMsg||'All the right pieces, but check the order: what changed, the verb, the adverb, the figures, then the time.';
     else{ok=true;msg=o.right}
     built.className='built '+(ok?'right':'wrong');fb.innerHTML=(ok?'<b>Accurate.</b> ':'<b>Not yet.</b> ')+msg;fb.classList.add('show');
     if(got.length)track(o.id,null,ok,o._spread);$('.jhost',el).innerHTML='';
     if(bad.length)journalBtn($('.jhost',el),jEntry(o,bad[0].t,bad[0].t,bad[0].fix,bad[0].why))}};
+A.tapgraph=(el,o)=>{el.classList.add('oe-try');const ch=C.CHARTS[o.chart];
+  el.innerHTML=head(o)+chartBox(ch)+`<div class="row" style="margin-top:10px"><button type="button" class="btn chk">Check</button><button type="button" class="btn ghost rst">Start again</button><span class="small cnt" style="align-self:center"></span></div><div class="tapfb" aria-live="polite"></div>`;
+  const keys=[];ch.series.forEach((se,j)=>se.vals.forEach((v,i)=>{if(v==null||(se.noPt&&se.noPt.includes(i)))return;keys.push(j+'-'+i)}));
+  const pts=$$('.pt',el);pts.forEach((g,k)=>g.dataset.key=keys[k]);
+  let st=S.get('a-'+o.id,{sel:[],done:0});const cnt=$('.cnt',el),fb=$('.tapfb',el);
+  const paint=()=>{pts.forEach(g=>{const on=st.sel.includes(g.dataset.key);g.classList.toggle('sel',on&&!st.done);g.setAttribute('aria-pressed',on)});cnt.textContent=st.done?'':`${st.sel.length} of 3 selected`};
+  const check=init=>{if(st.sel.length<3&&!init){fb.innerHTML='<p class="m">Select three points first.</p>';return}
+    st.done=1;S.set('a-'+o.id,st);const found=new Set();let html='';
+    st.sel.forEach(key=>{const it=o.pts[key]||{why:o.minor};const g=pts.find(x=>x.dataset.key===key);if(it.g){found.add(it.g);g.classList.add('ok')}else g.classList.add('no');
+      html+=`<p class="${it.g?'k':'m'}"><b>${esc(ch.series[+key[0]].name)}, ${esc(ch.x[+key.split('-')[1]])}.</b> ${it.why}</p>`});
+    Object.keys(o.groups).forEach(gk=>{if(!found.has(gk)){Object.entries(o.pts).forEach(([key,it])=>{if(it.g===gk){const g=pts.find(x=>x.dataset.key===key);if(g)g.classList.add('miss')}});html+=`<p class="m"><b>Missed:</b> ${o.groups[gk]}. It is marked with a dashed ring on the graph.</p>`}});
+    const n=found.size;fb.innerHTML=`<p><b>${n} of 3 key features found.</b> ${n===3?'This is the main story: air travel peaked, the lines crossed, and train travel finished well ahead.':'The main story is the air travel peak, the crossover and where the lines finished.'}</p>`+html;
+    if(!init){Object.keys(o.groups).forEach(gk=>track(o.id,gk,found.has(gk),o._spread));gate(o.id)}paint()};
+  pts.forEach(g=>{g.setAttribute('role','button');const t=()=>{if(st.done)return;const k=g.dataset.key,i=st.sel.indexOf(k);if(i>=0)st.sel.splice(i,1);else if(st.sel.length<3)st.sel.push(k);else{fb.innerHTML='<p class="m">You already have three. Tap one of them to deselect it first.</p>';return}fb.innerHTML='';S.set('a-'+o.id,st);paint()};
+    g.addEventListener('click',t);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}})});
+  $('.chk',el).onclick=()=>check(false);
+  $('.rst',el).onclick=()=>{st={sel:[],done:0};S.set('a-'+o.id,st);pts.forEach(g=>g.classList.remove('ok','no','miss','sel'));fb.innerHTML='';paint()};
+  paint();if(st.done)check(true)};
+A.ab=(el,o)=>{el.classList.add('oe-try');const st=S.get('a-'+o.id,{});
+  el.innerHTML=head(o)+o.items.map((it,k)=>`<div class="abq" data-k="${k}"><div class="pair opts">${['a','b'].map(x=>`<button type="button" class="opt" data-x="${x}"><b class="ab">${x.toUpperCase()}</b>${it[x]}</button>`).join('')}</div><p class="why" hidden></p><div class="jhost"></div></div>`).join('')+`<p class="small abs" style="margin-top:10px"></p>`;
+  const score=()=>{const n=Object.keys(st).length,r=Object.entries(st).filter(([k,v])=>v===o.items[k].ok).length;$('.abs',el).textContent=n?`${r} of ${n} right`:'';if(n===o.items.length)gate(o.id)};
+  $$('.abq',el).forEach(q=>{const k=+q.dataset.k,it=o.items[k],bs=$$('.opt',q);
+    const pick=(x,init)=>{bs.forEach(b=>{b.disabled=true;b.classList.add(b.dataset.x===it.ok?'right':(b.dataset.x===x?'wrong':'other'))});const w=$('.why',q);w.innerHTML=(x===it.ok?'<b>Yes.</b> ':'<b>Look again.</b> ')+it.why;w.hidden=false;
+      if(!init){st[k]=x;S.set('a-'+o.id,st);track(o.id,k,x===it.ok,o._spread)}
+      if(x!==it.ok)journalBtn($('.jhost',q),jEntry(o,k,it[x],it[it.ok],strip(it.why)));score()};
+    bs.forEach(b=>b.onclick=()=>pick(b.dataset.x));if(k in st)pick(st[k],true)});score()};
+A.pen=(el,o)=>{el.classList.add('oe-try');let st=S.get('a-'+o.id,{sel:[],done:0});
+  let html='',wi=0;const errs=[];
+  o.text.forEach(part=>{if(typeof part==='string'){html+=part.split(/(\s+)/).map(t=>/^\s*$/.test(t)?t:`<span class="w" data-w="${wi++}" tabindex="0" role="button">${esc(t)}</span>`).join('')}
+    else{errs.push({w:wi,...part});html+=`<span class="w" data-w="${wi++}" data-err="${errs.length}" tabindex="0" role="button">${esc(part.t)}</span>`}});
+  el.innerHTML=head(o)+(o.chart?chartBox(C.CHARTS[o.chart]):'')+`<div class="pen" style="margin-top:12px">${html}</div><div class="row" style="margin-top:10px"><button type="button" class="btn chk">Show the examiner's marks</button><button type="button" class="btn ghost rst">Start again</button><span class="small cnt" style="align-self:center"></span></div><div class="penfb" aria-live="polite"></div><div class="jhost"></div>`;
+  const ws=$$('.pen .w',el),pen=$('.pen',el),fb=$('.penfb',el),cnt=$('.cnt',el);
+  const paint=()=>{ws.forEach(w=>w.classList.toggle('sel',st.sel.includes(+w.dataset.w)));cnt.textContent=st.done?'':`${st.sel.length} marked`};
+  const reveal=init=>{st.done=1;S.set('a-'+o.id,st);pen.classList.add('done');let found=0,fa=0;
+    ws.forEach(w=>{const i=+w.dataset.w,e=w.dataset.err,on=st.sel.includes(i);w.classList.remove('sel');
+      if(e){w.classList.add(on?'found':'missed');w.insertAdjacentHTML('beforeend',`<sup class="n">${e}</sup>`);if(on)found++}else if(on){w.classList.add('false');fa++}});
+    fb.innerHTML=`<p style="margin:0"><b>You found ${found} of ${errs.length} mistakes.</b>${fa?` ${fa} ${fa===1?'word you marked was':'words you marked were'} fine (struck through).`:''}</p>`+errs.map((e,k)=>`<div class="e"><span class="lab">${k+1} · ${e.lab}${st.sel.includes(e.w)?' · found':' · missed'}</span><br><s>${esc(e.t)}</s><br><b>${esc(e.fix)}</b><br><span class="small">${e.why}</span></div>`).join('');
+    if(!init){errs.forEach((e,k)=>track(o.id,k,st.sel.includes(e.w),o._spread));gate(o.id);const m=errs.find(e=>!st.sel.includes(e.w));if(m)journalBtn($('.jhost',el),jEntry(o,'pen',m.t,m.fix,strip(m.why)))}paint()};
+  ws.forEach(w=>{const t=()=>{if(st.done)return;const i=+w.dataset.w,k=st.sel.indexOf(i);if(k>=0)st.sel.splice(k,1);else st.sel.push(i);S.set('a-'+o.id,st);paint()};
+    w.addEventListener('click',t);w.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}})});
+  $('.chk',el).onclick=()=>{if(!st.sel.length){fb.innerHTML='<p style="margin:0">Mark at least one mistake first.</p>';return}reveal(false)};
+  $('.rst',el).onclick=()=>{st={sel:[],done:0};S.set('a-'+o.id,st);pen.classList.remove('done');ws.forEach(w=>{w.classList.remove('found','missed','false');const n=$('sup',w);if(n)n.remove()});fb.innerHTML='';$('.jhost',el).innerHTML='';paint()};
+  paint();if(st.done)reveal(true)};
+function warmup(box){const n=+box.dataset.warmup,pool=[];C.SPREADS.forEach(sp=>{const m=/^c(\d)-/.exec(sp.id);if(m&&+m[1]<n&&C.RETRIEVAL[sp.id])C.RETRIEVAL[sp.id].forEach(q=>pool.push(q))});
+  const draw=()=>{const qs=mix(pool).slice(0,3);box.innerHTML=`<div class="oe-insight warmup"><span class="lab">Warm-up</span><p style="margin:4px 0 10px">Three quick questions from earlier chapters. Remembering before you start makes it stick.</p><div class="rq"></div><div class="row" style="margin-top:10px"><button type="button" class="btn ghost wu-new">New questions</button><span class="small wu-score" style="align-self:center"></span></div></div>`;
+    const rq=$('.rq',box);let sc=0,an=0;qs.forEach((q,k)=>{const d=document.createElement('div');d.className='oe-try';d.style.padding='14px';
+      d.innerHTML=`<span class="decision" style="font-size:15px">${k+1}. ${q.q}</span><div class="opts">${mix(q.opts.map((x,i)=>[x,i])).map(([x,i])=>`<button type="button" class="opt" data-i="${i}" style="font-size:14.5px;padding:9px 12px">${x.t}<span class="why" hidden>${x.why}</span></button>`).join('')}</div>`;rq.appendChild(d);
+      const bs=$$('.opt',d).sort((a,b)=>a.dataset.i-b.dataset.i),ans=q.opts.findIndex(x=>x.ok);
+      bs.forEach((b,i)=>b.onclick=()=>{bs.forEach((x,j)=>{x.disabled=true;$('.why',x).hidden=false;x.classList.add(j===ans?'right':(j===i?'wrong':'other'))});an++;if(i===ans)sc++;$('.wu-score',box).textContent=`${sc} of ${an} remembered`})});
+    $('.wu-new',box).onclick=draw};
+  if(pool.length)draw()}
 A.fix=(el,o)=>{el.classList.add('oe-try');const st=S.get('a-'+o.id,{});
   el.innerHTML=head(o)+`<div class="rows">${o.items.map((it,k)=>`<div class="rowq" data-k="${k}"><label class="q" for="${o.id}-${k}" style="display:block"><b>${k+1}.</b> ${esc(it.wrong)}</label><textarea id="${o.id}-${k}" class="fixin" rows="2" autocomplete="off" spellcheck="false">${esc((st[k]&&st[k].v)||it.wrong)}</textarea><div class="row" style="margin-top:8px"><button type="button" class="chip fx">Check</button></div><p class="why" aria-live="polite"></p><div class="jhost"></div></div>`).join('')}</div>`;
   $$('.rowq',el).forEach(r=>{const k=+r.dataset.k,it=o.items[k],inp=$('textarea',r),w=$('.why',r);
@@ -1782,7 +1902,7 @@ $$('[data-video]').forEach(v=>{const k=+v.dataset.video,url=(VL[k]||'').trim(),m
    `<div class="vid" role="img" aria-label="Video placeholder: ${esc(meta.title)}"><span class="play"></span><span class="cap">${esc(meta.title)}</span><span class="len">Video · about ${esc(meta.len)}</span></div><div class="script"><b>Video script for Lindsey (hidden once a link is added)</b><ol>${meta.script.map(s=>`<li>${s}</li>`).join('')}</ol></div>`});
 // activities
 Object.entries(C.ACTS).forEach(([id,o])=>{o.id=id;const el=$(`[data-act="${id}"]`);if(!el)return;const sp=+el.closest('.spread').dataset.s;o._spread=sp;o._spreadTitle=C.SPREADS[sp].title;A[o.type](el,o)});
-enhanceCharts(document);applyGates();
+$$('[data-warmup]').forEach(warmup);enhanceCharts(document);applyGates();
 // go-to links & contents
 const spreadIndex=v=>/^\d+$/.test(v)?+v:C.SPREADS.findIndex(x=>x.id===v);
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){e.preventDefault();const s=spreadIndex(g.dataset.go);if(s<0)return;closeOverlay();go(s,'left',1)}});
