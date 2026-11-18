@@ -2068,6 +2068,43 @@ function fbBox(box){if(!FB_URL||FB_URL.startsWith('__'))return;const key=box.dat
 $$('[data-feedback]').forEach(fbBox);
 
 
+/* ---------------- course analytics (GA4, no cookies) ----------------
+   Sends anonymous progress events to Google Analytics (G-3NFGSQZVRJ) so drop-off
+   can be seen chapter by chapter. Uses a random ID kept in this browser instead of
+   cookies, so it also works when the book is embedded in Thinkific. */
+const GA_ID='G-3NFGSQZVRJ';
+const ga=(()=>{try{
+  let cid=S.get('ga-cid',null);if(!cid){cid=Math.floor(Math.random()*1e9)+'.'+Math.floor(Date.now()/1000);S.set('ga-cid',cid)}
+  window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments)};
+  gtag('js',new Date());gtag('config',GA_ID,{client_storage:'none',client_id:cid,send_page_view:false,anonymize_ip:true});
+  const sc=document.createElement('script');sc.async=true;sc.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;document.head.appendChild(sc);
+  const embedded=(()=>{try{return window.self!==window.top}catch(e){return true}})();
+  return (name,params)=>{try{gtag('event',name,Object.assign({course:'Mastering Line Graphs',embedded:embedded?'thinkific':'direct'},params||{}))}catch(e){}};
+}catch(e){return ()=>{}}})();
+{ // page turns: one event per spread the student lands on
+  let lastSeen=-1;const _render=render;
+  render=function(dir,focus){_render(dir,focus);if(pos.s===lastSeen)return;lastSeen=pos.s;const sp=C.SPREADS[pos.s]||{};
+    ga('book_page',{chapter:String(sp.ch||0),page_id:sp.id||String(pos.s),page_name:sp.title||'',page_number:pos.s+1});
+    if(/^c\d-review$/.test(sp.id||''))ga('chapter_review_reached',{chapter:String(sp.ch)})};
+}
+{ // first answer to each activity item
+  const _track=track;
+  track=function(actId,itemId,first,spread){const k=actId+(itemId!=null?':'+itemId:'');const isNew=!(k in results);_track(actId,itemId,first,spread);
+    if(isNew){const sp=C.SPREADS[spreadIndex(spread)]||{};ga('activity_answer',{chapter:String(sp.ch||0),page_id:sp.id||String(spread),activity_id:String(actId),first_try:first?'correct':'wrong'})}};
+}
+{ // mini tests and feedback, via the saved results
+  const _set=S.set;S.set=function(k,v){_set.call(S,k,v);
+    if(/^mt-\d+$/.test(k)&&v)ga('mini_test_complete',{chapter:k.slice(3),score:v.last,total:v.total});
+    else if(/^fb-/.test(k))ga('feedback_sent',{chapter:k.slice(3)})};
+}
+{ // videos: started and watched to the end
+  const vname=v=>v.getAttribute('aria-label')||(v.currentSrc||'').split('/').pop();
+  const started=new WeakSet();
+  document.addEventListener('play',e=>{const v=e.target;if(v.tagName!=='VIDEO'||started.has(v))return;started.add(v);ga('video_start',{video_title:vname(v),chapter:String((C.SPREADS[pos.s]||{}).ch||0)})},true);
+  document.addEventListener('ended',e=>{const v=e.target;if(v.tagName!=='VIDEO')return;ga('video_complete',{video_title:vname(v),chapter:String((C.SPREADS[pos.s]||{}).ch||0)})},true);
+}
+ga('book_open',{returning:S.get('pos',null)?'yes':'no'});
+
 /* ---------------- start ---------------- */
 const prevLast=S.get('last',0);render(0,0);
 const returning=S.get('bm',null)||pos.s>0;
