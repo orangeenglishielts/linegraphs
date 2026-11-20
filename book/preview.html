@@ -661,6 +661,7 @@ body.printing{background:#fff}
   .fold-shut{display:none!important}
 }
 </style>
+<script src="progress-sync.js"></script>
 <script>
 /* VIDEO_LINKS: paste a Loom or YouTube link between the quotes, or the path to an .mp4 in book/videos/ (a .jpg poster and .vtt subtitles with the same name are picked up automatically). The script note disappears once a link is set.
    0 Ch1 Spread 1 Meet the line graph · 1 Ch1 Spread 2 Read the axes · 2 Ch1 Spread 4 Find the overall trend
@@ -2597,6 +2598,21 @@ const prevLast=S.get('last',0);render(0,0);
 const returning=S.get('bm',null)||pos.s>0;
 if(returning){if(prevLast&&Date.now()-prevLast>12*3600*1000)retrieval();else if(hashSpread()<0)resumeCard()}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')S.set('last',Date.now())});
+
+/* progress sync across devices: saves to the Orange English progress Sheet (book/progress-sync.js).
+   Inside Thinkific the lesson URL passes ?email={{email}}&joined={{date_created}}&fname={{first_name}}, so students are signed in automatically. */
+if(window.OESync&&OESync.mountPanel){
+  OESync.summary=()=>{try{return{chaptersFinished:[1,2,3,4,5,6].filter(ch=>{const st=chSteps(ch);return st.length&&st.every(spreadDone)}).length}}catch(e){return{}}};
+  $('.bk-top .tools').insertAdjacentHTML('afterbegin','<button type="button" class="tbtn" id="syncbtn" title="Save your progress so you can continue on another device"><span class="lab-long">Save progress</span><span class="lab-ic" aria-hidden="true">☁</span></button>');
+  const paintSync=()=>{const s=OESync.status(),b=$('#syncbtn');if(!b)return;b.setAttribute('aria-pressed',s.signedIn?'true':'false');$('.lab-long',b).textContent=s.unavailable?'Save progress':s.signedIn?(s.error==='offline'?'Saved on this device':'Progress saved ✓'):(s.needCode?'Load your progress':'Save progress')};
+  const openSync=()=>{openOverlay('<span class="eyebrow">Your progress</span><h3>Keep your work on every device</h3><div id="syncpanel"></div><div class="row" style="margin-top:14px"><button type="button" class="btn ghost" id="sync-x">Close</button></div>','Save your progress');OESync.mountPanel($('#syncpanel'));$('#sync-x').onclick=closeOverlay;try{ga('sync_open',{})}catch(e){}};
+  $('#syncbtn').onclick=openSync;
+  OESync.on('status',()=>{paintSync();const p=$('#syncpanel');if(p&&p._oeDraw&&!p.contains(document.activeElement))p._oeDraw()});
+  OESync.on('needcode',()=>{paintSync();if($('#ov').hidden)openSync()});
+  OESync.on('saved',()=>{try{if(!S.get('sync-ga',null)){S.set('sync-ga',1);ga('sync_on',{thinkific:OESync.status().thinkific?'yes':'no'})}}catch(e){}});
+  paintSync();
+  if(OESync.justRestored())setTimeout(()=>toast('<span class="tk" aria-hidden="true">✓</span><span><b>Welcome back.</b> Your saved progress has been loaded.</span>'),700);
+}
 })();
 
 </script>
