@@ -6,7 +6,7 @@
 <title>Task 1 Diagnostic: Before You Start | Mastering Line Graphs</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap">
 <style>
 /* Layout: dark Orange English header band, then a single centred workbook column on a dot-grid page */
 :root{
@@ -16,7 +16,7 @@
   --red-ink:#b3402f; --red-soft:#f9e1dc;
   --header:#292929; --header-ink:#ffffff;
   --series-3:#7d7068;
-  --f-display:"Montserrat", "Segoe UI", system-ui, sans-serif;
+  --f-display:"Fraunces", Georgia, serif; --f-ui:"Inter", "Segoe UI", system-ui, sans-serif;
   --f-body:"Inter", system-ui, -apple-system, sans-serif;
   --f-hand:"Caveat", "Comic Sans MS", cursive;
 }
@@ -49,7 +49,7 @@ h3{font:700 15px/1.3 var(--f-display); margin:0 0 6px}
 .task{border-left:4px solid var(--orange); padding:4px 0 4px 14px; margin:12px 0; font-size:15px}
 .chart{width:100%; height:auto; display:block}
 .chart text{font-family:var(--f-body); fill:var(--muted)}
-.btn{font:600 16px/1 var(--f-display); background:var(--orange); color:#1d1d1d; border:0; border-radius:999px; padding:14px 22px; cursor:pointer}
+.btn{font:600 16px/1 var(--f-ui); background:var(--orange); color:#1d1d1d; border:0; border-radius:999px; padding:14px 22px; cursor:pointer}
 .btn:hover{filter:brightness(1.05)} .btn:focus-visible,.opt:focus-visible,input:focus-visible{outline:3px solid var(--green); outline-offset:2px}
 .btn.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line)}
 .meta{display:flex; gap:16px; flex-wrap:wrap; color:var(--muted); font-size:14px; margin:12px 0 18px}
@@ -61,12 +61,12 @@ h3{font:700 15px/1.3 var(--f-display); margin:0 0 6px}
 .opts{display:grid; gap:10px}
 .opt{text-align:left; font:inherit; color:var(--ink); background:var(--surface); border:1.5px solid var(--line); border-radius:10px; padding:12px 14px; cursor:pointer; display:flex; gap:12px; align-items:flex-start}
 .opt:hover:not(:disabled){border-color:var(--orange)}
-.opt .k{font:700 14px/1.6 var(--f-display); color:var(--muted); flex:none; width:18px}
+.opt .k{font:700 14px/1.6 var(--f-ui); color:var(--muted); flex:none; width:18px}
 .opt:disabled{cursor:default}
 .opt.right{border-color:var(--green); background:var(--green-soft)}
 .opt.wrong{border-color:var(--red-ink); background:var(--red-soft)}
 .feedback{margin-top:16px; padding:14px 16px; border-radius:10px; background:var(--orange-soft)}
-.feedback strong{font-family:var(--f-display)}
+.feedback strong{font-family:var(--f-ui)}
 .row{display:flex; justify-content:flex-end; margin-top:16px}
 .bars{display:grid; gap:12px; margin:14px 0 4px}
 .bar{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:4px 12px; font-size:14px}

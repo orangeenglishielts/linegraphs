@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paraphrase Without Changing the Meaning | Mastering Line Graphs | Orange English</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#FAF8F3;--paper:#fff;--dark:#292929;--mid:#55534E;--soft:#6E6B64;--line:#E4DED1;--orange:#F88B48;--orange-ink:#A84A12;--green:#5FB27B;--green-ink:#2B6E43;--peach:#FCE9DD;--mint:#E7F2EB;--lav:#EDE8F7;--lav-ink:#4E4178;--head:'Montserrat',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif}
+:root{--cream:#FAF8F3;--paper:#fff;--dark:#292929;--mid:#55534E;--soft:#6E6B64;--line:#E4DED1;--orange:#F88B48;--orange-ink:#A84A12;--green:#5FB27B;--green-ink:#2B6E43;--peach:#FCE9DD;--mint:#E7F2EB;--lav:#EDE8F7;--lav-ink:#4E4178;--head:'Fraunces',Georgia,serif;--ui:'Inter',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--cream);background-image:radial-gradient(#E4DED1 1px,transparent 1px);background-size:22px 22px;color:var(--dark);font-family:var(--body);font-size:16px;line-height:1.6}
 button,select{font:inherit;color:inherit}
@@ -15,22 +15,22 @@ button,select{font:inherit;color:inherit}
 header{background:var(--dark);color:#fff;padding:26px 18px 24px}
 header .in,.wrap{max-width:900px;margin:0 auto}
 .wrap{padding:0 16px 40px}
-.eyebrow{font-family:var(--head);font-weight:700;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.eyebrow{font-family:var(--ui);font-weight:700;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
 h1{font-family:var(--head);font-weight:800;font-size:clamp(24px,4vw,32px);line-height:1.2;margin:6px 0 8px}
 header p{color:#E4DED1;max-width:62ch}
 .how{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:0 10px 10px 0;padding:16px 18px;margin:22px 0 18px}
-.how b{font-family:var(--head)}
+.how b{font-family:var(--ui)}
 .how p+p{margin-top:8px}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.tabs button{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:8px 14px;font-family:var(--head);font-weight:700;font-size:13px;cursor:pointer;min-height:40px}
+.tabs button{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:8px 14px;font-family:var(--ui);font-weight:700;font-size:13px;cursor:pointer;min-height:40px}
 .tabs button[aria-selected="true"]{background:var(--dark);border-color:var(--dark);color:#fff}
 .card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;margin-bottom:16px}
 .task{border:2px solid var(--orange);border-radius:8px;padding:12px 14px;font-size:15px;margin-bottom:14px}
-.task b{font-family:var(--head);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);display:block;margin-bottom:2px}
+.task b{font-family:var(--ui);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);display:block;margin-bottom:2px}
 .chart svg{display:block;width:100%;height:auto;max-width:620px;margin:0 auto}
 .text p{font-size:16.5px;line-height:2.25;margin-bottom:12px}
 .gap{display:inline-flex;align-items:center;gap:4px;vertical-align:baseline}
-.gap .n{font-family:var(--head);font-weight:800;font-size:11px;color:var(--soft)}
+.gap .n{font-family:var(--ui);font-weight:800;font-size:11px;color:var(--soft)}
 .gap select{font-size:15px;border:1.5px solid var(--line);border-radius:6px;padding:3px 6px;background:var(--paper);max-width:100%;min-height:34px;cursor:pointer}
 .gap select.ok{border-color:var(--green);background:var(--mint)}
 .gap select.maybe{border-color:#C9A227;background:#FBF3D9}
@@ -38,10 +38,10 @@ header p{color:#E4DED1;max-width:62ch}
 .fbl{list-style:none;display:grid;gap:8px;margin-top:6px}
 .fbl li{font-size:14.5px;padding:10px 12px;border-radius:8px;background:var(--cream);border-left:4px solid var(--line)}
 .fbl li.ok{border-left-color:var(--green)}.fbl li.maybe{border-left-color:#C9A227}.fbl li.no{border-left-color:var(--orange)}
-.fbl .lab{font-family:var(--head);font-weight:800;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;margin-right:6px}
+.fbl .lab{font-family:var(--ui);font-weight:800;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;margin-right:6px}
 .fbl li.ok .lab{color:var(--green-ink)}.fbl li.maybe .lab{color:#7A5F00}.fbl li.no .lab{color:var(--orange-ink)}
 .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
-.btn{display:inline-flex;align-items:center;font-family:var(--head);font-weight:700;font-size:14px;border-radius:8px;padding:10px 16px;border:1.5px solid var(--dark);background:var(--dark);color:#fff;cursor:pointer;min-height:44px}
+.btn{display:inline-flex;align-items:center;font-family:var(--ui);font-weight:700;font-size:14px;border-radius:8px;padding:10px 16px;border:1.5px solid var(--dark);background:var(--dark);color:#fff;cursor:pointer;min-height:44px}
 .btn.ghost{background:transparent;color:var(--dark)}
 .sum{font-size:14.5px;color:var(--mid)}
 h2{font-family:var(--head);font-weight:800;font-size:18px;margin-bottom:10px}
@@ -155,7 +155,7 @@ const LAB={ok:'Accurate',maybe:'Possible, less precise',no:'Changes the meaning 
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function svgChart(c,title){const W=620,H=330,L=56,R=16,T=34,B=58,pw=W-L-R,ph=H-T-B,n=c.x.length;
   const X=i=>L+pw*i/(n-1),Y=v=>T+ph*(1-v/c.ymax);let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}. ${esc(c.series.map(se=>se.name+': '+se.v.map((v,i)=>c.x[i]+' '+c.fmt(v)).join(', ')).join('. '))}">`;
-  s+=`<text x="${W/2}" y="18" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="700" font-size="13" fill="#292929">${esc(title)}</text>`;
+  s+=`<text x="${W/2}" y="18" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-weight="700" font-size="13" fill="#292929">${esc(title)}</text>`;
   for(let v=0;v<=c.ymax+1e-9;v+=c.ystep){const y=Y(v);s+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#ECE7DC"/><text x="${L-8}" y="${y+4}" text-anchor="end" font-size="11.5" fill="#55534E">${+v.toFixed(2)}</text>`}
   s+=`<line x1="${L}" x2="${W-R}" y1="${T+ph}" y2="${T+ph}" stroke="#292929" stroke-width="1.2"/>`;
   c.x.forEach((l,i)=>s+=`<text x="${X(i)}" y="${T+ph+18}" text-anchor="middle" font-size="11.5" fill="#55534E">${l}</text>`);
