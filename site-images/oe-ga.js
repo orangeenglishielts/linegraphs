@@ -17,7 +17,7 @@
   var sent={};
   function signUp(id){
     if(sent[id])return;sent[id]=1;
-    try{w.gtag('event','sign_up',{method:'kit',form_id:id,form_name:FORMS[id]||'other',page_path:w.location.pathname})}catch(e){}
+    try{w.gtag('event','sign_up',{method:'Kit',form_id:id,form_name:FORMS[id]||'other',page_path:w.location.pathname})}catch(e){}
   }
   w.oeSignUp=signUp;
 
