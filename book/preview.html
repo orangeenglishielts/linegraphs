@@ -7,7 +7,7 @@
 <title>Mastering Line Graphs · IELTS Academic Writing Task 1 · Orange English</title>
 <meta name="description" content="Mastering Line Graphs, an interactive book for IELTS Academic Writing Task 1 in six chapters: Understanding Line Graphs, Describing Trends, Grammar for Data Description, Making Comparisons, Structuring the Response and Writing a Complete Answer.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================================
    ORANGE ENGLISH COMPONENTS · CSS  (Design System v4, "Option C" standard)
@@ -21,7 +21,8 @@
   --cream:#FAF8F3; --paper:#FFFFFF; --dark:#292929; --mid:#55534E; --soft:#6E6B64; --line:#E4DED1;
   --orange:#F88B48; --orange-ink:#A84A12; --green:#5FB27B; --green-ink:#2B6E43;
   --peach:#FCE9DD; --lav:#EDE8F7; --lav-ink:#4E4178; --mint:#E7F2EB;
-  --head:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --head:'Fraunces',Georgia,'Times New Roman',serif;
+  --ui:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --r:10px; --measure:66ch;
 }
@@ -31,18 +32,18 @@ html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:120
 body{background:var(--cream);color:var(--dark);font-family:var(--body);font-size:16.5px;line-height:1.65}
 button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--dark);outline-offset:2px;border-radius:4px}
-h1,h2,h3{font-family:var(--head);font-weight:800;line-height:1.2;text-wrap:balance;letter-spacing:-.01em}
+h1,h2,h3{font-family:var(--head);font-weight:700;line-height:1.2;text-wrap:balance;letter-spacing:0}
 p{max-width:var(--measure)}
 a{color:var(--orange-ink);text-underline-offset:2px}
 a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
-.eyebrow{font-family:var(--head);font-weight:700;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink)}
+.eyebrow{font-family:var(--ui);font-weight:700;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink)}
 .small{font-size:13.5px;color:var(--soft)}
 [hidden]{display:none!important}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .wrap{max-width:900px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--head);font-weight:700;font-size:14px;border-radius:8px;padding:11px 18px;border:1.5px solid var(--dark);background:var(--dark);color:#fff;cursor:pointer;text-decoration:none;min-height:44px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--ui);font-weight:700;font-size:14px;border-radius:8px;padding:11px 18px;border:1.5px solid var(--dark);background:var(--dark);color:#fff;cursor:pointer;text-decoration:none;min-height:44px}
 .btn.ghost{background:transparent;color:var(--dark)}
 .btn.accent{background:var(--orange);border-color:var(--orange);color:var(--dark)}
 .btn[disabled]{opacity:.45;cursor:not-allowed}
@@ -53,7 +54,7 @@ a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
 .oe-progress .bar-top{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:8px}
 .oe-progress img{width:36px;height:auto;flex:none}
 .oe-progress .ttl{min-width:0;flex:1}
-.oe-progress .ttl b{display:block;font-family:var(--head);font-weight:800;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oe-progress .ttl b{display:block;font-family:var(--head);font-weight:700;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .oe-progress .ttl span{font-size:12px;color:var(--soft)}
 .oe-progress ol{list-style:none;display:grid;grid-auto-columns:1fr;grid-auto-flow:column;gap:6px;padding-bottom:10px}
 .oe-progress li a{display:block;text-decoration:none;color:var(--soft);font-size:11.5px;font-weight:600;padding-top:6px}
@@ -61,13 +62,13 @@ a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
 .oe-progress li a i b{position:absolute;inset:0 auto 0 0;width:0;background:var(--green);transition:width .3s}
 .oe-progress li a[aria-current="step"]{color:var(--dark)}
 .oe-progress li a[aria-current="step"] i{background:#CFC8B8}
-.oe-progress li a .ph{display:block;font-family:var(--head);font-weight:800;letter-spacing:.04em}
+.oe-progress li a .ph{display:block;font-family:var(--ui);font-weight:800;letter-spacing:.04em}
 .oe-progress li a .sub{display:block;font-weight:500}
 @media (max-width:620px){.oe-progress li a .sub{display:none}.oe-progress .ttl span{display:none}}
 
 /* ---------- Phase header ---------- */
 .oe-phase{padding-top:56px;padding-bottom:6px}
-.oe-phase .num{font-family:var(--head);font-weight:800;font-size:13px;color:var(--orange-ink);letter-spacing:.12em;text-transform:uppercase}
+.oe-phase .num{font-family:var(--ui);font-weight:800;font-size:13px;color:var(--orange-ink);letter-spacing:.12em;text-transform:uppercase}
 .oe-phase h2{font-size:clamp(26px,4.4vw,36px);margin-top:6px}
 .oe-phase p{color:var(--mid);margin-top:10px}
 .oe-block{margin-top:22px}
@@ -80,9 +81,9 @@ a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
 
 /* ---------- Interactive chart ---------- */
 .oe-chart{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px}
-.oe-chart .ctitle{text-align:center;font-family:var(--head);font-weight:700;font-size:14.5px;margin-bottom:12px}
+.oe-chart .ctitle{text-align:center;font-family:var(--ui);font-weight:700;font-size:14.5px;margin-bottom:12px}
 .oe-chart .pies{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
-.oe-chart figure figcaption{text-align:center;font-family:var(--head);font-weight:800;font-size:15px;margin-top:6px}
+.oe-chart figure figcaption{text-align:center;font-family:var(--head);font-weight:700;font-size:15px;margin-top:6px}
 .oe-chart svg{width:100%;height:auto;display:block;max-width:290px;margin:0 auto}
 .oe-chart path{transition:opacity .2s,transform .2s;transform-origin:150px 150px}
 .oe-chart.pickable path{cursor:pointer}
@@ -111,12 +112,12 @@ a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
 /* ---------- Try it yourself ---------- */
 .oe-try{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px}
 .oe-try .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
-.oe-try .level{font-family:var(--head);font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:4px 10px;border:1.5px solid currentColor}
+.oe-try .level{font-family:var(--ui);font-weight:800;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:4px 10px;border:1.5px solid currentColor}
 .oe-try .level.guided{color:var(--green-ink)}
 .oe-try .level.supported{color:var(--lav-ink)}
 .oe-try .level.independent{color:var(--orange-ink)}
 .oe-try .level.challenge{color:var(--dark)}
-.oe-try .decision{display:block;font-family:var(--head);font-weight:700;font-size:15.5px;margin-bottom:4px}
+.oe-try .decision{display:block;font-family:var(--ui);font-weight:700;font-size:15.5px;margin-bottom:4px}
 .oe-try .decision::before{content:"Decision: ";color:var(--orange-ink)}
 .oe-try .prompt{color:var(--mid);font-size:15px;margin-bottom:14px}
 .oe-try .opts{display:grid;gap:10px}
@@ -136,19 +137,19 @@ a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
 .tapfb p.k{background:var(--mint)}.tapfb p.m{background:var(--peach)}
 .abq{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px}
 .abq .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media (max-width:520px){.abq .pair{grid-template-columns:1fr}}
-.abq .opt b.ab{font-family:var(--head);color:var(--orange-ink);margin-right:6px}
+.abq .opt b.ab{font-family:var(--ui);color:var(--orange-ink);margin-right:6px}
 .abq .why{font-size:14.5px;margin:8px 0 0}
 .pen{font-size:15.5px;line-height:1.9;background:var(--cream);border-radius:10px;padding:14px 16px;white-space:pre-line}
 .pen .w{cursor:pointer;border-radius:4px;padding:1px 0;transition:background .12s}
 .pen .w:hover{background:#F3E9D6}.pen .w.sel{background:#FFD9C2;box-shadow:0 0 0 2px #F88B48}
 .pen.done .w{cursor:default}.pen .w.found{background:var(--mint);box-shadow:0 0 0 2px #5FB27B}
 .pen .w.missed{background:#FFE8DA;text-decoration:underline wavy #C4521E}.pen .w.false{background:none;box-shadow:none;text-decoration:line-through #9A958C}
-.pen sup.n{font-family:var(--head);font-weight:800;color:#C4521E;font-size:11px;margin-left:2px}
+.pen sup.n{font-family:var(--ui);font-weight:800;color:#C4521E;font-size:11px;margin-left:2px}
 .penfb{display:grid;gap:8px;margin-top:12px}.penfb .e{padding:10px 12px;border-radius:8px;background:var(--paper);border:1px solid var(--line);font-size:14.5px}
-.penfb .e .lab{font-family:var(--head);font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink)}
+.penfb .e .lab{font-family:var(--ui);font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink)}
 .warmup{margin-top:18px}.warmup .rq{display:grid;gap:10px}
 .oe-try .opt .why{display:block;font-size:14px;color:var(--mid);margin-top:6px}
-.oe-try .opt .why::before{font-family:var(--head);font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-right:6px}
+.oe-try .opt .why::before{font-family:var(--ui);font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-right:6px}
 .oe-try .opt.right .why::before{content:"Accurate";color:var(--green-ink)}
 .oe-try .opt.wrong .why::before,.oe-try .opt.other .why::before{content:"Why not";color:var(--orange-ink)}
 .oe-try .fb{display:none;margin-top:12px;font-size:15px;padding:12px 14px;border-radius:8px;background:var(--cream)}
@@ -168,7 +169,7 @@ a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
 
 /* ---------- Examiner insight / Common mistake ---------- */
 .oe-insight,.oe-mistake{border-radius:0 var(--r) var(--r) 0;padding:15px 18px;font-size:15.5px}
-.oe-insight .lab,.oe-mistake .lab{font-family:var(--head);font-weight:800;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:4px}
+.oe-insight .lab,.oe-mistake .lab{font-family:var(--ui);font-weight:800;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:4px}
 .oe-insight{background:var(--peach);border-left:4px solid var(--orange)}
 .oe-insight .lab{color:var(--orange-ink)}
 .oe-mistake{background:var(--lav);border-left:4px solid var(--lav-ink)}
@@ -183,12 +184,12 @@ a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
 .oe-workshop .wc{font-size:13px;color:var(--soft);font-variant-numeric:tabular-nums}
 .oe-workshop .checks{list-style:none;display:grid;gap:8px;margin-top:10px}
 .oe-workshop .checks li{display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:14.5px;padding:10px 12px;border-radius:8px;background:var(--cream)}
-.oe-workshop .checks li .mk{font-family:var(--head);font-weight:800}
+.oe-workshop .checks li .mk{font-family:var(--ui);font-weight:800}
 .oe-workshop .checks li.pass .mk{color:var(--green-ink)}
 .oe-workshop .checks li.todo .mk{color:var(--orange-ink)}
 .oe-workshop .portfolio{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .oe-workshop .draft{border:1px solid var(--line);border-radius:8px;padding:14px;background:var(--cream);font-size:14.5px;white-space:pre-wrap;word-wrap:break-word;min-height:120px}
-.oe-workshop .draft h4{font-family:var(--head);font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;white-space:normal}
+.oe-workshop .draft h4{font-family:var(--ui);font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;white-space:normal}
 .oe-desk{font-size:13.5px;color:var(--mid);background:var(--cream);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-bottom:12px}
 @media (max-width:620px){.oe-workshop .portfolio{grid-template-columns:1fr}.oe-workshop{padding:16px}}
 
@@ -196,11 +197,11 @@ a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
 .oe-reflect{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px}
 .oe-reflect .anno{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start}
 .oe-reflect .model p{font-size:15.5px;margin-bottom:12px}
-.oe-reflect .plabel{font-family:var(--head);font-weight:800;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-ink);display:block}
+.oe-reflect .plabel{font-family:var(--ui);font-weight:800;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-ink);display:block}
 .oe-reflect .hl{background:none;border:0;border-bottom:2px solid var(--orange);padding:0 1px;cursor:pointer;text-align:left;line-height:inherit;font-size:inherit}
 .oe-reflect .hl:hover,.oe-reflect .hl[aria-pressed="true"]{background:var(--peach)}
 .oe-reflect .notes{position:sticky;top:130px;background:var(--peach);border-left:4px solid var(--orange);border-radius:0 var(--r) var(--r) 0;padding:16px 18px;min-height:140px;font-size:14.5px}
-.oe-reflect .notes .lab{font-family:var(--head);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);display:block;margin-bottom:6px}
+.oe-reflect .notes .lab{font-family:var(--ui);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);display:block;margin-bottom:6px}
 .oe-reflect .notes q{display:block;font-weight:600;margin-bottom:6px;quotes:none}
 .oe-reflect .selfcheck{list-style:none;display:grid;gap:8px}
 .oe-reflect .selfcheck label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:15px}
@@ -223,10 +224,10 @@ body{background:var(--desk)}
 .bk-top{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:14px max(18px,env(safe-area-inset-right,0px)) 10px max(18px,env(safe-area-inset-left,0px))}
 .bk-top img{width:34px;height:auto;flex:none}
 .bk-top .ttl{flex:1;min-width:0}
-.bk-top .ttl b{display:block;font-family:var(--head);font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bk-top .ttl b{display:block;font-family:var(--head);font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bk-top .ttl span{display:block;font-size:12.5px;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bk-top .tools{display:flex;gap:6px;flex:none}
-.tbtn{font-family:var(--head);font-weight:700;font-size:12.5px;border:1.5px solid var(--line);background:var(--page);border-radius:8px;padding:7px 11px;cursor:pointer;min-height:38px}
+.tbtn{font-family:var(--ui);font-weight:700;font-size:12.5px;border:1.5px solid var(--line);background:var(--page);border-radius:8px;padding:7px 11px;cursor:pointer;min-height:38px}
 .tbtn:hover{border-color:var(--dark)}
 
 /* ---------- the book ---------- */
@@ -251,7 +252,7 @@ body{background:var(--desk)}
 
 .pghead{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:14px}
 .pghead .eyebrow{font-size:11px}
-.pghead .side{font-family:var(--head);font-weight:700;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.pghead .side{font-family:var(--ui);font-weight:700;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
 .page h2{font-size:clamp(22px,2.4vw,28px);margin-bottom:12px}
 .page h3{font-size:17px;margin:18px 0 8px}
 .page p{margin-bottom:12px}
@@ -259,11 +260,11 @@ body{background:var(--desk)}
 .page ul.clean{list-style:none;display:grid;gap:8px;margin:8px 0 14px}
 .page ul.clean li{padding-left:18px;position:relative}
 .page ul.clean li::before{content:"";position:absolute;left:2px;top:.72em;width:6px;height:6px;border-radius:50%;background:var(--green)}
-.pgnum{position:absolute;bottom:14px;font-family:var(--head);font-weight:700;font-size:11px;color:var(--soft);letter-spacing:.08em}
+.pgnum{position:absolute;bottom:14px;font-family:var(--ui);font-weight:700;font-size:11px;color:var(--soft);letter-spacing:.08em}
 .page.left .pgnum{left:46px}.page.right .pgnum{right:46px}
 .stack>*+*{margin-top:16px}
 .takeaway{border-top:2px solid var(--dark);padding-top:10px;margin-top:18px;font-size:15.5px}
-.takeaway b{font-family:var(--head);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:3px}
+.takeaway b{font-family:var(--ui);font-weight:800;font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:3px}
 
 /* bookmark ribbon */
 .ribbon{position:absolute;top:-4px;right:30px;width:22px;height:46px;border:0;background:transparent;cursor:pointer;padding:0;z-index:3}
@@ -275,7 +276,7 @@ body{background:var(--desk)}
 
 /* margin notes: examiner's note */
 .mnote{float:right;width:190px;margin:2px -14px 12px 18px;border-left:2px solid var(--orange);padding:2px 0 2px 10px;font-size:13px;line-height:1.5;color:var(--mid)}
-.mnote b{display:block;font-family:var(--head);font-weight:800;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:2px}
+.mnote b{display:block;font-family:var(--ui);font-weight:800;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin-bottom:2px}
 .page.left .mnote{float:left;margin:2px 18px 12px -14px;border-left:0;border-right:2px solid var(--orange);padding:2px 10px 2px 0;text-align:right}
 .clear{clear:both}
 
@@ -285,10 +286,10 @@ body{background:var(--desk)}
 .vid video{background:#000;object-fit:contain}
 .vid .play{width:52px;height:52px;border-radius:50%;background:var(--dark);display:flex;align-items:center;justify-content:center}
 .vid .play::after{content:"";border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
-.vid .cap{font-family:var(--head);font-weight:700;font-size:13.5px}
+.vid .cap{font-family:var(--ui);font-weight:700;font-size:13.5px}
 .vid .len{font-size:12px;color:var(--soft)}
 .script{font-size:13px;background:var(--page);border:1px dashed #CFC6B4;border-radius:8px;padding:10px 12px;margin-bottom:14px;color:var(--mid)}
-.script b{font-family:var(--head);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:4px;color:var(--dark)}
+.script b{font-family:var(--ui);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:4px;color:var(--dark)}
 .script ol{padding-left:18px}
 
 /* charts */
@@ -311,7 +312,7 @@ body{background:var(--desk)}
 .chart .band.done rect{fill:rgba(95,178,123,.10)}
 .chart .seg{fill:none;stroke:var(--orange);stroke-width:6;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .15s}
 .chart .seg.on{opacity:.85}
-.chart .bandlab{font-family:var(--head);font-weight:800;font-size:11px;fill:var(--soft)}
+.chart .bandlab{font-family:var(--ui);font-weight:800;font-size:11px;fill:var(--soft)}
 .legend-note{font-size:12.5px;color:var(--soft);margin-top:6px}
 
 /* hotspot target list */
@@ -319,7 +320,7 @@ body{background:var(--desk)}
 .targets li{display:flex;gap:8px;align-items:flex-start;font-size:14.5px;padding:8px 10px;border-radius:8px;background:var(--cream)}
 .targets li.now{background:var(--peach);font-weight:600}
 .targets li.ok{color:var(--green-ink)}
-.targets .mk{font-family:var(--head);font-weight:800;width:18px;flex:none}
+.targets .mk{font-family:var(--ui);font-weight:800;width:18px;flex:none}
 
 /* binary & sort rows */
 .rows{display:grid;gap:10px}
@@ -352,27 +353,27 @@ body{background:var(--desk)}
 .pool{display:flex;flex-wrap:wrap;gap:6px}
 
 /* chapter opening */
-.opening .bignum{font-family:var(--head);font-weight:800;font-size:clamp(90px,11vw,150px);line-height:.9;color:var(--dark);letter-spacing:-.04em}
-.opening .chap{font-family:var(--head);font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange-ink);margin:10px 0 6px}
+.opening .bignum{font-family:var(--head);font-weight:700;font-size:clamp(90px,11vw,150px);line-height:.9;color:var(--dark);letter-spacing:-.04em}
+.opening .chap{font-family:var(--ui);font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange-ink);margin:10px 0 6px}
 .opening h1{font-size:clamp(28px,3.4vw,40px);margin-bottom:12px}
 .opening .illus{margin-top:22px}
 .opening .illus path{fill:none;stroke-linecap:round;stroke-linejoin:round}
 .contents{list-style:none;display:grid;gap:2px;margin:6px 0 16px}
 .contents button{width:100%;display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;align-items:baseline;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);padding:9px 2px;cursor:pointer;font-size:15px}
 .contents button:hover .t{text-decoration:underline}
-.contents .n{font-family:var(--head);font-weight:800;color:var(--soft)}
-.contents .ph{font-size:11.5px;color:var(--soft);font-family:var(--head);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.contents .n{font-family:var(--ui);font-weight:800;color:var(--soft)}
+.contents .ph{font-size:11.5px;color:var(--soft);font-family:var(--ui);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .contents .t small{display:block;font-size:12.5px;color:var(--soft)}
 .contents .tick{color:var(--green-ink);font-weight:800;margin-left:4px}
 .howto{display:grid;gap:8px;margin-top:10px}
 .howto div{font-size:14px;background:var(--cream);border-radius:8px;padding:9px 12px}
-.howto b{font-family:var(--head);font-size:12.5px}
+.howto b{font-family:var(--ui);font-size:12.5px}
 
 /* glossary */
 .term{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:help;border-bottom:1.5px dotted var(--orange-ink);line-height:inherit}
 .term:hover,.term:focus-visible{background:var(--peach)}
 #gloss{position:fixed;z-index:60;right:max(18px,env(safe-area-inset-right,0px));bottom:max(86px,calc(env(safe-area-inset-bottom,0px) + 86px));width:340px;max-width:calc(100vw - 36px);background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 40px -12px rgba(40,30,15,.35);padding:18px}
-#gloss h4{font-family:var(--head);font-weight:800;font-size:19px;margin-right:34px}
+#gloss h4{font-family:var(--head);font-weight:700;font-size:19px;margin-right:34px}
 #gloss .def{font-size:14.5px;margin:6px 0 10px}
 #gloss .ex{font-size:14px;color:var(--mid);border-left:3px solid var(--green);padding-left:10px;margin-top:10px}
 #gloss .pron{font-size:12.5px;color:var(--soft);margin-top:10px}
@@ -385,7 +386,7 @@ body{background:var(--desk)}
 .pager{position:sticky;bottom:0;z-index:40;margin-top:18px;background:rgba(236,231,220,.96);backdrop-filter:blur(6px);border-top:1px solid #DCD5C6}
 .pager .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px max(18px,env(safe-area-inset-right,0px)) max(10px,env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px))}
 .pager .where{font-size:13px;color:var(--mid);text-align:center;font-variant-numeric:tabular-nums}
-.pager .where b{font-family:var(--head);font-weight:700;color:var(--dark)}
+.pager .where b{font-family:var(--ui);font-weight:700;color:var(--dark)}
 .pager .btn{min-width:120px;justify-content:center}
 
 /* resume + contents menu */
@@ -394,7 +395,7 @@ body{background:var(--desk)}
 .card h3{font-size:20px;margin-bottom:8px}
 .card p{font-size:15px;color:var(--mid);margin-bottom:16px}
 .menu{max-height:min(70vh,620px);overflow:auto}
-.menu h4{font-family:var(--head);font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin:14px 0 4px}
+.menu h4{font-family:var(--ui);font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin:14px 0 4px}
 
 .bk-foot{max-width:1240px;margin:0 auto;text-align:center;font-size:12.5px;color:var(--soft);padding:18px 18px 8px}
 .bk-foot p{margin:0 auto 4px;max-width:none}
@@ -456,14 +457,14 @@ body.printing{background:#fff}
 
 /* timer (timed task) */
 .oe-timer .tm{display:flex;align-items:baseline;gap:6px 14px;flex-wrap:wrap}
-.tm-clock{font-family:var(--head);font-weight:800;font-size:44px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.tm-clock{font-family:var(--head);font-weight:700;font-size:44px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 .tm-clock.urgent{color:var(--orange-ink)}
 .tm-phase{font-size:14.5px;font-weight:600;color:var(--mid);flex:1;min-width:180px}
 .tm-bar{display:flex;gap:4px;margin-top:14px}
 .tm-bar i{display:block;height:8px;border-radius:4px;background:var(--line);overflow:hidden;position:relative;min-width:24px}
 .tm-bar i b{position:absolute;inset:0 auto 0 0;width:0;background:var(--green)}
 .tm-bar i:last-child b{background:var(--orange)}
-.tm-labs{display:flex;justify-content:space-between;gap:8px;margin-top:4px;font-size:11px;font-weight:700;color:var(--soft);font-family:var(--head)}
+.tm-labs{display:flex;justify-content:space-between;gap:8px;margin-top:4px;font-size:11px;font-weight:700;color:var(--soft);font-family:var(--ui)}
 .tm-labs span{flex:none!important;white-space:nowrap}
 
 
@@ -473,14 +474,14 @@ body.printing{background:#fff}
 .hw-pg{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:14px 10px 13px;font-size:12.5px;line-height:1.4;color:var(--mid)}
 .hw-l{border-top:4px solid var(--orange);background:linear-gradient(to left,rgba(41,41,41,.07),transparent 18px),var(--paper)}
 .hw-r{border-top:4px solid var(--green);background:linear-gradient(to right,rgba(41,41,41,.07),transparent 18px),var(--paper)}
-.hw-tag{font-family:var(--head);font-weight:800;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+.hw-tag{font-family:var(--ui);font-weight:800;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
 .hw-ic{width:34px;height:34px;margin:2px 0}
-.hw-pg b{font-family:var(--head);font-size:15px;color:var(--dark)}
+.hw-pg b{font-family:var(--ui);font-size:15px;color:var(--dark)}
 .hw-l b{color:var(--orange-ink)}.hw-r b{color:var(--green-ink)}
 .hw-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .hw-item{display:flex;flex-direction:column;gap:6px;background:var(--cream);border-radius:8px;padding:10px}
 .hw-note{display:block;background:var(--peach);border-left:3px solid var(--orange);border-radius:0 6px 6px 0;padding:6px 8px;font-size:12px;line-height:1.35}
-.hw-note i{display:block;font-style:normal;font-family:var(--head);font-weight:800;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-ink)}
+.hw-note i{display:block;font-style:normal;font-family:var(--ui);font-weight:800;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-ink)}
 .hw-word{display:block;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px;font-size:13.5px}
 .hw-word u{text-decoration:none;border-bottom:2px dotted var(--orange-ink);background:var(--peach);border-radius:2px;padding:0 2px}
 .hw-cap{font-size:12px;line-height:1.35;color:var(--mid)}
@@ -498,7 +499,7 @@ body.printing{background:#fff}
 .tl-g{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 14px}
 .tl-c{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px 12px;display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.4}
 .tl-c svg{width:100%;max-width:170px;height:auto;display:block;margin:0 auto 6px;overflow:visible}
-.tl-c b{font-family:var(--head);font-size:14px}
+.tl-c b{font-family:var(--ui);font-size:14px}
 .tl-m{font-size:12.5px;color:var(--soft)}
 .tl-c i{color:var(--dark)}
 .tl-ax{stroke:var(--dark);stroke-width:1.2;fill:none}
@@ -515,12 +516,12 @@ body.printing{background:#fff}
 
 .hw-err{display:grid;gap:8px;background:var(--cream);border-radius:8px;padding:10px 12px}
 .hw-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.hw-save{font-family:var(--head);font-weight:700;font-size:11.5px;border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:5px 11px;color:var(--dark);white-space:nowrap}
+.hw-save{font-family:var(--ui);font-weight:700;font-size:11.5px;border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:5px 11px;color:var(--dark);white-space:nowrap}
 .hw-arr{width:28px;height:12px;flex:none}
 .hw-to{display:inline-flex;align-items:center;gap:8px}
-.hw-book2{display:inline-flex;align-items:center;gap:6px;font-family:var(--head);font-weight:800;font-size:12.5px;color:var(--orange-ink)}
+.hw-book2{display:inline-flex;align-items:center;gap:6px;font-family:var(--ui);font-weight:800;font-size:12.5px;color:var(--orange-ink)}
 .hw-book2 svg{width:18px;height:21px}
-.hw-err .hw-cap b{font-family:var(--head);color:var(--dark)}
+.hw-err .hw-cap b{font-family:var(--ui);color:var(--dark)}
 
 /* logo a little more prominent */
 .bk-top{gap:14px}
@@ -529,10 +530,10 @@ body.printing{background:#fff}
 
 /* chapter feedback card */
 .oe-fb{background:var(--paper);border:1.5px solid var(--line);border-top:4px solid var(--green);border-radius:var(--r);padding:16px 18px;margin:18px 0}
-.oe-fb .lab{font-family:var(--head);font-weight:800;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-ink);display:block;margin-bottom:2px}
+.oe-fb .lab{font-family:var(--ui);font-weight:800;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-ink);display:block;margin-bottom:2px}
 .oe-fb h3{margin:0 0 4px;font-size:19px}
 .oe-fb fieldset{border:0;margin:14px 0 0;padding:0}
-.oe-fb legend{font-family:var(--head);font-weight:700;font-size:14.5px;margin-bottom:6px}
+.oe-fb legend{font-family:var(--ui);font-weight:700;font-size:14.5px;margin-bottom:6px}
 .oe-fb .opts{display:flex;flex-wrap:wrap;gap:8px}
 .oe-fb .opts label{position:relative;cursor:pointer}
 .oe-fb .opts input{position:absolute;opacity:0;width:1px;height:1px}
@@ -551,8 +552,8 @@ body.printing{background:#fff}
 .chtime{font-size:14px;color:var(--mid);margin:-6px 0 16px;line-height:1.5}
 .contents .n.tick{color:var(--green-ink)}
 .stopcard{display:flex;flex-direction:column;gap:4px;margin:22px 0 6px;padding:14px 16px;border:1.5px dashed #CFC6B4;border-radius:var(--r);background:var(--cream);font-size:14.5px;line-height:1.5}
-.stopcard b{font-family:var(--head);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--green-ink)}
-#morebelow{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:45;font-family:var(--head);font-weight:700;font-size:13px;color:var(--dark);background:var(--paper);border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;box-shadow:0 6px 18px -8px rgba(60,48,30,.35);cursor:pointer}
+.stopcard b{font-family:var(--ui);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--green-ink)}
+#morebelow{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:45;font-family:var(--ui);font-weight:700;font-size:13px;color:var(--dark);background:var(--paper);border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;box-shadow:0 6px 18px -8px rgba(60,48,30,.35);cursor:pointer}
 #morebelow:hover{border-color:var(--orange)}
 #morebelow span{display:inline-block;animation:oeNudge 1.6s ease-in-out infinite}
 @keyframes oeNudge{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
@@ -601,7 +602,7 @@ body.printing{background:#fff}
 .chbig svg{display:block;width:640px;max-width:none;height:auto}
 @media (max-width:819px){
   .chart{position:relative}
-  .chzoom{display:inline-flex;align-items:center;gap:4px;margin:6px 0 0 auto;font-family:var(--head);font-weight:700;font-size:12.5px;border:1.5px solid var(--line);background:var(--page);border-radius:8px;padding:6px 10px;min-height:36px;cursor:pointer;color:var(--dark)}
+  .chzoom{display:inline-flex;align-items:center;gap:4px;margin:6px 0 0 auto;font-family:var(--ui);font-weight:700;font-size:12.5px;border:1.5px solid var(--line);background:var(--page);border-radius:8px;padding:6px 10px;min-height:36px;cursor:pointer;color:var(--dark)}
   .chart .chzoom{display:flex;width:max-content}
   .bk-top #fs{display:none}
   .bk-top{gap:10px}
@@ -619,10 +620,10 @@ body.printing{background:#fff}
 /* deeper writing feedback */
 .xc section{margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
 .xc-d{display:flex;gap:10px;align-items:center;margin-top:8px}
-.xc-d .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--peach);color:var(--orange-ink);font-family:var(--head);font-weight:800;font-size:13px;display:grid;place-items:center}
+.xc-d .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--peach);color:var(--orange-ink);font-family:var(--ui);font-weight:800;font-size:13px;display:grid;place-items:center}
 .xc-list ol{padding-left:22px;margin:0 0 8px;display:grid;gap:6px;font-size:15px}
 .xc-crit{border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:12px 14px;margin-top:10px}
-.xc-cn{margin:0 0 6px;font-size:15px}.xc-cn b{font-family:var(--head)}
+.xc-cn{margin:0 0 6px;font-size:15px}.xc-cn b{font-family:var(--ui)}
 .xc-crit ul{margin:0 0 10px;padding-left:20px;font-size:14.5px;color:var(--mid);display:grid;gap:3px}
 .xc-opts{display:flex;flex-wrap:wrap;gap:6px}
 .xc-opts .chip{min-height:40px;padding:7px 14px;font-size:14px}
@@ -636,15 +637,15 @@ body.printing{background:#fff}
 @media (max-width:819px){
   .acts-step .actbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0 10px;padding:8px 10px;background:var(--paper);border:1px solid var(--line);border-radius:10px;position:sticky;top:0;z-index:5}
   .actbar .small{margin-right:2px}
-  .actdot{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--page);font-family:var(--head);font-weight:800;font-size:14px;cursor:pointer;color:var(--dark)}
+  .actdot{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--page);font-family:var(--ui);font-weight:800;font-size:14px;cursor:pointer;color:var(--dark)}
   .actdot.done{background:#EEF6F0;border-color:var(--green-ink);color:var(--green-ink)}
   .actdot.on{background:var(--dark);border-color:var(--dark);color:#fff}
-  .actall{margin-left:auto;background:none;border:0;font-family:var(--head);font-weight:700;font-size:12.5px;color:var(--orange-ink);text-decoration:underline;cursor:pointer;min-height:36px}
+  .actall{margin-left:auto;background:none;border:0;font-family:var(--ui);font-weight:700;font-size:12.5px;color:var(--orange-ink);text-decoration:underline;cursor:pointer;min-height:36px}
   .acts-step .actnav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 4px;padding-top:12px;border-top:1px dashed var(--line)}
   .acts-step:not(.acts-all) .seg-off{display:none!important}
   .acts-step.acts-all .actnav{display:none}
   .after.xt .xtabs{display:flex;gap:4px;margin:18px 0 6px;position:sticky;top:0;z-index:5;background:var(--paper);padding:6px 0;border-bottom:1px solid var(--line)}
-  .xtabs button{flex:1;min-height:44px;border:1.5px solid var(--line);background:var(--page);border-radius:8px;font-family:var(--head);font-weight:700;font-size:12px;color:var(--dark);cursor:pointer;padding:4px 2px;line-height:1.15}
+  .xtabs button{flex:1;min-height:44px;border:1.5px solid var(--line);background:var(--page);border-radius:8px;font-family:var(--ui);font-weight:700;font-size:12px;color:var(--dark);cursor:pointer;padding:4px 2px;line-height:1.15}
   .xtabs button b{display:block;font-size:13px}
   .xtabs button[aria-selected="true"]{background:var(--dark);border-color:var(--dark);color:#fff}
   .xtabs button:disabled{opacity:.45;cursor:not-allowed}
@@ -652,7 +653,7 @@ body.printing{background:#fff}
   .after.xt .xc section{border-top:0;margin-top:8px;padding-top:4px}
   .xnav{display:flex;justify-content:flex-end;margin-top:12px}
   .fold-btn{display:flex;width:100%;align-items:center;gap:8px;text-align:left;margin:16px 0 4px;padding:12px 14px;min-height:52px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);cursor:pointer;color:var(--dark)}
-  .fold-btn .ft{font-family:var(--head);font-weight:800;font-size:15px}
+  .fold-btn .ft{font-family:var(--head);font-weight:700;font-size:15px}
   .fold-btn .fs{margin-left:auto;text-align:right}
   .fold-btn .fc{transition:transform .2s}
   .fold-btn[aria-expanded="true"] .fc{transform:rotate(180deg)}
@@ -1071,11 +1072,11 @@ const S3=[
 
 /* 16 */ {id:'c3-s2',ch:3,chLabel:'Chapter 3',chTitle:'Grammar for Data Description',title:'Prepositions for amounts',
  left:`${head('Step 2 · Understand','Learn')}<h2>Prepositions for amounts</h2>${vid(7)}<table style="width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0 12px"><tbody>
-<tr><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head)">by</th><td style="padding:7px 0">the size of the change<br><i>Cycling rose by 22 percentage points.</i></td></tr>
-<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head)">to</th><td style="padding:7px 0">the end point<br><i>Car use fell to 37% in 2020.</i></td></tr>
-<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">from… to</th><td style="padding:7px 0">the start and end points<br><i>Cycling rose from 12% to 34%.</i></td></tr>
-<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head)">at</th><td style="padding:7px 0">a level at one point<br><i>Cycling stood at 12% in 2000.</i></td></tr>
-<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head)">of</th><td style="padding:7px 0">after a noun, for the size<br><i>There was a rise of 22 points.</i></td></tr></tbody></table>${note('The most precise way to describe a change between two percentages is in percentage points: 12% to 34% is a rise of 22 percentage points. “Rose by 22%” is widely accepted, but percentage points are the better choice if you\'re aiming for Band 7 or higher.')}<div class="clear"></div>${take('Verb + by: rose by 22 points. Noun + of: a rise of 22 points.')}`,
+<tr><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui)">by</th><td style="padding:7px 0">the size of the change<br><i>Cycling rose by 22 percentage points.</i></td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui)">to</th><td style="padding:7px 0">the end point<br><i>Car use fell to 37% in 2020.</i></td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui);white-space:nowrap">from… to</th><td style="padding:7px 0">the start and end points<br><i>Cycling rose from 12% to 34%.</i></td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui)">at</th><td style="padding:7px 0">a level at one point<br><i>Cycling stood at 12% in 2000.</i></td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui)">of</th><td style="padding:7px 0">after a noun, for the size<br><i>There was a rise of 22 points.</i></td></tr></tbody></table>${note('The most precise way to describe a change between two percentages is in percentage points: 12% to 34% is a rise of 22 percentage points. “Rose by 22%” is widely accepted, but percentage points are the better choice if you\'re aiming for Band 7 or higher.')}<div class="clear"></div>${take('Verb + by: rose by 22 points. Noun + of: a rise of 22 points.')}`,
  right:`${head('Step 2 · Activity','Explore')}${chart('com')}<div data-act="c3-prep" style="margin-top:14px"></div><div data-act="c3-ab" style="margin-top:16px"></div>`},
 
 /* 17 */ {id:'c3-s3',ch:3,chLabel:'Chapter 3',chTitle:'Grammar for Data Description',title:'Comparing data',
@@ -1410,15 +1411,15 @@ B.VIDEOS.push(
 const sp=(o)=>Object.assign({ch:5,chLabel:CH,chTitle:CT},o);
 const S5=[
 /* 28 */ sp({id:'c5-open',title:'Chapter 5 opening',
- left:`<div class="opening"><div class="bignum">5</div><p class="chap">Chapter 5</p><h1>Structuring the Response</h1><p class="lede">Strong vocabulary and grammar can't rescue an answer the examiner can't follow. In this chapter I'll show you the four-part shape that works for every line graph, and you'll write your first complete answer.</p><h3>By the end of this chapter, you can</h3><ul class="clean"><li>${T('paraphrase')} the task in a one-sentence introduction without losing any detail</li><li>write an ${T('overview')} that summarises the main patterns with no data figures</li><li>choose a logical ${T('grouping','grouping')} for your two ${T('body paragraph','body paragraphs')}</li><li>write a complete four-part answer of at least 150 words</li></ul><svg class="illus" viewBox="0 0 400 150" aria-hidden="true" style="width:100%;height:auto"><rect x="20" y="14" width="360" height="18" rx="4" fill="#FCE9DD"/><rect x="20" y="40" width="360" height="24" rx="4" fill="#F88B48" opacity=".55"/><rect x="20" y="72" width="360" height="30" rx="4" fill="#E7F2EB"/><rect x="20" y="110" width="360" height="30" rx="4" fill="#E7F2EB"/><text x="30" y="27" font-size="11" font-family="Montserrat,sans-serif" font-weight="700" fill="#292929">1 Introduction</text><text x="30" y="56" font-size="11" font-family="Montserrat,sans-serif" font-weight="700" fill="#292929">2 Overview</text><text x="30" y="91" font-size="11" font-family="Montserrat,sans-serif" font-weight="700" fill="#292929">3 Body paragraph 1</text><text x="30" y="129" font-size="11" font-family="Montserrat,sans-serif" font-weight="700" fill="#292929">4 Body paragraph 2</text></svg></div>`,
+ left:`<div class="opening"><div class="bignum">5</div><p class="chap">Chapter 5</p><h1>Structuring the Response</h1><p class="lede">Strong vocabulary and grammar can't rescue an answer the examiner can't follow. In this chapter I'll show you the four-part shape that works for every line graph, and you'll write your first complete answer.</p><h3>By the end of this chapter, you can</h3><ul class="clean"><li>${T('paraphrase')} the task in a one-sentence introduction without losing any detail</li><li>write an ${T('overview')} that summarises the main patterns with no data figures</li><li>choose a logical ${T('grouping','grouping')} for your two ${T('body paragraph','body paragraphs')}</li><li>write a complete four-part answer of at least 150 words</li></ul><svg class="illus" viewBox="0 0 400 150" aria-hidden="true" style="width:100%;height:auto"><rect x="20" y="14" width="360" height="18" rx="4" fill="#FCE9DD"/><rect x="20" y="40" width="360" height="24" rx="4" fill="#F88B48" opacity=".55"/><rect x="20" y="72" width="360" height="30" rx="4" fill="#E7F2EB"/><rect x="20" y="110" width="360" height="30" rx="4" fill="#E7F2EB"/><text x="30" y="27" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="700" fill="#292929">1 Introduction</text><text x="30" y="56" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="700" fill="#292929">2 Overview</text><text x="30" y="91" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="700" fill="#292929">3 Body paragraph 1</text><text x="30" y="129" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="700" fill="#292929">4 Body paragraph 2</text></svg></div>`,
  right:`<div class="opening">${head('In this chapter','Contents')}<h2>Five steps, one skill each</h2><ul class="contents">${[[1,'c5-s1','The four-part shape','Sort the sentences','Discover'],[2,'c5-s2','The introduction','Paraphrase the task','Understand'],[3,'c5-s3','The overview','The big picture, no figures','Understand'],[4,'c5-s4','The body paragraphs','Group the data','Practise'],[5,'c5-s5','Chapter challenge','Write a complete answer','Apply'],['R','c5-review','Chapter review','Your results and drafts','Improve']].map(([n,go,t,sub,ph])=>`<li><button type="button" data-go="${go}"><span class="n">${n}</span><span class="t">${t}<small>${sub}</small></span><span class="ph">${ph}</span></button></li>`).join('')}</ul><div class="oe-insight" style="margin-top:14px"><span class="lab">From Chapter 4</span>You can describe and compare lines precisely. Now you'll organise those sentences into a complete answer.</div></div>`}),
 
 /* 29 */ sp({id:'c5-s1',title:'The four-part shape',
  left:`${head('Step 1 · Discover','Learn')}<h2>The four-part shape</h2>${vid(12)}<p>In this course we practise four paragraphs, in this order. It is a reliable starting structure, not a compulsory IELTS format: what matters is that the information is clear.</p><table style="width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0 12px"><tbody>
-<tr><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">1 Introduction</th><td style="padding:7px 0">One sentence. ${T('paraphrase','Paraphrase')} the task: what, who, where and when.</td></tr>
-<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">2 Overview</th><td style="padding:7px 0">One or two sentences. The main trends only, no figures.</td></tr>
-<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">3 Body 1</th><td style="padding:7px 0">The first group of data, with figures.</td></tr>
-<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">4 Body 2</th><td style="padding:7px 0">The rest of the data, with figures, grouped in the same way.</td></tr></tbody></table>${note('Task Achievement and Coherence and Cohesion both reward a clear structure. An overview hidden in the middle of a body paragraph is easy for the examiner to miss.')}<div class="clear"></div>${take('Four paragraphs: a reliable shape for any line graph. Choose the arrangement that makes the information clearest.')}`,
+<tr><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui);white-space:nowrap">1 Introduction</th><td style="padding:7px 0">One sentence. ${T('paraphrase','Paraphrase')} the task: what, who, where and when.</td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui);white-space:nowrap">2 Overview</th><td style="padding:7px 0">One or two sentences. The main trends only, no figures.</td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui);white-space:nowrap">3 Body 1</th><td style="padding:7px 0">The first group of data, with figures.</td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui);white-space:nowrap">4 Body 2</th><td style="padding:7px 0">The rest of the data, with figures, grouped in the same way.</td></tr></tbody></table>${note('Task Achievement and Coherence and Cohesion both reward a clear structure. An overview hidden in the middle of a body paragraph is easy for the examiner to miss.')}<div class="clear"></div>${take('Four paragraphs: a reliable shape for any line graph. Choose the arrangement that makes the information clearest.')}`,
  right:`${head('Step 1 · Activity','Explore')}<div data-act="c5-sort"></div>`}),
 
 /* 30 */ sp({id:'c5-s2',title:'The introduction',
@@ -1431,9 +1432,9 @@ const S5=[
 
 /* 32 */ sp({id:'c5-s4',title:'The body paragraphs',
  left:`${head('Step 4 · Practise','Learn')}<h2>The body paragraphs</h2><p>The two ${T('body paragraph','body paragraphs')} give the figures that support your overview. Don't describe the lines one by one in a list. ${T('grouping','Group')} the data so that each paragraph makes a comparison.</p><table style="width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0 12px"><tbody>
-<tr><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">By category</th><td style="padding:7px 0">Lines with a similar pattern together, the one that stands apart on its own.</td></tr>
-<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">By time period</th><td style="padding:7px 0">Before and after a point where the lines change direction or cross.</td></tr>
-<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--head);white-space:nowrap">By trend</th><td style="padding:7px 0">Lines that rose in one paragraph, lines that fell in the other.</td></tr></tbody></table><h3>Useful phrases</h3><ul class="clean" style="font-size:15px"><li><i>Specifically,</i> the 18 to 30 age group reached 95% by 2020.</li><li><i>In contrast,</i> the 65+ age group grew far more slowly.</li><li><i>Meanwhile,</i> Chain C grew only modestly.</li><li><i>By the end of the period,</i> both cities had passed their 2000 figures.</li></ul>${take('Choose the grouping that makes the comparison clearest for this graph. Then keep to it.')}`,
+<tr><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui);white-space:nowrap">By category</th><td style="padding:7px 0">Lines with a similar pattern together, the one that stands apart on its own.</td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui);white-space:nowrap">By time period</th><td style="padding:7px 0">Before and after a point where the lines change direction or cross.</td></tr>
+<tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:7px 10px 7px 0;vertical-align:top;font-family:var(--ui);white-space:nowrap">By trend</th><td style="padding:7px 0">Lines that rose in one paragraph, lines that fell in the other.</td></tr></tbody></table><h3>Useful phrases</h3><ul class="clean" style="font-size:15px"><li><i>Specifically,</i> the 18 to 30 age group reached 95% by 2020.</li><li><i>In contrast,</i> the 65+ age group grew far more slowly.</li><li><i>Meanwhile,</i> Chain C grew only modestly.</li><li><i>By the end of the period,</i> both cities had passed their 2000 figures.</li></ul>${take('Choose the grouping that makes the comparison clearest for this graph. Then keep to it.')}`,
  right:`${head('Step 4 · Activity','Explore')}${chart('commute2')}<div data-act="c5-group" style="margin-top:14px"></div><div data-gate="c5-group" hidden style="margin-top:14px"><div data-act="c5-order"></div></div>`}),
 
 /* 33 */ sp({id:'c5-s5',title:'Chapter challenge: a complete answer',
@@ -1602,7 +1603,7 @@ const TASK_B='The graph below shows the average number of books read per year by
 const TASK_S='The graph below shows the percentage of people who shop online at least once a week in the UK, South Korea and Brazil between 2009 and 2024';
 const S6=[
 /* 35 */ sp({id:'c6-open',title:'Chapter 6 opening',
- left:`<div class="opening"><div class="bignum">6</div><p class="chap">Chapter 6</p><h1>Writing a Complete Answer</h1><p class="lede">This is where everything comes together. First you'll write a complete answer without a timer, focusing on accuracy. Then you'll do it again in 20 minutes, under exam conditions.</p><h3>By the end of this chapter, you can</h3><ul class="clean"><li>check the graph type, period, units and every category before you write</li><li>plan an answer in two minutes</li><li>review your own answer with a ${T('self-editing')} checklist and the four marking criteria, starting with ${T('Task Achievement')}</li><li>write a complete answer of at least 150 words in 20 minutes</li></ul><svg class="illus" viewBox="0 0 400 150" aria-hidden="true" style="width:100%;height:auto"><rect x="20" y="58" width="36" height="34" rx="4" fill="#FCE9DD"/><rect x="60" y="58" width="270" height="34" rx="4" fill="#E7F2EB"/><rect x="334" y="58" width="46" height="34" rx="4" fill="#F88B48" opacity=".55"/><text x="38" y="80" text-anchor="middle" font-size="11" font-family="Montserrat,sans-serif" font-weight="800" fill="#292929">2</text><text x="195" y="80" text-anchor="middle" font-size="11" font-family="Montserrat,sans-serif" font-weight="800" fill="#292929">15 minutes</text><text x="357" y="80" text-anchor="middle" font-size="11" font-family="Montserrat,sans-serif" font-weight="800" fill="#292929">3</text><text x="38" y="110" text-anchor="middle" font-size="10.5" fill="#55534E">Plan</text><text x="195" y="110" text-anchor="middle" font-size="10.5" fill="#55534E">Write</text><text x="357" y="110" text-anchor="middle" font-size="10.5" fill="#55534E">Check</text></svg></div>`,
+ left:`<div class="opening"><div class="bignum">6</div><p class="chap">Chapter 6</p><h1>Writing a Complete Answer</h1><p class="lede">This is where everything comes together. First you'll write a complete answer without a timer, focusing on accuracy. Then you'll do it again in 20 minutes, under exam conditions.</p><h3>By the end of this chapter, you can</h3><ul class="clean"><li>check the graph type, period, units and every category before you write</li><li>plan an answer in two minutes</li><li>review your own answer with a ${T('self-editing')} checklist and the four marking criteria, starting with ${T('Task Achievement')}</li><li>write a complete answer of at least 150 words in 20 minutes</li></ul><svg class="illus" viewBox="0 0 400 150" aria-hidden="true" style="width:100%;height:auto"><rect x="20" y="58" width="36" height="34" rx="4" fill="#FCE9DD"/><rect x="60" y="58" width="270" height="34" rx="4" fill="#E7F2EB"/><rect x="334" y="58" width="46" height="34" rx="4" fill="#F88B48" opacity=".55"/><text x="38" y="80" text-anchor="middle" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="800" fill="#292929">2</text><text x="195" y="80" text-anchor="middle" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="800" fill="#292929">15 minutes</text><text x="357" y="80" text-anchor="middle" font-size="11" font-family="Inter,system-ui,sans-serif" font-weight="800" fill="#292929">3</text><text x="38" y="110" text-anchor="middle" font-size="10.5" fill="#55534E">Plan</text><text x="195" y="110" text-anchor="middle" font-size="10.5" fill="#55534E">Write</text><text x="357" y="110" text-anchor="middle" font-size="10.5" fill="#55534E">Check</text></svg></div>`,
  right:`<div class="opening">${head('In this chapter','Contents')}<h2>Five steps, one skill each</h2><ul class="contents">${[[1,'c6-s1','Read the question','Type, period, units, categories','Discover'],[2,'c6-s2','Plan in two minutes','And see a full model answer','Understand'],[3,'c6-s3','Self-editing','Six questions for self-review','Practise'],[4,'c6-s4','Writing practice','A complete answer, no timer','Apply'],[5,'c6-s5','The timed task','20 minutes, exam conditions','Apply'],['R','c6-review','Course review','Your drafts and next steps','Improve']].map(([n,go,t,sub,ph])=>`<li><button type="button" data-go="${go}"><span class="n">${n}</span><span class="t">${t}<small>${sub}</small></span><span class="ph">${ph}</span></button></li>`).join('')}</ul><div class="oe-insight" style="margin-top:14px"><span class="lab">From Chapter 5</span>You know the four-part shape. Now you'll make it automatic, first without the clock and then with it.</div></div>`}),
 
 /* 36 */ sp({id:'c6-s1',title:'Read the question',
@@ -1622,7 +1623,7 @@ const S6=[
  right:`${head('Step 4 · Writing task','Explore')}<div data-act="c6-practice"></div>`}),
 
 /* 40 */ sp({id:'c6-s5',title:'The timed task',
- left:`${head('Step 5 · Apply','Learn')}<h2>The timed task</h2>${vid(15)}<p>In the exam you have 60 minutes for both tasks. Task 2 is worth more, so give Task 1 about 20 minutes.</p><table style="width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0 12px"><tbody><tr><th style="text-align:left;padding:6px 10px 6px 0;font-family:var(--head)">2 min</th><td>Plan: read the task, note the overview and grouping.</td></tr><tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:6px 10px 6px 0;font-family:var(--head)">15 min</th><td>Write all four parts.</td></tr><tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:6px 10px 6px 0;font-family:var(--head)">3 min</th><td>Check tense, overview and word count.</td></tr></tbody></table><p class="small">This is a practice routine. Adjust it as you learn what works for you.</p><h3>How long is each part?</h3><table style="width:100%;border-collapse:collapse;font-size:14px;margin:4px 0 12px"><tbody><tr><td style="padding:4px 0">Introduction</td><td>25 to 30 words</td></tr><tr style="border-top:1px solid var(--line)"><td style="padding:4px 0">Overview</td><td>30 to 40 words</td></tr><tr style="border-top:1px solid var(--line)"><td style="padding:4px 0">Body paragraph 1</td><td>50 to 60 words</td></tr><tr style="border-top:1px solid var(--line)"><td style="padding:4px 0">Body paragraph 2</td><td>50 to 60 words</td></tr></tbody></table>${note('Write at least 150 words. A short answer may not develop the key features enough, and it gives the examiner less evidence of your language.')}<div class="clear"></div><ul class="clean" style="font-size:15px"><li>Keep planning notes to single words and numbers.</li><li>Write forward. Fix small errors at the end, not mid-paragraph.</li><li>When the check time comes, finish your current sentence, then check. Avoid starting a detail you can't complete.</li></ul>`,
+ left:`${head('Step 5 · Apply','Learn')}<h2>The timed task</h2>${vid(15)}<p>In the exam you have 60 minutes for both tasks. Task 2 is worth more, so give Task 1 about 20 minutes.</p><table style="width:100%;border-collapse:collapse;font-size:14.5px;margin:4px 0 12px"><tbody><tr><th style="text-align:left;padding:6px 10px 6px 0;font-family:var(--ui)">2 min</th><td>Plan: read the task, note the overview and grouping.</td></tr><tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:6px 10px 6px 0;font-family:var(--ui)">15 min</th><td>Write all four parts.</td></tr><tr style="border-top:1px solid var(--line)"><th style="text-align:left;padding:6px 10px 6px 0;font-family:var(--ui)">3 min</th><td>Check tense, overview and word count.</td></tr></tbody></table><p class="small">This is a practice routine. Adjust it as you learn what works for you.</p><h3>How long is each part?</h3><table style="width:100%;border-collapse:collapse;font-size:14px;margin:4px 0 12px"><tbody><tr><td style="padding:4px 0">Introduction</td><td>25 to 30 words</td></tr><tr style="border-top:1px solid var(--line)"><td style="padding:4px 0">Overview</td><td>30 to 40 words</td></tr><tr style="border-top:1px solid var(--line)"><td style="padding:4px 0">Body paragraph 1</td><td>50 to 60 words</td></tr><tr style="border-top:1px solid var(--line)"><td style="padding:4px 0">Body paragraph 2</td><td>50 to 60 words</td></tr></tbody></table>${note('Write at least 150 words. A short answer may not develop the key features enough, and it gives the examiner less evidence of your language.')}<div class="clear"></div><ul class="clean" style="font-size:15px"><li>Keep planning notes to single words and numbers.</li><li>Write forward. Fix small errors at the end, not mid-paragraph.</li><li>When the check time comes, finish your current sentence, then check. Avoid starting a detail you can't complete.</li></ul>`,
  right:`${head('Step 5 · Timed task','Explore')}<div class="oe-workshop" style="padding:0;border:0;background:none"><div class="taskbox">The graph below shows the percentage of people who shop online at least once a week in the UK, South Korea and Brazil between 2009 and 2024.<br><br>Summarise the information by selecting and reporting the main features, and make comparisons where relevant.<br><br>Write at least 150 words.</div></div>${chart('shop')}<div data-act="c6-timer" style="margin-top:14px"></div><div data-act="c6-timed" style="margin-top:14px"></div>`}),
 
 /* 41 */ sp({id:'c6-review',title:'Course review',
@@ -1789,7 +1790,7 @@ function lineChart(o){
   s+=`<title id="${id}-t">${esc(titleLines.join(' '))}</title>`;
   const grp=(part,label,inner,hit)=>hot?`<g class="hot" data-part="${part}" tabindex="0" role="button" aria-label="${esc(label)}">${hit}${inner}</g>`:inner;
   // title
-  if(titleLines.length){let t='';titleLines.forEach((ln,i)=>{t+=`<text x="${W/2}" y="${18*ft+i*lh}" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="700" font-size="${13*ft}" fill="#292929">${esc(ln)}</text>`});
+  if(titleLines.length){let t='';titleLines.forEach((ln,i)=>{t+=`<text x="${W/2}" y="${18*ft+i*lh}" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-weight="700" font-size="${13*ft}" fill="#292929">${esc(ln)}</text>`});
     s+=grp('title','Graph title',t,`<rect class="hit" x="${L-10}" y="2" width="${pw+20}" height="${titleLines.length*lh+8}" rx="6"/>`)}
   // grid
   let yt='';for(let v=ymin;v<=o.ymax+1e-9;v+=o.ystep){const y=Y(v);s+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#ECE7DC" stroke-width="1"/>`;yt+=`<text x="${L-8}" y="${y+4*fs}" text-anchor="end" font-size="${11.5*fs}" fill="#55534E">${esc(o.tick?o.tick(v):v)}</text>`}
@@ -1813,7 +1814,7 @@ function lineChart(o){
     else if(o.points&&!hot){s+=`<g class="pt" tabindex="0" role="img" aria-label="${esc(tip)}" data-tip="${esc(tip)}"><circle cx="${cx}" cy="${cy}" r="${hr}" fill="transparent"/>${dot}</g>`}
     else s+=dot}));
   // marks (numbered annotations)
-  (o.marks||[]).forEach(m=>{const cx=m.x!=null?L+pw*m.x/(n-1):X(m.i),cy=Y(m.v);s+=`<g><circle cx="${cx}" cy="${cy}" r="${10.5*(MOB?1.25:1)}" fill="#F88B48" stroke="#fff" stroke-width="2"/><text x="${cx}" y="${cy+4*(MOB?1.25:1)}" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="800" font-size="${11*(MOB?1.25:1)}" fill="#292929">${m.n}</text></g>`});
+  (o.marks||[]).forEach(m=>{const cx=m.x!=null?L+pw*m.x/(n-1):X(m.i),cy=Y(m.v);s+=`<g><circle cx="${cx}" cy="${cy}" r="${10.5*(MOB?1.25:1)}" fill="#F88B48" stroke="#fff" stroke-width="2"/><text x="${cx}" y="${cy+4*(MOB?1.25:1)}" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-weight="800" font-size="${11*(MOB?1.25:1)}" fill="#292929">${m.n}</text></g>`});
   // legend
   if(multi){let lg='',maxx=L;const rh=20*fs,ly0=H-22-(lgRows-1)*rh;lgItems.forEach(({se,x:lx,row})=>{const ly=ly0+row*rh;lg+=`<line x1="${lx}" x2="${lx+26}" y1="${ly}" y2="${ly}" stroke="${se.color}" stroke-width="3.2"${se.dash?` stroke-dasharray="${se.dash===1?'7 5':se.dash}"`:''}/><text x="${lx+32}" y="${ly+4*fs}" font-size="${12*fs}" fill="#292929">${esc(se.name)}</text>`;maxx=Math.max(maxx,lx+32+se.name.length*7.2*fs)});
     s+=grp('legend','Legend',lg,`<rect class="hit" x="${L-8}" y="${ly0-14}" width="${maxx-L+16}" height="${28+(lgRows-1)*rh}" rx="6"/>`)}
@@ -2031,7 +2032,7 @@ function refreshReviews(){$$('[data-review]').forEach(box=>{const ch=+box.datase
 function renderDict(){const box=$('#dict-list');if(!box)return;const j=journal();
   box.innerHTML=j.length?j.map((e,i)=>`<div class="rowq"><p class="small" style="margin-bottom:6px">${esc(e.where||'')}</p><dl style="display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14.5px"><dt style="font-weight:700;color:var(--orange-ink)">My mistake</dt><dd>${esc(e.mistake)}</dd><dt style="font-weight:700;color:var(--green-ink)">Better</dt><dd>${esc(e.better)}</dd><dt style="font-weight:700">Why</dt><dd>${esc(e.why)}</dd></dl><button type="button" class="chip" data-del="${i}" style="margin-top:8px">Remove</button></div>`).join(''):'<p class="small">Nothing saved yet. When you make a mistake in an activity, select “Save to my journal” and it will appear here.</p>';
   $$('[data-del]',box).forEach(b=>b.onclick=()=>{const jj=journal();jj.splice(+b.dataset.del,1);S.set('journal',jj);renderDict();refreshReviews()});refreshReviews()}
-function printDict(){const j=journal(),pv=$('#printview');pv.innerHTML=`<h1 style="font-family:Montserrat,sans-serif;font-size:22px;margin-bottom:4px">My error dictionary</h1><p style="font-size:12px;color:#55534E;margin-bottom:14px">Mastering Line Graphs · Orange English · ${new Date().toLocaleDateString('en-GB')}</p><table style="width:100%;border-collapse:collapse;font-size:12.5px"><thead><tr>${['My mistake','Better expression','Why'].map(h=>`<th style="text-align:left;border-bottom:2px solid #292929;padding:6px">${h}</th>`).join('')}</tr></thead><tbody>${j.map(e=>`<tr>${[e.mistake,e.better,e.why].map(c=>`<td style="vertical-align:top;border-bottom:1px solid #ccc;padding:6px">${esc(c)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="3" style="padding:6px">No entries yet.</td></tr>'}</tbody></table>`;
+function printDict(){const j=journal(),pv=$('#printview');pv.innerHTML=`<h1 style="font-family:Fraunces,Georgia,serif;font-size:22px;margin-bottom:4px">My error dictionary</h1><p style="font-size:12px;color:#55534E;margin-bottom:14px">Mastering Line Graphs · Orange English · ${new Date().toLocaleDateString('en-GB')}</p><table style="width:100%;border-collapse:collapse;font-size:12.5px"><thead><tr>${['My mistake','Better expression','Why'].map(h=>`<th style="text-align:left;border-bottom:2px solid #292929;padding:6px">${h}</th>`).join('')}</tr></thead><tbody>${j.map(e=>`<tr>${[e.mistake,e.better,e.why].map(c=>`<td style="vertical-align:top;border-bottom:1px solid #ccc;padding:6px">${esc(c)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="3" style="padding:6px">No entries yet.</td></tr>'}</tbody></table>`;
   pv.insertAdjacentHTML('afterbegin','<div class="pv-bar"><button type="button" class="btn" id="pv-print">Print</button><button type="button" class="btn ghost" id="pv-close">Close print view</button><span class="small">If the print window does not open, use your browser\'s Print command.</span></div>');
   document.body.classList.add('printing');pv.setAttribute('aria-hidden','false');const doPrint=()=>{try{window.print()}catch(e){}};
   $('#pv-print').onclick=doPrint;$('#pv-close').onclick=()=>{document.body.classList.remove('printing');pv.setAttribute('aria-hidden','true');pv.innerHTML='';const b=$$('.dict-print').find(x=>x.offsetParent);if(b)b.focus()};$('#pv-close').focus();setTimeout(doPrint,250)}
