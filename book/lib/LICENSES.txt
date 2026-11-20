@@ -1,0 +1,5 @@
+Files in this folder are used to make the error dictionary PDF in the course book.
+
+jspdf.umd.min.js  jsPDF 2.5.2, MIT licence. (c) 2010-2021 James Hall, (c) 2015-2021 yWorks GmbH. https://github.com/parallax/jsPDF
+Inter-400.ttf, Inter-600.ttf  Inter (Latin subset, from Fontsource), SIL Open Font License 1.1. Copyright 2016 The Inter Project Authors. https://github.com/rsms/inter
+Fraunces-600.ttf  Fraunces, SIL Open Font License 1.1. Copyright 2018 The Fraunces Project Authors. https://github.com/undercasetype/Fraunces

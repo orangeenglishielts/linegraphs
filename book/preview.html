@@ -863,8 +863,8 @@ const SPREADS=[
  right:`${head('Chapter 2 · Portfolio','Review')}<div data-cannow="2"></div><h2>Your two drafts</h2><div data-portfolio="c2-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-feedback="2"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="14">Start Chapter 3 →</button></div>`},
 
 /* 14 */ {id:'dict',ch:0,chLabel:'My error dictionary',chTitle:'',title:'My error dictionary',
- left:`${head('Your notebook','Learn')}<h2>My error dictionary</h2><p>Every time you made a mistake and selected <b>Save to my journal</b>, the mistake was saved here with a better expression and the reason.</p><p>Read it before you write a practice answer. Mistakes you have already noticed are the easiest marks to win back.</p><div class="oe-insight"><span class="lab">How to use it</span>Cover the “Better” column and try to correct each mistake yourself. Then check.</div><div class="row" style="margin-top:16px"><button type="button" class="btn dict-print">Print my error dictionary</button></div><p class="small" style="margin-top:10px">Your entries are saved in this browser on this device.</p>`,
- right:`${head('Your entries','Explore')}<div id="dict-list" class="rows"></div><div class="row" style="margin-top:16px"><button type="button" class="btn ghost dict-print">Print my error dictionary</button></div>`}
+ left:`${head('Your notebook','Learn')}<h2>My error dictionary</h2><p>Every time you made a mistake and selected <b>Save to my journal</b>, the mistake was saved here with a better expression and the reason.</p><p>Read it before you write a practice answer. Mistakes you have already noticed are the easiest marks to win back.</p><div class="oe-insight"><span class="lab">How to use it</span>Cover the “Better” column and try to correct each mistake yourself. Then check.</div><div class="row" style="margin-top:16px"><button type="button" class="btn dict-pdf">Download as PDF</button><button type="button" class="btn ghost dict-print">Print</button></div><p class="small" style="margin-top:10px">Your entries are saved in this browser, and on all your devices once you turn on Save progress.</p>`,
+ right:`${head('Your entries','Explore')}<div id="dict-list" class="rows"></div><div class="row" style="margin-top:16px"><button type="button" class="btn ghost dict-pdf">Download as PDF</button><button type="button" class="btn ghost dict-print">Print</button></div>`}
 ];
 
 /* ---------------- activities ---------------- */
@@ -1629,7 +1629,7 @@ const S6=[
 
 /* 41 */ sp({id:'c6-review',title:'Course review',
  left:`${head('Chapter 6 · Improve','Review')}<h2>Course review</h2><h3>You can now</h3><ul class="clean"><li>Read a line graph and select its key features.</li><li>Describe trends with precise verbs, adverbs and figures.</li><li>Use accurate grammar and make precise comparisons.</li><li>Write a complete answer in four parts, inside 20 minutes.</li></ul><div data-minitest="6"></div><div data-extras="6"></div><div data-progress="6"></div><h3>Your results</h3><div data-review="6"></div><div class="oe-insight" style="margin-top:14px"><span class="lab">Get it marked</span>Nothing in this book sends your answers anywhere. If you’d like feedback from a former IELTS examiner, send me your timed answer: a band estimate, written comments and a video walkthrough, back within 48 hours. <a href="https://orangeenglish.nl/ielts-writing-feedback" target="_blank" rel="noopener">See IELTS Writing feedback</a>.</div><h3>Or review it yourself</h3><p style="font-size:15px">Put your timed answer aside for a few hours, then reread it slowly, as an examiner would. Finish one of these sentences: <i>I did well at…</i> · <i>One thing I'd check is…</i> · <i>Next time, I will…</i></p>`,
- right:`${head('Chapter 6 · Portfolio','Review')}<div data-cannow="6"></div><h2>Your answers</h2><p class="small">These are saved in this browser on this device. Use Copy or Download under each writing task to keep a copy or send it to me.</p><h3 style="margin-top:0">Writing practice</h3><div data-portfolio="c6-practice"></div><h3>Timed task</h3><div data-portfolio="c6-timed"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a> and read it before your next practice answer.</p><div data-feedback="6"></div><div data-feedback="course"></div>`})
+ right:`${head('Chapter 6 · Portfolio','Review')}<div data-cannow="6"></div><h2>Your answers</h2><p class="small">These are saved in this browser on this device. Use Copy or Download under each writing task to keep a copy or send it to me.</p><h3 style="margin-top:0">Writing practice</h3><div data-portfolio="c6-practice"></div><h3>Timed task</h3><div data-portfolio="c6-timed"></div><div class="oe-insight" style="margin-top:16px"><span class="lab">Take your error dictionary with you</span>Your error dictionary has <b data-jcount>0 entries</b>: every mistake you saved, with a better version and the reason. Download it and read it before every practice answer.<div class="row" style="margin-top:10px"><button type="button" class="btn dict-pdf">Download my error dictionary</button><button type="button" class="btn ghost dict-print">Print</button><a href="#" data-go="dict" class="btn ghost">Open it</a></div></div><div data-feedback="6"></div><div data-feedback="course"></div>`})
 ];
 B.SPREADS.splice(B.SPREADS.length-1,0,...S6);
 
@@ -2033,10 +2033,53 @@ function refreshReviews(){$$('[data-review]').forEach(box=>{const ch=+box.datase
 function renderDict(){const box=$('#dict-list');if(!box)return;const j=journal();
   box.innerHTML=j.length?j.map((e,i)=>`<div class="rowq"><p class="small" style="margin-bottom:6px">${esc(e.where||'')}</p><dl style="display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14.5px"><dt style="font-weight:700;color:var(--orange-ink)">My mistake</dt><dd>${esc(e.mistake)}</dd><dt style="font-weight:700;color:var(--green-ink)">Better</dt><dd>${esc(e.better)}</dd><dt style="font-weight:700">Why</dt><dd>${esc(e.why)}</dd></dl><button type="button" class="chip" data-del="${i}" style="margin-top:8px">Remove</button></div>`).join(''):'<p class="small">Nothing saved yet. When you make a mistake in an activity, select “Save to my journal” and it will appear here.</p>';
   $$('[data-del]',box).forEach(b=>b.onclick=()=>{const jj=journal();jj.splice(+b.dataset.del,1);S.set('journal',jj);renderDict();refreshReviews()});refreshReviews()}
-function printDict(){const j=journal(),pv=$('#printview');pv.innerHTML=`<h1 style="font-family:Fraunces,Georgia,serif;font-size:22px;margin-bottom:4px">My error dictionary</h1><p style="font-size:12px;color:#55534E;margin-bottom:14px">Mastering Line Graphs · Orange English · ${new Date().toLocaleDateString('en-GB')}</p><table style="width:100%;border-collapse:collapse;font-size:12.5px"><thead><tr>${['My mistake','Better expression','Why'].map(h=>`<th style="text-align:left;border-bottom:2px solid #292929;padding:6px">${h}</th>`).join('')}</tr></thead><tbody>${j.map(e=>`<tr>${[e.mistake,e.better,e.why].map(c=>`<td style="vertical-align:top;border-bottom:1px solid #ccc;padding:6px">${esc(c)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="3" style="padding:6px">No entries yet.</td></tr>'}</tbody></table>`;
+function printDict(){const j=journal(),pv=$('#printview');pv.innerHTML=`<h1 style="font-family:Fraunces,Georgia,serif;font-size:22px;margin-bottom:4px">My error dictionary</h1><p style="font-size:12px;color:#55534E;margin-bottom:14px">${esc([dictName(),'Mastering Line Graphs · Orange English',new Date().toLocaleDateString('en-GB'),j.length===1?'1 entry':j.length+' entries'].filter(Boolean).join(' · '))}</p><table style="width:100%;border-collapse:collapse;font-size:12.5px"><thead><tr>${['My mistake','Better expression','Why'].map(h=>`<th style="text-align:left;border-bottom:2px solid #292929;padding:6px">${h}</th>`).join('')}</tr></thead><tbody>${j.map(e=>`<tr>${[e.mistake,e.better,e.why].map(c=>`<td style="vertical-align:top;border-bottom:1px solid #ccc;padding:6px">${esc(c)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="3" style="padding:6px">No entries yet.</td></tr>'}</tbody></table>`;
   pv.insertAdjacentHTML('afterbegin','<div class="pv-bar"><button type="button" class="btn" id="pv-print">Print</button><button type="button" class="btn ghost" id="pv-close">Close print view</button><span class="small">If the print window does not open, use your browser\'s Print command.</span></div>');
   document.body.classList.add('printing');pv.setAttribute('aria-hidden','false');const doPrint=()=>{try{window.print()}catch(e){}};
   $('#pv-print').onclick=doPrint;$('#pv-close').onclick=()=>{document.body.classList.remove('printing');pv.setAttribute('aria-hidden','true');pv.innerHTML='';const b=$$('.dict-print').find(x=>x.offsetParent);if(b)b.focus()};$('#pv-close').focus();setTimeout(doPrint,250)}
+
+/* error dictionary as a PDF file: jsPDF with the Inter and Fraunces fonts, loaded only when asked for (book/lib) */
+let pdfKit=null;
+function loadPdfKit(){if(pdfKit)return pdfKit;
+  const js=new Promise((ok,no)=>{if(window.jspdf)return ok();const s=document.createElement('script');s.src='lib/jspdf.umd.min.js';s.onload=ok;s.onerror=no;document.head.appendChild(s)});
+  const b64=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u);return r.arrayBuffer()}).then(buf=>{const a=new Uint8Array(buf);let t='';for(let i=0;i<a.length;i+=0x8000)t+=String.fromCharCode.apply(null,a.subarray(i,i+0x8000));return btoa(t)});
+  pdfKit=Promise.all([js,b64('lib/Inter-400.ttf'),b64('lib/Inter-600.ttf'),b64('lib/Fraunces-600.ttf'),img('cert/logo.png')]).then(x=>({r:x[1],b:x[2],h:x[3],logo:x[4]})).catch(e=>{pdfKit=null;throw e});return pdfKit}
+function dictName(){const c=S.get('cert',null);if(c&&c.name)return c.name;try{const f=(new URLSearchParams(location.search).get('fname')||'').trim();return f.indexOf('{{')<0?f.slice(0,48):''}catch(e){return ''}}
+const pdfTxt=t=>String(t==null?'':t).replace(/→/g,'->').replace(/[✓✔✗✘]/g,'').replace(/[^\u0009\u000A -ɏ -⁯€™−]/g,'').replace(/[ \t]+/g,' ').replace(/ ([.,;:!?])/g,'$1').trim();
+async function dictPDF(btn){const lab=btn&&btn.textContent;if(btn){btn.disabled=true;btn.textContent='Making your PDF…'}
+  try{const k=await loadPdfKit(),d=new window.jspdf.jsPDF({unit:'pt',format:'a4'});
+    d.addFileToVFS('Inter-400.ttf',k.r);d.addFont('Inter-400.ttf','Inter','normal');d.addFileToVFS('Inter-600.ttf',k.b);d.addFont('Inter-600.ttf','Inter','bold');d.addFileToVFS('Fraunces-600.ttf',k.h);d.addFont('Fraunces-600.ttf','Fraunces','normal');
+    d.setProperties({title:'My error dictionary · Mastering Line Graphs',author:'Orange English',subject:'IELTS Academic Writing Task 1'});
+    const W=d.internal.pageSize.getWidth(),H=d.internal.pageSize.getHeight(),M=46,CW=W-2*M,BOT=H-M-14,j=journal(),name=dictName();
+    const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const INK='#292929',MUT='#6B655C',ORA='#A84A12',GRN='#2B6E43';
+    const font=(f,st,sz,c)=>{d.setFont(f,st);d.setFontSize(sz);d.setTextColor(...rgb(c))};
+    const caps=(t,x,yy,c,sz)=>{font('Inter','bold',sz||8,c);d.setCharSpace(1);d.text(t,x,yy);d.setCharSpace(0)};
+    d.setLineHeightFactor(1.32);let y=M;
+    if(k.logo){const lw=40,lh=lw*k.logo.height/k.logo.width;d.addImage(k.logo,'PNG',W-M-lw,M-8,lw,lh)}
+    caps('MASTERING LINE GRAPHS · ORANGE ENGLISH',M,y+4,ORA,8);
+    font('Fraunces','normal',28,INK);d.text('My error dictionary',M,y+36);
+    const date=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    font('Inter','normal',10,MUT);d.text(pdfTxt([name,date,j.length===1?'1 entry':j.length+' entries'].filter(Boolean).join('   ·   ')),M,y+55);y+=74;
+    font('Inter','normal',9.5,INK);const tl=d.splitTextToSize('Cover the “Better” column and try to correct each mistake yourself, then check. Read this before every practice answer: mistakes you have already noticed are the easiest marks to win back.',CW-30);const th=tl.length*12.5+32;
+    d.setFillColor(...rgb('#FCE9DD'));d.rect(M,y,CW,th,'F');d.setFillColor(...rgb('#F88B48'));d.rect(M,y,3,th,'F');caps('HOW TO USE IT',M+16,y+15,ORA,7.5);font('Inter','normal',9.5,INK);d.text(tl,M+16,y+29);y+=th+20;
+    const cw=[CW*.3,CW*.3,CW*.4],cx=[M,M+cw[0],M+cw[0]+cw[1]],P=7,LH=12.5;
+    const headRow=()=>{['MY MISTAKE','BETTER','WHY'].forEach((t,i)=>caps(t,cx[i]+P,y+9,[ORA,GRN,INK][i],7.5));y+=15;d.setDrawColor(...rgb(INK));d.setLineWidth(1);d.line(M,y,M+CW,y)};
+    const newPage=()=>{d.addPage();y=M;headRow()};
+    if(!j.length){font('Inter','normal',10.5,MUT);const t=d.splitTextToSize('No entries yet. When you make a mistake in an activity, select “Save to my journal” and it will appear here.',CW);d.text(t,M,y+6);y+=t.length*14+10}
+    else{headRow();const groups=[];j.forEach(e=>{const w=e.where||'';let g=groups.find(x=>x.w===w);if(!g)groups.push(g={w,items:[]});g.items.push(e)});
+      groups.forEach(g=>{if(g.w){if(y+56>BOT)newPage();y+=16;font('Inter','bold',8.5,MUT);d.text(pdfTxt(g.w),M+P,y);y+=5}
+        g.items.forEach(e=>{const cells=[e.mistake,e.better,e.why].map((t,i)=>{font('Inter',i===1?'bold':'normal',9.5,INK);return d.splitTextToSize(pdfTxt(t),cw[i]-2*P)});
+          const h=Math.max(...cells.map(c=>c.length))*LH+2*P;if(y+h>BOT)newPage();
+          cells.forEach((c,i)=>{font('Inter',i===1?'bold':'normal',9.5,[INK,GRN,INK][i]);d.text(c,cx[i]+P,y+P+9)});
+          y+=h;d.setDrawColor(...rgb('#E4DED1'));d.setLineWidth(.75);d.line(M,y,M+CW,y)})})}
+    y+=34;if(y+62>BOT){d.addPage();y=M+10}
+    font('Fraunces','normal',14,INK);d.text('Want feedback on your writing?',M,y);y+=17;font('Inter','normal',9.5,MUT);
+    const nt=d.splitTextToSize('Send me a practice answer and I’ll mark it as a former IELTS examiner: a band estimate, written comments and a video walkthrough, back within 48 hours.',CW);d.text(nt,M,y);y+=nt.length*12.5+4;
+    font('Inter','bold',9.5,ORA);d.textWithLink('orangeenglish.nl/ielts-writing-feedback',M,y,{url:'https://orangeenglish.nl/ielts-writing-feedback'});
+    const n=d.getNumberOfPages();for(let i=1;i<=n;i++){d.setPage(i);font('Inter','normal',7.5,'#8C857A');d.text('My error dictionary · Mastering Line Graphs · Orange English · orangeenglish.nl',M,H-26);d.text(`Page ${i} of ${n}`,W-M,H-26,{align:'right'})}
+    d.save('My error dictionary - Mastering Line Graphs.pdf');try{ga('dictionary_download',{format:'pdf',entries:j.length})}catch(e){}
+  }catch(e){printDict()}
+  finally{if(btn){btn.disabled=false;btn.textContent=lab}}}
 
 /* ---------------- render spreads ---------------- */
 const book=$('#book');const total=C.SPREADS.length*2;
@@ -2137,7 +2180,7 @@ $$('[data-warmup]').forEach(warmup);enhanceCharts(document);applyGates();
 // go-to links & contents
 const spreadIndex=v=>/^\d+$/.test(v)?+v:C.SPREADS.findIndex(x=>x.id===v);
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){e.preventDefault();const s=spreadIndex(g.dataset.go);if(s<0)return;closeOverlay();go(s,'left',1)}});
-$$('.dict-print').forEach(b=>b.onclick=printDict);renderDict();refreshReviews();
+$$('.dict-print').forEach(b=>b.onclick=printDict);$$('.dict-pdf').forEach(b=>b.onclick=()=>dictPDF(b));renderDict();refreshReviews();
 
 /* ---------------- navigation ---------------- */
 const mq=window.matchMedia('(max-width:819px)');const mobile=()=>mq.matches;
@@ -2498,8 +2541,8 @@ function drawCert(cc,ims,white){const logo=ims&&ims.logo,sig=ims&&ims.sig;const 
   if(sig){const sw=172,sh=sw*sig.height/sig.width;g.drawImage(sig,W-240-sw/2+4,604-sh*0.86,sw,sh)}
   g.font='400 10.5px Inter, Arial, sans-serif';g.fillStyle='#8C857A';g.fillText(`Certificate no. ${cc.id} · orangeenglish.nl · Confirms completion of an Orange English course. It is not an IELTS test result.`,W/2,H-52);
   return cv}
-function openCert(cc){openOverlay(`<span class="eyebrow">Your certificate</span><h3>Congratulations, ${esc(cc.name)}!</h3><div class="certprev"><p class="small">Making your certificate…</p></div><div class="row" style="margin-top:12px"><button type="button" class="btn" id="ct-png" disabled>Download image</button><button type="button" class="btn ghost" id="ct-pdf" disabled>Save as PDF</button><a class="btn ghost" id="ct-li" target="_blank" rel="noopener">Add to LinkedIn</a><button type="button" class="btn ghost" id="ct-x">Close</button></div><p class="small" style="margin-top:8px">To save a PDF, choose “Save as PDF” in the print window. Your certificate stays in this browser, so you can come back and download it again.</p>`,'Your certificate');
-  {const cd=$('#ov .card');if(cd)cd.classList.add('wide')}$('#ct-x').onclick=closeOverlay;const d=new Date(cc.date+'T12:00:00');
+function openCert(cc){openOverlay(`<span class="eyebrow">Your certificate</span><h3>Congratulations, ${esc(cc.name)}!</h3><div class="certprev"><p class="small">Making your certificate…</p></div><div class="row" style="margin-top:12px"><button type="button" class="btn" id="ct-png" disabled>Download image</button><button type="button" class="btn ghost" id="ct-pdf" disabled>Save as PDF</button><a class="btn ghost" id="ct-li" target="_blank" rel="noopener">Add to LinkedIn</a><button type="button" class="btn ghost" id="ct-dict">Error dictionary (PDF)</button><button type="button" class="btn ghost" id="ct-x">Close</button></div><p class="small" style="margin-top:8px">To save a PDF, choose “Save as PDF” in the print window. Your certificate stays in this browser, so you can come back and download it again.</p>`,'Your certificate');
+  {const cd=$('#ov .card');if(cd)cd.classList.add('wide')}$('#ct-x').onclick=closeOverlay;{const cl=$('#ct-dict');if(cl)cl.onclick=ev=>{ev.preventDefault();dictPDF(cl)}}const d=new Date(cc.date+'T12:00:00');
   $('#ct-li').href='https://www.linkedin.com/profile/add?'+new URLSearchParams({startTask:'CERTIFICATION_NAME',name:'Mastering Line Graphs: IELTS Academic Writing Task 1',organizationName:'Orange English',issueYear:String(d.getFullYear()),issueMonth:String(d.getMonth()+1),certUrl:'https://orangeenglish.nl/free-ielts-course',certId:cc.id}).toString();
   $('#ct-li').onclick=()=>{try{ga('certificate_linkedin',{})}catch(e){}};
   loadCertFonts().then(ims=>{const cv=drawCert(cc,ims,false),url=cv.toDataURL('image/png');$('.certprev').innerHTML=`<img src="${url}" alt="Certificate of completion for ${esc(cc.name)}, Mastering Line Graphs, Orange English">`;
