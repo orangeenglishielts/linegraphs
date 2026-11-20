@@ -593,6 +593,7 @@ body.printing{background:#fff}
 @media (max-width:819px){#toast{bottom:76px}.chbar{width:120px}}
 #ov .card.wide{max-width:min(900px,96vw);width:min(900px,96vw)}
 .fbmore{margin:4px 0 2px}.fbmore summary{cursor:pointer;font-weight:600;color:var(--orange-ink);font-size:14.5px;padding:6px 0}.fbmore[open] summary{margin-bottom:6px}
+#ov .fbgate .oe-fb{border:0;padding:0;box-shadow:none}#ov .card.wide{max-height:92vh;overflow:auto}
 </style>
 <script>
 /* VIDEO_LINKS: paste a Loom or YouTube link between the quotes, or the path to an .mp4 in book/videos/ (a .jpg poster and .vtt subtitles with the same name are picked up automatically). The script note disappears once a link is set.
@@ -2102,20 +2103,23 @@ function fbBox(box){if(!FB_URL||FB_URL.startsWith('__'))return;const key=box.dat
   const sent=S.get('fb-'+key,null);
   const thanks=`<div class="done"><b>Thank you!</b> Your feedback has reached me, and I read every reply. It helps me make the course better for the next students.</div>`;
   const head=course?`<span class="lab">Course survey · 2 minutes</span><h3>How was the whole course?</h3><p class="small" style="margin:0">Your honest answers shape the next version of this book.</p>`
-    :`<span class="lab">Your feedback · 10 seconds</span><h3>How was Chapter ${n}?</h3><p class="small" style="margin:0">Tap a face, and add a comment if you like. Every answer helps me improve the course.</p>`;
+    :(n==='1'?`<span class="lab">Your feedback · 2 minutes</span><h3>How was Chapter 1?</h3><p class="small" style="margin:0">This is the most useful feedback you can give me: the first chapter shapes the whole course. The first three questions are needed. The rest are optional.</p>`
+      :`<span class="lab">Your feedback · 20 seconds</span><h3>How was Chapter ${n}?</h3><p class="small" style="margin:0">Tap a face and answer one question. Add a comment if you like.</p>`);
   if(sent){box.innerHTML=`<div class="oe-fb">${head}${thanks}</div>`;return}
   const face=[[1,'😞','1 of 5: not at all'],[2,'🙁','2 of 5'],[3,'😐','3 of 5'],[4,'🙂','4 of 5'],[5,'😍','5 of 5: loved it']];
   const conf=v=>fbRadio(id+v,[[1,'1'],[2,'2'],[3,'3'],[4,'4'],[5,'5']]);
-  const chapterQs=`
-   <fieldset><legend>How was this chapter?</legend>${fbRadio(id+'enjoy',face,'faces')}</fieldset>
-   <fieldset><legend><label for="${id}-c">Anything you’d like to tell me? <span class="small" style="font-weight:400">(optional)</span></label></legend><textarea id="${id}-c" maxlength="1500" rows="2" placeholder="What you liked, what you didn’t, or anything else"></textarea></fieldset>
-   <details class="fbmore"><summary>A few more quick questions <span class="small" style="font-weight:400">(optional)</span></summary>
-   <fieldset><legend>How clear was it?</legend>${fbRadio(id+'clarity',[['Very clear','Very clear'],['Mostly clear','Mostly clear'],['Confusing','Confusing']])}</fieldset>
-   <fieldset><legend>Was the book easy to use on your device?</legend>${fbRadio(id+'ease',[['Yes','Yes'],['Mostly','Mostly'],['No','No']])}<div style="height:8px"></div>${fbRadio(id+'device',[['Phone','Phone'],['Tablet','Tablet'],['Computer','Computer']])}</fieldset>
-   <fieldset><legend>Which parts helped most? <span class="small" style="font-weight:400">(choose any)</span></legend>${fbCheck(id+'helpful',['Videos','Activities','Examples','Writing tasks','Reference guides','Error dictionary'])}</fieldset>
-   <fieldset><legend><label for="${id}-f">Where did you lose focus, if anywhere?</label></legend><textarea id="${id}-f" maxlength="1000" rows="2" placeholder="For example: a long page, a video or an activity"></textarea></fieldset>
-   <fieldset><legend><label for="${id}-p">Was anything confusing, broken or too hard?</label></legend><textarea id="${id}-p" maxlength="1500" rows="2" placeholder="For example: a page, an activity or a video"></textarea></fieldset>
-   </details>`;
+  const Q={
+   enjoy:`<fieldset><legend>How was this chapter?</legend>${fbRadio(id+'enjoy',face,'faces')}</fieldset>`,
+   clarity:`<fieldset><legend>How clear was it?</legend>${fbRadio(id+'clarity',[['Very clear','Very clear'],['Mostly clear','Mostly clear'],['Confusing','Confusing']])}</fieldset>`,
+   time:`<fieldset><legend>How long did it take you?</legend>${fbRadio(id+'time',[['Under 30 minutes','Under 30 minutes'],['30 to 60 minutes','30 to 60 minutes'],['Over an hour','Over an hour'],['Spread over several days','Spread over several days']])}</fieldset>`,
+   ease:`<fieldset><legend>Was the book easy to use on your device?</legend>${fbRadio(id+'ease',[['Yes','Yes'],['Mostly','Mostly'],['No','No']])}<div style="height:8px"></div>${fbRadio(id+'device',[['Phone','Phone'],['Tablet','Tablet'],['Computer','Computer']])}</fieldset>`,
+   helpful:`<fieldset><legend>Which parts helped most? <span class="small" style="font-weight:400">(choose any)</span></legend>${fbCheck(id+'helpful',['Videos','Activities','Examples','Writing tasks','Reference guides','Error dictionary'])}</fieldset>`,
+   focus:`<fieldset><legend><label for="${id}-f">Where did you lose focus, if anywhere?</label></legend><textarea id="${id}-f" maxlength="1000" rows="2" placeholder="For example: a long page, a video or an activity"></textarea></fieldset>`,
+   problems:`<fieldset><legend><label for="${id}-p">Was anything confusing, broken or too hard?</label></legend><textarea id="${id}-p" maxlength="1500" rows="2" placeholder="For example: a page, an activity or a video"></textarea></fieldset>`,
+   comments:`<fieldset><legend><label for="${id}-c">What would make this chapter better? <span class="small" style="font-weight:400">(optional)</span></label></legend><textarea id="${id}-c" maxlength="1500" rows="2" placeholder="What you liked, what you didn’t, or anything else"></textarea></fieldset>`};
+  const first=n==='1';
+  const chapterQs=first?Q.enjoy+Q.clarity+Q.time+Q.ease+Q.helpful+Q.focus+Q.problems+Q.comments
+   :Q.enjoy+Q.clarity+Q.comments+`<details class="fbmore"><summary>A few more quick questions <span class="small" style="font-weight:400">(optional)</span></summary>${Q.focus+Q.problems+Q.helpful+Q.ease}</details>`;
   const courseQs=`
    <fieldset><legend>How confident were you about Task 1 line graphs <b>before</b> the course? <span class="small" style="font-weight:400">(1 = not at all, 5 = very)</span></legend>${conf('cb')}</fieldset>
    <fieldset><legend>How confident are you <b>now</b>?</legend>${conf('cn')}</fieldset>
@@ -2134,7 +2138,9 @@ function fbBox(box){if(!FB_URL||FB_URL.startsWith('__'))return;const key=box.dat
     if(course){Object.assign(d,{confBefore:val('cb'),confNow:val('cn'),recommend:val('rec'),testimonial:val('tm'),comments:$('#'+id+'-c',f).value.trim(),name:val('tm')==='Yes, with my first name'?$('#'+id+'-name',f).value.trim():''});
       if(!d.confNow&&!d.recommend&&!d.comments){err.textContent='Please answer at least one question first.';return}}
     else{Object.assign(d,{enjoy:val('enjoy'),clarity:val('clarity'),ease:val('ease'),device:val('device'),helpful:$$(`input[name="${id}helpful"]:checked`,f).map(x=>x.value).join(', '),problems:$('#'+id+'-p',f).value.trim(),focus:$('#'+id+'-f',f).value.trim(),comments:$('#'+id+'-c',f).value.trim()});
+      const tm=val('time');if(tm)d.comments='Time taken: '+tm+(d.comments?'\n\n'+d.comments:'');
       if(d.focus)d.comments=('Where I lost focus: '+d.focus+(d.comments?'\n\n'+d.comments:''));
+      if(n==='1'&&(!d.enjoy||!d.clarity||!tm)){err.textContent='Please answer the first three questions: the face, how clear it was and how long it took.';return}
       if(!d.enjoy&&!d.clarity&&!d.problems&&!d.comments){err.textContent='Please answer at least one question first.';return}}
     const b=$('button',f);b.disabled=true;b.textContent='Sending…';err.textContent='';
     try{if(!FB_URL||FB_URL.startsWith('__'))throw new Error('no endpoint');
@@ -2346,6 +2352,13 @@ function openCert(cc){openOverlay(`<span class="eyebrow">Your certificate</span>
       pv.innerHTML=`<div class="pv-bar"><button type="button" class="btn" id="pv-print">Print or save as PDF</button><button type="button" class="btn ghost" id="pv-close">Close</button></div><img src="${wurl}" alt="Certificate">`;
       document.body.classList.add('printing');pv.setAttribute('aria-hidden','false');const doPrint=()=>{try{window.print()}catch(e){}};
       $('#pv-print').onclick=doPrint;$('#pv-close').onclick=()=>{document.body.classList.remove('printing');pv.setAttribute('aria-hidden','true');pv.innerHTML='';st.remove()};setTimeout(doPrint,300);try{ga('certificate_download',{format:'pdf'})}catch(e){}}})}
+/* Chapter 1 feedback: asked for before Chapter 2 starts (can be skipped once) */
+function fbGate(){const sp=C.SPREADS[pos.s]||{};if(sp.ch!==2||S.get('fb-1',null)||S.get('fb1-skip',null)||!$('#ov').hidden)return;
+  openOverlay(`<span class="eyebrow">Before you start Chapter 2</span><div data-feedback="1" class="fbgate"></div><div class="row" style="margin-top:10px"><button type="button" class="btn ghost" id="fbg-skip">Skip for now</button></div>`,'Feedback on Chapter 1');
+  const cd=$('#ov .card');if(cd)cd.classList.add('wide');const pageBoxes=$$('.spread [data-feedback="1"]');pageBoxes.forEach(x=>x.innerHTML='');fbBox($('#ov [data-feedback="1"]'));
+  const sk=$('#fbg-skip');sk.onclick=()=>{if(!S.get('fb-1',null))S.set('fb1-skip',Date.now());closeOverlay()};
+  let shown=0;const iv=setInterval(()=>{if($('#ov').hidden||!$('#fbg-skip')){clearInterval(iv);pageBoxes.forEach(fbBox);return}if(S.get('fb-1',null)&&!shown){shown=1;sk.textContent='Continue to Chapter 2';sk.className='btn'}},400)}
+{const _r2=render;render=function(dir,focus){_r2(dir,focus);setTimeout(fbGate,400)}}
 paintAll();
 
 /* ---------------- start ---------------- */
