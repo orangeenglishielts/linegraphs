@@ -630,6 +630,35 @@ body.printing{background:#fff}
 .xc-res{margin-top:14px;padding:14px 16px;border-radius:8px;background:#EEF6F0;border-left:4px solid var(--green-ink)}
 .xc-res h4{font-family:var(--head);font-size:15px;margin:0 0 6px}.xc-res p{font-size:15px;margin:0 0 6px}
 .xc-offer{margin-top:14px;font-size:15px}
+
+/* phones: activity steps, writing steps, folded reviews */
+.actbar,.actnav,.xtabs,.xnav,.fold-btn{display:none}
+@media (max-width:819px){
+  .acts-step .actbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0 10px;padding:8px 10px;background:var(--paper);border:1px solid var(--line);border-radius:10px;position:sticky;top:0;z-index:5}
+  .actbar .small{margin-right:2px}
+  .actdot{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--page);font-family:var(--head);font-weight:800;font-size:14px;cursor:pointer;color:var(--dark)}
+  .actdot.done{background:#EEF6F0;border-color:var(--green-ink);color:var(--green-ink)}
+  .actdot.on{background:var(--dark);border-color:var(--dark);color:#fff}
+  .actall{margin-left:auto;background:none;border:0;font-family:var(--head);font-weight:700;font-size:12.5px;color:var(--orange-ink);text-decoration:underline;cursor:pointer;min-height:36px}
+  .acts-step .actnav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 4px;padding-top:12px;border-top:1px dashed var(--line)}
+  .acts-step:not(.acts-all) .seg-off{display:none!important}
+  .acts-step.acts-all .actnav{display:none}
+  .after.xt .xtabs{display:flex;gap:4px;margin:18px 0 6px;position:sticky;top:0;z-index:5;background:var(--paper);padding:6px 0;border-bottom:1px solid var(--line)}
+  .xtabs button{flex:1;min-height:44px;border:1.5px solid var(--line);background:var(--page);border-radius:8px;font-family:var(--head);font-weight:700;font-size:12px;color:var(--dark);cursor:pointer;padding:4px 2px;line-height:1.15}
+  .xtabs button b{display:block;font-size:13px}
+  .xtabs button[aria-selected="true"]{background:var(--dark);border-color:var(--dark);color:#fff}
+  .xtabs button:disabled{opacity:.45;cursor:not-allowed}
+  .after.xt .x-off{display:none!important}
+  .after.xt .xc section{border-top:0;margin-top:8px;padding-top:4px}
+  .xnav{display:flex;justify-content:flex-end;margin-top:12px}
+  .fold-btn{display:flex;width:100%;align-items:center;gap:8px;text-align:left;margin:16px 0 4px;padding:12px 14px;min-height:52px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);cursor:pointer;color:var(--dark)}
+  .fold-btn .ft{font-family:var(--head);font-weight:800;font-size:15px}
+  .fold-btn .fs{margin-left:auto;text-align:right}
+  .fold-btn .fc{transition:transform .2s}
+  .fold-btn[aria-expanded="true"] .fc{transform:rotate(180deg)}
+  .fold-h{display:none}
+  .fold-shut{display:none!important}
+}
 </style>
 <script>
 /* VIDEO_LINKS: paste a Loom or YouTube link between the quotes, or the path to an .mp4 in book/videos/ (a .jpg poster and .vtt subtitles with the same name are picked up automatically). The script note disappears once a link is set.
@@ -2080,8 +2109,9 @@ function deeperAfter(a,o,answerText){if(!o._challenge||$('.xc',a))return;
   const ins=$$('.xc-spot input',box);ins.forEach(i=>i.addEventListener('input',()=>{st.d[+i.dataset.i]=i.value;save()}));
   const reveal=()=>{$('.xc-list',box).hidden=false;$('.xc-rate',box).hidden=false;$('.xc-show',box).textContent='My list is open below';$('.xc-show',box).disabled=true};
   $('.xc-show',box).onclick=()=>{const n=ins.filter(i=>i.value.trim().length>2).length;if(n<3){$('.xc-msg',box).textContent=n?`Write ${3-n} more first. Short notes are fine.`:'Write three differences first. Short notes are fine.';return}
-    $('.xc-msg',box).textContent='';st.shown=true;save();reveal();try{ga('spot_differences',{task:o.id})}catch(e){}};
+    $('.xc-msg',box).textContent='';st.shown=true;save();reveal();if(a._xshow)a._xshow(a.dataset.on||'d');try{ga('spot_differences',{task:o.id})}catch(e){}};
   if(st.shown)reveal();
+  if(typeof writeTabs==='function')writeTabs(a,o,box,st);else a._pendingTabs=[box,st];
   const summary=()=>{const done=CRIT.every(c=>st.r[c.k]);const el=$('.xc-sum',box);if(!done){el.innerHTML='';return}
     const weak=CRIT.filter(c=>st.r[c.k]!=='y');const strong=CRIT.filter(c=>st.r[c.k]==='y');
     let h=`<div class="xc-res"><h4>Your next step</h4>`;
@@ -2090,6 +2120,7 @@ function deeperAfter(a,o,answerText){if(!o._challenge||$('.xc',a))return;
       const rest=weak.filter(c=>c!==first);if(rest.length)h+=`<p class="small">After that: ${rest.map(c=>`<b>${c.name}</b>: ${c.ch.map(chapLink).join(' and ')}`).join('; ')}.</p>`}
     if(strong.length&&weak.length)h+=`<p class="small">Keep doing what's working: ${strong.map(c=>c.name).join(', ')}.</p>`;
     h+=`</div><div class="oe-insight xc-offer"><span class="lab">Want an examiner's view?</span>${full?'Rating yourself is a skill, and it gets more accurate with practice. If you\'d like to check yours, send me this answer.':'A band estimate needs a complete answer, so this works best once you\'ve written all four parts: introduction, overview and two body paragraphs. You can build this task into a full answer and send it to me.'} As a former IELTS examiner, I'll give you a band estimate, written comments and a video walkthrough, back within 48 hours, for €15.<div class="row" style="margin-top:10px"><button type="button" class="btn xc-buy">Copy my answer and order feedback</button><span class="small xc-cmsg" aria-live="polite"></span></div><p class="small" style="margin:8px 0 0">Your answer is copied, and the order page opens in a new tab. Paste your answer into the form there. Nothing is sent from this book.</p></div>`;
+    if($$('[data-x="i"]',a).length)h+=`<div class="xnav"><button type="button" class="btn xnext" data-to="i">Next: improve it →</button></div>`;
     el.innerHTML=h;$('.xc-buy',el).onclick=()=>{const t=answerText();const msg=m=>{$('.xc-cmsg',el).textContent=m};
       const fallback=()=>{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();msg(ok?'Copied. Paste it into the form.':'Copy your answer with the “Copy my answer” button above, then paste it into the form.')};
       try{navigator.clipboard.writeText(t).then(()=>msg('Copied. Paste it into the form.'),fallback)}catch(e){fallback()}
@@ -2485,6 +2516,80 @@ function fbGate(){const sp=C.SPREADS[pos.s]||{};if(sp.ch!==2||S.get('fb-1',null)
   let shown=0;const iv=setInterval(()=>{if($('#ov').hidden||!$('#fbg-skip')){clearInterval(iv);pageBoxes.forEach(fbBox);return}if(S.get('fb-1',null)&&!shown){shown=1;sk.textContent='Continue to Chapter 2';sk.className='btn'}},400)}
 {const _r2=render;render=function(dir,focus){_r2(dir,focus);setTimeout(fbGate,400)}}
 paintAll();
+
+/* ---------------- phones: one activity at a time, writing steps, folded reviews ----------------
+   Everything below only changes what a phone shows (max-width 819px, via CSS). Desktop keeps the full pages. */
+const scrollToEl=el=>{if(!el)return;const top=el.getBoundingClientRect().top+window.scrollY-12;window.scrollTo({top:Math.max(0,top),behavior:'smooth'})};
+
+// 1) practice pages with two or more activities
+const STEPPERS=[];
+function setupActSteps(){$$('.page').forEach(pg=>{const spEl=pg.closest('.spread');if(!spEl)return;const sp=C.SPREADS[+spEl.dataset.s]||{};
+  const all=$$('[data-act]',pg);if(all.length<2||all.some(a=>{const o=C.ACTS[a.dataset.act]||{};return o.type==='timer'||o._challenge}))return;
+  const kids=[...pg.children],topOf=a=>{let e=a;while(e&&e.parentElement!==pg)e=e.parentElement;return e};
+  const tops=all.map(topOf);if(tops.some(t=>!t)||new Set(tops).size!==tops.length)return;
+  const idx=tops.map(t=>kids.indexOf(t));const fixed=e=>e.matches('.ribbon,.pghead,.pgnum');
+  const segs=all.map(()=>[]);kids.forEach((k,j)=>{if(j<idx[0]||fixed(k))return;let s=idx.findIndex(x=>j<=x);if(s<0)s=all.length-1;segs[s].push(k)});
+  const key='astep-'+sp.id+'-'+(pg.classList.contains('left')?'L':'R');
+  const st={pg,all,segs,key,cur:Math.min(S.get(key,0),all.length-1),showAll:!!S.get(key+'-all',false)};
+  pg.classList.add('acts-step');
+  const bar=document.createElement('div');bar.className='actbar';bar.setAttribute('role','group');bar.setAttribute('aria-label','Activities on this page');
+  bar.innerHTML=`<span class="small">Activities</span>${all.map((a,i)=>`<button type="button" class="actdot" data-i="${i}" aria-label="Activity ${i+1}">${i+1}</button>`).join('')}<button type="button" class="actall">Show all</button>`;
+  pg.insertBefore(bar,tops[0]);st.bar=bar;
+  segs.forEach((seg,i)=>{const nav=document.createElement('div');nav.className='actnav';
+    nav.innerHTML=i<all.length-1?`<span class="small">Activity ${i+1} of ${all.length}</span><button type="button" class="btn act-next">Next activity →</button>`:`<span class="small">That's the last activity on this page.</span>`;
+    const last=seg[seg.length-1]||tops[i];last.after(nav);seg.push(nav);const nb=$('.act-next',nav);if(nb)nb.onclick=()=>{go2(st,i+1);scrollToEl(bar)}});
+  $$('.actdot',bar).forEach(b=>b.onclick=()=>{go2(st,+b.dataset.i)});
+  $('.actall',bar).onclick=()=>{st.showAll=!st.showAll;S.set(key+'-all',st.showAll);paintStep(st)};
+  STEPPERS.push(st);paintStep(st)})}
+function go2(st,i){st.cur=i;st.showAll=false;S.set(st.key,i);S.set(st.key+'-all',false);paintStep(st);try{ga('activity_step',{page:st.key,to:i+1})}catch(e){}}
+function paintStep(st){st.pg.classList.toggle('acts-all',st.showAll);
+  st.segs.forEach((seg,i)=>seg.forEach(e=>e.classList.toggle('seg-off',i!==st.cur)));
+  $$('.actdot',st.bar).forEach((b,i)=>{const id=st.all[i].dataset.act,done=answered(id);b.classList.toggle('on',!st.showAll&&i===st.cur);b.classList.toggle('done',done);
+    b.textContent=done?'✓':String(i+1);b.setAttribute('aria-label',`Activity ${i+1}${done?' (done)':''}`);b.setAttribute('aria-current',!st.showAll&&i===st.cur?'step':'false')});
+  $('.actall',st.bar).textContent=st.showAll?'One at a time':'Show all';
+  try{checkMore()}catch(e){}}
+setupActSteps();
+
+// 2) writing challenges: model, differences, rate, improve as four steps on phones
+function writeTabs(a,o,box,st){if($('.xtabs',a))return;
+  const kids=[...a.children],bi=kids.indexOf(box);
+  kids.forEach((k,j)=>{if(j<bi)k.dataset.x='m';else if(j>bi)k.dataset.x='i'});
+  $('.xc-spot',box).dataset.x='d';$('.xc-rate',box).dataset.x='r';
+  const hasI=kids.some((k,j)=>j>bi);
+  const T=[['m','Model'],['d','Differences'],['r','Rate'],...(hasI?[['i','Improve']]:[])];
+  const bar=document.createElement('div');bar.className='xtabs';bar.setAttribute('role','tablist');
+  bar.innerHTML=T.map(([k,l],i)=>`<button type="button" role="tab" data-t="${k}"><b>${i+1}</b> ${l}</button>`).join('');a.insertBefore(bar,a.firstChild);a.classList.add('xt');
+  const nextBtn=(k,label)=>`<button type="button" class="btn xnext" data-to="${k}">${label} →</button>`;
+  const lastM=kids.filter(k=>k.dataset.x==='m').pop();if(lastM)lastM.insertAdjacentHTML('afterend',`<div class="xnav" data-x="m">${nextBtn('d','Next: spot three differences')}</div>`);
+  $('.xc-list',box).insertAdjacentHTML('beforeend',`<div class="xnav">${nextBtn('r','Next: rate it')}</div>`);
+  const show=k=>{if(k==='r'&&!st.shown)k='d';a.dataset.on=k;S.set('xtab-'+o.id,k);
+    $$('[data-x]',a).forEach(e=>e.classList.toggle('x-off',e.dataset.x!==k));
+    $$('[role=tab]',bar).forEach(b=>{b.setAttribute('aria-selected',b.dataset.t===k);b.disabled=b.dataset.t==='r'&&!st.shown})};
+  a._xshow=show;
+  bar.onclick=e=>{const b=e.target.closest('[data-t]');if(b&&!b.disabled){show(b.dataset.t);scrollToEl(bar)}};
+  a.addEventListener('click',e=>{const b=e.target.closest('.xnext');if(b){show(b.dataset.to);scrollToEl(bar)}});
+  show(S.get('xtab-'+o.id,'m'))}
+
+// 3) review pages: fold the longer sections on phones
+const FOLDS=[];
+function setupFolds(){C.SPREADS.forEach((sp,i)=>{if(!/-review$/.test(sp.id||''))return;const f=spInfo(i);
+  $$(`.spread[data-s="${i}"] .page`).forEach(pg=>{const kids=[...pg.children];
+    kids.forEach((h,j)=>{if(!/^H[23]$/.test(h.tagName))return;const t=h.textContent.trim();if(!/^(Your results|Your two drafts|Your answers|Or review it yourself)/.test(t))return;
+      const body=[];for(let k=j+1;k<kids.length;k++){const e=kids[k];if(e.tagName==='H2'||(h.tagName==='H3'&&e.tagName==='H3')||e.matches('[data-feedback],.oe-insight,.pgnum,[data-cannow],.row'))break;body.push(e)}
+      if(!body.length)return;const id='fold-'+sp.id+'-'+j;
+      const btn=document.createElement('button');btn.type='button';btn.className='fold-btn';btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-controls',id);
+      btn.innerHTML=`<span class="ft">${esc(t)}</span><span class="fs small"></span><span class="fc" aria-hidden="true">▾</span>`;h.before(btn);h.classList.add('fold-h');
+      body.forEach(e=>e.classList.add('fold-b'));body[0].id=body[0].id||id;
+      const fd={btn,h,body,key:'fold-'+sp.id+'-'+j,ch:f.ch,t};FOLDS.push(fd);
+      btn.onclick=()=>{const open=btn.getAttribute('aria-expanded')!=='true';S.set(fd.key,open);paintFold(fd)};paintFold(fd)})})})}
+function foldSum(fd){if(/^Your results/.test(fd.t)){const s=chSteps(fd.ch),d=s.filter(spreadDone).length;return `${d} of ${s.length} steps done${d===s.length?' ✓':''}`}
+  if(/^Your two drafts/.test(fd.t)){const id='c'+fd.ch+'-write';return `First draft ${S.get('d1-'+id,null)?'✓':'not yet'} · Revision ${S.get('d2-'+id,null)?'✓':'not yet'}`}
+  if(/^Your answers/.test(fd.t)){return `Practice ${S.get('d1-c6-practice',null)?'✓':'not yet'} · Timed task ${S.get('d1-c6-timed',null)?'✓':'not yet'}`}
+  return 'Tap to open'}
+function paintFold(fd){const open=!!S.get(fd.key,false);fd.btn.setAttribute('aria-expanded',open);fd.body.forEach(e=>e.classList.toggle('fold-shut',!open));
+  $('.fs',fd.btn).textContent=foldSum(fd);try{checkMore()}catch(e){}}
+setupFolds();
+{const _pa=paintAll;paintAll=function(){_pa();STEPPERS.forEach(paintStep);FOLDS.forEach(paintFold)}}
 
 /* ---------------- start ---------------- */
 const prevLast=S.get('last',0);render(0,0);
