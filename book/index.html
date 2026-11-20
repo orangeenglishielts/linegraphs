@@ -527,6 +527,17 @@ body.printing{background:#fff}
 .bk-top img{width:54px}
 @media (max-width:600px){.bk-top img{width:44px}}
 
+/* share your sentence (chapter-end class discussion) */
+.oe-share{background:var(--cream);border:1.5px solid var(--line);border-top:4px solid var(--orange);border-radius:var(--r);padding:16px 18px;margin:18px 0}
+.oe-share .lab{font-family:var(--ui);font-weight:800;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);display:block;margin-bottom:2px}
+.oe-share h3{margin:0 0 6px;font-size:19px}
+.oe-share .start{font-size:15px;margin:6px 0}
+.oe-share .start i{background:var(--peach);padding:1px 6px;border-radius:4px;font-style:normal;font-weight:600}
+.oe-share .stretch{font-size:14px;color:var(--mid);margin:0 0 10px}
+.oe-share textarea{width:100%;font:inherit;font-size:15px;border:1.5px solid var(--line);border-radius:8px;padding:9px 11px;background:var(--paper);min-height:64px;resize:vertical}
+.oe-share .msg{font-size:14px;color:var(--green-ink);min-height:1em}
+.oe-share .steps{font-size:14.5px;line-height:1.5;margin:12px 0 0;padding-left:20px}
+.oe-share .steps li{margin:3px 0}
 /* chapter feedback card */
 .oe-fb{background:var(--paper);border:1.5px solid var(--line);border-top:4px solid var(--green);border-radius:var(--r);padding:16px 18px;margin:18px 0}
 .oe-fb .lab{font-family:var(--ui);font-weight:800;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--green-ink);display:block;margin-bottom:2px}
@@ -827,7 +838,7 @@ const SPREADS=[
 
 /* 6 */ {id:'c1-review',ch:1,chLabel:P1,chTitle:CT1,title:'Chapter 1 review',
  left:`${head('Chapter 1 · Improve','Review')}<h2>Chapter 1 review</h2><h3>What you learned</h3><ul class="clean"><li>A line graph shows change over time. The comparison between lines is often the main story.</li><li>Read the title, axes, units and legend before you write.</li><li>Report five features: overall trend, start and end points, significant changes, peaks and troughs, comparisons.</li><li>An overview starts with “Overall,” and has no figures.</li></ul><div data-minitest="1"></div><div data-extras="1"></div><h3>Your results</h3><div data-review="1"></div>`,
- right:`${head('Chapter 1 · Portfolio','Review')}<div data-cannow="1"></div><h2>Your two drafts</h2><p class="small">Compare your first attempt with your revision. What did you change, and why?</p><div data-portfolio="c1-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-feedback="1"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="7">Start Chapter 2 →</button></div>`},
+ right:`${head('Chapter 1 · Portfolio','Review')}<div data-cannow="1"></div><h2>Your two drafts</h2><p class="small">Compare your first attempt with your revision. What did you change, and why?</p><div data-portfolio="c1-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-share="1"></div><div data-feedback="1"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="7">Start Chapter 2 →</button></div>`},
 
 /* 7 */ {id:'c2-open',ch:2,chLabel:P2,chTitle:CT2,title:'Chapter 2 opening',
  left:`<div class="opening"><div class="bignum">2</div><p class="chap">Chapter 2</p><h1>Describing Trends</h1><p class="lede">Lexical resource is a quarter of your Task 1 score. In this chapter you'll learn to choose the word that matches the data exactly, not the first word that comes to mind.</p><h3>By the end of this chapter, you can</h3><ul class="clean"><li>choose verbs for increases, decreases, stability and ${T('fluctuated','fluctuation')} that match the data</li><li>calculate a change, then show its size and speed with adverbs such as slightly, ${T('gradually')} and ${T('sharply')}</li><li>choose verbs whose tone suits the topic</li><li>use both patterns: verb + adverb (rose sharply) and adjective + noun (a sharp rise in)</li><li>describe every movement in a graph in one paragraph, with figures and time expressions</li></ul>${illus('M20,110 L100,104 L160,100 L200,40 L290,34 L380,30')}</div>`,
@@ -859,7 +870,7 @@ const SPREADS=[
 
 /* 13 */ {id:'c2-review',ch:2,chLabel:P2,chTitle:CT2,title:'Chapter 2 review',
  left:`${head('Chapter 2 · Improve','Review')}<h2>Chapter 2 review</h2><h3>What you learned</h3><ul class="clean"><li>Decide the direction first, then the size and speed of the change.</li><li>Calculate the change before you choose “slightly” or “dramatically”.</li><li>Keep Task 1 neutral: avoid verbs like boomed, flourished and spiralled.</li><li>Use both patterns: “rose sharply” and “a sharp rise in”.</li></ul><div data-minitest="2"></div><div data-extras="2"></div><h3>Your results</h3><div data-review="2"></div>`,
- right:`${head('Chapter 2 · Portfolio','Review')}<div data-cannow="2"></div><h2>Your two drafts</h2><div data-portfolio="c2-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-feedback="2"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="14">Start Chapter 3 →</button></div>`},
+ right:`${head('Chapter 2 · Portfolio','Review')}<div data-cannow="2"></div><h2>Your two drafts</h2><div data-portfolio="c2-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-share="2"></div><div data-feedback="2"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="14">Start Chapter 3 →</button></div>`},
 
 /* 14 */ {id:'dict',ch:0,chLabel:'My error dictionary',chTitle:'',title:'My error dictionary',
  left:`${head('Your notebook','Learn')}<h2>My error dictionary</h2><p>Every time you made a mistake and selected <b>Save to my journal</b>, the mistake was saved here with a better expression and the reason.</p><p>Read it before you write a practice answer. Mistakes you have already noticed are the easiest marks to win back.</p><div class="oe-insight"><span class="lab">How to use it</span>Cover the “Better” column and try to correct each mistake yourself. Then check.</div><div class="row" style="margin-top:16px"><button type="button" class="btn dict-pdf">Download as PDF</button><button type="button" class="btn ghost dict-print">Print</button></div><p class="small" style="margin-top:10px">Your entries are saved in this browser, and on all your devices once you turn on Save progress.</p>`,
@@ -1093,7 +1104,7 @@ const S3=[
 
 /* 20 */ {id:'c3-review',ch:3,chLabel:'Chapter 3',chTitle:'Grammar for Data Description',title:'Chapter 3 review',
  left:`${head('Chapter 3 · Improve','Review')}<h2>Chapter 3 review</h2><h3>What you learned</h3><ul class="clean"><li>Past simple for recorded data, future forms for projections, past perfect with “by” and a past point.</li><li>By for the size of a change, to for the end, from… to for both, at for a level, of after a noun.</li><li>Comparatives for two things, superlatives for the whole set. Compare like with like.</li><li>While and whereas join two trends in one sentence; however and in contrast start a new one.</li></ul><div data-minitest="3"></div><div data-extras="3"></div><h3>Your results</h3><div data-review="3"></div>`,
- right:`${head('Chapter 3 · Portfolio','Review')}<div data-cannow="3"></div><h2>Your two drafts</h2><div data-portfolio="c3-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-feedback="3"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="21">Start Chapter 4 →</button></div>`}
+ right:`${head('Chapter 3 · Portfolio','Review')}<div data-cannow="3"></div><h2>Your two drafts</h2><div data-portfolio="c3-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-share="3"></div><div data-feedback="3"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="21">Start Chapter 4 →</button></div>`}
 ];
 B.SPREADS.splice(B.SPREADS.length-1,0,...S3);
 
@@ -1261,7 +1272,7 @@ const S4=[
 
 /* 27 */ sp({id:'c4-review',title:'Chapter 4 review',
  left:`${head('Chapter 4 · Improve','Review')}<h2>Chapter 4 review</h2><h3>What you learned</h3><ul class="clean"><li>Compare like with like: a figure with a figure.</li><li>At one point, order the lines and size the differences. Divide before you write a multiple or fraction.</li><li>Over time, compare the size of each change and say whether the gap widened or narrowed.</li><li>Report crossovers, peaks and lowest points with the year or period.</li><li>Only compare what matters: the key features, not every pair of figures.</li></ul><div data-minitest="4"></div><div data-extras="4"></div><h3>Your results</h3><div data-review="4"></div>`,
- right:`${head('Chapter 4 · Portfolio','Review')}<div data-cannow="4"></div><h2>Your two drafts</h2><div data-portfolio="c4-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-feedback="4"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="c5-open">Start Chapter 5 →</button></div>`})
+ right:`${head('Chapter 4 · Portfolio','Review')}<div data-cannow="4"></div><h2>Your two drafts</h2><div data-portfolio="c4-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-share="4"></div><div data-feedback="4"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="c5-open">Start Chapter 5 →</button></div>`})
 ];
 B.SPREADS.splice(B.SPREADS.length-1,0,...S4);
 
@@ -1443,7 +1454,7 @@ const S5=[
 
 /* 34 */ sp({id:'c5-review',title:'Chapter 5 review',
  left:`${head('Chapter 5 · Improve','Review')}<h2>Chapter 5 review</h2><h3>What you learned</h3><ul class="clean"><li>Every answer has four parts: introduction, overview, body paragraph 1, body paragraph 2.</li><li>The introduction paraphrases the task in one sentence and keeps every detail.</li><li>The overview sums up the main patterns without recounting detail. In this course it comes second, so you never leave it out.</li><li>The body paragraphs give the figures, grouped by category, time period or trend.</li></ul><div data-minitest="5"></div><div data-extras="5"></div><h3>Your results</h3><div data-review="5"></div>`,
- right:`${head('Chapter 5 · Portfolio','Review')}<div data-cannow="5"></div><h2>Your two drafts</h2><div data-portfolio="c5-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-feedback="5"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="c6-open">Start Chapter 6 →</button></div>`})
+ right:`${head('Chapter 5 · Portfolio','Review')}<div data-cannow="5"></div><h2>Your two drafts</h2><div data-portfolio="c5-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-share="5"></div><div data-feedback="5"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="c6-open">Start Chapter 6 →</button></div>`})
 ];
 B.SPREADS.splice(B.SPREADS.length-1,0,...S5);
 
@@ -1628,7 +1639,7 @@ const S6=[
 
 /* 41 */ sp({id:'c6-review',title:'Course review',
  left:`${head('Chapter 6 · Improve','Review')}<h2>Course review</h2><h3>You can now</h3><ul class="clean"><li>Read a line graph and select its key features.</li><li>Describe trends with precise verbs, adverbs and figures.</li><li>Use accurate grammar and make precise comparisons.</li><li>Write a complete answer in four parts, inside 20 minutes.</li></ul><div data-minitest="6"></div><div data-extras="6"></div><div data-progress="6"></div><h3>Your results</h3><div data-review="6"></div><div class="oe-insight" style="margin-top:14px"><span class="lab">Get it marked</span>Nothing in this book sends your answers anywhere. If you’d like feedback from a former IELTS examiner, send me your timed answer: a band estimate, written comments and a video walkthrough, back within 48 hours. <a href="https://orangeenglish.nl/ielts-writing-feedback" target="_blank" rel="noopener">See IELTS Writing feedback</a>.</div><h3>Or review it yourself</h3><p style="font-size:15px">Put your timed answer aside for a few hours, then reread it slowly, as an examiner would. Finish one of these sentences: <i>I did well at…</i> · <i>One thing I'd check is…</i> · <i>Next time, I will…</i></p>`,
- right:`${head('Chapter 6 · Portfolio','Review')}<div data-cannow="6"></div><h2>Your answers</h2><p class="small">These are saved in this browser on this device. Use Copy or Download under each writing task to keep a copy or send it to me.</p><h3 style="margin-top:0">Writing practice</h3><div data-portfolio="c6-practice"></div><h3>Timed task</h3><div data-portfolio="c6-timed"></div><div class="oe-insight" style="margin-top:16px"><span class="lab">Take your error dictionary with you</span>Your error dictionary has <b data-jcount>0 entries</b>: every mistake you saved, with a better version and the reason. Download it and read it before every practice answer.<div class="row" style="margin-top:10px"><button type="button" class="btn dict-pdf">Download my error dictionary</button><button type="button" class="btn ghost dict-print">Print</button><a href="#" data-go="dict" class="btn ghost">Open it</a></div></div><div data-feedback="6"></div><div data-feedback="course"></div>`})
+ right:`${head('Chapter 6 · Portfolio','Review')}<div data-cannow="6"></div><h2>Your answers</h2><p class="small">These are saved in this browser on this device. Use Copy or Download under each writing task to keep a copy or send it to me.</p><h3 style="margin-top:0">Writing practice</h3><div data-portfolio="c6-practice"></div><h3>Timed task</h3><div data-portfolio="c6-timed"></div><div class="oe-insight" style="margin-top:16px"><span class="lab">Take your error dictionary with you</span>Your error dictionary has <b data-jcount>0 entries</b>: every mistake you saved, with a better version and the reason. Download it and read it before every practice answer.<div class="row" style="margin-top:10px"><button type="button" class="btn dict-pdf">Download my error dictionary</button><button type="button" class="btn ghost dict-print">Print</button><a href="#" data-go="dict" class="btn ghost">Open it</a></div></div><div data-share="6"></div><div data-feedback="6"></div><div data-feedback="course"></div>`})
 ];
 B.SPREADS.splice(B.SPREADS.length-1,0,...S6);
 
@@ -2349,6 +2360,29 @@ function fbBox(box){if(!FB_URL||FB_URL.startsWith('__'))return;const key=box.dat
     catch(e){b.disabled=false;b.textContent='Send my feedback';err.textContent='Sorry, that didn’t send. Check your connection and try again.'}};
 }
 $$('[data-feedback]').forEach(fbBox);
+/* ---------------- share your sentence (chapter-end class discussion, added Nov 2026) ---------------- */
+const SHARE={
+ '1':{h:'Write one sentence about the overall trend in your chapter challenge graph.',start:'Overall, …',stretch:'Mention the time period too.'},
+ '2':{h:'Choose one line on your chapter challenge graph and describe how it changed, using a precise verb (not “went up” or “went down”).',start:'The number of … [verb] …',stretch:'Add an adverb, e.g. “rose steadily”.'},
+ '3':{h:'Write one sentence that links the two trends in your chapter challenge graph, with an exact figure and the right preposition.',start:'… rose to …, while …',stretch:'Use “from … to …” in the same sentence.'},
+ '4':{h:'Write one sentence comparing rents in the two cities, using a multiple or a fraction, or describe a crossover.',start:'In [year], … was … times higher than …</i> or <i>… overtook … in …',stretch:'Make sure you compare like with like.'},
+ '5':{h:'Write the overview for your chapter challenge graph in one or two sentences, with no numbers.',start:'Overall, …',stretch:'Include two main features.'},
+ '6':{h:'Share your timing. How many minutes did you need to plan, write and check your full answer? Which part took longest?',start:'I planned for … minutes, wrote for … and checked for … . The hardest part was …',stretch:'Post your overview too and get a second opinion.'}};
+function shareBox(box){const n=box.dataset.share,c=SHARE[n];if(!c)return;const key='oe-share-'+n;let saved='';try{saved=localStorage.getItem(key)||''}catch(e){}
+  box.className='oe-share';
+  box.innerHTML=`<span class="lab">Share with the class</span><h3>${c.h}</h3><p class="start">Start with: <i>${c.start}</i></p><p class="stretch"><b>Stretch:</b> ${c.stretch}</p>
+  <label class="small" for="sh${n}" style="display:block;margin-bottom:4px">Write it here first</label><textarea id="sh${n}" placeholder="Type your ${n==='6'?'answer':'sentence'} here">${esc(saved)}</textarea>
+  <div class="row" style="margin-top:10px;align-items:center"><button type="button" class="btn sh-copy">Copy it</button><span class="msg" aria-live="polite"></span></div>
+  <ol class="steps"><li>Paste it in the <b>Discussion</b> under this lesson. It starts with “Chapter ${n}”, so everyone knows which task it is.</li><li>Then reply to one other student. Tell them one thing they did well, or suggest one word that could be more precise. Be kind, we're all learning! 🧡</li><li>I read every post and reply as often as I can.</li></ol>`;
+  const ta=box.querySelector('textarea'),msg=box.querySelector('.msg');
+  ta.addEventListener('input',()=>{try{localStorage.setItem(key,ta.value)}catch(e){}});
+  box.querySelector('.sh-copy').onclick=async()=>{const t=ta.value.trim();if(!t){msg.style.color='var(--orange-ink)';msg.textContent='Write your sentence first.';ta.focus();return}
+    const txt='Chapter '+n+': '+t;let ok=false;
+    try{await navigator.clipboard.writeText(txt);ok=true}catch(e){try{ta.value=txt;ta.select();ok=document.execCommand('copy');ta.value=t}catch(e2){}}
+    msg.style.color='';msg.textContent=ok?'Copied! Now paste it in the Discussion under this lesson.':'Select your sentence and copy it, then paste it in the Discussion.';
+    try{ga('share_sentence_copy',{chapter:n})}catch(e){}};}
+$$('[data-share]').forEach(shareBox);
+
 
 
 /* ---------------- course analytics (GA4, no cookies) ----------------
@@ -2619,7 +2653,7 @@ const FOLDS=[];
 function setupFolds(){C.SPREADS.forEach((sp,i)=>{if(!/-review$/.test(sp.id||''))return;const f=spInfo(i);
   $$(`.spread[data-s="${i}"] .page`).forEach(pg=>{const kids=[...pg.children];
     kids.forEach((h,j)=>{if(!/^H[23]$/.test(h.tagName))return;const t=h.textContent.trim();if(!/^(Your results|Your two drafts|Your answers|Or review it yourself)/.test(t))return;
-      const body=[];for(let k=j+1;k<kids.length;k++){const e=kids[k];if(e.tagName==='H2'||(h.tagName==='H3'&&e.tagName==='H3')||e.matches('[data-feedback],.oe-insight,.pgnum,[data-cannow],.row'))break;body.push(e)}
+      const body=[];for(let k=j+1;k<kids.length;k++){const e=kids[k];if(e.tagName==='H2'||(h.tagName==='H3'&&e.tagName==='H3')||e.matches('[data-feedback],[data-share],.oe-insight,.pgnum,[data-cannow],.row'))break;body.push(e)}
       if(!body.length)return;const id='fold-'+sp.id+'-'+j;
       const btn=document.createElement('button');btn.type='button';btn.className='fold-btn';btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-controls',id);
       btn.innerHTML=`<span class="ft">${esc(t)}</span><span class="fs small"></span><span class="fc" aria-hidden="true">▾</span>`;h.before(btn);h.classList.add('fold-h');
