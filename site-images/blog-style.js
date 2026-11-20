@@ -308,9 +308,9 @@ function run(){
 function embeds(pb){
   [].forEach.call(pb.querySelectorAll('a[href*="orangeenglishielts.github.io/linegraphs/practice/"]'),function(a){
     if(a.getAttribute('data-oe-emb'))return;a.setAttribute('data-oe-emb','1');
-    if(!d.getElementById('oe-embed-css')){var c=d.createElement('style');c.id='oe-embed-css';c.textContent='.oe-embed{margin:22px 0 10px}.oe-embed iframe{display:block;width:100%;border:1px solid #EFE7DC;border-radius:14px;background:#fff}';d.head.appendChild(c)}
+    if(!d.getElementById('oe-embed-css')){var c=d.createElement('style');c.id='oe-embed-css';c.textContent='.oe-embed{position:relative;margin:22px 0 10px;border-radius:14px;background:#fff}.oe-embed:before{content:"Loading the activities\\2026";position:absolute;left:0;right:0;top:44%;text-align:center;color:#5E564E;font-size:15px}.oe-embed iframe{position:relative;display:block;width:100%;border:1px solid #EFE7DC;border-radius:14px;background:transparent}';d.head.appendChild(c)}
     var src=a.href.split('#')[0].split('?')[0]+'?embed=1',box=d.createElement('div'),f=d.createElement('iframe');
-    box.className='oe-embed';f.src=src;f.title=(a.textContent||'Interactive activity').trim();f.loading='lazy';f.setAttribute('allowfullscreen','');f.setAttribute('allow','fullscreen; autoplay');
+    box.className='oe-embed';f.src=src;f.title=(a.textContent||'Interactive activity').trim();f.setAttribute('allowfullscreen','');f.setAttribute('allow','fullscreen; autoplay');
     var host=a.closest('p')||a;host.parentNode.insertBefore(box,host);box.appendChild(f);
     f.style.height=Math.max(260,Math.round((box.clientWidth||700)*0.6)+50)+'px';
     w.addEventListener('message',function(e){if(e.source===f.contentWindow&&e.data&&e.data.oeH5P&&e.data.height>100)f.style.height=Math.min(1400,e.data.height)+'px'});
