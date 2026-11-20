@@ -301,9 +301,20 @@ function run(){
   [].forEach.call(d.querySelectorAll('h1'),function(h){if(h.classList.contains('oe-title'))return;var p=d.createElement('p');if(outer.contains(h)&&/^Orange English Blog$/.test(h.textContent.trim()))p.style.setProperty('display','none','important');p.className=h.className;p.innerHTML=h.innerHTML;h.replaceWith(p)});
   var t=outer.querySelector('[data-ux=BlogMainHeading]');
   if(t&&t.tagName!=='H1'){var h1=d.createElement('h1');[].forEach.call(t.attributes,function(a){h1.setAttribute(a.name,a.value)});h1.classList.add('oe-title');h1.innerHTML=t.innerHTML;t.replaceWith(h1)}
-  var pb=outer.querySelector('[data-ux=BlogContent]'),pc=outer.querySelector('[data-aid=RSS_POST_CATEGORIES]');if(pb&&w.oeDrills)w.oeDrills();if(pb){options(pb);labels(pb);quiz(pb);if(n>=3){panels(pb);toc(pb)}}if(pb)share(pb);if(pb&&t0())addCta(pb,(pc?pc.textContent:'').toLowerCase(),(t0().textContent||'').toLowerCase());
+  var pb=outer.querySelector('[data-ux=BlogContent]'),pc=outer.querySelector('[data-aid=RSS_POST_CATEGORIES]');if(pb&&w.oeDrills)w.oeDrills();if(pb){embeds(pb);options(pb);labels(pb);quiz(pb);if(n>=3){panels(pb);toc(pb)}}if(pb)share(pb);if(pb&&t0())addCta(pb,(pc?pc.textContent:'').toLowerCase(),(t0().textContent||'').toLowerCase());
   if(!top0){top0=1;w.scrollTo(0,0)}
 }
+/* Interactive activities: a link in a post to a page under /linegraphs/practice/ becomes an embedded activity, with the link kept as a full-screen option. */
+function embeds(pb){
+  [].forEach.call(pb.querySelectorAll('a[href*="orangeenglishielts.github.io/linegraphs/practice/"]'),function(a){
+    if(a.getAttribute('data-oe-emb'))return;a.setAttribute('data-oe-emb','1');
+    if(!d.getElementById('oe-embed-css')){var c=d.createElement('style');c.id='oe-embed-css';c.textContent='.oe-embed{margin:22px 0 10px}.oe-embed iframe{display:block;width:100%;border:1px solid #EFE7DC;border-radius:14px;background:#fff}';d.head.appendChild(c)}
+    var src=a.href.split('#')[0].split('?')[0]+'?embed=1',box=d.createElement('div'),f=d.createElement('iframe');
+    box.className='oe-embed';f.src=src;f.title=(a.textContent||'Interactive activity').trim();f.loading='lazy';f.setAttribute('allowfullscreen','');f.setAttribute('allow','fullscreen; autoplay');
+    var host=a.closest('p')||a;host.parentNode.insertBefore(box,host);box.appendChild(f);
+    f.style.height=Math.max(260,Math.round((box.clientWidth||700)*0.6)+50)+'px';
+    w.addEventListener('message',function(e){if(e.source===f.contentWindow&&e.data&&e.data.oeH5P&&e.data.height>100)f.style.height=Math.min(1400,e.data.height)+'px'});
+  })}
 function share(pb){
   if(d.querySelector('.oe-share'))return;
   if(!d.getElementById('oe-share-css')){var c=d.createElement('style');c.id='oe-share-css';c.textContent='.oe-share{margin:32px 0 8px;padding:18px 20px;border:1px solid #E6DCCD;border-radius:18px;background:#FFFDF8;font-family:inherit}.oe-share p{margin:0 0 12px!important;font-weight:700;font-size:16px;color:#292929}.oe-share div{display:flex;flex-wrap:wrap;gap:10px}.oe-share a,.oe-share button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid #292929;background:#fff;color:#292929!important;font-family:inherit;font-size:15px;font-weight:600;line-height:1;text-decoration:none!important;cursor:pointer}.oe-share a:hover,.oe-share button:hover{background:#292929;color:#FBF7F0!important}.oe-share svg{width:18px;height:18px;flex:none}';d.head.appendChild(c)}
