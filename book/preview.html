@@ -592,6 +592,7 @@ body.printing{background:#fff}
 .certprev{margin-top:10px}
 @media (max-width:819px){#toast{bottom:76px}.chbar{width:120px}}
 #ov .card.wide{max-width:min(900px,96vw);width:min(900px,96vw)}
+.fbmore{margin:4px 0 2px}.fbmore summary{cursor:pointer;font-weight:600;color:var(--orange-ink);font-size:14.5px;padding:6px 0}.fbmore[open] summary{margin-bottom:6px}
 </style>
 <script>
 /* VIDEO_LINKS: paste a Loom or YouTube link between the quotes, or the path to an .mp4 in book/videos/ (a .jpg poster and .vtt subtitles with the same name are picked up automatically). The script note disappears once a link is set.
@@ -2101,15 +2102,20 @@ function fbBox(box){if(!FB_URL||FB_URL.startsWith('__'))return;const key=box.dat
   const sent=S.get('fb-'+key,null);
   const thanks=`<div class="done"><b>Thank you!</b> Your feedback has reached me, and I read every reply. It helps me make the course better for the next students.</div>`;
   const head=course?`<span class="lab">Course survey · 2 minutes</span><h3>How was the whole course?</h3><p class="small" style="margin:0">Your honest answers shape the next version of this book.</p>`
-    :`<span class="lab">Your feedback · 30 seconds</span><h3>How was Chapter ${n}?</h3><p class="small" style="margin:0">Tell me what worked and what didn’t. Every answer helps me improve the course.</p>`;
+    :`<span class="lab">Your feedback · 10 seconds</span><h3>How was Chapter ${n}?</h3><p class="small" style="margin:0">Tap a face, and add a comment if you like. Every answer helps me improve the course.</p>`;
   if(sent){box.innerHTML=`<div class="oe-fb">${head}${thanks}</div>`;return}
   const face=[[1,'😞','1 of 5: not at all'],[2,'🙁','2 of 5'],[3,'😐','3 of 5'],[4,'🙂','4 of 5'],[5,'😍','5 of 5: loved it']];
   const conf=v=>fbRadio(id+v,[[1,'1'],[2,'2'],[3,'3'],[4,'4'],[5,'5']]);
   const chapterQs=`
-   <fieldset><legend>How much did you enjoy this chapter?</legend>${fbRadio(id+'enjoy',face,'faces')}</fieldset>
+   <fieldset><legend>How was this chapter?</legend>${fbRadio(id+'enjoy',face,'faces')}</fieldset>
+   <fieldset><legend><label for="${id}-c">Anything you’d like to tell me? <span class="small" style="font-weight:400">(optional)</span></label></legend><textarea id="${id}-c" maxlength="1500" rows="2" placeholder="What you liked, what you didn’t, or anything else"></textarea></fieldset>
+   <details class="fbmore"><summary>A few more quick questions <span class="small" style="font-weight:400">(optional)</span></summary>
    <fieldset><legend>How clear was it?</legend>${fbRadio(id+'clarity',[['Very clear','Very clear'],['Mostly clear','Mostly clear'],['Confusing','Confusing']])}</fieldset>
    <fieldset><legend>Was the book easy to use on your device?</legend>${fbRadio(id+'ease',[['Yes','Yes'],['Mostly','Mostly'],['No','No']])}<div style="height:8px"></div>${fbRadio(id+'device',[['Phone','Phone'],['Tablet','Tablet'],['Computer','Computer']])}</fieldset>
-   <fieldset><legend>Which parts helped most? <span class="small" style="font-weight:400">(choose any)</span></legend>${fbCheck(id+'helpful',['Videos','Activities','Examples','Writing tasks','Reference guides','Error dictionary'])}</fieldset>`;
+   <fieldset><legend>Which parts helped most? <span class="small" style="font-weight:400">(choose any)</span></legend>${fbCheck(id+'helpful',['Videos','Activities','Examples','Writing tasks','Reference guides','Error dictionary'])}</fieldset>
+   <fieldset><legend><label for="${id}-f">Where did you lose focus, if anywhere?</label></legend><textarea id="${id}-f" maxlength="1000" rows="2" placeholder="For example: a long page, a video or an activity"></textarea></fieldset>
+   <fieldset><legend><label for="${id}-p">Was anything confusing, broken or too hard?</label></legend><textarea id="${id}-p" maxlength="1500" rows="2" placeholder="For example: a page, an activity or a video"></textarea></fieldset>
+   </details>`;
   const courseQs=`
    <fieldset><legend>How confident were you about Task 1 line graphs <b>before</b> the course? <span class="small" style="font-weight:400">(1 = not at all, 5 = very)</span></legend>${conf('cb')}</fieldset>
    <fieldset><legend>How confident are you <b>now</b>?</legend>${conf('cn')}</fieldset>
@@ -2117,10 +2123,7 @@ function fbBox(box){if(!FB_URL||FB_URL.startsWith('__'))return;const key=box.dat
   const texts=course?`
    <fieldset><legend><label for="${id}-c">What would you tell another student about this course? <span class="small" style="font-weight:400">(optional)</span></label></legend><textarea id="${id}-c" maxlength="1500"></textarea></fieldset>
    <fieldset><legend>Can I share your comment on my website or social media?</legend>${fbRadio(id+'tm',[['Yes, with my first name','Yes, with my first name'],['Yes, anonymously','Yes, anonymously'],['No','No, keep it private']])}<div style="margin-top:8px" hidden data-namewrap><label for="${id}-name" class="small">Your first name</label><input type="text" id="${id}-name" maxlength="40" autocomplete="given-name"></div></fieldset>`
-   :`
-   <fieldset><legend><label for="${id}-f">Where did you lose focus, if anywhere? <span class="small" style="font-weight:400">(optional)</span></label></legend><textarea id="${id}-f" maxlength="1000" placeholder="For example: a long page, a video or an activity"></textarea></fieldset>
-   <fieldset><legend><label for="${id}-p">Was anything confusing, broken or too hard? <span class="small" style="font-weight:400">(optional)</span></label></legend><textarea id="${id}-p" maxlength="1500" placeholder="For example: a page, an activity or a video"></textarea></fieldset>
-   <fieldset><legend><label for="${id}-c">Any other comments? <span class="small" style="font-weight:400">(optional)</span></label></legend><textarea id="${id}-c" maxlength="1500"></textarea></fieldset>`;
+   :'';
   box.innerHTML=`<form class="oe-fb" novalidate>${head}${course?courseQs:chapterQs}${texts}
    <div class="row" style="margin-top:14px"><button type="submit" class="btn">Send my feedback</button></div><div class="err" aria-live="polite"></div>
    <p class="note">Your answers go straight to me at Orange English. ${course?'Your first name is only used if you choose to share your comment.':'They don’t include your name or your writing.'}</p></form>`;
