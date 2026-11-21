@@ -7,9 +7,12 @@
  *
  * Setup: Project Settings > Script properties > add ANTHROPIC_API_KEY. Deploy > New deployment >
  * Web app > Execute as "Me", access "Anyone". Put the /exec URL in AI_URL in book/index.html.
- * The API key never leaves this script. Learners' answers are not stored here.
+ * The API key never leaves this script. Every request is logged to the Google Sheet
+ * "Mastering Line Graphs - AI feedback log" (created on first use; its ID is kept in the SHEET_ID
+ * script property) so the feedback can be checked. No names or emails are logged.
  */
 const MODEL = 'claude-haiku-5-5';
+const PRICE = { input: 0.10, output: 0.50 }; // USD per million tokens, Claude Haiku 5.5 (Nov 2026)
 const LIMIT = { perDevice: 6, windowSec: 21600, perDay: 300, perMonth: 3000, maxChars: 1800, minWords: 12 };
 
 const TASKS = {
@@ -149,11 +152,40 @@ function handle_(req) {
 
   const user = 'TASK\n' + t.task + '\n\nGRAPH DATA (exact)\n' + t.data + '\n\nWHAT THIS EXERCISE ASKS FOR\n' + t.ask +
     '\n\n<answer>\n' + answer + '\n</answer>';
-  const text = callClaude_(key, user);
-  if (!text) return { ok: false, error: 'x' };
-  const fb = parse_(text);
+  const res = callClaude_(key, user);
+  const fb = res.text ? parse_(res.text) : null;
+  log_(req.task, did, answer, fb, res);
   if (!fb) return { ok: false, error: 'x' };
   return { ok: true, good: fb.good, points: fb.points, next: fb.next };
+}
+
+/** One row per request, so the feedback can be checked and the real cost seen. Never blocks the reply. */
+function log_(task, did, answer, fb, res) {
+  try {
+    const props = PropertiesService.getScriptProperties();
+    let ss, id = props.getProperty('SHEET_ID');
+    if (id) ss = SpreadsheetApp.openById(id);
+    else {
+      ss = SpreadsheetApp.create('Mastering Line Graphs - AI feedback log');
+      props.setProperty('SHEET_ID', ss.getId());
+      const sh0 = ss.getSheets()[0];
+      sh0.setName('Log');
+      sh0.appendRow(['Date (UTC)', 'Task', 'Device', 'Words', 'Answer', 'What works', 'Comments', 'Try next', 'Tokens in', 'Tokens out', 'Cost (USD)', 'Status']);
+      sh0.setFrozenRows(1);
+    }
+    const safe = function (v) { v = String(v == null ? '' : v); return /^[=+\-@]/.test(v) ? "'" + v : v; };
+    const u = res.usage || {};
+    const tin = Number(u.input_tokens || 0), tout = Number(u.output_tokens || 0);
+    ss.getSheets()[0].appendRow([
+      Utilities.formatDate(new Date(), 'Etc/UTC', 'yyyy-MM-dd HH:mm'), task, did,
+      answer.split(/\s+/).filter(String).length, safe(answer),
+      safe(fb ? fb.good : ''),
+      safe(fb ? fb.points.map(function (p) { return (p.quote ? '"' + p.quote + '": ' : '') + p.comment; }).join('\n') : ''),
+      safe(fb ? fb.next : ''), tin, tout,
+      Math.round((tin * PRICE.input + tout * PRICE.output) / 1e6 * 1e6) / 1e6,
+      fb ? 'ok' : 'failed (' + (res.code || 'no reply') + ')'
+    ]);
+  } catch (err) {}
 }
 
 function callClaude_(key, user) {
@@ -169,11 +201,12 @@ function callClaude_(key, user) {
     const code = res.getResponseCode();
     if (code === 200) {
       const body = JSON.parse(res.getContentText());
-      return (body.content || []).filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('');
+      return { code: 200, usage: body.usage || {},
+        text: (body.content || []).filter(function (b) { return b.type === 'text'; }).map(function (b) { return b.text; }).join('') };
     }
-    if (code !== 400) return '';
+    if (code !== 400) return { code: code, text: '' };
   }
-  return '';
+  return { code: 400, text: '' };
 }
 
 function parse_(text) {
