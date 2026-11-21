@@ -1783,10 +1783,10 @@ Object.assign(B.CHARTS,{
   ebus:{id:'ch-ebus',title:['Electric buses in use in one country, 2010 to 2035'],x:BUS.x,series:[{name:'Recorded',vals:BUS.rec,color:GREEN},{name:'Projected',vals:BUS.proj,color:GREEN,dash:1}],ymax:1400,ystep:200,ylab:'Number of electric buses',points:1,fmt:v=>v.toLocaleString('en-GB')+' buses'}
 });
 Object.assign(B.ACTS,{
-'c2-scale1':{type:'choice',level:'Guided',skill:'Scale and steepness',decision:'Graph A looks almost flat. Graph B looks steep. Do the two graphs show different changes in sales?',
-  opts:[{t:'No. Both show sales rising from 200 to 240 loaves a day.',ok:1,why:'The data is the same. Only the vertical scale changed: Graph B starts at 190, so the same rise looks steeper.'},
-        {t:'Yes. Graph B shows a much bigger rise.',why:'Read the axis, not the slope. Both lines go from 200 to 240.'},
-        {t:'Yes. Graph A shows that sales hardly changed.',why:'A rise of 40 loaves a day is 20%. The flat look comes from the scale, which goes up to 500.'}]},
+'c2-scale1':{type:'choice',level:'Guided',skill:'Scale and steepness',decision:'Both graphs show exactly the same figures. Why does the line in Graph B look so much steeper?',
+  opts:[{t:'Graph B’s vertical axis starts at 190 and goes up in steps of 10, so a rise of 40 loaves fills most of the graph.',ok:1,why:'Yes. The scale changes how steep the line looks, not the data. On both graphs, sales rose from 200 to 240 loaves a day. Check the axis before you choose a word like “sharply”.'},
+        {t:'Sales rose faster on Graph B.',why:'Both graphs show the same figures: 200 to 240 loaves a day. Only the scale is different.'},
+        {t:'Graph B shows more months.',why:'Both graphs cover January to May. The difference is the vertical axis: Graph A goes from 0 to 500, Graph B from 190 to 250.'}]},
 'c2-scale2':{type:'choice',level:'Supported',skill:'Scale and steepness',decision:'Which description fits both graphs?',
   opts:[{t:'Sales rose steadily, by 40 loaves a day (20%), over the five months.',ok:1,why:'It reports the size and the shape of the change: 10 more loaves each month.'},
         {t:'Sales soared between January and May.',why:'“Soared” suggests a very large, fast rise. The steep line in Graph B comes from the scale, not the data.'},
