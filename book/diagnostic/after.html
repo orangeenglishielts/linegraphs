@@ -50,6 +50,7 @@ h3{font:700 15px/1.3 var(--f-display); margin:0 0 6px}
 .chart{width:100%; height:auto; display:block}
 .chart-title{font:700 15px/1.3 var(--f-display); margin:4px 0 6px; text-align:center}
 .chart text{font-family:var(--f-body); fill:var(--muted)}
+a.btn{display:inline-block;text-decoration:none}
 .btn{font:600 16px/1 var(--f-ui); background:var(--orange); color:#1d1d1d; border:0; border-radius:999px; padding:14px 22px; cursor:pointer}
 .btn:hover{filter:brightness(1.05)} .btn:focus-visible,.opt:focus-visible,input:focus-visible{outline:3px solid var(--green); outline-offset:2px}
 .btn.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line)}
@@ -103,10 +104,10 @@ footer{color:var(--muted); font-size:13px; text-align:center}
 <script src="diag-engine.js"></script>
 <script>
 const AREAS = {
-  KF:  {name:"Selecting key features", short:"Key features", lesson:"<a href=\"../#chapter-1\">Chapter 1: Understanding Line Graphs</a>"},
-  CMP: {name:"Making accurate comparisons", short:"Comparisons", lesson:"<a href=\"../#chapter-4\">Chapter 4: Making Comparisons</a>"},
-  GR:  {name:"Grammar for describing trends", short:"Trend grammar", lesson:"<a href=\"../#chapter-2\">Chapter 2: Describing Trends</a>, then <a href=\"../#chapter-3\">Chapter 3: Grammar for Data Description</a> for tenses"},
-  ORG: {name:"Organising the report", short:"Organisation", lesson:"<a href=\"../#chapter-5\">Chapter 5: Structuring the Response</a>"}
+  KF:  {name:"Selecting key features", short:"Key features", lesson:"<a href=\"../#c1-s3\">Identify the key features</a> in Chapter 1", go:"../#c1-s3"},
+  CMP: {name:"Making accurate comparisons", short:"Comparisons", lesson:"<a href=\"../#c4-s1\">Like with like</a> in Chapter 4", go:"../#c4-s1"},
+  GR:  {name:"Grammar for describing trends", short:"Trend grammar", lesson:"<a href=\"../#c2-s4\">Building descriptions</a> in Chapter 2, then <a href=\"../#c3-s1\">Which tense?</a> in Chapter 3", go:"../#c2-s4"},
+  ORG: {name:"Organising the report", short:"Organisation", lesson:"<a href=\"../#c5-s4\">The body paragraphs</a> in Chapter 5", go:"../#c5-s4"}
 };
 const ORDER = ["KF","CMP","GR","ORG"];
 
@@ -163,19 +164,19 @@ const Q = [
 ];
 
 const PROFILE = {
- KF:{why:"You're reporting data, but not yet choosing what matters. Examiners are looking for the main trends and a clear overview, not every number on the graph.",
+ KF:{why:"These questions were about choosing what matters in a graph. Examiners are looking for the main trends and a clear overview, not every number on the graph.",
    b6:"In 2000 Ardmere had 20%, Belford had 40% and Corrin had 10%. In 2005 Ardmere had 35%...",
    b7:"Overall, recycling rose in all three towns, and Belford, which started highest, was overtaken by both of the others.",
    tips:["Before writing, spend 2 minutes circling the 3 or 4 biggest features.","Write your overview first, as a summary of the main trends.","Only include a figure if it supports a feature you've already chosen."]},
- CMP:{why:"You can describe each line, but your comparisons aren't yet accurate or connected. Band 7 reports compare data, they don't just list it.",
+ CMP:{why:"These questions were about comparing lines accurately and connecting them. Band 7 reports compare data, they don't just list it.",
    b6:"In 2020 Ardmere was 70% and Belford was 48%.",
    b7:"By 2020, Ardmere's figure was well above Belford's (70% compared with 48%), although Belford's had been twice as high in 2000.",
    tips:["Check the maths before choosing \"double\", \"half\" or \"a third\".","Use whereas, while and compared with to connect two lines in one sentence.","Avoid \"more higher\" and \"the most percentage\"."]},
- GR:{why:"Your ideas are there, but the grammar around trends is holding you back. Small errors in word form and tense are easy marks to win back.",
+ GR:{why:"These questions were about the grammar of describing trends. Small errors in word form and tense are easy marks to win back.",
    b6:"Corrin was increase sharp after 2015.",
    b7:"Corrin saw a sharp increase, from 30% in 2015 to 58% in 2020.",
    tips:["Learn two patterns: \"rose dramatically\" (verb + adverb) and \"a dramatic rise\" (adjective + noun).","Use the past simple for finished periods.","Match the size of the word to the size of the change: gradual, steady, sharp, dramatic."]},
- ORG:{why:"Your content is good, but the structure makes it hard to follow. A clear overview and logical paragraphs make every other skill easier to see.",
+ ORG:{why:"These questions were about grouping information and ordering paragraphs. A clear overview and logical paragraphs make every other skill easier to see.",
    b6:"Paragraph 1: 2000 figures. Paragraph 2: 2005 figures. Paragraph 3: 2010 figures...",
    b7:"Introduction. Overview. Body 1: Ardmere and Corrin, which both rose strongly and overtook Belford. Body 2: Belford, which rose only slightly.",
    tips:["Use the four-part shape: introduction, overview, two body paragraphs.","Group lines that behave the same way.","Never add a conclusion with your opinion."]}
@@ -225,6 +226,7 @@ function result(){
     <p>${P.why}</p>
     <ul class="tips">${P.tips.map(t=>`<li>${t}</li>`).join("")}</ul>
     <p class="small" style="margin-top:12px">Go back to <strong>${AREAS[focus].lesson}</strong>.</p>
+    <div class="row" style="justify-content:flex-start;margin-top:12px"><a class="btn" href="${AREAS[focus].go}">Try this activity →</a></div>
   </section>`}
   <section class="card">
     <h3>What this result does and doesn’t show</h3>

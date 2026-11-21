@@ -43,7 +43,7 @@ SHEETS[1] = dict(
 <li>The noun stays plural: <b>2 million books</b>.</li>
 <li>For thousands, write the full number: <b>4,000 visitors</b>.</li></ul>'''),
   ('mint','Introduction and overview', '''<p><b>Introduction:</b> one sentence. What, who, where, when, in your own words. Never “the graph below”.</p>
-<p><b>Overview:</b> starts with <i>Overall,</i>. The main trends and the key comparison. No data figures.</p>'''),
+<p><b>Overview:</b> <i>Overall,</i> is a reliable way to start. The main trends and the key comparison. No data figures.</p>'''),
  ])
 
 SHEETS[2] = dict(
@@ -228,7 +228,7 @@ SHEETS[6] = dict(
 <tr><th>Body paragraph 2</th><td>50–60 words</td></tr></tbody></table>
 <p>Write at least 150 words. A short answer may not cover the key features.</p>'''),
   ('mint','Last-minute check', '''<ul>
-<li><b>Did I compare?</b> At least one comparison in the overview and in each body paragraph</li>
+<li><b>Did I compare?</b> A comparison in the overview, and in the body paragraphs wherever it is relevant</li>
 <li>Past simple for recorded years</li>
 <li>10 <b>million</b>, not millions</li>
 <li>Every figure has its unit</li>

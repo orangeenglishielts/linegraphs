@@ -59,7 +59,7 @@ def g2():
         col=GR if v[-1]>v[0]+3 else (ORK if v[-1]<v[0]-3 else DK)
         s+=f'<line x1="{cx+8}" x2="{cx+60}" y1="{cy+50}" y2="{cy+50}" stroke="{LN}"/>'+path(p,col,2.4)
         s+=lab(cx+34,cy+66,t,'middle',DK,6.9,600)
-    return s+'</svg>','The shape of the line tells you the verb. The steepness tells you the adverb.'
+    return s+'</svg>','The shape of the line tells you the verb. For the adverb, check the values and the dates, not just how steep the line looks.'
 
 def g3():
     x0,y0,x1,y1=34,24,286,124

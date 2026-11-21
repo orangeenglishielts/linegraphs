@@ -444,6 +444,8 @@ body.printing{background:#fff}
   .pager .where{font-size:12px}
 }
 @media (min-width:820px){.pager .lab-short{display:none}}
+@media (max-width:480px){.pager #prev .lab-short{display:none}.pager #prev{padding-left:14px;padding-right:14px;flex:none}.pager #next{flex:none;white-space:nowrap}}
+@media (max-width:350px){.pager .in{gap:6px}.pager #next{padding-left:9px;padding-right:9px;font-size:14px}.pager #prev{padding-left:11px;padding-right:11px}.pager .where{font-size:11.5px}}
 @media (min-width:820px){.bk-top .lab-ic{display:none}}
 .pghead{padding-right:34px}
 @media (max-width:819px){.page,.page.left,.page.right{padding-left:16px;padding-right:16px}.page .chart{padding:8px 4px 4px}.page .oe-try,.page .oe-workshop{padding:14px}}
@@ -688,7 +690,7 @@ window.VIDEO_LINKS=['videos/c1-meet-the-line-graph.mp4','videos/c1-read-the-axes
 <main class="book-wrap">
   <div class="book" id="book" tabindex="-1"></div>
   <nav class="pager" aria-label="Page navigation"><div class="in">
-    <button type="button" class="btn ghost" id="prev">← <span class="lab-long">Previous page</span><span class="lab-short">Back</span></button>
+    <button type="button" class="btn ghost" id="prev" aria-label="Previous page">← <span class="lab-long">Previous page</span><span class="lab-short">Back</span></button>
     <p class="where" id="where" aria-live="polite"></p>
     <button type="button" class="btn" id="next"><span class="lab-long">Next page</span><span class="lab-short">Next</span> →</button>
   </div></nav>
@@ -932,7 +934,7 @@ const ACTS={
           {t:'Your overview reports the crossover.',fix:'Report the key comparison: streaming overtook TV.',fn:v=>/(overt(ook|ake|aken|aking)|surpass|exceed|more (time )?than|overtaken)/i.test(v.ov)}],
   modelTitle:'My model answer',
   model:`<p><span class="plabel">Introduction</span><button type="button" class="hl" data-n="0">The line graph compares</button> how many hours a week <button type="button" class="hl" data-n="1">16- to 24-year-olds in one country</button> spent watching television and streaming video <button type="button" class="hl" data-n="2">from 2008 to 2024</button>.</p><p><span class="plabel">Overview</span><button type="button" class="hl" data-n="3">Overall,</button> time spent watching television fell steadily over the period, while streaming rose sharply and <button type="button" class="hl" data-n="4">overtook television between 2016 and 2020</button>. By the end of the period, streaming took up <button type="button" class="hl" data-n="5">far more of their time</button> than television.</p>`,
-  notes:['“Compares” suits a graph with two lines. It also replaces “shows” from the task, which is part of paraphrasing.','I kept the age group because it is essential, but I changed “people aged 16 to 24” into “16- to 24-year-olds”. That also stops me copying eight words in a row from the task.','“From… to” replaces “between… and” from the task. A small change, but it shows range.','The examiner looks for a clear overview. “Overall,” signals it immediately.','The years here are a time reference, not data figures, so the overview stays free of numbers. This is the key comparison.','I compared the end points without figures: 16 hours against 8 hours becomes “far more”.'],
+  notes:['“Compares” suits a graph with two lines. It also replaces “shows” from the task, which is part of paraphrasing.','I kept the age group because it is essential, but I changed “people aged 16 to 24” into “16- to 24-year-olds”.','“From… to” replaces “between… and” from the task. A small change, but it shows range.','The examiner looks for a clear overview. “Overall,” signals it immediately.','The years here are a time reference, not data figures, so the overview stays free of numbers. This is the key comparison.','I compared the end points without figures: 16 hours against 8 hours becomes “far more”.'],
   self:['My introduction says what, who, where and when.','I changed at least some of the task\'s words and word order.','My overview starts with “Overall,” and has no data figures.','My overview describes both lines and the crossover.'],revise:1},
 
 'c2-sort':{type:'sort',level:'Guided',skill:'Trend verbs',decision:'What kind of movement does each word describe?',prompt:'Choose a category for each word. Watch out: not every verb is a rise or a fall.',cats:['Increase','Decrease','Stability','Fluctuation'],
@@ -2198,6 +2200,10 @@ function render(dir,focus){$$('.spread',book).forEach(d=>{const on=+d.dataset.s=
   $('#where').innerHTML=`<b>${esc(sp.chLabel)}</b> · ${mobile()?`Page ${k+1} of ${v.length}`:`Pages ${pos.s*2+1} and ${pos.s*2+2} of ${total}`}`;
   $('#chapline').textContent=sp.chLabel+(sp.chTitle?' · '+sp.chTitle:'');
   $('#prev').disabled=k<=0;$('#next').disabled=k>=v.length-1;
+  {const nb=$('#next .lab-short');if(nb){let lab='Next';if(mobile()&&k<v.length-1){const nx=v[k+1],nsp=C.SPREADS[nx.s],isStep=/-s\d+$/.test(sp.id);
+    if(nx.s===pos.s){if(nx.side==='right'&&isStep){const rp=$('.spread.active .page.right');lab=rp&&$('textarea',rp)?'Start writing':'Try the activity'}}
+    else if(/-review$/.test(nsp.id))lab='Review chapter';else if(/-open$/.test(nsp.id))lab='Next chapter';else if(isStep&&/-s\d+$/.test(nsp.id))lab='Next step'}
+    nb.textContent=lab}}
   const bm=S.get('bm',null);$$('.ribbon').forEach(r=>{const s=+r.closest('.spread').dataset.s,side=r.closest('.page').classList.contains('right')?'right':'left';const on=!!bm&&bm.s===s&&(!mobile()||bm.side===side||(!bm.side));r.setAttribute('aria-pressed',on);r.setAttribute('aria-label',on?'Bookmarked page (select to remove)':'Bookmark this page')});
   S.set('pos',pos);S.set('last',Date.now());
   if(focus){const pg=$(`.spread.active .page.${mobile()?pos.side:'left'}`);const h=pg&&$('h1,h2',pg);if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}window.scrollTo({top:Math.max(0,$('#book').getBoundingClientRect().top+window.scrollY-70),behavior:'auto'})}}
@@ -2412,7 +2418,7 @@ const chMins=ch=>chSteps(ch).reduce((a,i)=>a+(MINS[i]||0),0);
 
 /* footer: chapter, step and a progress bar instead of "pages of 86" */
 function paintWhere(){const sp=C.SPREADS[pos.s]||{},f=spInfo(pos.s);let lab;
-  const M=mobile();if(f.kind==='step')lab=M?`Step ${f.n} of 5`:`Step ${f.n} of 5 · about ${MINS[pos.s]} min`;else if(f.kind==='open')lab=M?'Opening':'Chapter opening';else if(f.kind==='review')lab=M?'Review':'Chapter review';else lab='';
+  const M=mobile();if(f.kind==='step')lab=M?`${f.n}/5`:`Step ${f.n} of 5 · about ${MINS[pos.s]} min`;else if(f.kind==='open')lab=M?'Opening':'Chapter opening';else if(f.kind==='review')lab=M?'Review':'Chapter review';else lab='';
   const steps=f.ch?chSteps(f.ch):[],dn=steps.filter(spreadDone).length,pc=steps.length?Math.round(100*dn/steps.length):0;
   $('#where').innerHTML=`<b>${esc(M&&f.ch?'Ch '+f.ch:(sp.chLabel||sp.title||''))}</b>${lab?' · '+lab:''}`+(steps.length?`<span class="chbar" role="progressbar" aria-label="Chapter ${f.ch} progress: ${dn} of ${steps.length} steps done" aria-valuemin="0" aria-valuemax="${steps.length}" aria-valuenow="${dn}"><i style="width:${pc}%"></i></span>`:'')}
 
