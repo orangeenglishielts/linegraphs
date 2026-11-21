@@ -683,6 +683,24 @@ body.printing{background:#fff}
   .fold-h{display:none}
   .fold-shut{display:none!important}
 }
+
+/* ===== Phone declutter (Nov 2026): fewer boxes, fewer labels, more air ===== */
+@media (max-width:819px){
+  .page,.page.left,.page.right{box-shadow:none;border-radius:0;margin-left:-18px;margin-right:-18px;padding:24px 18px 48px}
+
+  .pghead{padding-right:0;margin-bottom:10px}.pghead .side{display:none}
+  .page h2{margin-bottom:16px}.page h3{margin:28px 0 10px}.page p{margin-bottom:16px}
+  .page .oe-try,.page .oe-workshop{border:0;border-radius:14px;padding:16px 14px;margin-top:22px}
+  .oe-try .meta .level{display:none}.oe-try .meta{margin-bottom:6px}
+  .oe-try .decision::before{content:none}.oe-try .decision{font-size:17px;line-height:1.35;margin-bottom:6px}
+  .oe-try .chart,.oe-workshop .chart{border:0;background:transparent;padding:4px 0 0;margin-left:-4px;margin-right:-4px}
+  .page>.chart,.page .chart{border-color:transparent}
+  .oe-mistake,.oe-insight,.takeaway,.oe-concept,.mnote{margin-top:24px;margin-bottom:24px}
+  .acts-step .actbar{border:0;background:var(--page);padding:6px 0}
+  .bk-top .ttl{display:none}
+  .bk-foot{margin-top:12px!important;padding:10px 16px 18px!important;font-size:11px!important;line-height:1.4}
+  .bk-foot p:first-child{display:none}
+}
 </style>
 <script src="progress-sync.js"></script>
 <script>
@@ -1951,7 +1969,7 @@ A.hotspots=(el,o)=>{el.classList.add('oe-try');el.innerHTML=head(o)+`<ol class="
       fb.classList.add('show');S.set('a-'+o.id,st);paint()};
     g.addEventListener('click',go);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})});
   paint()};
-A.sections=(el,o)=>{el.classList.add('oe-try');el.innerHTML=head(o)+chartBox(o.chart)+`<div class="secpick"><p class="small sel-lab">Select a section on the graph (A to ${o.chart.sections[o.chart.sections.length-1].lab}), then choose a word.</p><div class="bt phrases">${o.labels.map((l,j)=>`<button type="button" class="chip" data-j="${j}" disabled>${l}</button>`).join('')}</div></div><div class="fb" aria-live="polite"></div><div class="jhost"></div><p class="small secs-done" style="margin-top:8px"></p>`;
+A.sections=(el,o)=>{el.classList.add('oe-try');el.innerHTML=head(o)+chartBox(o.chart)+`<div class="secpick"><p class="small sel-lab">${o.prompt?'':`Select a section on the graph (A to ${o.chart.sections[o.chart.sections.length-1].lab}), then choose a word.`}</p><div class="bt phrases">${o.labels.map((l,j)=>`<button type="button" class="chip" data-j="${j}" disabled>${l}</button>`).join('')}</div></div><div class="fb" aria-live="polite"></div><div class="jhost"></div><p class="small secs-done" style="margin-top:8px"></p>`;
   const st=S.get('a-'+o.id,{}),ch=$('.chart',el),bands=$$('.band',ch),segs=$$('.seg',ch),chips=$$('.secpick .chip',el),fb=$('.fb',el);let cur=null;
   const mark=()=>{bands.forEach((b,k)=>b.classList.toggle('done',k in st&&k!==cur));$('.secs-done',el).textContent=`${Object.keys(st).length} of ${o.chart.sections.length} sections labelled`};
   const select=k=>{cur=k;bands.forEach((b,j)=>b.classList.toggle('sel',j===k));segs.forEach((s,j)=>s.classList.toggle('on',j===k));const sc=o.chart.sections[k];
