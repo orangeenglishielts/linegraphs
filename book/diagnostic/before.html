@@ -48,6 +48,7 @@ h3{font:700 15px/1.3 var(--f-display); margin:0 0 6px}
 .hand{font-family:var(--f-hand); font-size:22px; color:var(--orange-ink); line-height:1.2}
 .task{border-left:4px solid var(--orange); padding:4px 0 4px 14px; margin:12px 0; font-size:15px}
 .chart{width:100%; height:auto; display:block}
+.chart-title{font:700 15px/1.3 var(--f-display); margin:4px 0 6px; text-align:center}
 .chart text{font-family:var(--f-body); fill:var(--muted)}
 .btn{font:600 16px/1 var(--f-ui); background:var(--orange); color:#1d1d1d; border:0; border-radius:999px; padding:14px 22px; cursor:pointer}
 .btn:hover{filter:brightness(1.05)} .btn:focus-visible,.opt:focus-visible,input:focus-visible{outline:3px solid var(--green); outline-offset:2px}
@@ -118,12 +119,12 @@ const Q = [
  {a:"KF", p:"Which point is LEAST important to include in your report?", o:[
   "All three countries saw an increase between 2000 and 2020.",
   "Norland had the highest level throughout the period.",
-  "Southvale's figure rose from 8% to 12% between 2005 and 2010.",
+  "Southvale's figure rose from around 8% to 12% between 2005 and 2010.",
   "Eastport saw the largest overall rise of the three, from 10% to 85%."], c:2,
   e:"A 4-point change in one five-year period is a minor detail. Examiners reward reports that select the significant features, not every number."},
  {a:"KF", p:"You have space for one more detail about Southvale. Which is the most significant?", o:[
   "It rose only slowly at first, from 5% in 2000 to 12% in 2010.",
-  "It rose sharply in the final five years, from 20% to 45%.",
+  "It rose sharply in the final five years, from around 20% to 45%.",
   "It was 12% in 2010, up from 8% in 2005.",
   "It was lower than Norland in 2005."], c:1,
   e:"The sharp rise at the end is the most striking change in Southvale's line. The other options describe small changes or a single comparison, not the main pattern."},
@@ -208,6 +209,7 @@ const score = {KF:0,CMP:0,GR:0,ORG:0};
 let G = [];
 
 const CHART = `
+<p class="chart-title">Households with internet access (%), 2000 to 2020</p>
 <svg class="chart" viewBox="0 0 360 236" role="img" aria-label="Line graph: percentage of households with internet access in Norland, Eastport and Southvale, 2000 to 2020">
   ${[0,25,50,75,100].map(v=>{const y=200-v*1.6;return `<line x1="44" x2="300" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="36" y="${y+4}" font-size="11" text-anchor="end">${v}%</text>`}).join("")}
   ${[2000,2005,2010,2015,2020].map(yr=>{const x=44+(yr-2000)/20*256;return `<text x="${x}" y="218" font-size="11" text-anchor="middle">${yr}</text>`}).join("")}

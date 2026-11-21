@@ -48,6 +48,7 @@ h3{font:700 15px/1.3 var(--f-display); margin:0 0 6px}
 .hand{font-family:var(--f-hand); font-size:22px; color:var(--orange-ink); line-height:1.2}
 .task{border-left:4px solid var(--orange); padding:4px 0 4px 14px; margin:12px 0; font-size:15px}
 .chart{width:100%; height:auto; display:block}
+.chart-title{font:700 15px/1.3 var(--f-display); margin:4px 0 6px; text-align:center}
 .chart text{font-family:var(--f-body); fill:var(--muted)}
 .btn{font:600 16px/1 var(--f-ui); background:var(--orange); color:#1d1d1d; border:0; border-radius:999px; padding:14px 22px; cursor:pointer}
 .btn:hover{filter:brightness(1.05)} .btn:focus-visible,.opt:focus-visible,input:focus-visible{outline:3px solid var(--green); outline-offset:2px}
@@ -208,6 +209,7 @@ const score = {KF:0,CMP:0,GR:0,ORG:0};
 let G = [];
 
 const CHART = `
+<p class="chart-title">Households that recycle their waste (%), 2000 to 2020</p>
 <svg class="chart" viewBox="0 0 360 236" role="img" aria-label="Line graph: percentage of households that recycle their waste in Ardmere, Belford and Corrin, 2000 to 2020">
   ${[0,25,50,75,100].map(v=>{const y=200-v*1.6;return `<line x1="44" x2="300" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="36" y="${y+4}" font-size="11" text-anchor="end">${v}%</text>`}).join("")}
   ${[2000,2005,2010,2015,2020].map(yr=>{const x=44+(yr-2000)/20*256;return `<text x="${x}" y="218" font-size="11" text-anchor="middle">${yr}</text>`}).join("")}
