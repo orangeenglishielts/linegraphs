@@ -93,13 +93,14 @@ footer{color:var(--muted); font-size:13px; text-align:center}
 <header><div class="wrap">
   <div class="brand">Mastering Line Graphs · Before you start</div>
   <h1>Which Task 1 skills should you practise first?</h1>
-  <p>A 10-minute diagnostic designed by a former IELTS examiner. Answer 12 questions about one line graph and get a suggested starting point. It checks what you know about Task 1; it is not a band estimate. At the end of the course, a second version on a new graph shows how far you’ve come.</p>
+  <p>An 8-minute diagnostic designed by a former IELTS examiner. Do 12 quick tasks on one line graph and get a suggested starting point. It checks what you know about Task 1; it is not a band estimate. At the end of the course, a second version on a new graph shows how far you’ve come.</p>
 <p style="margin:12px 0 0"><a href="../#chapter-1" style="color:#F88B48;font-weight:600">Go to Chapter 1 of the book →</a></p>
 </div></header>
 
 <main><div class="wrap" id="app"></div></main>
 <footer><div class="wrap" style="padding-block:0 32px"><a href="../#chapter-1" style="color:inherit">Go to Chapter 1 of the book</a> · © Orange English · orangeenglish.nl · Graph data is invented for practice.</div></footer>
 
+<script src="diag-engine.js"></script>
 <script>
 const AREAS = {
   KF:  {name:"Selecting key features", short:"Key features", lesson:"<a href=\"../#chapter-1\">Chapter 1: Understanding Line Graphs</a>"},
@@ -109,79 +110,56 @@ const AREAS = {
 };
 const ORDER = ["KF","CMP","GR","ORG"];
 
+const LINES=[["Norland",[35,55,75,88,95],"var(--orange)"],["Eastport",[10,18,40,70,85],"var(--green)"],["Southvale",[5,8,12,20,45],"var(--series-3)"]];
+const TITLE="Households with internet access (%), 2000 to 2020";
+const ARIA="Line graph: percentage of households with internet access in Norland, Eastport and Southvale, 2000 to 2020";
 const Q = [
- {a:"KF", p:"Which sentence is the best overview of this graph?", o:[
-  "In 2000, 35% of households in Norland had internet access, compared with 10% in Eastport and 5% in Southvale.",
+ {a:"KF", t:"rank", p:"Put these overviews in order, best first.", sub:"Tap them in order: 1 = best.", items:[
   "Overall, internet access rose in all three countries, with Norland highest throughout and Southvale lowest.",
-  "Overall, the graph shows information about internet access in three countries between 2000 and 2020.",
-  "Overall, Eastport is the best country because its figure increased the most."], c:1,
-  e:"An overview summarises the main patterns with no figures. The other options give one detail, repeat the task, or give an opinion, which Task 1 never asks for."},
- {a:"KF", p:"Which point is LEAST important to include in your report?", o:[
-  "All three countries saw an increase between 2000 and 2020.",
-  "Norland had the highest level throughout the period.",
-  "Southvale's figure rose from around 8% to 12% between 2005 and 2010.",
-  "Eastport saw the largest overall rise of the three, from 10% to 85%."], c:2,
-  e:"A 4-point change in one five-year period is a minor detail. Examiners reward reports that select the significant features, not every number."},
- {a:"KF", p:"You have space for one more detail about Southvale. Which is the most significant?", o:[
-  "It rose only slowly at first, from 5% in 2000 to 12% in 2010.",
-  "It rose sharply in the final five years, from around 20% to 45%.",
-  "It was 12% in 2010, up from 8% in 2005.",
-  "It was lower than Norland in 2005."], c:1,
-  e:"The sharp rise at the end is the most striking change in Southvale's line. The other options describe small changes or a single comparison, not the main pattern."},
- {a:"CMP", p:"Which sentence makes an accurate, correctly worded comparison?", o:[
-  "Norland had the most percentage of internet access throughout.",
-  "Eastport's figure exceeded Southvale's in every year.",
-  "In 2010, Eastport was 40% and Norland was 75%.",
-  "In 2020, Southvale's access was more higher than Eastport's."], c:1,
-  e:"The correct sentence is accurate and correctly worded. Of the others, one uses \"most percentage\" (say \"the highest proportion\"), one lists two figures without comparing them, and one is both wrong and ungrammatical (\"more higher\")."},
- {a:"CMP", p:"In 2020, the figure for Southvale was ______ that for Norland.", o:[
-  "almost double",
-  "just under half",
-  "about a third of",
-  "exactly half"], c:1,
-  e:"45% compared with 95% is just under half (45 ÷ 95 is about 0.47). Divide before you choose a comparison phrase: an inaccurate comparison costs marks."},
- {a:"CMP", p:"Which sentence compares rather than simply lists?", o:[
-  "Norland was 35% in 2000 and 95% in 2020. Eastport was 10% in 2000 and 85% in 2020.",
-  "While Norland's figure rose by 60 points, Eastport's rose by 75.",
-  "Norland and Eastport both had internet access in every year shown on the graph.",
-  "The figures for Norland and Eastport are shown on the graph."], c:1,
-  e:"\"While ... rose by 75\" connects the two countries and shows how they differ. Listing figures side by side leaves the comparison for the reader to do."},
- {a:"GR", p:"Choose the correct option: \"There was a ______ in internet access in Eastport between 2005 and 2015.\"", o:[
-  "dramatically increase",
-  "dramatic increase",
-  "dramatic increased",
-  "increase dramatically"], c:1,
-  e:"After \"There was a\" you need a noun phrase: adjective + noun (\"a dramatic increase\"). With a verb you use an adverb instead: \"Eastport's figure increased dramatically\"."},
- {a:"GR", p:"\"Internet access in Norland ______ from 35% in 2000 to 95% in 2020.\"", o:[
-  "has risen",
-  "rose",
-  "rises",
-  "was rising"], c:1,
-  e:"The period is finished, so use the past simple. The present perfect (\"has risen\") would suggest the change continues to now."},
- {a:"GR", p:"Which phrase best describes Southvale between 2000 and 2010 (5% to 12%)?", o:[
-  "rose dramatically",
-  "increased gradually",
-  "fluctuated",
-  "fell slightly"], c:1,
-  e:"A rise of 7 percentage points spread over ten years is gradual. \"Fluctuated\" means going up and down, which the line doesn't do."},
- {a:"ORG", p:"Which structure suits this report best?", o:[
-  "Introduction, overview, then body paragraphs grouping similar countries",
-  "Introduction, then one paragraph for each year (2000, 2005, 2010, 2015, 2020)",
-  "Introduction, body paragraphs, then a conclusion giving your opinion",
-  "Introduction and overview, then one paragraph listing every figure in order"], c:0,
-  e:"Grouping by pattern lets you compare. Year-by-year paragraphs or one long list force you to repeat yourself, and Task 1 never needs your opinion."},
- {a:"ORG", p:"Where does this course recommend placing your overview?", o:[
-  "In its own short paragraph, straight after the introduction",
-  "Split between the introduction and the body paragraphs",
-  "It isn't needed if every figure appears in the body paragraphs",
-  "In a final sentence starting 'In conclusion, I think...'"], c:0,
-  e:"This course recommends a clear overview straight after the introduction: it is easy for the reader to find and hard to forget. A clear overview at the end can also work. The real problem is having no meaningful overview of the main trends, and Task 1 never needs your opinion."},
- {a:"ORG", p:"Which body-paragraph plan groups the information most logically?", o:[
-  "Body 1: Norland, the highest. Body 2: Eastport. Body 3: Southvale, the lowest of all.",
-  "Body 1: Norland and Eastport (both high by 2020). Body 2: Southvale (much lower).",
-  "Body 1: figures for 2000 and 2005. Body 2: figures for 2015.",
-  "Body 1: the highest numbers. Body 2: the numbers I didn't mention yet."], c:1,
-  e:"Grouping the two high-access countries together, then contrasting Southvale, builds comparison into the structure. One country per paragraph usually turns into a list."}
+  "Overall, internet access rose in all three countries.",
+  "In 2000, 35% of households in Norland had internet access, compared with 10% in Eastport."],
+  fix:"the full overview first, then the shorter one, then the sentence with figures.",
+  e:"A strong overview gives the main trend and the main comparison, with no figures. The second is true but incomplete. The third is a detail, not an overview."},
+ {a:"KF", t:"tapg", mode:"seg", p:"Tap the steepest rise on the graph.", ans:["1:2"],
+  fix:"Eastport between 2010 and 2015 (from 40% to 70%).",
+  e:"Eastport's 30-point jump in five years is the most dramatic change on the graph. Features like this belong in your report."},
+ {a:"KF", t:"multi", p:"Tap the TWO points that belong in your overview.", g:1, o:[
+  "All three countries saw an increase.",
+  "Norland had the highest level throughout.",
+  "Southvale rose from around 8% to 12% between 2005 and 2010.",
+  "Eastport was 18% in 2005."], ans:[0,1],
+  fix:"\"All three countries saw an increase\" and \"Norland had the highest level throughout\".",
+  e:"An overview is the big picture: the main trend and the main comparison. Small changes and single figures belong in the body, if at all."},
+ {a:"CMP", t:"spot", p:"Tap the word that's wrong.", s:"Norland had the most percentage of households with internet access throughout.", ans:3,
+  fix:"\"most\". Say \"the highest percentage\".",
+  e:"We say \"the highest percentage\" or \"the highest proportion\", not \"the most percentage\"."},
+ {a:"CMP", t:"build", p:"Complete the comparison.", g:1, pre:"In 2020, Southvale's figure was", post:"Norland's.", tiles:["almost double","just under half","about a third of","exactly half"], ans:["just under half"],
+  fix:"just under half (45% compared with 95%).",
+  e:"45 ÷ 95 is about 0.47, so \"just under half\". Do the maths before you choose a comparison phrase: an inaccurate comparison costs marks."},
+ {a:"CMP", t:"build", p:"Build one sentence that compares Norland and Eastport.", sub:"One tile isn't needed.", tiles:["While","Norland's figure rose by 60 points,","Eastport's rose by 75.","and"], ans:["While","Norland's figure rose by 60 points,","Eastport's rose by 75."],
+  fix:"While Norland's figure rose by 60 points, Eastport's rose by 75.",
+  e:"\"While\" connects the two countries and shows how they differ. Listing figures side by side leaves the comparison for the reader to do."},
+ {a:"GR", t:"build", p:"Put the words in order.", pre:"There was a", post:"in internet access in Eastport.", tiles:["dramatic","dramatically","increase","increased"], ans:["dramatic","increase"],
+  fix:"There was a dramatic increase in internet access in Eastport.",
+  e:"After \"There was a\" you need adjective + noun: \"a dramatic increase\". With a verb, use an adverb: \"Eastport's figure increased dramatically\"."},
+ {a:"GR", t:"yesno", p:"Is this sentence correct?", s:"Internet access in Norland has risen from 35% in 2000 to 95% in 2020.", o:["Correct","Not correct"], ans:1,
+  fix:"Not correct. Use \"rose\": the period is finished.",
+  e:"The period ended in 2020, so use the past simple (\"rose\"). The present perfect (\"has risen\") suggests the change continues to now."},
+ {a:"GR", t:"match", p:"Match each shape to the right words.", pairs:[[[5,7,9,11,13],"rose gradually"],[[5,6,7,20,40],"rose sharply"],[[30,30,31,30,30],"remained stable"],[[20,35,15,32,18],"fluctuated"]],
+  e:"Match the word to the size and shape of the change: gradual for slow and steady, sharp for big and quick, fluctuated for up and down."},
+ {a:"ORG", t:"order", p:"Put the paragraphs of this report in order.", sub:"Tap them in order: 1 = first.", items:[
+  "The graph shows the percentage of households with internet access in three countries from 2000 to 2020.",
+  "Overall, access rose everywhere, with Norland highest throughout and Southvale lowest.",
+  "Norland and Eastport both reached over 80% by 2020, although Eastport started far lower.",
+  "Southvale, by contrast, stayed much lower until a late rise to 45%."],
+  fix:"introduction, overview, then the two body paragraphs.",
+  e:"Introduction, overview, then body paragraphs. The overview straight after the introduction is easy for the reader to find."},
+ {a:"ORG", t:"tapg", mode:"line", p:"Tap the TWO lines you'd group together in Body 1.", ans:["0","1"],
+  fix:"Norland and Eastport, which both ended above 80%.",
+  e:"Grouping the two high-access countries, then contrasting Southvale, builds comparison into your structure. One country per paragraph usually turns into a list."},
+ {a:"ORG", t:"yesno", p:"Is this a good way to end your report?", s:"In conclusion, I think Eastport did best because it improved the most.", o:["Yes","No"], ans:1,
+  fix:"No. Task 1 never asks for your opinion.",
+  e:"Task 1 never needs a conclusion with your opinion. Your overview does the summing up."}
 ];
 
 const PROFILE = {
@@ -208,19 +186,7 @@ let i = 0, answered = false;
 const score = {KF:0,CMP:0,GR:0,ORG:0};
 let G = [];
 
-const CHART = `
-<p class="chart-title">Households with internet access (%), 2000 to 2020</p>
-<svg class="chart" viewBox="0 0 360 236" role="img" aria-label="Line graph: percentage of households with internet access in Norland, Eastport and Southvale, 2000 to 2020">
-  ${[0,25,50,75,100].map(v=>{const y=200-v*1.6;return `<line x1="44" x2="300" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="36" y="${y+4}" font-size="11" text-anchor="end">${v}%</text>`}).join("")}
-  ${[2000,2005,2010,2015,2020].map(yr=>{const x=44+(yr-2000)/20*256;return `<text x="${x}" y="218" font-size="11" text-anchor="middle">${yr}</text>`}).join("")}
-  ${[["Norland",[35,55,75,88,95],"var(--orange)"],["Eastport",[10,18,40,70,85],"var(--green)"],["Southvale",[5,8,12,20,45],"var(--series-3)"]].map(([n,d,c])=>{
-    const pts=d.map((v,k)=>[44+k*64,200-v*1.6]);
-    const last=pts[pts.length-1];
-    return `<polyline points="${pts.map(p=>p.join(",")).join(" ")}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round"/>`+
-      pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="${c}"/>`).join("")+
-      `<text x="${last[0]+6}" y="${last[1]+4}" font-size="11" font-weight="600" fill="${c}" style="fill:${c}">${n}</text>`;
-  }).join("")}
-</svg>`;
+
 
 function start(){
   app.innerHTML = `
@@ -234,46 +200,12 @@ function start(){
   <section class="card">
     <div class="eyebrow">Your task</div>
     <div class="task">The graph below shows the percentage of households with internet access in three countries between 2000 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</div>
-    ${CHART}
-    <div class="meta"><span>12 questions</span><span>About 10 minutes</span><span>Instant feedback</span></div>
+    ${chartSVG()}
+    <div class="meta"><span>12 quick tasks</span><span>About 8 minutes</span><span>Instant feedback</span></div>
     <p class="hand">Tip from the examiner's chair: look at the whole graph for 30 seconds before you answer anything.</p>
     <div class="row" style="justify-content:flex-start"><button class="btn" id="go">Start the diagnostic</button></div>
   </section>`;
   document.getElementById("go").onclick = render;
-}
-
-function render(){
-  answered = false;
-  const q = Q[i];
-  app.innerHTML = `
-  <section class="card">
-    <div class="progress" aria-hidden="true"><span style="width:${i/Q.length*100}%"></span></div>
-    <div class="qhead"><span class="eyebrow">Question ${i+1} of ${Q.length}</span><span class="skill">${AREAS[q.a].short}</span></div>
-    ${CHART}
-    <p class="prompt">${q.p}</p>
-    <label class="guess small" style="display:flex;gap:8px;align-items:center;margin:0 0 10px;cursor:pointer"><input type="checkbox" id="guess" style="width:18px;height:18px"> I’m not sure: tick this if you’re guessing</label>
-    <div class="opts">${q.o.map((t,k)=>[Math.random(),t,k]).sort((a,b)=>a[0]-b[0]).map(([r,t,k],pos)=>`<button class="opt" id="opt-${pos}" data-k="${k}"><span class="k">${"ABCD"[pos]}</span><span>${t}</span></button>`).join("")}</div>
-    <div id="fb"></div>
-  </section>`;
-  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.k));
-  app.querySelector(".opt").focus({preventScroll:true});
-}
-
-function choose(k){
-  if(answered) return; answered = true;
-  const q = Q[i], ok = k===q.c;
-  const gb=document.getElementById("guess"); G[i]={a:q.a,guess:!!(gb&&gb.checked),ok}; if(gb) gb.disabled=true;
-  if(ok) score[q.a]++;
-  app.querySelectorAll(".opt").forEach(b=>{
-    const n=+b.dataset.k; b.disabled=true;
-    if(n===q.c) b.classList.add("right"); else if(n===k) b.classList.add("wrong");
-  });
-  const last = i===Q.length-1;
-  document.getElementById("fb").innerHTML = `
-    <div class="feedback" role="status"><strong>${ok?"Correct.":"Not quite."}</strong> ${q.e}</div>
-    <div class="row"><button class="btn" id="next">${last?"See my result":"Next question"}</button></div>`;
-  const nb=document.getElementById("next"); nb.focus({preventScroll:true});
-  nb.onclick=()=>{ i++; if(i<Q.length) render(); else result(); window.scrollTo({top:0}); };
 }
 
 function result(){
@@ -288,7 +220,7 @@ function result(){
     <div class="eyebrow">Your result · ${total} of ${Q.length} correct</div>
     <h2>${allGood?"Every knowledge question correct":(lows.length>1?(lows.length===2?"Two areas":"Several areas")+" to practise first":"A suggested starting point: "+AREAS[focus].name)}</h2>
     <p>${allGood?"You answered all twelve knowledge questions correctly. Next, write an overview and a short comparison paragraph to check that you can use these skills independently: try the <strong><a href='../#chapter-1'>Chapter 1 writing challenge</a></strong>. If that goes well, you may be ready to move to full practice in <strong><a href='../#chapter-6'>Chapter 6</a></strong>.":(lows.length>1?`Suggested order: ${lows.map(a=>AREAS[a].name).join(", then ")}. `:"")+`You answered ${score[focus]} of 3 questions on ${AREAS[focus].short.toLowerCase()} correctly. `+P.why}</p>
-    <p class="small" style="margin:8px 0 0">This is a knowledge profile from 12 multiple-choice questions, three per skill, so one answer changes a skill score by a third. It suggests where to start; it is not an IELTS band estimate.</p>
+    <p class="small" style="margin:8px 0 0">This is a knowledge profile from 12 short tasks, three per skill, so one answer changes a skill score by a third. It suggests where to start; it is not an IELTS band estimate.</p>
     <div class="bars">${ORDER.map(a=>`
       <div class="bar ${a===focus&&!allGood?"focus":""}"><span>${AREAS[a].name}${gr[a]?` <span class="small">(${gr[a]} correct by guessing)</span>`:""}</span><b>${score[a]}/3</b>
       <div class="track"><span style="width:${score[a]/3*100}%"></span></div></div>`).join("")}</div>

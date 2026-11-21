@@ -93,13 +93,14 @@ footer{color:var(--muted); font-size:13px; text-align:center}
 <header><div class="wrap">
   <div class="brand">Mastering Line Graphs · Final diagnostic</div>
   <h1>How far have you come?</h1>
-  <p>12 questions on a new line graph, testing the same four skills as your first diagnostic. Then see your two scores side by side.</p>
+  <p>12 quick tasks on a new line graph, testing the same four skills as your first diagnostic. Then see your two scores side by side.</p>
 <p style="margin:12px 0 0"><a href="../#review-6" style="color:#F88B48;font-weight:600">Back to the course review →</a></p>
 </div></header>
 
 <main><div class="wrap" id="app"></div></main>
 <footer><div class="wrap" style="padding-block:0 32px"><a href="../#review-6" style="color:inherit">Back to the course review</a> · © Orange English · orangeenglish.nl · Graph data is invented for practice.</div></footer>
 
+<script src="diag-engine.js"></script>
 <script>
 const AREAS = {
   KF:  {name:"Selecting key features", short:"Key features", lesson:"<a href=\"../#chapter-1\">Chapter 1: Understanding Line Graphs</a>"},
@@ -109,79 +110,56 @@ const AREAS = {
 };
 const ORDER = ["KF","CMP","GR","ORG"];
 
+const LINES=[["Ardmere",[20,35,50,62,70],"var(--orange)"],["Belford",[40,42,45,46,48],"var(--green)"],["Corrin",[10,12,15,30,58],"var(--series-3)"]];
+const TITLE="Households that recycle their waste (%), 2000 to 2020";
+const ARIA="Line graph: percentage of households that recycle their waste in Ardmere, Belford and Corrin, 2000 to 2020";
 const Q = [
- {a:"KF", p:"Which sentence is the best overview of this graph?", o:[
-  "In 2000, 40% of households in Belford recycled, compared with 20% in Ardmere and 10% in Corrin.",
+ {a:"KF", t:"rank", p:"Put these overviews in order, best first.", sub:"Tap them in order: 1 = best.", items:[
   "Overall, recycling rose in all three towns, and Belford slipped from first place to last.",
-  "Overall, the graph shows information about recycling in three towns between 2000 and 2020.",
-  "Overall, Ardmere is the most environmentally friendly town because it recycles the most."], c:1,
-  e:"An overview summarises the main patterns with no figures. The other options give one detail, repeat the task, or give an opinion and a reason, which Task 1 never asks for."},
- {a:"KF", p:"Which point is LEAST important to include in your report?", o:[
-  "Recycling rose in all three towns between 2000 and 2020.",
-  "Ardmere overtook Belford between 2005 and 2010.",
-  "Belford's figure rose from 45% to 48% between 2010 and 2020.",
-  "Corrin's figure almost doubled between 2015 and 2020, from 30% to 58%."], c:2,
-  e:"A three-point change over ten years is a minor detail. Examiners reward reports that select the significant features, not every number."},
- {a:"KF", p:"You have space for one more detail about Corrin. Which is the most significant?", o:[
-  "It was 15% in 2010, up from 12% in 2005.",
-  "It rose sharply in the final five years, from 30% to 58%.",
-  "It rose only slowly at first, from 10% in 2000 to 15% in 2010.",
-  "It was lower than Ardmere in 2005."], c:1,
-  e:"The sharp late rise is the most striking change in Corrin's line, and it took Corrin above Belford. The other options describe small changes or a single comparison, not the main pattern."},
- {a:"CMP", p:"Which sentence makes an accurate, correctly worded comparison?", o:[
-  "Ardmere had the most percentage of recycling throughout.",
-  "Ardmere's figure exceeded Belford's from 2010 onwards.",
-  "In 2015, Belford was 46% and Corrin was 30%.",
-  "In 2020, Corrin's figure was more higher than Ardmere's."], c:1,
-  e:"The correct sentence is accurate and correctly worded. Of the others, one uses \"most percentage\" (say \"the highest proportion\"), one lists two figures without comparing them, and one is both wrong and ungrammatical (\"more higher\")."},
- {a:"CMP", p:"In 2015, the figure for Corrin was ______ that for Ardmere.", o:[
-  "almost double",
-  "just under half",
-  "about a third of",
-  "exactly half"], c:1,
-  e:"30% compared with 62% is just under half (30 ÷ 62 is about 0.48). Divide before you choose a comparison phrase: an inaccurate comparison costs marks."},
- {a:"CMP", p:"Which sentence compares rather than simply lists?", o:[
-  "Belford was 40% in 2000 and 48% in 2020. Corrin was 10% in 2000 and 58% in 2020.",
-  "While Belford's figure rose by 8 points, Corrin's rose by 48.",
-  "Belford and Corrin both had households that recycled in every year shown on the graph.",
-  "The figures for Belford and Corrin are shown on the graph."], c:1,
-  e:"\"While ... rose by 48\" connects the two towns and shows how they differ. Listing figures side by side leaves the comparison for the reader to do."},
- {a:"GR", p:"Choose the correct option: \"There was a ______ in the recycling rate in Corrin between 2015 and 2020.\"", o:[
-  "sharply rise",
-  "sharp rise",
-  "sharp rised",
-  "rise sharply"], c:1,
-  e:"After \"There was a\" you need a noun phrase: adjective + noun (\"a sharp rise\"). With a verb you use an adverb instead: \"Corrin's figure rose sharply\"."},
- {a:"GR", p:"\"The proportion of households that recycled in Ardmere ______ from 20% in 2000 to 70% in 2020.\"", o:[
-  "has risen",
-  "rose",
-  "rises",
-  "was rising"], c:1,
-  e:"The period is finished, so use the past simple. The present perfect (\"has risen\") would suggest the change continues to now."},
- {a:"GR", p:"Which phrase best describes Belford between 2000 and 2020 (40% to 48%)?", o:[
-  "rose sharply",
-  "increased gradually",
-  "fluctuated",
-  "fell gradually"], c:1,
-  e:"A rise of 8 percentage points spread over twenty years is gradual. \"Fluctuated\" means going up and down, which the line doesn't do."},
- {a:"ORG", p:"Which structure suits this report best?", o:[
-  "Introduction, overview, then body paragraphs grouping similar towns together",
-  "Introduction, then one paragraph for each year (2000, 2005, 2010, 2015, 2020)",
-  "Introduction, body paragraphs, then a conclusion giving your opinion",
-  "Body paragraphs first, then the introduction and overview at the end"], c:0,
-  e:"Grouping by pattern lets you compare. Year-by-year paragraphs force you to repeat yourself, Task 1 never needs your opinion, and the introduction comes first."},
- {a:"ORG", p:"Where does this course recommend placing your overview?", o:[
-  "In a short separate paragraph after the introduction",
-  "Spread across the body paragraphs, a sentence in each",
-  "Nowhere, as long as all the key numbers are included",
-  "At the end, starting 'In conclusion, I think that...'"], c:0,
-  e:"This course recommends a clear overview straight after the introduction: it is easy for the reader to find and hard to forget. A clear overview at the end can also work. The real problem is having no meaningful overview of the main trends, and Task 1 never needs your opinion."},
- {a:"ORG", p:"Which body-paragraph plan groups the information most logically?", o:[
-  "Body 1: Belford, the early leader. Body 2: Ardmere. Body 3: Corrin, the late riser.",
-  "Body 1: Ardmere and Corrin (strong rises). Body 2: Belford (slight rise).",
-  "Body 1: figures for 2000 and 2005. Body 2: figures for 2020.",
-  "Body 1: the highest numbers. Body 2: the numbers I didn't mention yet."], c:1,
-  e:"Grouping the two towns that rose strongly, then contrasting Belford, builds comparison into the structure. One town per paragraph usually turns into a list."}
+  "Overall, recycling rose in all three towns.",
+  "In 2000, 40% of households in Belford recycled, compared with 20% in Ardmere."],
+  fix:"the full overview first, then the shorter one, then the sentence with figures.",
+  e:"A strong overview gives the main trend and the main comparison, with no figures. The second is true but incomplete. The third is a detail, not an overview."},
+ {a:"KF", t:"tapg", mode:"seg", p:"Tap the steepest rise on the graph.", ans:["2:3"],
+  fix:"Corrin between 2015 and 2020 (from 30% to 58%).",
+  e:"Corrin's 28-point jump in five years is the most dramatic change, and it took Corrin above Belford. Features like this belong in your report."},
+ {a:"KF", t:"multi", p:"Tap the TWO points that belong in your overview.", g:1, o:[
+  "Recycling rose in all three towns.",
+  "Ardmere and Corrin both overtook Belford.",
+  "Belford rose from 45% to 48% between 2010 and 2020.",
+  "Corrin was 12% in 2005."], ans:[0,1],
+  fix:"\"Recycling rose in all three towns\" and \"Ardmere and Corrin both overtook Belford\".",
+  e:"An overview is the big picture: the main trend and the main change in ranking. Small changes and single figures belong in the body, if at all."},
+ {a:"CMP", t:"spot", p:"Tap the word that's wrong.", s:"In 2020, Ardmere had the most percentage of households that recycled.", ans:5,
+  fix:"\"most\". Say \"the highest percentage\".",
+  e:"We say \"the highest percentage\" or \"the highest proportion\", not \"the most percentage\"."},
+ {a:"CMP", t:"build", p:"Complete the comparison.", g:1, pre:"In 2015, Corrin's figure was", post:"Ardmere's.", tiles:["almost double","just under half","about a third of","exactly half"], ans:["just under half"],
+  fix:"just under half (30% compared with 62%).",
+  e:"30 ÷ 62 is about 0.48, so \"just under half\". Do the maths before you choose a comparison phrase: an inaccurate comparison costs marks."},
+ {a:"CMP", t:"build", p:"Build one sentence that compares Belford and Corrin.", sub:"One tile isn't needed.", tiles:["While","Belford's figure rose by 8 points,","Corrin's rose by 48.","and"], ans:["While","Belford's figure rose by 8 points,","Corrin's rose by 48."],
+  fix:"While Belford's figure rose by 8 points, Corrin's rose by 48.",
+  e:"\"While\" connects the two towns and shows how they differ. Listing figures side by side leaves the comparison for the reader to do."},
+ {a:"GR", t:"build", p:"Put the words in order.", pre:"There was a", post:"in recycling in Corrin after 2015.", tiles:["sharp","sharply","rise","rised"], ans:["sharp","rise"],
+  fix:"There was a sharp rise in recycling in Corrin after 2015.",
+  e:"After \"There was a\" you need adjective + noun: \"a sharp rise\". With a verb, use an adverb: \"Corrin's figure rose sharply\"."},
+ {a:"GR", t:"yesno", p:"Is this sentence correct?", s:"Recycling in Ardmere has risen from 20% in 2000 to 70% in 2020.", o:["Correct","Not correct"], ans:1,
+  fix:"Not correct. Use \"rose\": the period is finished.",
+  e:"The period ended in 2020, so use the past simple (\"rose\"). The present perfect (\"has risen\") suggests the change continues to now."},
+ {a:"GR", t:"match", p:"Match each shape to the right words.", pairs:[[[40,42,43,45,46],"rose slightly"],[[10,12,14,30,58],"rose sharply"],[[20,35,46,50,50],"levelled off"],[[50,42,34,26,18],"fell steadily"]],
+  e:"Match the word to the size and shape of the change: slightly for small, sharply for big and quick, levelled off for a rise that stops."},
+ {a:"ORG", t:"order", p:"Put the paragraphs of this report in order.", sub:"Tap them in order: 1 = first.", items:[
+  "The graph shows the percentage of households that recycled their waste in three towns from 2000 to 2020.",
+  "Overall, recycling rose in all three towns, and Belford slipped from first place to last.",
+  "Ardmere and Corrin both rose strongly, although Corrin's increase came mainly after 2015.",
+  "Belford, by contrast, rose only slightly, from 40% to 48%."],
+  fix:"introduction, overview, then the two body paragraphs.",
+  e:"Introduction, overview, then body paragraphs. The overview straight after the introduction is easy for the reader to find."},
+ {a:"ORG", t:"tapg", mode:"line", p:"Tap the TWO lines you'd group together in Body 1.", ans:["0","2"],
+  fix:"Ardmere and Corrin, which both rose strongly.",
+  e:"Grouping the two towns that rose strongly, then contrasting Belford, builds comparison into your structure. One town per paragraph usually turns into a list."},
+ {a:"ORG", t:"yesno", p:"Is this a good way to end your report?", s:"In conclusion, Ardmere is clearly the most environmentally friendly town.", o:["Yes","No"], ans:1,
+  fix:"No. Task 1 never asks for your opinion.",
+  e:"Task 1 never needs a conclusion with your opinion. Your overview does the summing up."}
 ];
 
 const PROFILE = {
@@ -208,65 +186,19 @@ let i = 0, answered = false;
 const score = {KF:0,CMP:0,GR:0,ORG:0};
 let G = [];
 
-const CHART = `
-<p class="chart-title">Households that recycle their waste (%), 2000 to 2020</p>
-<svg class="chart" viewBox="0 0 360 236" role="img" aria-label="Line graph: percentage of households that recycle their waste in Ardmere, Belford and Corrin, 2000 to 2020">
-  ${[0,25,50,75,100].map(v=>{const y=200-v*1.6;return `<line x1="44" x2="300" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="36" y="${y+4}" font-size="11" text-anchor="end">${v}%</text>`}).join("")}
-  ${[2000,2005,2010,2015,2020].map(yr=>{const x=44+(yr-2000)/20*256;return `<text x="${x}" y="218" font-size="11" text-anchor="middle">${yr}</text>`}).join("")}
-  ${[["Ardmere",[20,35,50,62,70],"var(--orange)"],["Belford",[40,42,45,46,48],"var(--green)"],["Corrin",[10,12,15,30,58],"var(--series-3)"]].map(([n,d,c])=>{
-    const pts=d.map((v,k)=>[44+k*64,200-v*1.6]);
-    const last=pts[pts.length-1];
-    return `<polyline points="${pts.map(p=>p.join(",")).join(" ")}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round"/>`+
-      pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="${c}"/>`).join("")+
-      `<text x="${last[0]+6}" y="${last[1]+4}" font-size="11" font-weight="600" fill="${c}" style="fill:${c}">${n}</text>`;
-  }).join("")}
-</svg>`;
+
 
 function start(){
   app.innerHTML = `
   <section class="card">
     <div class="eyebrow">Your task</div>
     <div class="task">The graph below shows the percentage of households that recycle their waste in three towns between 2000 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</div>
-    ${CHART}
-    <div class="meta"><span>12 questions</span><span>About 10 minutes</span><span>Instant feedback</span></div>
+    ${chartSVG()}
+    <div class="meta"><span>12 quick tasks</span><span>About 8 minutes</span><span>Instant feedback</span></div>
     <p class="hand">Tip from the examiner's chair: look at the whole graph for 30 seconds before you answer anything.</p>
     <div class="row" style="justify-content:flex-start"><button class="btn" id="go">Start the diagnostic</button></div>
   </section>`;
   document.getElementById("go").onclick = render;
-}
-
-function render(){
-  answered = false;
-  const q = Q[i];
-  app.innerHTML = `
-  <section class="card">
-    <div class="progress" aria-hidden="true"><span style="width:${i/Q.length*100}%"></span></div>
-    <div class="qhead"><span class="eyebrow">Question ${i+1} of ${Q.length}</span><span class="skill">${AREAS[q.a].short}</span></div>
-    ${CHART}
-    <p class="prompt">${q.p}</p>
-    <label class="guess small" style="display:flex;gap:8px;align-items:center;margin:0 0 10px;cursor:pointer"><input type="checkbox" id="guess" style="width:18px;height:18px"> I’m not sure: tick this if you’re guessing</label>
-    <div class="opts">${q.o.map((t,k)=>[Math.random(),t,k]).sort((a,b)=>a[0]-b[0]).map(([r,t,k],pos)=>`<button class="opt" id="opt-${pos}" data-k="${k}"><span class="k">${"ABCD"[pos]}</span><span>${t}</span></button>`).join("")}</div>
-    <div id="fb"></div>
-  </section>`;
-  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.k));
-  app.querySelector(".opt").focus({preventScroll:true});
-}
-
-function choose(k){
-  if(answered) return; answered = true;
-  const q = Q[i], ok = k===q.c;
-  const gb=document.getElementById("guess"); G[i]={a:q.a,guess:!!(gb&&gb.checked),ok}; if(gb) gb.disabled=true;
-  if(ok) score[q.a]++;
-  app.querySelectorAll(".opt").forEach(b=>{
-    const n=+b.dataset.k; b.disabled=true;
-    if(n===q.c) b.classList.add("right"); else if(n===k) b.classList.add("wrong");
-  });
-  const last = i===Q.length-1;
-  document.getElementById("fb").innerHTML = `
-    <div class="feedback" role="status"><strong>${ok?"Correct.":"Not quite."}</strong> ${q.e}</div>
-    <div class="row"><button class="btn" id="next">${last?"See my result":"Next question"}</button></div>`;
-  const nb=document.getElementById("next"); nb.focus({preventScroll:true});
-  nb.onclick=()=>{ i++; if(i<Q.length) render(); else result(); window.scrollTo({top:0}); };
 }
 
 function result(){
