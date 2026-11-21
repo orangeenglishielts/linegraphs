@@ -205,6 +205,7 @@ const PROFILE = {
 const app = document.getElementById("app");
 let i = 0, answered = false;
 const score = {KF:0,CMP:0,GR:0,ORG:0};
+let G = [];
 
 const CHART = `
 <svg class="chart" viewBox="0 0 360 236" role="img" aria-label="Line graph: percentage of households with internet access in Norland, Eastport and Southvale, 2000 to 2020">
@@ -248,6 +249,7 @@ function render(){
     <div class="qhead"><span class="eyebrow">Question ${i+1} of ${Q.length}</span><span class="skill">${AREAS[q.a].short}</span></div>
     ${CHART}
     <p class="prompt">${q.p}</p>
+    <label class="guess small" style="display:flex;gap:8px;align-items:center;margin:0 0 10px;cursor:pointer"><input type="checkbox" id="guess" style="width:18px;height:18px"> I’m not sure: tick this if you’re guessing</label>
     <div class="opts">${q.o.map((t,k)=>[Math.random(),t,k]).sort((a,b)=>a[0]-b[0]).map(([r,t,k],pos)=>`<button class="opt" id="opt-${pos}" data-k="${k}"><span class="k">${"ABCD"[pos]}</span><span>${t}</span></button>`).join("")}</div>
     <div id="fb"></div>
   </section>`;
@@ -258,6 +260,7 @@ function render(){
 function choose(k){
   if(answered) return; answered = true;
   const q = Q[i], ok = k===q.c;
+  const gb=document.getElementById("guess"); G[i]={a:q.a,guess:!!(gb&&gb.checked),ok}; if(gb) gb.disabled=true;
   if(ok) score[q.a]++;
   app.querySelectorAll(".opt").forEach(b=>{
     const n=+b.dataset.k; b.disabled=true;
@@ -272,6 +275,7 @@ function choose(k){
 }
 
 function result(){
+  const gr={KF:0,CMP:0,GR:0,ORG:0};G.forEach(g=>{if(g&&g.guess&&g.ok)gr[g.a]++});const nGuess=G.filter(g=>g&&g.guess).length,nLucky=Object.values(gr).reduce((x,y)=>x+y,0);
   const total = ORDER.reduce((s,a)=>s+score[a],0);
   const focus = ORDER.reduce((m,a)=>score[a]<score[m]?a:m, ORDER[0]);
   const P = PROFILE[focus];
@@ -284,8 +288,9 @@ function result(){
     <p>${allGood?"You answered all twelve knowledge questions correctly. Next, write an overview and a short comparison paragraph to check that you can use these skills independently: try the <strong><a href='../#chapter-1'>Chapter 1 writing challenge</a></strong>. If that goes well, you may be ready to move to full practice in <strong><a href='../#chapter-6'>Chapter 6</a></strong>.":(lows.length>1?`Suggested order: ${lows.map(a=>AREAS[a].name).join(", then ")}. `:"")+`You answered ${score[focus]} of 3 questions on ${AREAS[focus].short.toLowerCase()} correctly. `+P.why}</p>
     <p class="small" style="margin:8px 0 0">This is a knowledge profile from 12 multiple-choice questions, three per skill, so one answer changes a skill score by a third. It suggests where to start; it is not an IELTS band estimate.</p>
     <div class="bars">${ORDER.map(a=>`
-      <div class="bar ${a===focus&&!allGood?"focus":""}"><span>${AREAS[a].name}</span><b>${score[a]}/3</b>
+      <div class="bar ${a===focus&&!allGood?"focus":""}"><span>${AREAS[a].name}${gr[a]?` <span class="small">(${gr[a]} correct by guessing)</span>`:""}</span><b>${score[a]}/3</b>
       <div class="track"><span style="width:${score[a]/3*100}%"></span></div></div>`).join("")}</div>
+    ${nGuess?`<p class="small" style="margin:10px 0 0">You marked ${nGuess} answer${nGuess===1?"":"s"} as a guess, and ${nLucky} of ${nGuess===1?"it":"them"} ${nLucky===1?"was":"were"} correct. Treat skills with correct guesses as less secure than their score suggests.</p>`:""}
   </section>
   ${allGood?"":`
   <section class="card">
@@ -303,7 +308,7 @@ function result(){
     <p class="small" style="margin:0">Your result is saved in this browser. At the end of Chapter 6, you’ll take a second diagnostic on a new graph and see both scores side by side, so use the same device and browser if you can.</p>
   </section>
   <div class="row" style="justify-content:center"><button class="btn ghost" id="again">Try again</button></div>`;
-  document.getElementById("again").onclick=()=>{ i=0; ORDER.forEach(a=>score[a]=0); start(); };
+  document.getElementById("again").onclick=()=>{ i=0; G=[]; ORDER.forEach(a=>score[a]=0); start(); };
 }
 start();
 </script>

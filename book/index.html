@@ -188,6 +188,10 @@ a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
 .oe-workshop .checks li.todo .mk{color:var(--orange-ink)}
 .oe-workshop .checks li.na{background:transparent;border:1px dashed var(--line);color:var(--mid)}
 .oe-workshop .checks li.na .mk{color:var(--soft)}
+.chdata{margin:8px 4px 2px;font-size:13.5px}.chdata summary{cursor:pointer;font-family:var(--ui);font-weight:600;color:var(--orange-ink)}.chdata-w{overflow-x:auto}.chdata table{border-collapse:collapse;margin-top:6px;font-size:13.5px}.chdata caption{text-align:left;font-size:12.5px;color:var(--mid);padding-bottom:4px}.chdata th,.chdata td{border:1px solid var(--line);padding:4px 8px;text-align:right}.chdata th[scope=row],.chdata thead th:first-child{text-align:left}
+.refwrap{margin:0 0 12px}.refwrap .refbtn{display:none}.refpanel{border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:8px;background:var(--paper)}
+@media (max-width:819px){.refwrap .refbtn{display:inline-flex}}
+@media (min-width:820px){.refpanel{display:none}}
 .oe-workshop .portfolio{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .oe-workshop .draft{border:1px solid var(--line);border-radius:8px;padding:14px;background:var(--cream);font-size:14.5px;white-space:pre-wrap;word-wrap:break-word;min-height:120px}
 .oe-workshop .draft h4{font-family:var(--ui);font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;white-space:normal}
@@ -1766,6 +1770,42 @@ B.SPREADS.forEach(sp=>{const m=/^c([2-6])-open$/.exec(sp.id);if(m)sp.right+=`<di
 })();
 </script>
 <script>
+/* ---------------- transfer tasks added Nov 2026 (audit): scale, uneven intervals, projections ---------------- */
+(function(){
+const B=window.BOOK,NAVY='#292929',GREEN='#2B6E43';
+const BAK={x:['Jan','Feb','Mar','Apr','May'],v:[200,210,220,230,240]};
+const AIR={x:['1990','2000','2005','2010','2012','2014'],xpos:[1990,2000,2005,2010,2012,2014],v:[2,4,5,7,9,11]};
+const BUS={x:['2010','2015','2020','2025','2030','2035'],rec:[50,180,400,null,null,null],proj:[null,null,400,700,950,1200]};
+Object.assign(B.CHARTS,{
+  bakeA:{id:'ch-bakeA',title:['Graph A: loaves sold per day at a bakery, January to May'],x:BAK.x,series:[{name:'Loaves',vals:BAK.v,color:NAVY}],ymin:0,ymax:500,ystep:100,ylab:'Loaves per day',points:1,fmt:v=>v+' loaves'},
+  bakeB:{id:'ch-bakeB',title:['Graph B: loaves sold per day at a bakery, January to May'],x:BAK.x,series:[{name:'Loaves',vals:BAK.v,color:NAVY}],ymin:190,ymax:250,ystep:10,ylab:'Loaves per day',points:1,fmt:v=>v+' loaves'},
+  airport:{id:'ch-airport',title:['Passengers using City Airport, 1990 to 2014 (millions)'],x:AIR.x,xpos:AIR.xpos,series:[{name:'Passengers',vals:AIR.v,color:NAVY}],ymax:12,ystep:2,ylab:'Passengers (millions)',points:1,fmt:v=>v+' million passengers'},
+  ebus:{id:'ch-ebus',title:['Electric buses in use in one country, 2010 to 2035'],x:BUS.x,series:[{name:'Recorded',vals:BUS.rec,color:GREEN},{name:'Projected',vals:BUS.proj,color:GREEN,dash:1}],ymax:1400,ystep:200,ylab:'Number of electric buses',points:1,fmt:v=>v.toLocaleString('en-GB')+' buses'}
+});
+Object.assign(B.ACTS,{
+'c2-scale1':{type:'choice',level:'Guided',skill:'Scale and steepness',decision:'Graph A looks almost flat. Graph B looks steep. Do the two graphs show different changes in sales?',
+  opts:[{t:'No. Both show sales rising from 200 to 240 loaves a day.',ok:1,why:'The data is the same. Only the vertical scale changed: Graph B starts at 190, so the same rise looks steeper.'},
+        {t:'Yes. Graph B shows a much bigger rise.',why:'Read the axis, not the slope. Both lines go from 200 to 240.'},
+        {t:'Yes. Graph A shows that sales hardly changed.',why:'A rise of 40 loaves a day is 20%. The flat look comes from the scale, which goes up to 500.'}]},
+'c2-scale2':{type:'choice',level:'Supported',skill:'Scale and steepness',decision:'Which description fits both graphs?',
+  opts:[{t:'Sales rose steadily, by 40 loaves a day (20%), over the five months.',ok:1,why:'It reports the size and the shape of the change: 10 more loaves each month.'},
+        {t:'Sales soared between January and May.',why:'“Soared” suggests a very large, fast rise. The steep line in Graph B comes from the scale, not the data.'},
+        {t:'Sales remained almost stable.',why:'A 20% rise in five months is a real change, even if Graph A makes it look flat.'}]},
+'c6-uneven':{type:'choice',level:'Independent',skill:'Uneven time intervals',decision:'Look at the years on the horizontal axis. The gaps between them are not equal. Which sentence is accurate?',
+  opts:[{t:'Growth was slowest in the 1990s and fastest from 2010 to 2014, when numbers rose by 2 million every two years.',ok:1,why:'1990 to 2000: 2 million in ten years. 2010 to 2014: 4 million in four years. Always check how many years each step covers.'},
+        {t:'Passenger numbers grew by about the same amount in each period shown.',why:'The rises look similar, but the periods are 10, 5, 5, 2 and 2 years long. Growth speeded up a lot.'},
+        {t:'The fastest growth was between 1990 and 2000.',why:'That period added 2 million, but over ten years. From 2010, the same rise took only two years.'}]},
+'c6-proj':{type:'choice',level:'Independent',skill:'Recorded and projected data',decision:'The legend says the dashed line shows projected figures. Which sentence describes the graph accurately?',
+  opts:[{t:'The number of electric buses rose from 50 in 2010 to 400 in 2020 and is expected to reach 1,200 by 2035.',ok:1,why:'Past simple for the recorded years, a future form for the projection.'},
+        {t:'The number of electric buses rose from 50 in 2010 to 1,200 in 2035.',why:'2035 is a projection. It hasn’t happened, so it needs a future form: is expected to reach.'},
+        {t:'The number of electric buses will rise from 50 in 2010 to 1,200 in 2035.',why:'2010 to 2020 is recorded data, so it needs the past simple. Only the dashed part is a projection.'}]}
+});
+const add=(id,html)=>{const sp=B.SPREADS.find(s=>s.id===id);if(sp)sp.right+=html};
+add('c2-s2',`<h3 style="margin-top:22px">Same data, different scale</h3><p class="small">These two graphs show the same sales figures. Look at the vertical axis on each one before you answer.</p><div data-chartph="bakeA"></div><div data-chartph="bakeB" style="margin-top:10px"></div><div data-act="c2-scale1" style="margin-top:14px"></div><div data-act="c2-scale2" style="margin-top:12px"></div>`);
+add('c6-s1',`<h3 style="margin-top:22px">Two more things to check</h3><p class="small">Some graphs have uneven time intervals, and some mix recorded and projected data.</p><div data-chartph="airport"></div><div data-act="c6-uneven" style="margin-top:12px"></div><div data-chartph="ebus" style="margin-top:16px"></div><div data-act="c6-proj" style="margin-top:12px"></div>`);
+})();
+</script>
+<script>
 /* ==========================================================================
    ORANGE ENGLISH INTERACTIVE BOOK · ENGINE
    Reusable: store, charts (lineChart), glossary, activities
@@ -1799,7 +1839,7 @@ function lineChart(o){
   const extra=MOB?(titleLines.length*lh-[].concat(o.title||[]).length*17)+(multi?(lgRows-1)*20*fs+14:14):0;
   const H=(o.h||330)+Math.max(0,extra)+(MOB?16:0);
   const B=(multi?80+(lgRows-1)*20*fs:50)+(MOB?14:0),pw=W-L-R,ph=H-T-B,n=o.x.length,ymin=o.ymin||0;
-  const X=i=>L+pw*i/(n-1),Y=v=>T+ph*(1-(v-ymin)/(o.ymax-ymin));
+  const xp=o.xpos,X=i=>xp?L+pw*(xp[i]-xp[0])/(xp[n-1]-xp[0]):L+pw*i/(n-1),Y=v=>T+ph*(1-(v-ymin)/(o.ymax-ymin));
   const hot=!!o.hot,id=o.id;let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="${id}-t" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif">`;
   s+=`<title id="${id}-t">${esc(titleLines.join(' '))}</title>`;
   const grp=(part,label,inner,hit)=>hot?`<g class="hot" data-part="${part}" tabindex="0" role="button" aria-label="${esc(label)}">${hit}${inner}</g>`:inner;
@@ -1834,7 +1874,8 @@ function lineChart(o){
     s+=grp('legend','Legend',lg,`<rect class="hit" x="${L-8}" y="${ly0-14}" width="${maxx-L+16}" height="${28+(lgRows-1)*rh}" rx="6"/>`)}
   return s+'</svg>';
 }
-function chartBox(o,extra){return `<figure class="chart" data-chart="${o.id}">${lineChart(o)}<span class="tip" aria-hidden="true"></span><button type="button" class="chzoom" aria-label="Enlarge the graph">⤢ Enlarge</button>${extra||''}</figure>`}
+function dataTable(o){const f=v=>v==null?'–':(o.fmt?o.fmt(v):v);return `<details class="chdata"><summary>Show the data as a table</summary><div class="chdata-w"><table><caption>${esc([].concat(o.title||[]).join(' '))}</caption><thead><tr><th scope="col">${esc(o.xlab||'')}</th>${o.series.map(se=>`<th scope="col">${esc(se.name)}</th>`).join('')}</tr></thead><tbody>${o.x.map((x,i)=>`<tr><th scope="row">${esc(x)}</th>${o.series.map(se=>`<td>${esc(f(se.vals[i]))}</td>`).join('')}</tr>`).join('')}</tbody></table><p class="small" style="margin:6px 0 0">Unit: ${esc(o.ylab||'')}</p></div></details>`}
+function chartBox(o,extra){return `<figure class="chart" data-chart="${o.id}">${lineChart(o)}<span class="tip" aria-hidden="true"></span><button type="button" class="chzoom" aria-label="Enlarge the graph">⤢ Enlarge</button>${extra||''}${o.hot||o.sections?'':dataTable(o)}</figure>`}
 function enhanceCharts(root){$$('.chart',root).forEach(ch=>{if(ch._en)return;ch._en=1;const tip=$('.tip',ch);
   const show=g=>{const c=$('circle.dot',g),r=c.getBoundingClientRect(),b=ch.getBoundingClientRect();tip.textContent=g.dataset.tip;tip.style.left=(r.left+r.width/2-b.left)+'px';tip.style.top=(r.top-b.top)+'px';tip.classList.add('on')};
   const hide=()=>tip.classList.remove('on');
@@ -2206,7 +2247,9 @@ $$('.dict-print').forEach(b=>b.onclick=printDict);$$('.dict-pdf').forEach(b=>b.o
 const mq=window.matchMedia('(max-width:819px)');const mobile=()=>mq.matches;
 let pos=S.get('pos',{s:0,side:'left'});if(!C.SPREADS[pos.s])pos={s:0,side:'left'};
 const HASHGO={'chapter-1':'c1-open','chapter-2':'c2-open','chapter-3':'c3-open','chapter-4':'c4-open','chapter-5':'c5-open','chapter-6':'c6-open','error-dictionary':'dict','review-1':'c1-review','review-2':'c2-review','review-3':'c3-review','review-4':'c4-review','review-5':'c5-review','review-6':'c6-review'};
-const hashSpread=()=>{const id=HASHGO[(location.hash||'').slice(1)];return id?spreadIndex(id):-1};
+const hashSpread=()=>{const h=decodeURIComponent((location.hash||'').slice(1));if(!h)return -1;const id=HASHGO[h]||h;return /^\d+$/.test(id)?-1:spreadIndex(id)};
+const GOHASH=Object.fromEntries(Object.entries(HASHGO).map(([k,v])=>[v,k]));
+const setHash=sp=>{try{const h='#'+(GOHASH[sp.id]||sp.id);if(location.hash!==h)history.replaceState(null,'',h)}catch(e){}};
 {const h=hashSpread();if(h>=0)pos={s:h,side:'left'}}
 window.addEventListener('hashchange',()=>{const h=hashSpread();if(h>=0){try{closeOverlay()}catch(e){}go(h,'left',1)}});
 function views(){const v=[];C.SPREADS.forEach((sp,i)=>{if(!mobile())v.push({s:i,side:'left'});else(sp.exploreFirst?['right','left']:['left','right']).forEach(side=>v.push({s:i,side}))});return v}
@@ -2218,7 +2261,7 @@ function render(dir,focus){$$('.spread',book).forEach(d=>{const on=+d.dataset.s=
   $('#chapline').textContent=sp.chLabel+(sp.chTitle?' · '+sp.chTitle:'');
   $('#prev').disabled=k<=0;$('#next').disabled=k>=v.length-1;
   const bm=S.get('bm',null);$$('.ribbon').forEach(r=>{const s=+r.closest('.spread').dataset.s,side=r.closest('.page').classList.contains('right')?'right':'left';const on=!!bm&&bm.s===s&&(!mobile()||bm.side===side||(!bm.side));r.setAttribute('aria-pressed',on);r.setAttribute('aria-label',on?'Bookmarked page (select to remove)':'Bookmark this page')});
-  S.set('pos',pos);S.set('last',Date.now());
+  S.set('pos',pos);S.set('last',Date.now());setHash(sp);
   if(focus){const pg=$(`.spread.active .page.${mobile()?pos.side:'left'}`);const h=pg&&$('h1,h2',pg);if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}window.scrollTo({top:Math.max(0,$('#book').getBoundingClientRect().top+window.scrollY-70),behavior:'auto'})}}
 function step(d){const v=views(),k=vIndex(),n=k+d;if(n<0||n>=v.length)return;pos={s:v[n].s,side:v[n].side};render(d,1)}
 function go(s,side,focus){const dir=s>pos.s?1:(s<pos.s?-1:0);const sp=C.SPREADS[s];pos={s,side:side||(mobile()&&sp&&sp.exploreFirst?'right':'left')};render(dir,focus)}
@@ -2534,6 +2577,13 @@ STAGED.forEach(id=>{const o=C.ACTS[id],el=$(`[data-act="${id}"]`);if(!o||!el||(o
     $('.stagenote',el).hidden=stage>=o.fields.length-1;checkMore()};
   nexts.forEach((b,k)=>$('button',b).onclick=()=>{if(words(tas[k].value)<5){$('.hint',b).textContent=' Write a first sentence. It doesn’t need to be perfect.';return}stage=k+1;S.set('stage-'+id,stage);show();tas[stage].focus()});
   $('.showall',el).onclick=e=>{e.preventDefault();stage=o.fields.length-1;S.set('stage-'+id,stage);show()};show()});
+/* phones: show the task and graph beside the writing box (added Nov 2026) */
+Object.values(C.ACTS).forEach(o=>{if(o.type!=='write')return;const el=$(`[data-act="${o.id}"]`);if(!el)return;const at=$('.f1',el),spd=el.closest('.spread');if(!at||!spd)return;
+  const tasks=$$('.taskbox',spd).filter(t=>!el.contains(t)),figs=$$('figure.chart',spd).filter(f=>!el.contains(f)&&!f.closest('.oe-try'));if(!tasks.length&&!figs.length)return;
+  const w=document.createElement('div');w.className='refwrap';w.innerHTML=`<button type="button" class="chip refbtn" aria-expanded="false">Show the task and graph</button><div class="refpanel" hidden></div>`;at.before(w);
+  const b=$('.refbtn',w),p=$('.refpanel',w);
+  b.onclick=()=>{const open=p.hidden;if(open&&!p.innerHTML){p.innerHTML=tasks.map(t=>`<div class="taskbox" style="border:2px solid var(--orange);border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:14.5px">${t.innerHTML}</div>`).join('')+figs.map(f=>{const c=Object.values(C.CHARTS).find(x=>x.id===f.dataset.chart);return c?chartBox(c):''}).join('');enhanceCharts(p)}
+    p.hidden=!open;b.setAttribute('aria-expanded',open);b.textContent=open?'Hide the task and graph':'Show the task and graph'}});
 const TIMED=new Set(Object.values(C.ACTS).filter(o=>o.type==='timer').map(o=>o._spread));
 Object.values(C.ACTS).forEach(o=>{if(o.type!=='write'||TIMED.has(o._spread))return;const el=$(`[data-act="${o.id}"]`);if(!el)return;const at=$('.f1',el);if(!at)return;
   const w=document.createElement('div');w.className='t5';w.innerHTML=`<span class="small">Optional timer:</span> ${[2,5,10].map(m=>`<button type="button" class="chip t5b" data-m="${m}">${m} min</button>`).join(' ')}<span class="t5c small" aria-live="polite"></span>`;
