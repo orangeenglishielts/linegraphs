@@ -91,8 +91,8 @@ footer{color:var(--muted); font-size:13px; text-align:center}
 <body>
 <header><div class="wrap">
   <div class="brand">Mastering Line Graphs · Before you start</div>
-  <h1>What's holding back your IELTS Task 1?</h1>
-  <p>A 10-minute diagnostic designed by a former IELTS examiner. Answer 12 questions about one line graph and find out which skill to work on first. At the end of the course, a second version on a new graph shows how far you’ve come.</p>
+  <h1>Which Task 1 skills should you practise first?</h1>
+  <p>A 10-minute diagnostic designed by a former IELTS examiner. Answer 12 questions about one line graph and get a suggested starting point. It checks what you know about Task 1; it is not a band estimate. At the end of the course, a second version on a new graph shows how far you’ve come.</p>
 <p style="margin:12px 0 0"><a href="../#chapter-1" style="color:#F88B48;font-weight:600">Go to Chapter 1 of the book →</a></p>
 </div></header>
 
@@ -169,12 +169,12 @@ const Q = [
   "Introduction, body paragraphs, then a conclusion giving your opinion",
   "Introduction and overview, then one paragraph listing every figure in order"], c:0,
   e:"Grouping by pattern lets you compare. Year-by-year paragraphs or one long list force you to repeat yourself, and Task 1 never needs your opinion."},
- {a:"ORG", p:"Where should your overview go?", o:[
+ {a:"ORG", p:"Where does this course recommend placing your overview?", o:[
   "In its own short paragraph, straight after the introduction",
   "Split between the introduction and the body paragraphs",
   "It isn't needed if every figure appears in the body paragraphs",
   "In a final sentence starting 'In conclusion, I think...'"], c:0,
-  e:"A clear, separate overview straight after the introduction is easy for an examiner to find. Without one, a report is unlikely to score above Band 5 for Task Achievement, and Task 1 never needs your opinion."},
+  e:"This course recommends a clear overview straight after the introduction: it is easy for the reader to find and hard to forget. A clear overview at the end can also work. The real problem is having no meaningful overview of the main trends, and Task 1 never needs your opinion."},
  {a:"ORG", p:"Which body-paragraph plan groups the information most logically?", o:[
   "Body 1: Norland, the highest. Body 2: Eastport. Body 3: Southvale, the lowest of all.",
   "Body 1: Norland and Eastport (both high by 2020). Body 2: Southvale (much lower).",
@@ -187,7 +187,7 @@ const PROFILE = {
  KF:{why:"You're reporting data, but not yet choosing what matters. Examiners are looking for the main trends and a clear overview, not every number on the graph.",
    b6:"In 2000 Norland had 35%, Eastport had 10% and Southvale had 5%. In 2005 Norland had 55%...",
    b7:"Overall, internet access rose in all three countries, with Norland consistently ahead and Southvale trailing far behind.",
-   tips:["Before writing, spend 2 minutes circling the 3 or 4 biggest features.","Write your overview first, with no numbers in it.","Only include a figure if it supports a feature you've already chosen."]},
+   tips:["Before writing, spend 2 minutes circling the 3 or 4 biggest features.","Write your overview first, as a summary of the main trends.","Only include a figure if it supports a feature you've already chosen."]},
  CMP:{why:"You can describe each line, but your comparisons aren't yet accurate or connected. Band 7 reports compare data, they don't just list it.",
    b6:"In 2020 Norland was 95% and Southvale was 45%.",
    b7:"By 2020, Southvale's figure was still just under half that of Norland (45% compared with 95%).",
@@ -275,13 +275,14 @@ function result(){
   const total = ORDER.reduce((s,a)=>s+score[a],0);
   const focus = ORDER.reduce((m,a)=>score[a]<score[m]?a:m, ORDER[0]);
   const P = PROFILE[focus];
-  const allGood = score[focus]===3;
+  const allGood = score[focus]===3, lows = ORDER.filter(a=>score[a]===score[focus]);
   try{localStorage.setItem("oe-diagnostic-before",JSON.stringify({total,score:Object.assign({},score),date:Date.now()}))}catch(e){}
   app.innerHTML = `
   <section class="card">
     <div class="eyebrow">Your result · ${total} of ${Q.length} correct</div>
-    <h2>${allGood?"You're ready for full practice":"Your focus: "+AREAS[focus].name}</h2>
-    <p>${allGood?"You answered every question correctly. Your next step is writing full reports under time pressure: go straight to <strong><a href='../#chapter-6'>Chapter 6: Writing a Complete Answer</a></strong> in Mastering Line Graphs.":P.why}</p>
+    <h2>${allGood?"Every knowledge question correct":(lows.length>1?(lows.length===2?"Two areas":"Several areas")+" to practise first":"A suggested starting point: "+AREAS[focus].name)}</h2>
+    <p>${allGood?"You answered all twelve knowledge questions correctly. Next, write an overview and a short comparison paragraph to check that you can use these skills independently: try the <strong><a href='../#chapter-1'>Chapter 1 writing challenge</a></strong>. If that goes well, you may be ready to move to full practice in <strong><a href='../#chapter-6'>Chapter 6</a></strong>.":(lows.length>1?`Suggested order: ${lows.map(a=>AREAS[a].name).join(", then ")}. `:"")+`You answered ${score[focus]} of 3 questions on ${AREAS[focus].short.toLowerCase()} correctly. `+P.why}</p>
+    <p class="small" style="margin:8px 0 0">This is a knowledge profile from 12 multiple-choice questions, three per skill, so one answer changes a skill score by a third. It suggests where to start; it is not an IELTS band estimate.</p>
     <div class="bars">${ORDER.map(a=>`
       <div class="bar ${a===focus&&!allGood?"focus":""}"><span>${AREAS[a].name}</span><b>${score[a]}/3</b>
       <div class="track"><span style="width:${score[a]/3*100}%"></span></div></div>`).join("")}</div>
@@ -290,8 +291,8 @@ function result(){
   <section class="card">
     <h3>What this looks like in a real report</h3>
     <div class="compare">
-      <div class="sample b6"><span class="eyebrow">Typical Band 6</span>${P.b6}</div>
-      <div class="sample b7"><span class="eyebrow">Band 7 style</span>${P.b7}</div>
+      <div class="sample b6"><span class="eyebrow">Less effective</span>${P.b6}</div>
+      <div class="sample b7"><span class="eyebrow">More effective</span>${P.b7}</div>
     </div>
     <h3 style="margin-top:18px">Three things to do this week</h3>
     <ul class="tips">${P.tips.map(t=>`<li>${t}</li>`).join("")}</ul>
