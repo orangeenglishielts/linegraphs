@@ -12,8 +12,8 @@ h1, h2, h3, .section__heading { font-family: Fraunces, Lora, Georgia, serif !imp
 .section__heading-ornament { border: 0 !important; padding-left: 0 !important; }
 
 /* Buttons: rust pills with white text */
-.button, a.button, button.button { border-radius: 999px !important; font-family: 'DM Sans', Inter, Arial, sans-serif !important; font-weight: 700 !important; font-style: normal !important; text-transform: none !important; letter-spacing: 0 !important; padding: 14px 28px !important; font-size: 16px !important; background-color: #C4521E !important; border: 2px solid #C4521E !important; color: #fff !important; box-shadow: none !important; }
-.button:hover, a.button:hover, .button:focus, a.button:focus { background-color: #A44318 !important; border-color: #A44318 !important; color: #fff !important; }
+.button:not(.linkedin):not(.facebook):not(.google):not(.apple), a.button:not(.linkedin):not(.facebook):not(.google):not(.apple), button.button:not(.linkedin):not(.facebook):not(.google):not(.apple) { border-radius: 999px !important; font-family: 'DM Sans', Inter, Arial, sans-serif !important; font-weight: 700 !important; font-style: normal !important; text-transform: none !important; letter-spacing: 0 !important; padding: 14px 28px !important; font-size: 16px !important; background-color: #C4521E !important; border: 2px solid #C4521E !important; color: #fff !important; box-shadow: none !important; }
+.button:not(.linkedin):not(.facebook):not(.google):not(.apple):hover, a.button:not(.linkedin):not(.facebook):not(.google):not(.apple):hover, .button:not(.linkedin):not(.facebook):not(.google):not(.apple):focus, a.button:not(.linkedin):not(.facebook):not(.google):not(.apple):focus { background-color: #A44318 !important; border-color: #A44318 !important; color: #fff !important; }
 
 /* Banners: cream with a rust heading instead of solid orange */
 .banner, .banner.section-background { background: #FCF6F1 !important; background-image: none !important; }
@@ -33,3 +33,9 @@ main img { border-radius: 14px; }
 section.cta-course, section.cta { background-color: #FCF6F1 !important; padding-bottom: 48px !important; }
 section.cta-course > div, section.cta > div { background: #FBE1D0; border-radius: 28px; padding: 40px 36px !important; max-width: 1080px; margin: 0 auto; }
 section.cta-course .section__heading, section.cta .section__heading { color: #292929 !important; }
+
+/* Phones: keep the call-to-action box off the screen edges */
+@media (max-width: 767px) {
+  section.cta-course, section.cta { padding-left: 16px !important; padding-right: 16px !important; }
+  section.cta-course > div, section.cta > div { padding: 28px 22px !important; }
+}
