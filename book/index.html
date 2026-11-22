@@ -2791,10 +2791,10 @@ function paintFb1Nudge(){$$('[data-fb1nudge]').forEach(b=>{const need=!S.get('fb
   b.innerHTML=need?`<p class="small" style="margin:14px 0 0">You haven’t told me about Chapter 1 yet. <a href="#" data-fb1go>Give your Chapter 1 feedback</a>. It takes two minutes and it shapes the rest of the course.</p>`:'';
   const a=$('[data-fb1go]',b);if(a)a.onclick=e=>{e.preventDefault();const i=spreadIndex('c1-review');if(i>=0)go(i,'right',1)}})}
 function fbGate(){const sp=C.SPREADS[pos.s]||{};const did1=Object.values(results).some(r=>(C.SPREADS[r.spread]||{}).ch===1);if(sp.ch!==2||!did1||S.get('fb-1',null)||S.get('fb1-skip',null)||!$('#ov').hidden)return;
-  openOverlay(`<span class="eyebrow">Before you start Chapter 2</span><div data-feedback="1" class="fbgate"></div><div class="row" style="margin-top:10px"><button type="button" class="btn ghost" id="fbg-skip">Skip for now</button></div>`,'Feedback on Chapter 1');
+  openOverlay(`<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px"><span class="eyebrow" style="margin:0">Before you start Chapter 2</span><button type="button" class="btn ghost" id="fbg-skip2" style="flex:none;font-size:13.5px;padding:8px 12px;min-height:40px">Skip for now</button></div><div data-feedback="1" class="fbgate"></div><div class="row" style="margin-top:10px"><button type="button" class="btn ghost" id="fbg-skip">Skip for now</button></div>`,'Feedback on Chapter 1');
   const cd=$('#ov .card');if(cd)cd.classList.add('wide');const pageBoxes=$$('.spread [data-feedback="1"]');pageBoxes.forEach(x=>x.innerHTML='');fbBox($('#ov [data-feedback="1"]'));
-  const sk=$('#fbg-skip');sk.onclick=()=>{if(!S.get('fb-1',null))S.set('fb1-skip',Date.now());closeOverlay()};
-  let shown=0;const iv=setInterval(()=>{if($('#ov').hidden||!$('#fbg-skip')){clearInterval(iv);if(!S.get('fb-1',null))S.set('fb1-skip',Date.now());pageBoxes.forEach(fbBox);paintFb1Nudge();return}if(S.get('fb-1',null)&&!shown){shown=1;sk.textContent='Continue to Chapter 2';sk.className='btn'}},400)}
+  const sk=$('#fbg-skip'),sk2=$('#fbg-skip2');sk.onclick=()=>{if(!S.get('fb-1',null))S.set('fb1-skip',Date.now());closeOverlay()};if(sk2)sk2.onclick=sk.onclick;
+  let shown=0;const iv=setInterval(()=>{if($('#ov').hidden||!$('#fbg-skip')){clearInterval(iv);if(!S.get('fb-1',null))S.set('fb1-skip',Date.now());pageBoxes.forEach(fbBox);paintFb1Nudge();return}if(S.get('fb-1',null)&&!shown){shown=1;sk.textContent='Continue to Chapter 2';sk.className='btn';if(sk2)sk2.textContent='Continue'}},400)}
 {const _r2=render;render=function(dir,focus){_r2(dir,focus);paintFb1Nudge();setTimeout(fbGate,400)}}
 paintAll();
 
