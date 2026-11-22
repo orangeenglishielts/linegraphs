@@ -362,7 +362,11 @@ body{background:var(--desk)}
 .pool{display:flex;flex-wrap:wrap;gap:6px}
 
 /* chapter opening */
-.opening .bignum{font-family:var(--head);font-weight:700;font-size:clamp(90px,11vw,150px);line-height:.9;color:var(--dark);letter-spacing:-.04em}
+.opening .bignum{font-family:var(--head);font-weight:700;font-size:clamp(44px,4.6vw,60px);line-height:1;color:var(--orange);letter-spacing:-.03em}
+.opening .startbox{margin:16px 0 4px}.opening .startbox p{margin:0 0 12px;font-size:15.5px}.opening .startbox .btn{font-size:15px;padding:12px 20px}
+.opening .startbox .done{display:none;font-family:var(--ui);font-weight:700;font-size:13.5px;color:var(--green-ink);margin-left:10px}
+.opening .startbox.is-done .done{display:inline}
+.pager #next.quiet{background:transparent;color:var(--dark)}
 .opening .chap{font-family:var(--ui);font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange-ink);margin:10px 0 6px}
 .opening h1{font-size:clamp(28px,3.4vw,40px);margin-bottom:12px}
 .opening .illus{margin-top:22px}
@@ -699,10 +703,19 @@ body.printing{background:#fff}
   .page>.chart,.page .chart{border-color:transparent}
   .oe-mistake,.oe-insight,.takeaway,.oe-concept,.mnote{margin-top:24px;margin-bottom:24px}
   .acts-step .actbar{border:0;background:var(--page);padding:6px 0}
-  .bk-top .ttl{display:none}
+  .bk-top .ttl b{display:none}
+  .bk-top .ttl span{font-family:var(--head);font-weight:700;font-size:14px;color:var(--dark);white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.2}
+  .bk-top{position:relative}
+  .bk-top .tools>.tbtn:not(#toc):not(#morebtn){display:none}
+  #morebtn{display:inline-flex;align-items:center}
+  #moremenu{position:absolute;right:max(18px,env(safe-area-inset-right,0px));top:calc(100% - 4px);z-index:60;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;box-shadow:0 14px 30px -14px rgba(40,30,15,.45);padding:6px;display:grid;gap:4px;min-width:200px}
+  #moremenu[hidden]{display:none}
+  #moremenu button{font-family:var(--ui);font-weight:700;font-size:14px;text-align:left;background:none;border:0;border-radius:6px;padding:11px 12px;min-height:44px;cursor:pointer;color:var(--dark)}
+  #moremenu button:active{background:var(--peach)}
   .bk-foot{margin-top:12px!important;padding:10px 16px 18px!important;font-size:11px!important;line-height:1.4}
   .bk-foot p:first-child{display:none}
 }
+@media (min-width:820px){#morebtn,#moremenu{display:none!important}}
 </style>
 <script src="progress-sync.js"></script>
 <script>
@@ -724,8 +737,10 @@ window.VIDEO_LINKS=['videos/c1-meet-the-line-graph.mp4','videos/c1-read-the-axes
   <div class="tools">
     <button type="button" class="tbtn" id="toc">Contents</button>
     <button type="button" class="tbtn" id="glossbtn">Glossary</button>
+    <button type="button" class="tbtn" id="morebtn" aria-haspopup="true" aria-expanded="false">More</button>
     <button type="button" class="tbtn" id="fs" aria-label="Full screen"><span class="lab-long">Full screen</span><span aria-hidden="true" class="lab-ic">⤢</span></button>
   </div>
+  <div id="moremenu" hidden></div>
 </header>
 <main class="book-wrap">
   <div class="book" id="book" tabindex="-1"></div>
@@ -845,7 +860,7 @@ const illus=(d1,d2)=>`<svg class="illus" viewBox="0 0 400 150" aria-hidden="true
 
 const SPREADS=[
 /* 0 */ {id:'c1-open',ch:1,chLabel:P1,chTitle:CT1,title:'Chapter 1 opening',
- left:`<div class="opening"><div class="bignum">1</div><p class="chap">Chapter 1</p><h1>Understanding Line Graphs</h1><p class="lede">Before you can describe a graph well, you need to read it well. In this chapter I'll show you how examiners read a line graph, and you'll write your first introduction and overview.</p><h3>By the end of this chapter, you can</h3><ul class="clean"><li>read a line graph’s title, axes, ${T('units')} and ${T('legend')} accurately</li><li>select the key features worth reporting, and leave out the rest</li><li>find ${T('overall trend','the overall trend')} of each line</li><li>write an introduction and an overview for a two-line graph</li></ul><div class="oe-insight" style="margin-top:14px"><span class="lab">Before you start</span>Take the 10-minute <a href="diagnostic/before.html">Task 1 diagnostic</a>. It shows which skill to focus on first. At the end of the course, a second version on a new graph shows how far you’ve come.</div><div class="oe-insight" style="margin-top:10px"><span class="lab">Your progress</span>Your answers, drafts and scores are saved in this browser on this device. Use the same device and browser each time, and use Copy or Download under each writing task to keep your own copy.</div>${illus('M20,112 L90,96 L160,74 L230,54 L300,34 L380,28','M20,36 L90,42 L160,54 L230,72 L300,88 L380,96')}</div>`,
+ left:`<div class="opening"><div class="bignum">1</div><p class="chap">Chapter 1</p><h1>Understanding Line Graphs</h1><p class="lede">Before you can describe a graph well, you need to read it well. In this chapter I'll show you how examiners read a line graph, and you'll write your first introduction and overview.</p><div class="oe-insight startbox" id="startbox"><span class="lab">Start here</span><p>Take the 10-minute Task 1 diagnostic. It shows which skill to focus on first. At the end of the course, a second version on a new graph shows how far you’ve come.</p><a class="btn" href="diagnostic/before.html">Take the diagnostic →</a><span class="done">✓ Done</span></div><h3>By the end of this chapter, you can</h3><ul class="clean"><li>read a line graph’s title, axes, ${T('units')} and ${T('legend')} accurately</li><li>select the key features worth reporting, and leave out the rest</li><li>find ${T('overall trend','the overall trend')} of each line</li><li>write an introduction and an overview for a two-line graph</li></ul><div class="oe-insight" style="margin-top:10px"><span class="lab">Your progress</span>Your answers, drafts and scores are saved in this browser on this device. Use the same device and browser each time, and use Copy or Download under each writing task to keep your own copy.</div>${illus('M20,112 L90,96 L160,74 L230,54 L300,34 L380,28','M20,36 L90,42 L160,54 L230,72 L300,88 L380,96')}</div>`,
  right:`<div class="opening">${head('In this chapter','Contents')}<h2>Five steps, one skill each</h2>${contents([[1,1,'Meet the line graph','Start with a challenge','Discover'],[2,2,'Read the axes','Find the parts of a graph','Understand'],[3,3,'Identify the key features','Select what matters','Understand'],[4,4,'Spot the overall trend','Worked example and practice','Practise'],[5,5,'Chapter challenge','Write an introduction and overview','Apply'],['R',6,'Chapter review','Your results and your two drafts','Improve']])}<h3>How this book works</h3><div class="hw"><div class="hw-book"><div class="hw-pg hw-l"><span class="hw-tag">Left page</span><svg class="hw-ic" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#F88B48"/><path d="M16 13 L28 20 L16 27 Z" fill="#fff"/></svg><b>Learn</b><span>A short video or illustration, one idea and a key takeaway</span></div><div class="hw-pg hw-r"><span class="hw-tag">Right page</span><svg class="hw-ic" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#5FB27B"/><path d="M12 20.5 L18 26 L28.5 14.5" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Explore</b><span>An activity with feedback on every answer</span></div></div><div class="hw-row"><div class="hw-item"><span class="hw-note"><i>Examiner’s note</i>Mention the overall trend early.</span><span class="hw-cap">Orange notes give you exam technique</span></div><div class="hw-item"><span class="hw-word">Prices <u>fluctuated</u> …</span><span class="hw-cap">Select dotted words to open the glossary</span></div></div><div class="hw-err"><div class="hw-flow"><span class="hw-save">Save to my journal</span><span class="hw-to"><svg class="hw-arr" viewBox="0 0 28 12" aria-hidden="true"><path d="M2 6 H24 M19 1.5 L25 6 L19 10.5" fill="none" stroke="#A84A12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="hw-book2"><svg viewBox="0 0 28 32" aria-hidden="true"><rect x="5" y="2" width="21" height="28" rx="3" fill="#F88B48"/><rect x="5" y="2" width="5" height="28" rx="2" fill="#A84A12"/><path d="M14 10 H22 M14 15 H22 M14 20 H19" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>My error dictionary</span></span></div><span class="hw-cap"><b>Made a mistake? Save it.</b> When you get an answer wrong, this button appears under the feedback. Select it, and the mistake goes into your error dictionary with a better version and the reason. Read it before you write, and win those marks back.</span></div><div class="hw-nav"><div><span class="hw-keys"><kbd aria-label="Left arrow">←</kbd><kbd aria-label="Right arrow">→</kbd></span><span>Turn the page with the arrows or your arrow keys</span></div><div><svg class="hw-rib" viewBox="0 0 22 46" aria-hidden="true"><path d="M2 0 H20 V44 L11 35 L2 44 Z" fill="#F88B48"/></svg><span>Select the ribbon on a page to bookmark it</span></div></div><div class="hw-nav hw-extra"><div><span class="hw-ico" aria-hidden="true">☁</span><span><b>Save progress</b> (top bar) to carry on from your phone or another computer</span></div><div><span class="hw-ico" aria-hidden="true">◎</span><span><b>Focus mode</b> (top bar) hides the notes, pictures and glossary underlines</span></div><div><span class="hw-ico" aria-hidden="true">✓</span><span><b>Good place to stop</b> signs show where to take a break</span></div><div><span class="hw-ico" aria-hidden="true">⏱</span><span>When you write, use an <b>optional timer</b> or <b>Show the task and graph</b></span></div></div></div></div>`},
 
 /* 1 */ {id:'c1-s1',ch:1,chLabel:P1,chTitle:CT1,title:'Meet the line graph',exploreFirst:true,
@@ -2326,11 +2341,12 @@ function vIndex(){const v=views();const k=v.findIndex(x=>x.s===pos.s&&(!mobile()
 function render(dir,focus){$$('.spread',book).forEach(d=>{const on=+d.dataset.s===pos.s;d.classList.toggle('active',on);d.classList.remove('turn-next','turn-prev','show-left','show-right');
     if(on){d.classList.add('show-'+(mobile()?pos.side:'left'));if(dir)d.classList.add(dir>0?'turn-next':'turn-prev')}});
   const sp=C.SPREADS[pos.s],v=views(),k=vIndex();const pn=pos.s*2+(pos.side==='right'?2:1);
-  $('#where').innerHTML=`<b>${esc(sp.chLabel)}</b> · ${mobile()?`Page ${k+1} of ${v.length}`:`Pages ${pos.s*2+1} and ${pos.s*2+2} of ${total}`}`;
-  $('#chapline').textContent=sp.chLabel+(sp.chTitle?' · '+sp.chTitle:'');
+  $('#where').innerHTML=mobile()?`Page ${k+1} of ${v.length}`:`<b>${esc(sp.chLabel)}</b> · Pages ${pos.s*2+1} and ${pos.s*2+2} of ${total}`;
+  $('#chapline').textContent=mobile()&&sp.chTitle?sp.chTitle:sp.chLabel+(sp.chTitle?' · '+sp.chTitle:'');
   $('#prev').disabled=k<=0;$('#next').disabled=k>=v.length-1;
+  {let dg=null;try{dg=localStorage.getItem('oe-diagnostic-before')}catch(e){}const sb=$('#startbox');if(sb)sb.classList.toggle('is-done',!!dg);$('#next').classList.toggle('quiet',sp.id==='c1-open'&&!dg&&(!mobile()||pos.side==='left'))}
   {const nb=$('#next .lab-short');if(nb){let lab='Next';if(mobile()&&k<v.length-1){const nx=v[k+1],nsp=C.SPREADS[nx.s],isStep=/-s\d+$/.test(sp.id);
-    if(nx.s===pos.s){if(nx.side==='right'&&isStep){const rp=$('.spread.active .page.right');lab=rp&&$('textarea',rp)?'Start writing':'Try the activity'}}
+    if(nx.s===pos.s){const np=$('.spread.active .page.'+nx.side);if(np&&$('textarea',np))lab='Start writing';else if(np&&$('.oe-try,.oe-workshop,.abq',np))lab='Try the activity'}
     else if(/-review$/.test(nsp.id))lab='Review chapter';else if(/-open$/.test(nsp.id))lab='Next chapter';else if(isStep&&/-s\d+$/.test(nsp.id))lab='Next step'}
     nb.textContent=lab}}
   const bm=S.get('bm',null);$$('.ribbon').forEach(r=>{const s=+r.closest('.spread').dataset.s,side=r.closest('.page').classList.contains('right')?'right':'left';const on=!!bm&&bm.s===s&&(!mobile()||bm.side===side||(!bm.side));r.setAttribute('aria-pressed',on);r.setAttribute('aria-label',on?'Bookmarked page (select to remove)':'Bookmark this page')});
@@ -2830,6 +2846,18 @@ if(window.OESync&&OESync.mountPanel){
   paintSync();
   if(OESync.justRestored())setTimeout(()=>toast('<span class="tk" aria-hidden="true">✓</span><span><b>Welcome back.</b> Your saved progress has been loaded.</span>'),700);
 }
+/* phone header: logo, chapter title, Contents, and a More menu for the other tools */
+(function(){const mb=$('#morebtn'),mm=$('#moremenu');if(!mb||!mm)return;
+  const shut=()=>{mm.hidden=true;mb.setAttribute('aria-expanded','false')};
+  mb.onclick=e=>{e.stopPropagation();if(!mm.hidden){shut();return}
+    mm.innerHTML='';$$('.bk-top .tools>.tbtn').forEach(b=>{if(b.id==='toc'||b.id==='morebtn'||b.id==='fs')return;
+      const x=document.createElement('button');x.type='button';const ll=$('.lab-long',b);let t=(ll?ll.textContent:b.textContent).trim();
+      if(b.id==='focusbtn')t=b.getAttribute('aria-pressed')==='true'?'Focus mode: on':'Focus mode: off';
+      x.textContent=t;x.onclick=()=>{shut();b.click()};mm.appendChild(x)});
+    mm.hidden=false;mb.setAttribute('aria-expanded','true')};
+  document.addEventListener('click',e=>{if(!mm.hidden&&!mm.contains(e.target))shut()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')shut()});
+  mq.addEventListener&&mq.addEventListener('change',shut)})();
 })();
 
 </script>
