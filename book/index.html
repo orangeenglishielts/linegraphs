@@ -917,7 +917,7 @@ const SPREADS=[
 
 /* 13 */ {id:'c2-review',ch:2,chLabel:P2,chTitle:CT2,title:'Chapter 2 review',
  left:`${head('Chapter 2 · Improve','Review')}<h2>Chapter 2 review</h2><h3>What you learned</h3><ul class="clean"><li>Decide the direction first, then the size and speed of the change.</li><li>Calculate the change before you choose “slightly” or “dramatically”.</li><li>Keep Task 1 neutral: avoid verbs like boomed, flourished and spiralled.</li><li>Use both patterns: “rose sharply” and “a sharp rise in”.</li></ul><div data-minitest="2"></div><div data-extras="2"></div><h3>Your results</h3><div data-review="2"></div>`,
- right:`${head('Chapter 2 · Portfolio','Review')}<div data-cannow="2"></div><h2>Your two drafts</h2><div data-portfolio="c2-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-share="2"></div><div data-feedback="2"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="14">Start Chapter 3 →</button></div>`},
+ right:`${head('Chapter 2 · Portfolio','Review')}<div data-cannow="2"></div><h2>Your two drafts</h2><div data-portfolio="c2-write"></div><p style="margin-top:14px">Your error dictionary has <b data-jcount>0 entries</b>. <a href="#" data-go="dict">Open it</a></p><div data-share="2"></div><div data-fb1nudge></div><div data-feedback="2"></div><div class="row" style="margin-top:16px"><button type="button" class="btn" data-go="14">Start Chapter 3 →</button></div>`},
 
 /* 14 */ {id:'dict',ch:0,chLabel:'My error dictionary',chTitle:'',title:'My error dictionary',
  left:`${head('Your notebook','Learn')}<h2>My error dictionary</h2><p>Every time you made a mistake and selected <b>Save to my journal</b>, the mistake was saved here with a better expression and the reason.</p><p>Read it before you write a practice answer. Mistakes you have already noticed are the easiest marks to win back.</p><div class="oe-insight"><span class="lab">How to use it</span>Cover the “Better” column and try to correct each mistake yourself. Then check.</div><div class="row" style="margin-top:16px"><button type="button" class="btn dict-pdf">Download as PDF</button><button type="button" class="btn ghost dict-print">Print</button></div><p class="small" style="margin-top:10px">Your entries are saved in this browser, and on all your devices once you turn on Save progress.</p>`,
@@ -2785,13 +2785,17 @@ function openCert(cc){openOverlay(`<span class="eyebrow">Your certificate</span>
       pv.innerHTML=`<div class="pv-bar"><button type="button" class="btn" id="pv-print">Print or save as PDF</button><button type="button" class="btn ghost" id="pv-close">Close</button></div><img src="${wurl}" alt="Certificate">`;
       document.body.classList.add('printing');pv.setAttribute('aria-hidden','false');const doPrint=()=>{try{window.print()}catch(e){}};
       $('#pv-print').onclick=doPrint;$('#pv-close').onclick=()=>{document.body.classList.remove('printing');pv.setAttribute('aria-hidden','true');pv.innerHTML='';st.remove()};setTimeout(doPrint,300);try{ga('certificate_download',{format:'pdf'})}catch(e){}}})}
-/* Chapter 1 feedback: asked for before Chapter 2 starts (can be skipped once) */
+/* Chapter 1 feedback: asked for once before Chapter 2 starts. Closing the box in any way counts as skipping it.
+   Anyone who skipped sees one quiet line on the Chapter 2 review page, linking back to the form. */
+function paintFb1Nudge(){$$('[data-fb1nudge]').forEach(b=>{const need=!S.get('fb-1',null)&&Object.values(results).some(r=>(C.SPREADS[r.spread]||{}).ch===1);
+  b.innerHTML=need?`<p class="small" style="margin:14px 0 0">You haven’t told me about Chapter 1 yet. <a href="#" data-fb1go>Give your Chapter 1 feedback</a>. It takes two minutes and it shapes the rest of the course.</p>`:'';
+  const a=$('[data-fb1go]',b);if(a)a.onclick=e=>{e.preventDefault();const i=spreadIndex('c1-review');if(i>=0)go(i,'right',1)}})}
 function fbGate(){const sp=C.SPREADS[pos.s]||{};const did1=Object.values(results).some(r=>(C.SPREADS[r.spread]||{}).ch===1);if(sp.ch!==2||!did1||S.get('fb-1',null)||S.get('fb1-skip',null)||!$('#ov').hidden)return;
   openOverlay(`<span class="eyebrow">Before you start Chapter 2</span><div data-feedback="1" class="fbgate"></div><div class="row" style="margin-top:10px"><button type="button" class="btn ghost" id="fbg-skip">Skip for now</button></div>`,'Feedback on Chapter 1');
   const cd=$('#ov .card');if(cd)cd.classList.add('wide');const pageBoxes=$$('.spread [data-feedback="1"]');pageBoxes.forEach(x=>x.innerHTML='');fbBox($('#ov [data-feedback="1"]'));
   const sk=$('#fbg-skip');sk.onclick=()=>{if(!S.get('fb-1',null))S.set('fb1-skip',Date.now());closeOverlay()};
-  let shown=0;const iv=setInterval(()=>{if($('#ov').hidden||!$('#fbg-skip')){clearInterval(iv);pageBoxes.forEach(fbBox);return}if(S.get('fb-1',null)&&!shown){shown=1;sk.textContent='Continue to Chapter 2';sk.className='btn'}},400)}
-{const _r2=render;render=function(dir,focus){_r2(dir,focus);setTimeout(fbGate,400)}}
+  let shown=0;const iv=setInterval(()=>{if($('#ov').hidden||!$('#fbg-skip')){clearInterval(iv);if(!S.get('fb-1',null))S.set('fb1-skip',Date.now());pageBoxes.forEach(fbBox);paintFb1Nudge();return}if(S.get('fb-1',null)&&!shown){shown=1;sk.textContent='Continue to Chapter 2';sk.className='btn'}},400)}
+{const _r2=render;render=function(dir,focus){_r2(dir,focus);paintFb1Nudge();setTimeout(fbGate,400)}}
 paintAll();
 
 /* ---------------- phones: one activity at a time, writing steps, folded reviews ----------------
