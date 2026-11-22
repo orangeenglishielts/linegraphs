@@ -1,0 +1,35 @@
+/* Orange English: brand styling for the Thinkific site (orangeenglishielts.thinkific.com),
+   so it matches orangeenglish.nl. Loaded from Thinkific > Settings > Code & analytics > Site footer code.
+   Fonts (Fraunces, DM Sans) are loaded by a separate <link> in the same footer code. */
+body, .header, .footer, main { background-color: #FCF6F1 !important; }
+body, p, li, a, input, button, .section__body, .section__subheading { font-family: 'DM Sans', Inter, Arial, sans-serif !important; }
+body { color: #292929; }
+h1, h2, h3, .section__heading { font-family: Fraunces, Lora, Georgia, serif !important; font-weight: 800 !important; letter-spacing: -0.005em; color: #292929; }
+.header { border-bottom: 1px solid #EADFD3; box-shadow: none !important; }
+.header a { text-transform: uppercase; letter-spacing: 0.05em; font-size: 13px !important; font-weight: 600 !important; color: #292929 !important; }
+.header .logo, .header__logo img { mix-blend-mode: multiply; border-radius: 0 !important; }
+.section__heading-ornament::before, .section__heading-ornament::after { display: none !important; }
+.section__heading-ornament { border: 0 !important; padding-left: 0 !important; }
+
+/* Buttons: rust pills with white text */
+.button, a.button, button.button { border-radius: 999px !important; font-family: 'DM Sans', Inter, Arial, sans-serif !important; font-weight: 700 !important; font-style: normal !important; text-transform: none !important; letter-spacing: 0 !important; padding: 14px 28px !important; font-size: 16px !important; background-color: #C4521E !important; border: 2px solid #C4521E !important; color: #fff !important; box-shadow: none !important; }
+.button:hover, a.button:hover, .button:focus, a.button:focus { background-color: #A44318 !important; border-color: #A44318 !important; color: #fff !important; }
+
+/* Banners: cream with a rust heading instead of solid orange */
+.banner, .banner.section-background { background: #FCF6F1 !important; background-image: none !important; }
+.banner.section-background-overlay::before, .banner.section-background-overlay::after { background: transparent !important; opacity: 0 !important; }
+.banner .section__heading { color: #B4501A !important; font-size: clamp(34px, 5vw, 56px) !important; line-height: 1.08 !important; }
+.banner .section__subheading, .banner p { color: #4A433C !important; }
+
+/* Sections alternate cream and white */
+section[class*="section-height"] { background-color: #FCF6F1 !important; }
+section.text-image, section.course-curriculum { background-color: #ffffff !important; }
+.section__body, .section__body p, .section__body li { color: #4A433C; }
+main img { border-radius: 14px; }
+.course-curriculum__chapter-title, .course-curriculum h3, .course-curriculum h4 { font-family: 'DM Sans', Inter, Arial, sans-serif !important; font-weight: 700 !important; }
+.course-curriculum-card, [class*="course-curriculum-card"] { border-radius: 18px; }
+
+/* Call to action: peach rounded box */
+section.cta-course, section.cta { background-color: #FCF6F1 !important; padding-bottom: 48px !important; }
+section.cta-course > div, section.cta > div { background: #FBE1D0; border-radius: 28px; padding: 40px 36px !important; max-width: 1080px; margin: 0 auto; }
+section.cta-course .section__heading, section.cta .section__heading { color: #292929 !important; }
