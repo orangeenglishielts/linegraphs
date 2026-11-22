@@ -39,11 +39,11 @@ svg{display:block;width:100%;height:auto}
 .opt[disabled]{cursor:default}
 .opt.right{border-color:#2B6E43;background:#E7F2EB}
 .opt.wrong{border-color:#C4521E;background:#FCE9DD}
-.fb{display:none;margin:14px 0 0;padding:14px 16px;border-left:4px solid #F88B48;background:#FCE9DD;border-radius:0 12px 12px 0;font-size:16px}
-.done .fb{display:block}
+.fb{visibility:hidden;margin:14px 0 0;padding:14px 16px;border-left:4px solid #F88B48;background:#FCE9DD;border-radius:0 12px 12px 0;font-size:16px}
+.done .fb{visibility:visible}
 .fb .who{display:block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#A84A12;margin-bottom:4px}
-.cta{display:none;margin-top:16px}
-.done .cta{display:block}
+.cta{visibility:hidden;margin-top:16px}
+.done .cta{visibility:visible}
 .btn{display:inline-block;background:#C4521E;color:#fff;border-radius:999px;padding:15px 26px;font-weight:700;font-size:17px;line-height:1.2;text-decoration:none}
 .btn:focus-visible{outline:3px solid #292929;outline-offset:2px}
 .cta small{display:block;margin-top:8px;color:#5E564E;font-size:14px}
@@ -79,9 +79,9 @@ svg{display:block;width:100%;height:auto}
       <button type="button" class="opt" data-ok="0"><b>A</b>In 2004, 64% of adults read the news in print, compared with 18% online.</button>
       <button type="button" class="opt" data-ok="1"><b>B</b>Overall, online news reading rose steadily while print reading fell, and online overtook print.</button>
     </div>
-    <div class="fb" aria-live="polite"><span class="who">Lindsey, former IELTS examiner</span><span id="fbt"></span></div>
+    <div class="fb" aria-live="polite" aria-hidden="true"><span class="who">Lindsey, former IELTS examiner</span><span id="fbt">A is accurate, but it is a detail, not an overview. It describes one year. B gives the main trends and the main comparison, including the moment the lines cross, so B is the overview.</span></div>
     <div class="cta">
-      <a class="btn" href="https://orangeenglish.nl/free-ielts-course" target="_top">Get the free line graphs course</a>
+      <a class="btn" id="cta" tabindex="-1" href="https://orangeenglish.nl/free-ielts-course" target="_top">Get the free line graphs course</a>
       <small>That was one decision from the course. Six chapters, free, opens Friday 27 November.</small>
     </div>
   </div>
@@ -95,7 +95,7 @@ svg{display:block;width:100%;height:auto}
     var ok=b.getAttribute('data-ok')==='1';
     bs.forEach(function(x){x.disabled=true;if(x.getAttribute('data-ok')==='1')x.classList.add('right')});
     if(!ok)b.classList.add('wrong');
-    fb.textContent=MSG[ok?1:0];ex.classList.add('done');
+    fb.textContent=MSG[ok?1:0];fb.parentNode.removeAttribute('aria-hidden');ex.classList.add('done');document.getElementById('cta').removeAttribute('tabindex');
     try{if(window.parent!==window)window.parent.postMessage({oeHeight:document.documentElement.scrollHeight},'*')}catch(e){}
     try{window.gtag&&gtag('event','home_exercise',{answer:ok?'right':'wrong'})}catch(e){}
   })});
