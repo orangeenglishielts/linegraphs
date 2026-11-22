@@ -91,6 +91,8 @@ svg{display:block;width:100%;height:auto}
   var ex=document.getElementById('ex'),bs=[].slice.call(document.querySelectorAll('.opt')),fb=document.getElementById('fbt');
   var MSG={1:'Yes, B. An overview gives the main trends and the main comparison, with no detailed figures. This sentence does all of that, and it includes the moment the lines cross.',
            0:'A is accurate, but it is a detail, not an overview. It describes one year. B gives the main trends and the main comparison, including the moment the lines cross, so B is the overview.'};
+  function post(){try{if(window.parent!==window)window.parent.postMessage({oeHeight:document.documentElement.scrollHeight},'*')}catch(e){}}
+  window.addEventListener('load',post);window.addEventListener('resize',post);setTimeout(post,800);
   bs.forEach(function(b){b.addEventListener('click',function(){
     var ok=b.getAttribute('data-ok')==='1';
     bs.forEach(function(x){x.disabled=true;if(x.getAttribute('data-ok')==='1')x.classList.add('right')});
