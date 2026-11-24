@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    DESCRIBING DATA ACCURATELY (MODULE 4) · BOOK SETTINGS AND SHARED DATA
    Every figure in the book comes from DATA. Chapter 2 is the flagship

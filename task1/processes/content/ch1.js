@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MASTERING PROCESS DIAGRAMS · CHAPTER 1 · UNDERSTANDING PROCESS DIAGRAMS
    ACTIVITY IDS (type · level)

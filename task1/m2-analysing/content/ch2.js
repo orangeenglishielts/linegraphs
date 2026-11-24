@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MODULE 2 · CHAPTER 2 · FINDING KEY FEATURES
    ACTIVITY IDS (type · level)

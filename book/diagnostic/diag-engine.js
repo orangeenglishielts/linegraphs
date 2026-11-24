@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* Orange English diagnostic engine (Nov 2026): varied, quick, visual tasks.
    Each page defines LINES, TITLE, Q, AREAS, score, G, app, i, and result().
    Task types: rank, order, build, tapg, spot, yesno, mc, multi, match. */

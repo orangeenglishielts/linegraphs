@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    ORANGE ENGLISH TASK 1 BOOKS · CONTENT HELPERS
    Loaded before a book's content files. Each content file starts with

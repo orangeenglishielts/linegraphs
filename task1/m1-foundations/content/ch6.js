@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MODULE 1 · CHAPTER 6 · DIAGNOSTIC TASK
    Each step tests one skill area and recommends a module after the activities.

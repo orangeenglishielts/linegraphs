@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    TASK 1 MOCK EXAMS · SETTINGS AND SHARED DATA
    Seven full mock tasks, one for each task type. Every figure comes from DATA.

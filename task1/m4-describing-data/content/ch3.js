@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    DESCRIBING DATA ACCURATELY · CHAPTER 3 · APPROXIMATION
    ACTIVITY IDS (type · level)

@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MASTERING MIXED CHARTS · CHAPTER 5 · STRUCTURING THE RESPONSE
    ACTIVITY IDS (type · level)

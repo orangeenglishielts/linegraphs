@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MASTERING TABLES · CHAPTER 2 · FINDING THE STORY IN THE NUMBERS
    ACTIVITY IDS (type · level)

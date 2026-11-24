@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    WRITING EFFECTIVE OVERVIEWS · CHAPTER 4 · OVERVIEWS FOR MAPS AND PROCESSES
    ACTIVITY IDS (type · level)

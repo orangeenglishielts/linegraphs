@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    WRITING EFFECTIVE OVERVIEWS (MODULE 3) · BOOK SETTINGS AND SHARED DATA
    Every figure in the book comes from DATA. Maps use MAP.M and processes

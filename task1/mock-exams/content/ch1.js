@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    TASK 1 MOCK EXAMS · SEVEN MOCK TASKS
    Each mock: a timer (mN-timer) and a one-box timed write (mN-write)

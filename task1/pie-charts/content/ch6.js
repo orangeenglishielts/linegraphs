@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MASTERING PIE CHARTS · CHAPTER 6 · WRITING A COMPLETE ANSWER
    ACTIVITY IDS (type · level)

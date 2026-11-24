@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MASTERING BAR CHARTS · CHAPTER 3 · BAR CHARTS OVER TIME
    ACTIVITY IDS (type · level)

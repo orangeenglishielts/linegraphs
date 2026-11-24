@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MASTERING MAPS · BOOK SETTINGS AND SHARED MAPS
    Every map in the book is drawn from the specs in MAPS below.

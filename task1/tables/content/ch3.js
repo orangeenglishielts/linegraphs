@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MASTERING TABLES · CHAPTER 3 · COMPARING ROWS AND COLUMNS
    ACTIVITY IDS (type · level)

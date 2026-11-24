@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MODULE 15 · ASSESSMENT AND IMPROVEMENT · SETTINGS AND DATA
    The progress, portfolio and plan widgets read what the other books have

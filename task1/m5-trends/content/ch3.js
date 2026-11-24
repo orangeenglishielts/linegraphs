@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MODULE 5 · CHAPTER 3 · TIME EXPRESSIONS AND TENSES
    ACTIVITY IDS (type · level)

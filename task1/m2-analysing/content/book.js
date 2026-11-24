@@ -1,3 +1,4 @@
+/* © 2026 Orange English (orangeenglish.nl). All rights reserved. May not be copied, shared or reused without written permission. */
 /* ==========================================================================
    MODULE 2 · ANALYSING VISUAL INFORMATION · BOOK SETTINGS AND SHARED DATA
    Every figure in the book comes from DATA.
