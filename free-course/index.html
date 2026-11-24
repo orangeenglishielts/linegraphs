@@ -50,7 +50,7 @@ footer a{color:#5E564E}
 .cc button{flex:0 0 auto;display:inline-block;padding:10px 16px;font-size:15px}
 .cc #ccn{background:transparent;border:1.5px solid #fff}
 </style>
-<script src="../site-images/oe-ga.js"></script></head>
+<script src="../site-images/oe-ga.js"></script><script src="../site-images/oe-clarity.js"></script></head>
 <body>
 <main>
 <a href="https://orangeenglish.nl" style="display:inline-block"><img class="logo" src="logo.webp" width="96" height="53" alt="Orange English home"></a>
@@ -104,7 +104,7 @@ f.addEventListener('submit',function(ev){
 })();
 </script>
 <div class="cc" id="cc" hidden role="dialog" aria-label="Cookie choice">
-<p>Can I use cookies to see which ads bring people here (Meta Pixel)? See my <a href="https://orangeenglish.nl/privacy-policy">privacy policy</a>.</p>
+<p>Can I use cookies to see which ads bring people here and to record how this page is used (Meta Pixel, Microsoft Clarity)? See my <a href="https://orangeenglish.nl/privacy-policy">privacy policy</a>.</p>
 <button type="button" id="ccn">Decline</button><button type="button" id="cca">Accept</button>
 </div>
 <script>
@@ -113,7 +113,7 @@ var K='oe_cookie_consent',cc=document.getElementById('cc');
 function px(){if(window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','28599338359744750');fbq('track','PageView');}
 var c=null;try{c=localStorage.getItem(K);}catch(x){}
 if(c==='yes'){px();}else if(c!=='no'){cc.hidden=false;}
-function set(v){try{localStorage.setItem(K,v);}catch(x){}cc.hidden=true;if(v==='yes')px();}
+function set(v){try{localStorage.setItem(K,v);}catch(x){}cc.hidden=true;if(v==='yes')px();try{if(window.oeClarity){if(v==='yes')oeClarity.grant();else oeClarity.deny();}}catch(x){}}
 document.getElementById('cca').addEventListener('click',function(){set('yes');});
 document.getElementById('ccn').addEventListener('click',function(){set('no');});
 })();

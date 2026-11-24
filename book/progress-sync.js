@@ -20,6 +20,28 @@
   const ID_KEY = 'oe-sync-id';
   const CERT_TASKS = ['c1-write', 'c2-write', 'c3-write', 'c4-write', 'c5-write', 'c6-timed'];
 
+  /* Read the Thinkific sign-in details from the page address, then take them out of the
+     address straight away, so analytics and recording tools never see a student's email
+     or name. They are kept for this tab only, in case the page reloads. */
+  const params = new URLSearchParams(location.search);
+  const TK = {
+    email: (params.get('email') || '').trim().toLowerCase(),
+    joined: (params.get('joined') || '').trim(),
+    name: (params.get('fname') || '').trim()
+  };
+  try {
+    if (params.has('email') || params.has('joined') || params.has('fname')) {
+      try { sessionStorage.setItem('oe-tk', JSON.stringify(TK)); } catch (e) {}
+      ['email', 'joined', 'fname'].forEach(k => params.delete(k));
+      const qs = params.toString();
+      history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    } else {
+      const kept = JSON.parse(sessionStorage.getItem('oe-tk') || 'null');
+      if (kept) { TK.email = kept.email || ''; TK.joined = kept.joined || ''; TK.name = kept.name || ''; }
+    }
+  } catch (e) {}
+  window.__oeTK = { name: TK.name };
+
   let ls;
   try { ls = window.localStorage; ls.getItem('x'); } catch (e) { ls = null; }
   const listeners = {};
@@ -30,12 +52,6 @@
   const set = (k, v) => rawSet.call(ls, k, v), del = k => rawRemove.call(ls, k);
   let dirty = false, timer = null, busy = false, lastError = null;
 
-  const params = new URLSearchParams(location.search);
-  const TK = {
-    email: (params.get('email') || '').trim().toLowerCase(),
-    joined: (params.get('joined') || '').trim(),
-    name: (params.get('fname') || '').trim()
-  };
   const tkValid = !!(TK.email && TK.joined && TK.email.indexOf('{{') < 0 && TK.joined.indexOf('{{') < 0);
 
   function id() { try { return JSON.parse(ls.getItem(ID_KEY) || 'null'); } catch (e) { return null; } }

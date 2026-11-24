@@ -719,6 +719,7 @@ body.printing{background:#fff}
 @media (min-width:820px){#morebtn,#moremenu{display:none!important}}
 </style>
 <script src="progress-sync.js"></script>
+<script src="../site-images/oe-clarity.js" data-ask="auto" data-bottom="84"></script>
 <script>
 /* VIDEO_LINKS: paste a Loom or YouTube link between the quotes, or the path to an .mp4 in book/videos/ (a .jpg poster and .vtt subtitles with the same name are picked up automatically). The script note disappears once a link is set.
    0 Ch1 Spread 1 Meet the line graph · 1 Ch1 Spread 2 Read the axes · 2 Ch1 Spread 4 Find the overall trend
@@ -758,7 +759,7 @@ window.VIDEO_LINKS=['videos/c1-meet-the-line-graph.mp4','videos/c1-read-the-axes
 </footer>
 <div id="gloss" role="dialog" aria-modal="false" hidden></div>
 <div id="ov" class="overlay" hidden></div>
-<div id="printview" aria-hidden="true"></div>
+<div id="printview" aria-hidden="true" data-clarity-mask="true"></div>
 <script>
 /* ==========================================================================
    LINE GRAPH SUCCESS · INTERACTIVE BOOK CONTENT (Chapters 1 and 2)
@@ -2134,7 +2135,7 @@ const AI_TASKS=['c1-write','c2-write','c3-write','c4-write','c5-write','c6-pract
 const AI_ERR={limit:'You have used your AI feedback for now. Try again later today.',cap:'AI feedback is resting for today. Your quick checks and my model answer are still here.',short:'Write a little more first.',off:'AI feedback isn’t available right now.',x:'AI feedback isn’t available right now. Please try again later.'};
 function aiDid(){try{let d=localStorage.getItem('oe-ai-did');if(!d){d=Math.random().toString(36).slice(2,12)+Date.now().toString(36);localStorage.setItem('oe-ai-did',d)}return d}catch(e){return 'anon'+Math.random().toString(36).slice(2,10)}}
 function aiFeedback(el,o){if(!AI_URL||AI_TASKS.indexOf(o.id)<0)return;const box=$('.aifb',el);if(!box||box._on)return;box._on=1;box.hidden=false;
-  box.innerHTML=`<h3 style="margin-top:20px">AI feedback <span class="small" style="font-weight:400">(beta)</span></h3><p class="small">Get comments on your answer, checked against the figures in the graph. They are written by an AI assistant, not by Lindsey, and it can make mistakes.</p><p class="small">When you select Get AI feedback, Orange English sends your answer to Anthropic to generate feedback. Orange English saves the submitted answer and feedback to review how well the tool works. We don\'t attach your name or email address to the saved entry. It includes a random code for your browser, which limits how many requests one device can send. Please leave personal details out of your answer.</p><div class="row" style="margin-top:8px"><button type="button" class="btn ghost aigo">Get AI feedback</button><span class="small aimsg" aria-live="polite"></span></div><div class="aiout" aria-live="polite"></div>`;
+  box.innerHTML=`<h3 style="margin-top:20px">AI feedback <span class="small" style="font-weight:400">(beta)</span></h3><p class="small">Get comments on your answer, checked against the figures in the graph. They are written by an AI assistant, not by Lindsey, and it can make mistakes.</p><p class="small">When you select Get AI feedback, Orange English sends your answer to Anthropic to generate feedback. Orange English saves the submitted answer and feedback to review how well the tool works. We don\'t attach your name or email address to the saved entry. It includes a random code for your browser, which limits how many requests one device can send. Please leave personal details out of your answer.</p><div class="row" style="margin-top:8px"><button type="button" class="btn ghost aigo">Get AI feedback</button><span class="small aimsg" aria-live="polite"></span></div><div class="aiout" aria-live="polite" data-clarity-mask="true"></div>`;
   const out=$('.aiout',box),msg=$('.aimsg',box),btn=$('.aigo',box);
   const show=r=>{out.innerHTML=`<div class="draft" style="background:var(--paper);margin-top:12px">${r.good?`<p><b>What works:</b> ${esc(r.good)}</p>`:''}${(r.points||[]).slice(0,3).map(p=>`<p>${p.quote?`<q>${esc(p.quote)}</q><br>`:''}${esc(p.comment||'')}</p>`).join('')}${r.next?`<p><b>Try next:</b> ${esc(r.next)}</p>`:''}</div><p class="small" style="margin-top:8px">Check each comment against the graph before you change anything. Want a former IELTS examiner to mark this answer? <a href="https://orangeenglish.nl/ielts-writing-feedback?utm_source=book&utm_medium=ai-feedback" target="_blank" rel="noopener">See IELTS Writing feedback</a>.</p>`;btn.textContent='Get AI feedback again'};
   const saved=S.get('ai-'+o.id,null);if(saved)show(saved);
@@ -2200,7 +2201,7 @@ function refreshReviews(){$$('[data-review]').forEach(box=>{const ch=+box.datase
     box.innerHTML=!done?'<p class="small">Your results will appear here as you work through the chapter.</p>':
       (miss.length?`<p>You answered ${done} questions in this chapter. These pages are worth another look:</p><ul class="clean">${Object.entries(bySpread).map(([s,set])=>`<li><a href="#" data-go="${s}">${esc(C.SPREADS[s].title)}</a><span class="small"> · ${esc([...set].filter(Boolean).join('; '))}</span></li>`).join('')}</ul>`:`<p>You answered ${done} questions in this chapter and got every one right first time.</p>`)});
   $$('[data-portfolio]').forEach(box=>{const id=box.dataset.portfolio,o=C.ACTS[id],d1=S.get('d1-'+id,null),d2=S.get('d2-'+id,null);const fmt=d=>d?o.fields.map(f=>(o.fields.length>1?`${f.label.split(':')[0]}: `:'')+(d[f.k]||'')).join('\n\n'):'';
-    box.innerHTML=`<div class="oe-workshop" style="padding:0;border:0;background:none"><div class="portfolio"><div class="draft"><h4>First draft</h4>${d1?esc(fmt(d1)):'<span class="small">Not written yet.</span>'}</div><div class="draft"><h4>Revision</h4>${d2?esc(fmt(d2)):'<span class="small">Not revised yet.</span>'}</div></div></div>`});
+    box.innerHTML=`<div class="oe-workshop" style="padding:0;border:0;background:none"><div class="portfolio" data-clarity-mask="true"><div class="draft"><h4>First draft</h4>${d1?esc(fmt(d1)):'<span class="small">Not written yet.</span>'}</div><div class="draft"><h4>Revision</h4>${d2?esc(fmt(d2)):'<span class="small">Not revised yet.</span>'}</div></div></div>`});
   $$('[data-jcount]').forEach(b=>{const n=journal().length;b.textContent=n===1?'1 entry':n+' entries'})}
 function renderDict(){const box=$('#dict-list');if(!box)return;const j=journal();
   box.innerHTML=j.length?j.map((e,i)=>`<div class="rowq"><p class="small" style="margin-bottom:6px">${esc(e.where||'')}</p><dl style="display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14.5px"><dt style="font-weight:700;color:var(--orange-ink)">My mistake</dt><dd>${esc(e.mistake)}</dd><dt style="font-weight:700;color:var(--green-ink)">Better</dt><dd>${esc(e.better)}</dd><dt style="font-weight:700">Why</dt><dd>${esc(e.why)}</dd></dl><button type="button" class="chip" data-del="${i}" style="margin-top:8px">Remove</button></div>`).join(''):'<p class="small">Nothing saved yet. When you make a mistake in an activity, select “Save to my journal” and it will appear here.</p>';
@@ -2216,7 +2217,7 @@ function loadPdfKit(){if(pdfKit)return pdfKit;
   const js=new Promise((ok,no)=>{if(window.jspdf)return ok();const s=document.createElement('script');s.src='lib/jspdf.umd.min.js';s.onload=ok;s.onerror=no;document.head.appendChild(s)});
   const b64=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u);return r.arrayBuffer()}).then(buf=>{const a=new Uint8Array(buf);let t='';for(let i=0;i<a.length;i+=0x8000)t+=String.fromCharCode.apply(null,a.subarray(i,i+0x8000));return btoa(t)});
   pdfKit=Promise.all([js,b64('lib/Inter-400.ttf'),b64('lib/Inter-600.ttf'),b64('lib/Fraunces-600.ttf'),img('cert/logo.png')]).then(x=>({r:x[1],b:x[2],h:x[3],logo:x[4]})).catch(e=>{pdfKit=null;throw e});return pdfKit}
-function dictName(){const c=S.get('cert',null);if(c&&c.name)return c.name;try{const f=(new URLSearchParams(location.search).get('fname')||'').trim();return f.indexOf('{{')<0?f.slice(0,48):''}catch(e){return ''}}
+function dictName(){const c=S.get('cert',null);if(c&&c.name)return c.name;try{const f=String(window.__oeTK&&window.__oeTK.name||'').trim();return f.indexOf('{{')<0?f.slice(0,48):''}catch(e){return ''}}
 const pdfTxt=t=>String(t==null?'':t).replace(/→/g,'->').replace(/[✓✔✗✘]/g,'').replace(/[^\u0009\u000A -ɏ -⁯€™−]/g,'').replace(/[ \t]+/g,' ').replace(/ ([.,;:!?])/g,'$1').trim();
 async function dictPDF(btn){const lab=btn&&btn.textContent;if(btn){btn.disabled=true;btn.textContent='Making your PDF…'}
   try{const k=await loadPdfKit(),d=new window.jspdf.jsPDF({unit:'pt',format:'a4'});
@@ -2573,7 +2574,8 @@ const ga=(()=>{try{
   let lastSeen=-1;const _render=render;
   render=function(dir,focus){_render(dir,focus);if(pos.s===lastSeen)return;lastSeen=pos.s;const sp=C.SPREADS[pos.s]||{};
     ga('book_page',{chapter:String(sp.ch||0),page_id:sp.id||String(pos.s),page_name:sp.title||'',page_number:pos.s+1});
-    if(/^c\d-review$/.test(sp.id||''))ga('chapter_review_reached',{chapter:String(sp.ch)})};
+    try{if(window.oeClarity){oeClarity.tag('chapter',String(sp.ch||0));oeClarity.tag('page',sp.id||String(pos.s))}}catch(e){}
+    if(/^c\d-review$/.test(sp.id||'')){ga('chapter_review_reached',{chapter:String(sp.ch)});try{if(window.oeClarity)oeClarity.event('chapter_'+sp.ch+'_review_reached')}catch(e){}}};
 }
 { // first answer to each activity item
   const _track=track;
@@ -2775,7 +2777,7 @@ function drawCert(cc,ims,white){const logo=ims&&ims.logo,sig=ims&&ims.sig;const 
   if(sig){const sw=172,sh=sw*sig.height/sig.width;g.drawImage(sig,W-240-sw/2+4,604-sh*0.86,sw,sh)}
   g.font='400 10.5px Inter, Arial, sans-serif';g.fillStyle='#8C857A';g.fillText(`Certificate no. ${cc.id} · orangeenglish.nl · Confirms completion of an Orange English course. It is not an IELTS test result.`,W/2,H-52);
   return cv}
-function openCert(cc){openOverlay(`<span class="eyebrow">Your certificate</span><h3>Congratulations, ${esc(cc.name)}!</h3><div class="certprev"><p class="small">Making your certificate…</p></div><div class="row" style="margin-top:12px"><button type="button" class="btn" id="ct-png" disabled>Download image</button><button type="button" class="btn ghost" id="ct-pdf" disabled>Save as PDF</button><a class="btn ghost" id="ct-li" target="_blank" rel="noopener">Add to LinkedIn</a><button type="button" class="btn ghost" id="ct-dict">Error dictionary (PDF)</button><button type="button" class="btn ghost" id="ct-x">Close</button></div><p class="small" style="margin-top:8px">To save a PDF, choose “Save as PDF” in the print window. Your certificate stays in this browser, so you can come back and download it again.</p>`,'Your certificate');
+function openCert(cc){openOverlay(`<span class="eyebrow">Your certificate</span><h3 data-oe-private data-clarity-mask="true">Congratulations, ${esc(cc.name)}!</h3><div class="certprev" data-clarity-mask="true"><p class="small">Making your certificate…</p></div><div class="row" style="margin-top:12px"><button type="button" class="btn" id="ct-png" disabled>Download image</button><button type="button" class="btn ghost" id="ct-pdf" disabled>Save as PDF</button><a class="btn ghost" id="ct-li" target="_blank" rel="noopener">Add to LinkedIn</a><button type="button" class="btn ghost" id="ct-dict">Error dictionary (PDF)</button><button type="button" class="btn ghost" id="ct-x">Close</button></div><p class="small" style="margin-top:8px">To save a PDF, choose “Save as PDF” in the print window. Your certificate stays in this browser, so you can come back and download it again.</p>`,'Your certificate');
   {const cd=$('#ov .card');if(cd)cd.classList.add('wide')}$('#ct-x').onclick=closeOverlay;{const cl=$('#ct-dict');if(cl)cl.onclick=ev=>{ev.preventDefault();dictPDF(cl)}}const d=new Date(cc.date+'T12:00:00');
   $('#ct-li').href='https://www.linkedin.com/profile/add?'+new URLSearchParams({startTask:'CERTIFICATION_NAME',name:'Mastering Line Graphs: IELTS Academic Writing Task 1',organizationName:'Orange English',issueYear:String(d.getFullYear()),issueMonth:String(d.getMonth()+1),certUrl:'https://orangeenglish.nl/free-ielts-course',certId:cc.id}).toString();
   $('#ct-li').onclick=()=>{try{ga('certificate_linkedin',{})}catch(e){}};
@@ -2886,7 +2888,7 @@ if(window.OESync&&OESync.mountPanel){
   OESync.summary=()=>{try{return{chaptersFinished:[1,2,3,4,5,6].filter(ch=>{const st=chSteps(ch);return st.length&&st.every(spreadDone)}).length}}catch(e){return{}}};
   $('.bk-top .tools').insertAdjacentHTML('afterbegin','<button type="button" class="tbtn" id="syncbtn" title="Save your progress so you can continue on another device"><span class="lab-long">Save progress</span><span class="lab-ic" aria-hidden="true">☁</span></button>');
   const paintSync=()=>{const s=OESync.status(),b=$('#syncbtn');if(!b)return;b.setAttribute('aria-pressed',s.signedIn?'true':'false');$('.lab-long',b).textContent=s.unavailable?'Save progress':s.signedIn?(s.error==='offline'?'Saved on this device':'Progress saved ✓'):(s.needCode?'Load your progress':'Save progress')};
-  const openSync=()=>{openOverlay('<span class="eyebrow">Your progress</span><h3>Keep your work on every device</h3><div id="syncpanel"></div><div class="row" style="margin-top:14px"><button type="button" class="btn ghost" id="sync-x">Close</button></div>','Save your progress');OESync.mountPanel($('#syncpanel'));$('#sync-x').onclick=closeOverlay;try{ga('sync_open',{})}catch(e){}};
+  const openSync=()=>{openOverlay('<span class="eyebrow">Your progress</span><h3>Keep your work on every device</h3><div id="syncpanel" data-clarity-mask="true"></div><div class="row" style="margin-top:14px"><button type="button" class="btn ghost" id="sync-x">Close</button></div>','Save your progress');OESync.mountPanel($('#syncpanel'));$('#sync-x').onclick=closeOverlay;try{ga('sync_open',{})}catch(e){}};
   $('#syncbtn').onclick=openSync;
   OESync.on('status',()=>{paintSync();const p=$('#syncpanel');if(p&&p._oeDraw&&!p.contains(document.activeElement))p._oeDraw()});
   OESync.on('needcode',()=>{paintSync();if($('#ov').hidden)openSync()});
