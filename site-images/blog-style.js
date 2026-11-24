@@ -302,7 +302,16 @@ function run(){
   var t=outer.querySelector('[data-ux=BlogMainHeading]');
   if(t&&t.tagName!=='H1'){var h1=d.createElement('h1');[].forEach.call(t.attributes,function(a){h1.setAttribute(a.name,a.value)});h1.classList.add('oe-title');h1.innerHTML=t.innerHTML;t.replaceWith(h1)}
   var pb=outer.querySelector('[data-ux=BlogContent]'),pc=outer.querySelector('[data-aid=RSS_POST_CATEGORIES]');if(pb&&w.oeDrills)w.oeDrills();if(pb){embeds(pb);options(pb);labels(pb);quiz(pb);if(n>=3){panels(pb);toc(pb)}}if(pb)share(pb);if(pb&&t0())addCta(pb,(pc?pc.textContent:'').toLowerCase(),(t0().textContent||'').toLowerCase());
+  if(pb)rights(pb);
   if(!top0){top0=1;w.scrollTo(0,0)}
+}
+/* Copyright line at the end of every blog post, under the share box */
+function rights(pb){
+  if(d.querySelector('.oe-rights'))return;
+  var p=d.createElement('p');p.className='oe-rights';
+  p.setAttribute('style','margin:22px 0 6px!important;font-size:13px!important;line-height:1.5!important;color:#7a746c!important;text-align:center');
+  p.innerHTML='\u00a9 '+new Date().getFullYear()+' Orange English \u00b7 <a href="https://orangeenglish.nl" style="color:inherit!important;text-decoration:underline">orangeenglish.nl</a>. All rights reserved. Please don\u2019t copy or republish this post without permission.';
+  var after=d.querySelector('.oe-share')||pb;after.parentNode.insertBefore(p,after.nextSibling);
 }
 /* Interactive activities: a link in a post to a page under /linegraphs/practice/ becomes an embedded activity, with the link kept as a full-screen option. */
 function embeds(pb){
