@@ -310,7 +310,7 @@ function rights(pb){
   if(d.querySelector('.oe-rights'))return;
   var p=d.createElement('p');p.className='oe-rights';
   p.setAttribute('style','margin:22px 0 6px!important;font-size:13px!important;line-height:1.5!important;color:#7a746c!important;text-align:center');
-  p.innerHTML='\u00a9 '+new Date().getFullYear()+' Orange English \u00b7 <a href="https://orangeenglish.nl" style="color:inherit!important;text-decoration:underline">orangeenglish.nl</a>. All rights reserved. Please don\u2019t copy or republish this post without permission.';
+  p.innerHTML='\u00a9 '+new Date().getFullYear()+' Orange English \u00b7 <a href="https://orangeenglish.nl" style="color:inherit!important;text-decoration:underline">orangeenglish.nl</a>. All rights reserved.';
   var after=d.querySelector('.oe-share')||pb;after.parentNode.insertBefore(p,after.nextSibling);
 }
 /* Interactive activities: a link in a post to a page under /linegraphs/practice/ becomes an embedded activity, with the link kept as a full-screen option. */
