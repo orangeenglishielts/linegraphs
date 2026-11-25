@@ -576,6 +576,8 @@ body.printing{background:#fff}
 .oe-fb .note{font-size:13px;color:var(--soft);margin-top:10px}
 .oe-fb .done{background:var(--mint);border-radius:8px;padding:12px 14px;margin-top:6px}
 .oe-fb .err{color:var(--orange-ink);font-size:14px;margin-top:8px}
+.oe-fb .fbsec{margin-top:22px;padding-top:16px;border-top:1.5px dashed var(--line)}
+.oe-fb .fbmoney{display:flex;align-items:center;gap:8px;max-width:220px}.oe-fb .fbmoney span{font-family:var(--ui);font-weight:700}
 /* ---------- attention helpers (added Nov 2026) ---------- */
 .chbar{display:block;width:180px;max-width:60vw;height:5px;margin:6px auto 0;border-radius:99px;background:#DCD5C6;overflow:hidden}
 .chbar i{display:block;height:100%;background:var(--green-ink);border-radius:99px;transition:width .4s ease}
@@ -2473,7 +2475,7 @@ function canBox(box){const n=+box.dataset.cannow,items=CANNOW[n];if(!items)retur
   $$('input',box).forEach(i=>i.onchange=()=>{st[i.dataset.k]=i.checked;S.set('can-'+n,st)})}
 function progressBox(box){let bf=null,af=null;try{bf=JSON.parse(localStorage.getItem('oe-diagnostic-before')||'null');af=JSON.parse(localStorage.getItem('oe-diagnostic-after')||'null')}catch(e){}
   box.innerHTML=`<div class="oe-insight" style="margin:14px 0"><span class="lab">Measure your progress</span><p style="margin:4px 0 10px">${bf?`Before the course, you scored <b>${bf.total} / 12</b> on the diagnostic. `:''}${af?`Your final diagnostic score is <b>${af.total} / 12</b>. `:''}The final diagnostic uses a new graph and tests the same four skills as the first one.</p><div class="row"><a class="btn" href="diagnostic/after.html" style="text-decoration:none">${af?'Retake':'Take'} the final diagnostic</a></div></div>
-  <div class="oe-insight" style="margin:14px 0"><span class="lab">Help me improve this course</span><p style="margin:4px 0 0">At the end of the next page there’s a short course survey. It takes about two minutes, and I read every reply.</p></div>`}
+  <div class="oe-insight" style="margin:14px 0"><span class="lab">Help me improve this course</span><p style="margin:4px 0 0">At the end of the next page there’s a short course survey. It takes about three minutes, and I read every reply.</p></div>`}
 $$('[data-extras]').forEach(extrasBox);$$('[data-cannow]').forEach(canBox);$$('[data-progress]').forEach(progressBox);
 $$('[data-minitest]').forEach(miniCard);
 /* ---------------- feedback cards (one per chapter, plus end of course) ---------------- */
@@ -2484,7 +2486,7 @@ function fbCheck(name,opts){return `<div class="opts">${opts.map(t=>`<label><inp
 function fbBox(box){if(!FB_URL||FB_URL.startsWith('__'))return;const key=box.dataset.feedback,course=key==='course',n=key,id='fb'+key;
   const sent=S.get('fb-'+key,null);
   const thanks=`<div class="done"><b>Thank you!</b> Your feedback has reached me, and I read every reply. It helps me make the course better for the next students.</div>`;
-  const head=course?`<span class="lab">Course survey · 2 minutes</span><h3>How was the whole course?</h3><p class="small" style="margin:0">Your honest answers shape the next version of this book.</p>`
+  const head=course?`<span class="lab">Course survey · 3 minutes</span><h3>How was the whole course?</h3><p class="small" style="margin:0">Your honest answers shape the next version of this book.</p>`
     :(n==='1'?`<span class="lab">Your feedback · 2 minutes</span><h3>How was Chapter 1?</h3><p class="small" style="margin:0">This is the most useful feedback you can give me: the first chapter shapes the whole course. The first three questions are needed. The rest are optional.</p>`
       :`<span class="lab">Your feedback · 20 seconds</span><h3>How was Chapter ${n}?</h3><p class="small" style="margin:0">Tap a face and answer one question. Add a comment if you like.</p>`);
   if(sent){box.innerHTML=`<div class="oe-fb">${head}${thanks}</div>`;return}
@@ -2505,7 +2507,21 @@ function fbBox(box){if(!FB_URL||FB_URL.startsWith('__'))return;const key=box.dat
   const courseQs=`
    <fieldset><legend>How confident were you about Task 1 line graphs <b>before</b> the course? <span class="small" style="font-weight:400">(1 = not at all, 5 = very)</span></legend>${conf('cb')}</fieldset>
    <fieldset><legend>How confident are you <b>now</b>?</legend>${conf('cn')}</fieldset>
-   <fieldset><legend>Would you recommend this course to a friend preparing for IELTS?</legend>${fbRadio(id+'rec',[['Yes','Yes'],['Maybe','Maybe'],['No','No']])}</fieldset>`;
+   <fieldset><legend>Would you recommend this course to a friend preparing for IELTS?</legend>${fbRadio(id+'rec',[['Yes','Yes'],['Maybe','Maybe'],['No','No']])}</fieldset>
+   <div class="fbsec"><span class="lab">What should I make next?</span><p class="small" style="margin:0">I’m building <b>IELTS Writing Task 1 Complete</b>: bar charts, pie charts, tables, maps and processes, in this same book format. These answers help me plan it and price it fairly. All of them are optional.</p></div>
+   <fieldset><legend>What would you pay for that course? <span class="small" style="font-weight:400">(US dollars)</span></legend>${fbRadio(id+'pay',['Under $5','$5 to $9','$10 to $14','$15 to $24','$25 to $49','$50 to $99','$100 or more','I wouldn’t buy it'].map(t=>[t,t]))}</fieldset>
+   <fieldset><legend><label for="${id}-max">At what price would it be too expensive? <span class="small" style="font-weight:400">(US dollars)</span></label></legend><div class="fbmoney"><span aria-hidden="true">$</span><input type="text" inputmode="decimal" id="${id}-max" maxlength="8" placeholder="For example: 60"></div></fieldset>
+   <fieldset><legend>What else have you used to prepare for IELTS? <span class="small" style="font-weight:400">(choose any)</span></legend>${fbCheck(id+'used',['YouTube videos','Apps','Books','A paid online course','A private tutor','A language school','Nothing else yet'])}
+    <div data-paidwrap hidden style="margin-top:10px"><label for="${id}-pc" class="small">Which course or teacher was it?</label><input type="text" id="${id}-pc" maxlength="120" placeholder="For example: the name of the course or website">
+    <label for="${id}-pp" class="small" style="display:block;margin-top:8px">About how much did you pay? <span style="font-weight:400">(any currency)</span></label><input type="text" id="${id}-pp" maxlength="40" placeholder="For example: $40 or 300 yuan">
+    <div class="small" style="margin:8px 0 4px">Did you like it?</div>${fbRadio(id+'pl',[['Yes','Yes'],['It was OK','It was OK'],['No','No']])}
+    <label for="${id}-pw" class="small" style="display:block;margin-top:8px">What did you like or not like about it?</label><textarea id="${id}-pw" maxlength="600" rows="2"></textarea></div></fieldset>
+   <fieldset><legend>When is your IELTS test?</legend>${fbRadio(id+'when',['Within a month','In 1 to 3 months','In more than 3 months','Not booked yet','I’ve already taken it'].map(t=>[t,t]))}</fieldset>
+   <fieldset><legend>Which band score do you need, and what are you at now?</legend><div class="small" style="margin-bottom:4px">I need</div>${fbRadio(id+'need',['6 or below','6.5','7','7.5','8 or above','Not sure'].map(t=>[t,t]))}<div class="small" style="margin:8px 0 4px">My Writing score now (or my best guess)</div>${fbRadio(id+'now',['5 or below','5.5','6','6.5','7 or above','Not sure'].map(t=>[t,t]))}</fieldset>
+   <fieldset><legend>Which of these would you pay extra for? <span class="small" style="font-weight:400">(choose any)</span></legend>${fbCheck(id+'extra',['My writing marked by a former IELTS examiner','Live group classes','One-to-one lessons','More practice tasks with model answers','More AI feedback','A printed workbook','None of these'])}</fieldset>
+   <fieldset><legend>What would you like a course on next? <span class="small" style="font-weight:400">(choose any)</span></legend>${fbCheck(id+'next',['Other Task 1 charts','Writing Task 2','Speaking','Reading','Listening','Last-minute preparation before test day'])}</fieldset>
+   <fieldset><legend>How did you find this course?</legend>${fbRadio(id+'src',['RedNote','Instagram','YouTube','Google search','LinkedIn','A friend or teacher','Other'].map(t=>[t,t]))}</fieldset>
+   <fieldset><legend><label for="${id}-country">Which country do you live in?</label></legend><input type="text" id="${id}-country" maxlength="60" autocomplete="country-name"></fieldset>`;
   const texts=course?`
    <fieldset><legend><label for="${id}-c">What would you tell another student about this course? <span class="small" style="font-weight:400">(optional)</span></label></legend><textarea id="${id}-c" maxlength="1500"></textarea></fieldset>
    <fieldset><legend>Can I share your comment on my website or social media?</legend>${fbRadio(id+'tm',[['Yes, with my first name','Yes, with my first name'],['Yes, anonymously','Yes, anonymously'],['No','No, keep it private']])}<div style="margin-top:8px" hidden data-namewrap><label for="${id}-name" class="small">Your first name</label><input type="text" id="${id}-name" maxlength="40" autocomplete="given-name"></div></fieldset>`
@@ -2514,11 +2530,17 @@ function fbBox(box){if(!FB_URL||FB_URL.startsWith('__'))return;const key=box.dat
    <div class="row" style="margin-top:14px"><button type="submit" class="btn">Send my feedback</button></div><div class="err" aria-live="polite"></div>
    <p class="note">Your answers go straight to me at Orange English. ${course?'Your first name is only used if you choose to share your comment.':'They don’t include your name or your writing.'}</p></form>`;
   const f=$('form',box),val=nm=>{const x=f.querySelector(`input[name="${id+nm}"]:checked`);return x?x.value:''};
-  if(course){$$(`input[name="${id}tm"]`,f).forEach(r=>r.onchange=()=>{f.querySelector('[data-namewrap]').hidden=r.value!=='Yes, with my first name'||!r.checked})}
+  if(course){const pw=f.querySelector('[data-paidwrap]'),paid=['A paid online course','A private tutor','A language school'];$$(`input[name="${id}used"]`,f).forEach(c=>c.onchange=()=>{pw.hidden=!$$(`input[name="${id}used"]:checked`,f).some(x=>paid.includes(x.value))});
+    $$(`input[name="${id}tm"]`,f).forEach(r=>r.onchange=()=>{f.querySelector('[data-namewrap]').hidden=r.value!=='Yes, with my first name'||!r.checked})}
   f.onsubmit=async ev=>{ev.preventDefault();const err=$('.err',f);
     const d={type:course?'course':'chapter',chapter:course?'Course':n,sid:fbSid()};
     if(course){Object.assign(d,{confBefore:val('cb'),confNow:val('cn'),recommend:val('rec'),testimonial:val('tm'),comments:$('#'+id+'-c',f).value.trim(),name:val('tm')==='Yes, with my first name'?$('#'+id+'-name',f).value.trim():''});
-      if(!d.confNow&&!d.recommend&&!d.comments){err.textContent='Please answer at least one question first.';return}}
+      const tx=k=>{const x=$('#'+id+'-'+k,f);return x?x.value.replace(/\s+/g,' ').trim():''},all=k=>$$(`input[name="${id+k}"]:checked`,f).map(x=>x.value).join(', ');
+      const m={payWould:val('pay'),payTooMuch:tx('max'),usedBefore:all('used'),paidCourse:tx('pc'),paidPrice:tx('pp'),paidLiked:val('pl'),paidWhy:tx('pw'),testDate:val('when'),bandNeeded:val('need'),bandNow:val('now'),payExtraFor:all('extra'),wantNext:all('next'),foundVia:val('src'),country:tx('country')};
+      const lab={payWould:'Would pay (USD)',payTooMuch:'Too expensive at (USD)',usedBefore:'Has used',paidCourse:'Paid course or teacher',paidPrice:'Paid',paidLiked:'Liked it',paidWhy:'Why',testDate:'Test date',bandNeeded:'Band needed',bandNow:'Writing now',payExtraFor:'Would pay extra for',wantNext:'Wants next',foundVia:'Found via',country:'Country'};
+      const mk=Object.keys(m).filter(k=>m[k]);const mt=mk.map(k=>lab[k]+': '+m[k]).join('\n');Object.assign(d,m,{market:mt});
+      if(!d.confNow&&!d.recommend&&!d.comments&&!mk.length){err.textContent='Please answer at least one question first.';return}
+      if(mt)d.comments=(d.comments?d.comments+'\n\n':'')+'MARKET RESEARCH\n'+mt}
     else{Object.assign(d,{enjoy:val('enjoy'),clarity:val('clarity'),ease:val('ease'),device:val('device'),helpful:$$(`input[name="${id}helpful"]:checked`,f).map(x=>x.value).join(', '),problems:$('#'+id+'-p',f).value.trim(),focus:$('#'+id+'-f',f).value.trim(),comments:$('#'+id+'-c',f).value.trim()});
       const tm=val('time');if(tm)d.comments='Time taken: '+tm+(d.comments?'\n\n'+d.comments:'');
       if(d.focus)d.comments=('Where I lost focus: '+d.focus+(d.comments?'\n\n'+d.comments:''));
@@ -2750,7 +2772,14 @@ function paintCert(){const box=$('[data-cert]');if(!box)return;const done=CERT_T
   box.innerHTML=`<span class="lab">Your certificate</span><p><b>You’ve completed all six chapter challenges.</b> Type your name as you want it on your certificate.</p><div class="row" style="align-items:flex-end"><label style="flex:1;min-width:200px"><span class="small" style="display:block;margin-bottom:4px">Your name</span><input type="text" id="cert-name" maxlength="48" autocomplete="name" value="${esc(c&&c.name||'')}"></label><button type="button" class="btn" id="cert-go">Get my certificate</button></div><p class="small cert-err" aria-live="polite"></p>`;
   $('#cert-go',box).onclick=()=>{const name=$('#cert-name',box).value.replace(/\s+/g,' ').trim();if(name.length<2){$('.cert-err',box).textContent='Please type your name first.';return}
     let cc=S.get('cert',null);if(!cc){const d=new Date();cc={id:'OE-LG-'+String(d.getFullYear()).slice(2)+'-'+Math.random().toString(36).slice(2,6).toUpperCase(),date:d.toISOString().slice(0,10)}}
-    cc.name=name;S.set('cert',cc);try{ga('certificate_created',{})}catch(e){}openCert(cc)}}
+    cc.name=name;S.set('cert',cc);try{ga('certificate_created',{})}catch(e){}certGate(cc)}}
+/* course survey shown once before the certificate; skipping goes straight to the certificate */
+function certGate(cc){if(S.get('fb-course',null)||S.get('fbc-skip',null)||!FB_URL||FB_URL.startsWith('__')){openCert(cc);return}
+  openOverlay(`<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px"><span class="eyebrow" style="margin:0">One last thing before your certificate</span><button type="button" class="btn ghost" id="fbc-skip2" style="flex:none;font-size:13.5px;padding:8px 12px;min-height:40px">Skip to my certificate</button></div><div data-feedback="course" class="fbgate"></div><div class="row" style="margin-top:10px"><button type="button" class="btn ghost" id="fbc-skip">Skip to my certificate</button></div>`,'Course survey');
+  const cd=$('#ov .card');if(cd)cd.classList.add('wide');const pageBoxes=$$('.spread [data-feedback="course"]');pageBoxes.forEach(x=>x.innerHTML='');fbBox($('#ov [data-feedback="course"]'));
+  let gone=0;const go=()=>{if(gone)return;gone=1;clearInterval(iv);if(!S.get('fb-course',null))S.set('fbc-skip',Date.now());closeOverlay();pageBoxes.forEach(fbBox);openCert(cc)};
+  const sk=$('#fbc-skip'),sk2=$('#fbc-skip2');sk.onclick=go;sk2.onclick=go;
+  let shown=0;const iv=setInterval(()=>{if($('#ov').hidden||!$('#fbc-skip')){clearInterval(iv);if(!gone){gone=1;if(!S.get('fb-course',null))S.set('fbc-skip',Date.now());pageBoxes.forEach(fbBox)}return}if(S.get('fb-course',null)&&!shown){shown=1;sk.textContent='Get my certificate';sk.className='btn';sk2.textContent='Get my certificate'}},400)}
 let certFonts=null;
 function loadCertFonts(){if(certFonts)return certFonts;const add=(fam,url,desc)=>{try{const f=new FontFace(fam,`url(${url})`,desc);document.fonts.add(f);return f.load()}catch(e){return Promise.resolve()}};
   certFonts=Promise.all([add('OE Fraunces','cert/Fraunces.woff2',{weight:'600'}),add('OE Caveat','cert/Caveat.woff2',{weight:'600'}),document.fonts.load('400 16px Inter'),document.fonts.load('600 16px Inter'),
