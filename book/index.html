@@ -2567,14 +2567,14 @@ function shareBox(box){const n=box.dataset.share,c=SHARE[n];if(!c)return;const k
   box.innerHTML=`<span class="lab">Share with the class</span><h3>${c.h}</h3>${c.g&&C.CHARTS[c.g]?`<div class="sh-graph">${chartBox(C.CHARTS[c.g]).replace(/id="([^"]+)-t"/g,'id="sh$1-t"').replace(/aria-labelledby="([^"]+)-t"/g,'aria-labelledby="sh$1-t"')}</div>`:''}<p class="start">Start with: <i>${c.start}</i></p><p class="stretch"><b>Stretch:</b> ${c.stretch}</p>
   <label class="small" for="sh${n}" style="display:block;margin-bottom:4px">Write it here first</label><textarea id="sh${n}" placeholder="Type your ${n==='6'?'answer':'sentence'} here">${esc(saved)}</textarea>
   <div class="row" style="margin-top:10px;align-items:center"><button type="button" class="btn sh-copy">Copy it</button><span class="msg" aria-live="polite"></span></div>
-  <ol class="steps"><li>Paste it in the <b>Discussion</b> under this lesson. It starts with “Chapter ${n}”, so everyone knows which task it is.</li><li>Then reply to one other student. Tell them one thing they did well, or suggest one word that could be more precise. Be kind, we're all learning! 🧡</li><li>I read every post and reply as often as I can.</li></ol>`;
+  <ol class="steps"><li>Tap <b>💬 Discussions</b> at the top right of this lesson, then <b>Create new post</b>, and paste it in. It starts with “Chapter ${n}”, so everyone knows which task it is.</li><li>Then reply to one other student. Tell them one thing they did well, or suggest one word that could be more precise. Be kind, we're all learning! 🧡</li><li>I read every post and reply as often as I can.</li></ol>`;
   try{enhanceCharts(box)}catch(e){}
   const ta=box.querySelector('textarea'),msg=box.querySelector('.msg');
   ta.addEventListener('input',()=>{try{localStorage.setItem(key,ta.value)}catch(e){}});
   box.querySelector('.sh-copy').onclick=async()=>{const t=ta.value.trim();if(!t){msg.style.color='var(--orange-ink)';msg.textContent='Write your sentence first.';ta.focus();return}
     const txt='Chapter '+n+': '+t;let ok=false;
     try{await navigator.clipboard.writeText(txt);ok=true}catch(e){try{ta.value=txt;ta.select();ok=document.execCommand('copy');ta.value=t}catch(e2){}}
-    msg.style.color='';msg.textContent=ok?'Copied! Now paste it in the Discussion under this lesson.':'Select your sentence and copy it, then paste it in the Discussion.';
+    msg.style.color='';msg.textContent=ok?'Copied! Now tap 💬 Discussions at the top right of this lesson, then Create new post.':'Select your sentence and copy it, then tap 💬 Discussions at the top right of this lesson.';
     try{ga('share_sentence_copy',{chapter:n})}catch(e){}};}
 $$('[data-share]').forEach(shareBox);
 
