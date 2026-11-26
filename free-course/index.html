@@ -86,7 +86,7 @@ footer a{color:#5E564E}
 <script>
 (function(){
 var f=document.getElementById('f'),err=document.getElementById('err'),done=document.getElementById('done'),btn=document.getElementById('btn'),inp=document.getElementById('e');
-function ok(){f.style.display='none';done.classList.add('show');try{if(window.fbq)fbq('track','Lead');}catch(x){}}
+function ok(v){f.style.display='none';done.classList.add('show');try{if(window.fbq){fbq('init','28599338359744750',{em:v.toLowerCase()});fbq('track','Lead');}}catch(x){}}
 f.addEventListener('submit',function(ev){
   ev.preventDefault();
   var v=inp.value.trim();
@@ -98,7 +98,7 @@ f.addEventListener('submit',function(ev){
   var t=setTimeout(fallback,12000);
   fetch(f.action,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
     .then(function(r){return r.json();})
-    .then(function(res){if(fin)return;fin=true;clearTimeout(t);if(res&&res.status==='success'){ok();}else{btn.disabled=false;btn.textContent='Get free access';err.textContent='Something went wrong. Check your email address and try again.';err.hidden=false;}})
+    .then(function(res){if(fin)return;fin=true;clearTimeout(t);if(res&&res.status==='success'){ok(v);}else{btn.disabled=false;btn.textContent='Get free access';err.textContent='Something went wrong. Check your email address and try again.';err.hidden=false;}})
     .catch(function(){clearTimeout(t);fallback();});
 });
 })();
