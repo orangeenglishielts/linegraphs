@@ -45,10 +45,15 @@ footer{margin-top:28px;font-size:13px;color:#5E564E}
 footer a{color:#5E564E}
 .cc{position:fixed;left:12px;right:12px;bottom:12px;max-width:560px;margin:0 auto;background:#292929;color:#fff;border-radius:16px;padding:12px 14px;font-size:14px;line-height:1.4;display:flex;gap:10px;align-items:center;flex-wrap:wrap;z-index:9;box-shadow:0 8px 24px rgba(0,0,0,.18)}
 .cc[hidden]{display:none}
-.cc p{margin:0;flex:1 1 220px}
+.cc p{margin:0;flex:1 1 100%}
 .cc a{color:#fff}
-.cc button{flex:0 0 auto;display:inline-block;padding:10px 16px;font-size:15px}
-.cc #ccn{background:transparent;border:1.5px solid #fff}
+.cc button{flex:1 1 0;display:inline-block;padding:10px 16px;font-size:15px}
+.cc button{background:#fff;color:#292929;border:0;min-width:96px}
+.ask{display:none;margin-top:6px;padding-top:14px;border-top:1px solid rgba(41,41,41,.15)}
+.ask.show{display:block}
+.ask p{margin:0 0 10px;font-size:16px}
+.ask .r button{flex:1 1 120px;padding:12px 16px;font-size:16px;background:#fff;color:#292929;border:2px solid #292929}
+.ask .t{margin:0;font-size:15px}
 </style>
 <script src="../site-images/oe-ga.js"></script><script src="../site-images/oe-clarity.js"></script></head>
 <body>
@@ -72,6 +77,11 @@ footer a{color:#5E564E}
 <h2>You're in!</h2>
 <p>Your practice pack is ready now, and it's in your inbox too. I'll email you the course link on Friday 27 November.</p>
 <a class="b" href="https://orangeenglishielts.github.io/linegraphs/free-practice-pack/">Open the practice pack</a>
+<div class="ask" id="ask">
+<p>One small favour? Can I let Meta know that an ad brought you here? It helps me reach more IELTS students like you. It's fine to say no.</p>
+<div class="r"><button type="button" id="aky">Yes, that's fine</button><button type="button" id="akn">No thanks</button></div>
+</div>
+<p class="t" id="akt" hidden>Thank you, that really helps!</p>
 </div>
 
 <img class="shot" src="course-preview.webp" width="720" height="554" loading="lazy" decoding="async" alt="A page from the Mastering Line Graphs course: a short video lesson next to an activity on reading the parts of a graph">
@@ -86,7 +96,7 @@ footer a{color:#5E564E}
 <script>
 (function(){
 var f=document.getElementById('f'),err=document.getElementById('err'),done=document.getElementById('done'),btn=document.getElementById('btn'),inp=document.getElementById('e');
-function ok(v){f.style.display='none';done.classList.add('show');try{if(window.fbq){fbq('init','28599338359744750',{em:v.toLowerCase()});fbq('track','Lead');}}catch(x){}}
+function ok(v){f.style.display='none';done.classList.add('show');window.oeEmail=v.toLowerCase();try{if(window.fbq){window.oeLead();}else if(window.oeAsk){window.oeAsk();}}catch(x){}}
 f.addEventListener('submit',function(ev){
   ev.preventDefault();
   var v=inp.value.trim();
@@ -104,15 +114,20 @@ f.addEventListener('submit',function(ev){
 })();
 </script>
 <div class="cc" id="cc" hidden role="dialog" aria-label="Cookie choice">
-<p>Can I use cookies to see which ads bring people here and to record how this page is used (Meta Pixel, Microsoft Clarity)? See my <a href="https://orangeenglish.nl/privacy-policy">privacy policy</a>.</p>
-<button type="button" id="ccn">Decline</button><button type="button" id="cca">Accept</button>
+<p>Hi! Can I use cookies? They show me which ads bring people here, so I can spend my small ad budget wisely and reach more IELTS students. It's fine to say no. <a href="https://orangeenglish.nl/privacy-policy">Privacy policy</a></p>
+<button type="button" id="cca">Accept</button><button type="button" id="ccn">Decline</button>
 </div>
 <script>
 (function(){
 var K='oe_cookie_consent',cc=document.getElementById('cc');
 function px(){if(window.fbq)return;!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','28599338359744750');fbq('track','PageView');}
-var c=null;try{c=localStorage.getItem(K);}catch(x){}
-if(c==='yes'){px();}else if(c!=='no'){cc.hidden=false;}
+var M='oe_meta_consent',c=null,m=null;try{c=localStorage.getItem(K);m=localStorage.getItem(M);}catch(x){}
+if(c==='yes'||m==='yes'){px();}else if(c!=='no'){cc.hidden=false;}
+window.oeLead=function(){try{fbq('init','28599338359744750',{em:window.oeEmail||''});fbq('track','Lead');}catch(x){}};
+var ask=document.getElementById('ask');
+window.oeAsk=function(){var d=null;try{d=localStorage.getItem(K);}catch(x){}if(d==='no')return;cc.hidden=true;ask.classList.add('show');};
+document.getElementById('aky').addEventListener('click',function(){try{localStorage.setItem(M,'yes');}catch(x){}px();window.oeLead();ask.classList.remove('show');document.getElementById('akt').hidden=false;});
+document.getElementById('akn').addEventListener('click',function(){try{localStorage.setItem(M,'no');}catch(x){}ask.classList.remove('show');});
 function set(v){try{localStorage.setItem(K,v);}catch(x){}cc.hidden=true;if(v==='yes')px();try{if(window.oeClarity){if(v==='yes')oeClarity.grant();else oeClarity.deny();}}catch(x){}}
 document.getElementById('cca').addEventListener('click',function(){set('yes');});
 document.getElementById('ccn').addEventListener('click',function(){set('no');});
