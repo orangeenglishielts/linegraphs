@@ -2848,11 +2848,11 @@ function setupActSteps(){$$('.page').forEach(pg=>{const spEl=pg.closest('.spread
   const key='astep-'+sp.id+'-'+(pg.classList.contains('left')?'L':'R');
   const st={pg,all,segs,key,cur:Math.min(S.get(key,0),all.length-1),showAll:!!S.get(key+'-all',false)};
   pg.classList.add('acts-step');
-  const bar=document.createElement('div');bar.className='actbar';bar.setAttribute('role','group');bar.setAttribute('aria-label','Tasks on this page');
-  bar.innerHTML=`<span class="small">Tasks</span>${all.map((a,i)=>`<button type="button" class="actdot" data-i="${i}" aria-label="Task ${i+1}">${i+1}</button>`).join('')}<button type="button" class="actall">Show all</button>`;
+  const bar=document.createElement('div');bar.className='actbar';bar.setAttribute('role','group');bar.setAttribute('aria-label','Exercises on this page');
+  bar.innerHTML=`<span class="small">Exercises</span>${all.map((a,i)=>`<button type="button" class="actdot" data-i="${i}" aria-label="Exercise ${i+1}">${i+1}</button>`).join('')}<button type="button" class="actall">Show all</button>`;
   pg.insertBefore(bar,tops[0]);st.bar=bar;
   segs.forEach((seg,i)=>{const nav=document.createElement('div');nav.className='actnav';
-    nav.innerHTML=i<all.length-1?`<span class="small">Task ${i+1} of ${all.length}</span><button type="button" class="btn act-next">Next task →</button>`:`<span class="small">That's the last task on this page.</span>`;
+    nav.innerHTML=i<all.length-1?`<span class="small">Exercise ${i+1} of ${all.length}</span><button type="button" class="btn act-next">Next exercise →</button>`:`<span class="small">That's the last exercise on this page.</span>`;
     const last=seg[seg.length-1]||tops[i];last.after(nav);seg.push(nav);const nb=$('.act-next',nav);if(nb)nb.onclick=()=>{go2(st,i+1);scrollToEl(bar)}});
   $$('.actdot',bar).forEach(b=>b.onclick=()=>{go2(st,+b.dataset.i)});
   $('.actall',bar).onclick=()=>{st.showAll=!st.showAll;S.set(key+'-all',st.showAll);paintStep(st)};
@@ -2942,6 +2942,6 @@ if(window.OESync&&OESync.mountPanel){
 })();
 
 </script>
-<script>(function(){function n(){document.querySelectorAll('.page').forEach(function(pg){var acts=[].slice.call(pg.querySelectorAll('[data-act]'));pg.querySelectorAll('.tasklab').forEach(function(t){var a=t.closest('[data-act]');var i=a?acts.indexOf(a):-1;var s='Task '+(i>=0?i+1:'')+' · Your turn';if(t.textContent!==s)t.textContent=s;});});}new MutationObserver(n).observe(document.documentElement,{childList:true,subtree:true});document.addEventListener('DOMContentLoaded',n);n();})();</script>
+<script>(function(){function n(){document.querySelectorAll('.page').forEach(function(pg){var acts=[].slice.call(pg.querySelectorAll('[data-act]'));pg.querySelectorAll('.tasklab').forEach(function(t){var a=t.closest('[data-act]');var i=a?acts.indexOf(a):-1;var s='Exercise '+(i>=0?i+1:'');if(t.textContent!==s)t.textContent=s;});});}new MutationObserver(n).observe(document.documentElement,{childList:true,subtree:true});document.addEventListener('DOMContentLoaded',n);n();})();</script>
 </body>
 </html>
