@@ -71,10 +71,20 @@ window.chartSVG=function(mode){
     return `<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round"/>`+
       pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="${c}"/>`).join('')+
       `<text x="${last[0]+6}" y="${last[1]+4}" font-size="11" font-weight="600" fill="${c}" style="fill:${c}">${n}</text>`}).join('');
+  // Value labels: highest series above its point, lowest below, the middle one above unless it sits close to the top one.
+  let vals='';
+  YEARS.forEach((yr,k)=>{
+    const col=LINES.map(([n,d,c])=>({v:d[k],c})).sort((a,b)=>b.v-a.v);
+    col.forEach((o,i)=>{
+      const y=Y(o.v);let ly;
+      if(i===0)ly=y-7;else if(i===col.length-1)ly=y+13;else ly=(y-Y(col[0].v))>=18?y-7:y+13;
+      vals+=`<text x="${k===0?X(k)+3:X(k)}" y="${ly}" font-size="9.5" font-weight="600" text-anchor="${k===0?'start':'middle'}" fill="${o.c}" stroke="#fff" stroke-width="3" paint-order="stroke" pointer-events="none" style="fill:${o.c}">${o.v}%</text>`;
+    });
+  });
   let hits='';
   if(mode==='seg')LINES.forEach(([n,d],s)=>{for(let k=0;k<d.length-1;k++)hits+=`<line class="hit" tabindex="0" role="button" aria-label="${n}, ${YEARS[k]} to ${YEARS[k+1]}" data-id="${s}:${k}" x1="${X(k)}" y1="${Y(d[k])}" x2="${X(k+1)}" y2="${Y(d[k+1])}"/>`});
   if(mode==='line')LINES.forEach(([n,d],s)=>{hits+=`<polyline class="hit" tabindex="0" role="button" aria-label="${n}" data-id="${s}" points="${d.map((v,k)=>X(k)+','+Y(v)).join(' ')}"/>`});
-  return `<p class="chart-title">${TITLE}</p><svg class="chart" viewBox="0 0 360 236" role="img" aria-label="${esc(ARIA)}">${grid}${hits?'':lines}${hits?lines+hits:''}</svg>`;
+  return `<p class="chart-title">${TITLE}</p><svg class="chart" viewBox="0 0 360 236" role="img" aria-label="${esc(ARIA)}">${grid}${hits?'':lines+vals}${hits?lines+vals+hits:''}</svg>`;
 };
 const spark=d=>{const mx=Math.max(...d),mn=Math.min(...d),r=mx-mn||1;return `<svg viewBox="0 0 100 40" aria-hidden="true"><polyline points="${d.map((v,k)=>(6+k*88/(d.length-1))+','+(34-(v-mn)/r*28)).join(' ')}" fill="none" stroke="var(--orange)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/></svg>`};
 const shuffle=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
