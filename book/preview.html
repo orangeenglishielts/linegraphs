@@ -119,7 +119,7 @@ a.btn{color:#fff}a.btn.ghost,a.btn.accent{color:var(--dark)}
 .oe-try .level.independent{color:var(--orange-ink)}
 .oe-try .level.challenge{color:var(--dark)}
 .oe-try .decision{display:block;font-family:var(--ui);font-weight:700;font-size:15.5px;margin-bottom:4px}
-.oe-try .decision::before{content:"Decision: ";color:var(--orange-ink)}
+.oe-try:has(>.tasklab){border-left:5px solid var(--orange)}.oe-try .tasklab{display:table;background:var(--orange);color:#fff;font-family:var(--ui);font-weight:800;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;border-radius:6px;padding:5px 11px;margin:0 0 10px}.oe-try .decision::before{content:none}
 .oe-try .prompt{color:var(--mid);font-size:15px;margin-bottom:14px}
 .oe-try .opts{display:grid;gap:10px}
 .oe-try .opt{display:block;width:100%;text-align:left;background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:12px 14px;cursor:pointer;font-size:15.5px;line-height:1.5;min-height:44px}
@@ -1853,7 +1853,7 @@ function journalBtn(host,entry){if(!host||$('.jbtn',host))return;const key=entry
 function jEntry(act,item,mistake,better,why){return{key:act.id+':'+item+':'+strip(mistake),where:act._spreadTitle,mistake:strip(mistake),better:strip(better),why:strip(why)}}
 
 /* ---------------- activities ---------------- */
-function head(o){return `<div class="meta"><span class="level ${o.level.toLowerCase()}">${o.level}</span>${o.skill?`<span class="small">${o.skill}</span>`:''}</div>${o.decision?`<span class="decision">${o.decision}</span>`:''}${o.prompt?`<p class="prompt">${o.prompt}</p>`:''}`}
+function head(o){return `${o.decision?'<span class="tasklab"></span>':''}<div class="meta"><span class="level ${o.level.toLowerCase()}">${o.level}</span>${o.skill?`<span class="small">${o.skill}</span>`:''}</div>${o.decision?`<span class="decision">${o.decision}</span>`:''}${o.prompt?`<p class="prompt">${o.prompt}</p>`:''}`}
 const mix=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
 const A={};
 A.choice=(el,o)=>{el.classList.add('oe-try');el.innerHTML=head(o)+`<div class="opts">${mix(o.opts.map((x,i)=>[x,i])).map(([x,i])=>`<button type="button" class="opt" data-i="${i}">${x.t}<span class="why" hidden>${x.why}</span></button>`).join('')}</div><div class="jhost"></div>`;
@@ -2586,11 +2586,11 @@ function setupActSteps(){$$('.page').forEach(pg=>{const spEl=pg.closest('.spread
   const key='astep-'+sp.id+'-'+(pg.classList.contains('left')?'L':'R');
   const st={pg,all,segs,key,cur:Math.min(S.get(key,0),all.length-1),showAll:!!S.get(key+'-all',false)};
   pg.classList.add('acts-step');
-  const bar=document.createElement('div');bar.className='actbar';bar.setAttribute('role','group');bar.setAttribute('aria-label','Activities on this page');
-  bar.innerHTML=`<span class="small">Activities</span>${all.map((a,i)=>`<button type="button" class="actdot" data-i="${i}" aria-label="Activity ${i+1}">${i+1}</button>`).join('')}<button type="button" class="actall">Show all</button>`;
+  const bar=document.createElement('div');bar.className='actbar';bar.setAttribute('role','group');bar.setAttribute('aria-label','Tasks on this page');
+  bar.innerHTML=`<span class="small">Tasks</span>${all.map((a,i)=>`<button type="button" class="actdot" data-i="${i}" aria-label="Task ${i+1}">${i+1}</button>`).join('')}<button type="button" class="actall">Show all</button>`;
   pg.insertBefore(bar,tops[0]);st.bar=bar;
   segs.forEach((seg,i)=>{const nav=document.createElement('div');nav.className='actnav';
-    nav.innerHTML=i<all.length-1?`<span class="small">Activity ${i+1} of ${all.length}</span><button type="button" class="btn act-next">Next activity →</button>`:`<span class="small">That's the last activity on this page.</span>`;
+    nav.innerHTML=i<all.length-1?`<span class="small">Task ${i+1} of ${all.length}</span><button type="button" class="btn act-next">Next task →</button>`:`<span class="small">That's the last task on this page.</span>`;
     const last=seg[seg.length-1]||tops[i];last.after(nav);seg.push(nav);const nb=$('.act-next',nav);if(nb)nb.onclick=()=>{go2(st,i+1);scrollToEl(bar)}});
   $$('.actdot',bar).forEach(b=>b.onclick=()=>{go2(st,+b.dataset.i)});
   $('.actall',bar).onclick=()=>{st.showAll=!st.showAll;S.set(key+'-all',st.showAll);paintStep(st)};
@@ -2668,5 +2668,6 @@ if(window.OESync&&OESync.mountPanel){
 })();
 
 </script>
+<script>(function(){function n(){document.querySelectorAll('.page').forEach(function(pg){var acts=[].slice.call(pg.querySelectorAll('[data-act]'));pg.querySelectorAll('.tasklab').forEach(function(t){var a=t.closest('[data-act]');var i=a?acts.indexOf(a):-1;var s='Task '+(i>=0?i+1:'')+' · Your turn';if(t.textContent!==s)t.textContent=s;});});}new MutationObserver(n).observe(document.documentElement,{childList:true,subtree:true});document.addEventListener('DOMContentLoaded',n);n();})();</script>
 </body>
 </html>
