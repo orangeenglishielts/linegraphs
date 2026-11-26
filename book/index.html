@@ -2094,12 +2094,18 @@ A.pen=(el,o)=>{el.classList.add('oe-try');let st=S.get('a-'+o.id,{sel:[],done:0}
   $('.chk',el).onclick=()=>{if(!st.sel.length){fb.innerHTML='<p style="margin:0">Mark at least one mistake first.</p>';return}reveal(false)};
   $('.rst',el).onclick=()=>{st={sel:[],done:0};S.set('a-'+o.id,st);pen.classList.remove('done');ws.forEach(w=>{w.classList.remove('found','missed','false');const n=$('sup',w);if(n)n.remove()});fb.innerHTML='';$('.jhost',el).innerHTML='';paint()};
   paint();if(st.done)reveal(true)};
-function warmup(box){const n=+box.dataset.warmup,pool=[];C.SPREADS.forEach(sp=>{const m=/^c(\d)-/.exec(sp.id);if(m&&+m[1]<n&&C.RETRIEVAL[sp.id])C.RETRIEVAL[sp.id].forEach(q=>pool.push(q))});
-  const draw=()=>{const qs=mix(pool).slice(0,3);box.innerHTML=`<div class="oe-insight warmup"><span class="lab">Warm-up</span><p style="margin:4px 0 10px">Three quick questions from earlier chapters. Remembering before you start makes it stick.</p><div class="rq"></div><div class="row" style="margin-top:10px"><button type="button" class="btn ghost wu-new">New questions</button><span class="small wu-score" style="align-self:center"></span></div></div>`;
-    const rq=$('.rq',box);let sc=0,an=0;qs.forEach((q,k)=>{const d=document.createElement('div');d.className='oe-try';d.style.padding='14px';
+/* ---------------- spaced retrieval: favour questions answered wrongly, never seen, or not seen for a while ---------------- */
+function rqPool(keep){const pool=[];C.SPREADS.forEach((sp,si)=>{if(keep(sp,si)&&C.RETRIEVAL[sp.id])C.RETRIEVAL[sp.id].forEach((q,qi)=>pool.push({q,key:sp.id+':'+qi,si}))});return pool}
+function rqPick(pool,n){const mem=S.get('rq',{}),now=Date.now(),D=864e5,weak=new Set(Object.values(results).filter(r=>r.first===false).map(r=>r.spread));
+  const ranked=pool.map(it=>{const m=mem[it.key];let sc=Math.random();if(!m)sc+=1.5;else{const days=(now-m.t)/D;if(m.w)sc+=3;sc+=Math.min(2,days/3);if(!m.w&&days<1)sc-=2}if(weak.has(it.si))sc+=1;return [sc,it]}).sort((a,b)=>b[0]-a[0]).map(x=>x[1]);
+  const out=[],used=new Set();ranked.forEach(it=>{if(out.length<n&&!used.has(it.si)){out.push(it);used.add(it.si)}});ranked.forEach(it=>{if(out.length<n&&!out.includes(it))out.push(it)});return out}
+function rqMark(key,ok){const mem=S.get('rq',{}),m=mem[key]||{n:0};m.n=(m.n||0)+1;m.w=ok?0:1;m.t=Date.now();mem[key]=m;S.set('rq',mem)}
+function warmup(box){const n=+box.dataset.warmup,pool=rqPool(sp=>{const m=/^c(\d)-/.exec(sp.id);return m&&+m[1]<n});
+  const draw=()=>{const qs=rqPick(pool,3);box.innerHTML=`<div class="oe-insight warmup"><span class="lab">Warm-up</span><p style="margin:4px 0 10px">Three quick questions from earlier chapters, picked from ones you found tricky or haven't seen for a while. Remembering before you start makes it stick.</p><div class="rq"></div><div class="row" style="margin-top:10px"><button type="button" class="btn ghost wu-new">New questions</button><span class="small wu-score" style="align-self:center"></span></div></div>`;
+    const rq=$('.rq',box);let sc=0,an=0;qs.forEach((it,k)=>{const q=it.q;const d=document.createElement('div');d.className='oe-try';d.style.padding='14px';
       d.innerHTML=`<span class="decision" style="font-size:15px">${k+1}. ${q.q}</span><div class="opts">${mix(q.opts.map((x,i)=>[x,i])).map(([x,i])=>`<button type="button" class="opt" data-i="${i}" style="font-size:14.5px;padding:9px 12px">${x.t}<span class="why" hidden>${x.why}</span></button>`).join('')}</div>`;rq.appendChild(d);
       const bs=$$('.opt',d).sort((a,b)=>a.dataset.i-b.dataset.i),ans=q.opts.findIndex(x=>x.ok);
-      bs.forEach((b,i)=>b.onclick=()=>{bs.forEach((x,j)=>{x.disabled=true;$('.why',x).hidden=false;x.classList.add(j===ans?'right':(j===i?'wrong':'other'))});an++;if(i===ans)sc++;$('.wu-score',box).textContent=`${sc} of ${an} remembered`})});
+      bs.forEach((b,i)=>b.onclick=()=>{bs.forEach((x,j)=>{x.disabled=true;$('.why',x).hidden=false;x.classList.add(j===ans?'right':(j===i?'wrong':'other'))});an++;if(i===ans)sc++;rqMark(it.key,i===ans);$('.wu-score',box).textContent=`${sc} of ${an} remembered`})});
     $('.wu-new',box).onclick=draw};
   if(pool.length)draw()}
 A.fix=(el,o)=>{el.classList.add('oe-try');const st=S.get('a-'+o.id,{});
@@ -2409,12 +2415,12 @@ function resumeTarget(){const bm=S.get('bm',null);return bm||pos}
 function resumeCard(){const t=resumeTarget(),sp=C.SPREADS[t.s];if(!sp||(t.s===0&&!S.get('bm',null)))return;
   openOverlay(`<span class="eyebrow">Welcome back</span><h3>Continue where you left off?</h3><p>${S.get('bm',null)?'Your bookmark':'You stopped'} at <b>${esc(sp.title)}</b>${sp.chLabel!==sp.title?', '+esc(sp.chLabel):''}, page ${t.s*2+(t.side==='right'?2:1)}.</p><div class="row"><button type="button" class="btn" id="rc-go">Continue</button><button type="button" class="btn ghost" id="rc-start">Start at the beginning</button></div>`,'Continue where you left off');
   $('#rc-go').onclick=()=>{closeOverlay();go(t.s,t.side,1)};$('#rc-start').onclick=()=>{closeOverlay();go(0,'left',1)}}
-function retrieval(){const completed=new Set(Object.values(results).map(r=>r.spread));let pool=[];C.SPREADS.forEach((sp,i)=>{if(completed.has(i)&&C.RETRIEVAL[sp.id])C.RETRIEVAL[sp.id].forEach(q=>pool.push(q))});
+function retrieval(){const completed=new Set(Object.values(results).map(r=>r.spread));let pool=rqPool((sp,i)=>completed.has(i));
   if(pool.length<3)return;let note='';
-  pool=pool.map(q=>[Math.random(),q]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]).slice(0,3);const t=resumeTarget(),sp=C.SPREADS[t.s];
+  pool=rqPick(pool,3);const t=resumeTarget(),sp=C.SPREADS[t.s];
   openOverlay(`<span class="eyebrow">Retrieval practice</span><h3>Before we continue, can you remember what you learned?</h3><p>Three quick questions. Remembering before you read on makes it stick.</p>${note}<div class="rq" style="display:grid;gap:12px;max-height:52vh;overflow:auto"></div><div class="row" style="margin-top:14px"><button type="button" class="btn" id="rt-go">Continue to my page</button><span class="small rt-score"></span></div>`,'Retrieval practice');
-  const box=$('.rq',$('#ov'));let score=0,answered=0;pool.forEach((q,k)=>{const d=document.createElement('div');d.className='oe-try';d.style.padding='14px';d.innerHTML=`<span class="decision" style="font-size:15px">${q.q}</span><div class="opts">${mix(q.opts.map((x,i)=>[x,i])).map(([x,i])=>`<button type="button" class="opt" data-i="${i}" style="font-size:14.5px;padding:9px 12px">${x.t}<span class="why" hidden>${x.why}</span></button>`).join('')}</div>`;box.appendChild(d);
-    const bs=$$('.opt',d).sort((a,b)=>a.dataset.i-b.dataset.i),ans=q.opts.findIndex(x=>x.ok);bs.forEach((b,i)=>b.onclick=()=>{bs.forEach((x,j)=>{x.disabled=true;$('.why',x).hidden=false;x.classList.add(j===ans?'right':(j===i?'wrong':'other'))});answered++;if(i===ans)score++;$('.rt-score').textContent=`${score} of ${answered} remembered`})});
+  const box=$('.rq',$('#ov'));let score=0,answered=0;pool.forEach((it,k)=>{const q=it.q;const d=document.createElement('div');d.className='oe-try';d.style.padding='14px';d.innerHTML=`<span class="decision" style="font-size:15px">${q.q}</span><div class="opts">${mix(q.opts.map((x,i)=>[x,i])).map(([x,i])=>`<button type="button" class="opt" data-i="${i}" style="font-size:14.5px;padding:9px 12px">${x.t}<span class="why" hidden>${x.why}</span></button>`).join('')}</div>`;box.appendChild(d);
+    const bs=$$('.opt',d).sort((a,b)=>a.dataset.i-b.dataset.i),ans=q.opts.findIndex(x=>x.ok);bs.forEach((b,i)=>b.onclick=()=>{bs.forEach((x,j)=>{x.disabled=true;$('.why',x).hidden=false;x.classList.add(j===ans?'right':(j===i?'wrong':'other'))});answered++;if(i===ans)score++;rqMark(it.key,i===ans);$('.rt-score').textContent=`${score} of ${answered} remembered`})});
   $('#rt-go').onclick=()=>{closeOverlay();if(sp)go(t.s,t.side,1)}}
 
 
