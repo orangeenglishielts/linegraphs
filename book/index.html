@@ -2951,7 +2951,9 @@ if(window.OESync&&OESync.mountPanel){
 <script>(function(){function n(){document.querySelectorAll('.page').forEach(function(pg){var acts=[].slice.call(pg.querySelectorAll('[data-act]'));pg.querySelectorAll('.tasklab').forEach(function(t){var a=t.closest('[data-act]');var i=a?acts.indexOf(a):-1;var s='Exercise '+(i>=0?i+1:'');if(t.textContent!==s)t.textContent=s;});});}new MutationObserver(n).observe(document.documentElement,{childList:true,subtree:true});document.addEventListener('DOMContentLoaded',n);n();})();</script>
 <style>
 /* motivational illustrations in empty page space (laptop spreads only), added Nov 2026 */
-.oe-pic{display:none;margin:44px 0 30px;text-align:center}
+.oe-pic{display:none;margin:56px 0 30px;padding-top:44px;text-align:center;position:relative}
+.oe-pic::before{content:'';position:absolute;top:0;left:50%;width:260px;margin-left:-130px;height:1px;background:linear-gradient(90deg,transparent,#D3C8B2 25%,#D3C8B2 75%,transparent)}
+.oe-pic::after{content:'';position:absolute;top:-4px;left:50%;width:7px;height:7px;margin-left:-4px;background:var(--orange);transform:rotate(45deg);box-shadow:0 0 0 5px var(--page)}
 .oe-pic.fit{display:block}
 .oe-pic img{display:block;width:100%;max-width:460px;height:auto;margin:0 auto 16px}
 .oe-pic.tall img{max-width:400px}
