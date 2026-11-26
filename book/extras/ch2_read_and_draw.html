@@ -199,7 +199,8 @@ footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32p
 </details>
  <label for="rd-ta" class="small">Your description</label>
  <textarea id="rd-ta" placeholder="My happiness was lowest at 6 am, when…"></textarea>
- <div class="row"><button type="button" class="btn show">Show another example</button><button type="button" class="btn ghost cpy">Copy my answer</button><span class="small wc"></span><span class="small cpmsg" aria-live="polite"></span></div>
+ <div class="row"><button type="button" class="btn show">Show another example</button><button type="button" class="btn ghost cpy">Copy to share</button><span class="small wc"></span><span class="small cpmsg" aria-live="polite"></span></div>
+ <p class="small" style="margin:10px 0 0"><b>Share it:</b> copy your paragraph and post it in the Chapter 2 discussion in the course. Nobody else can see your line, so it’s a real test: can the others picture your day from your words? 😊</p>
  <div class="after" hidden>
   <div class="model"><p>The graph shows how happy one person felt at different times on a normal day. My happiness was at its <mark>lowest</mark> point at 6 am, when I woke up, but it <mark>rose sharply</mark> after breakfast, reaching 7 by 9 am. It then <mark>remained stable</mark> until lunchtime before <mark>dipping</mark> slightly in the afternoon. In the evening, it <mark>climbed steadily</mark> and <mark>peaked</mark> at 9 at 9 pm, <mark>more than three times as high as</mark> at the start of the day, before <mark>falling back</mark> to 6 at midnight.</p></div>
   <ul class="checks" style="margin-top:12px">
@@ -242,7 +243,7 @@ function buildWrite(sec){const ta=$('textarea',sec),wc=$('.wc',sec),msg=$('.cpms
  const upd=()=>{const n=(ta.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' words';try{localStorage.setItem(key,ta.value)}catch(e){}};ta.addEventListener('input',upd);upd();
  $('.show',sec).onclick=()=>{$('.after',sec).hidden=false};
  $('.cpy',sec).onclick=()=>{const t=ta.value;const fall=()=>{ta.focus();ta.select();msg.textContent='Selected. Copy it with your keyboard.'};
-  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{msg.textContent='Copied.'},fall)}else fall()}}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>{msg.textContent='Copied. Now paste it in the Chapter 2 discussion.'},fall)}else fall()}}
 
 
 /* ---- drag or tap tiles into slots ----
