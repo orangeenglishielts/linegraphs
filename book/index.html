@@ -3014,6 +3014,10 @@ if(window.OESync&&OESync.mountPanel){
 #tour .tip .demo{background:var(--page,#FBF9F4);border:1px dashed var(--line,#E2DBCC);border-radius:10px;padding:10px 12px;margin:4px 0 12px;font-size:13.5px}
 #tour .tip .demo .fbx{border-left:4px solid #C0392B;background:#FBEDEA;border-radius:6px;padding:7px 10px;margin-bottom:8px}
 #tour .tip .demo .sv{display:inline-block;border:1.5px solid var(--orange);color:var(--orange-ink,#B9541A);border-radius:999px;padding:5px 12px;font-weight:700;font-size:13px;animation:tourPulse 1.6s ease-in-out infinite}
+#tour .tip .demo .gw{border-bottom:2px dotted var(--orange);cursor:help}
+#tour .tip .demo .gpop{background:#fff;border:1px solid var(--line,#E2DBCC);border-radius:8px;padding:8px 10px;box-shadow:0 6px 16px -8px rgba(0,0,0,.3);font-size:13px}
+#tour .tip .demo .gpop b{color:var(--orange-ink,#B9541A);margin-right:4px}
+#tour .tip .demo .tkbtn{display:inline-block;background:#3C4FC1;color:#fff;border-radius:6px;padding:8px 14px;font-weight:700;font-size:13px}
 @keyframes tourPulse{50%{box-shadow:0 0 0 6px rgba(248,139,72,.25)}}
 @media (prefers-reduced-motion:reduce){#tour .spot,#tour .tip{transition:none}#tour .tip .demo .sv{animation:none}}
 @media print{#tour{display:none!important}}
@@ -3027,12 +3031,15 @@ if(window.OESync&&OESync.mountPanel){
   {t:()=>pick('#next'),h:'Turn the page',p:'Use <b>Next page</b> and <b>Previous page</b>, or the arrow keys on your keyboard. The book remembers where you stopped.'},
   {t:()=>pick('#toc'),h:'Contents',p:'Jump to any chapter or step. Each chapter has five short steps and a review.'},
   {t:()=>pick('.spread.active .ribbon'),h:'Bookmark a page',p:'Select the ribbon at the top of a page to bookmark it, so you can find it again quickly.'},
-  {t:()=>pick('#glossbtn','#morebtn'),h:'Glossary',p:'Look up any word from the course. Words with a <u style="text-decoration-style:dotted">dotted underline</u> on a page open the glossary too.'},
+  {t:()=>pick('#glossbtn','#morebtn'),h:'Glossary',p:'Look up any word from the course here. On the pages, words with a dotted underline open their meaning when you select them:',demo:'<p style="margin:0 0 8px">Prices <span class="gw">fluctuated</span> between 2010 and 2020.</p><div class="gpop"><b>fluctuate</b> to go up and down several times, with no clear trend<br><i>“Sales fluctuated throughout the year.”</i></div>'},
   {t:null,h:'Your error dictionary',p:'When you get an answer wrong, a button appears under the feedback. Select it to save the mistake, with a better version and the reason.',demo:'<div class="fbx"><b>Not quite.</b> “Dramatically” is too strong for a rise from 50,000 to 51,000.</div><span class="sv">Save to my journal</span>',p2:'Read your error dictionary before you write. Mistakes you’ve already noticed are the easiest marks to win back. Open it from any chapter review.'},
   {t:()=>pick('#focusbtn','#morebtn'),h:'Focus mode',p:'Want a cleaner page? Focus mode hides the examiner’s notes, pictures and underlines. Select it again to bring them back.'},
   {t:()=>pick('#syncbtn','#morebtn'),h:'Save your progress',p:'Your work is saved in this browser. Select <b>Save progress</b> to carry on from your phone or another computer.'},
   {t:()=>pick('#fs','#morebtn'),h:'Full screen',p:'More room for the graphs and exercises. Press <b>Esc</b> to exit.'},
+  {t:null,inT:1,h:'Finished a lesson?',p:'Below the book there’s a button like this. Click it only when you’ve finished the whole chapter: it ticks the lesson off and opens the next one.',demo:'<span class="tkbtn">I’ve finished this lesson →</span>',p2:'Not finished yet? Just close the course. The book remembers where you were.'},
   {t:null,h:'You’re ready!',p:'Start with the diagnostic task, then work through Chapter 1. You can take this tour again from <b>How this book works</b> on the Chapter 1 opening page.'}];
+ let inT=false;try{inT=window.self!==window.top}catch(e){inT=true}
+ for(let k=STEPS.length-1;k>=0;k--)if(STEPS[k].inT&&!inT)STEPS.splice(k,1);
  let i=0,root=null,lastFocus=null;
  const done=()=>{try{S.set('tour',1)}catch(e){try{localStorage.setItem('oe-linebook-v1-tour','1')}catch(e2){}}};
  const seen=()=>{try{if(S.get('tour',0))return true}catch(e){}try{return localStorage.getItem('oe-linebook-v1-tour')==='1'}catch(e){return false}};
@@ -3058,6 +3065,20 @@ if(window.OESync&&OESync.mountPanel){
  document.addEventListener('click',e=>{if(e.target.closest('[data-tour]')){e.preventDefault();start()}});
  let tries=0;const auto=()=>{if(seen()||root)return;const ov=document.querySelector('#ov');let asking=false;try{asking=window.oeClarity&&oeClarity.state()===null}catch(e){}
   if(asking||(ov&&!ov.hidden)){if(++tries<300)setTimeout(auto,1000);return}setTimeout(()=>{if(!seen()&&!root)start()},500)};setTimeout(auto,1400);
+})();
+</script>
+<style>.oe-tk-note{margin:14px 0 0;padding:10px 14px;border-radius:10px;background:var(--peach,#FEF0E6);font:500 14px/1.45 var(--ui);color:var(--dark)}.oe-tk-note b{color:var(--orange-ink,#B9541A)}</style>
+<script>
+/* inside Thinkific: tell students when to press the course player's "I've finished this lesson" button (added Nov 2026) */
+(function(){var inT=false;try{inT=window.self!==window.top}catch(e){inT=true}if(!inT)return;
+ var pages=[].slice.call(document.querySelectorAll('.page'));
+ pages.forEach(function(pg){var b=[].slice.call(pg.querySelectorAll('button,a')).find(function(x){return /^Start Chapter \d/.test(x.textContent.trim())});
+   var h=pg.querySelector('h1,h2,h3');var isEnd=h&&h.textContent.trim()==='Course review';
+   if(!b&&!isEnd)return;if(pg.querySelector('.oe-tk-note'))return;
+   var n=document.createElement('p');n.className='oe-tk-note';
+   n.innerHTML='<b>Finished the chapter?</b> Click <b>I’ve finished this lesson →</b> below the book to tick it off and move on'+(isEnd?'.':', or use the button above to keep reading here.');
+   var row=b?b.closest('.row'):null;var num=pg.querySelector(':scope>.pgnum');
+   if(row)row.parentNode.insertBefore(n,row.nextSibling);else if(num)pg.insertBefore(n,num);else pg.appendChild(n);});
 })();
 </script>
 </body>
