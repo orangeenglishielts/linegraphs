@@ -7,7 +7,7 @@
 <title>Mastering Line Graphs · IELTS Academic Writing Task 1 · Orange English</title>
 <meta name="description" content="Mastering Line Graphs, an interactive book for IELTS Academic Writing Task 1 in six chapters: Understanding Line Graphs, Describing Trends, Grammar for Data Description, Making Comparisons, Structuring the Response and Writing a Complete Answer.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================================
    ORANGE ENGLISH COMPONENTS · CSS  (Design System v4, "Option C" standard)
@@ -2949,5 +2949,52 @@ if(window.OESync&&OESync.mountPanel){
 
 </script>
 <script>(function(){function n(){document.querySelectorAll('.page').forEach(function(pg){var acts=[].slice.call(pg.querySelectorAll('[data-act]'));pg.querySelectorAll('.tasklab').forEach(function(t){var a=t.closest('[data-act]');var i=a?acts.indexOf(a):-1;var s='Exercise '+(i>=0?i+1:'');if(t.textContent!==s)t.textContent=s;});});}new MutationObserver(n).observe(document.documentElement,{childList:true,subtree:true});document.addEventListener('DOMContentLoaded',n);n();})();</script>
+<style>
+/* motivational illustrations in empty page space (laptop spreads only), added Nov 2026 */
+.oe-pic{display:none;margin:44px 0 30px;text-align:center}
+.oe-pic.fit{display:block}
+.oe-pic img{display:block;width:100%;max-width:460px;height:auto;margin:0 auto 16px}
+.oe-pic.tall img{max-width:400px}
+.oe-pic blockquote{margin:0 auto;max-width:400px;font:italic 400 18px/1.45 var(--head);color:var(--dark);text-wrap:balance}
+.oe-pic .rule{display:block;width:30px;height:2px;background:var(--orange);margin:14px auto 10px}
+.oe-pic figcaption{font:400 12px/1.4 var(--ui);color:var(--soft)}
+.oe-pic figcaption b{font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dark);font-size:11px}
+@media print{.oe-pic{display:none!important}}
+</style>
+<script>
+(function(){
+ const P=[
+  ['Understanding Line Graphs','suitcase','A journey of a thousand miles begins with a single step.','Lao Tzu','<i>Tao Te Ching</i>'],
+  ['Chapter 1 review','ireland','I learned very early the difference between knowing the name of something and knowing something.','Richard Feynman','physicist'],
+  ['How quickly did it change?','balloons','One never notices what has been done; one can only see what remains to be done.','Marie Curie','physicist and chemist'],
+  ['Chapter 2 review','coastal-train','Travel is fatal to prejudice, bigotry, and narrow-mindedness.','Mark Twain','<i>The Innocents Abroad</i>'],
+  ['Which tense?','oxford','If I have seen further, it is by standing on the shoulders of giants.','Isaac Newton','letter to Robert Hooke, 1675'],
+  ['Chapter 3 review','university-courtyard','One child, one teacher, one book, one pen can change the world.','Malala Yousafzai','speech at the United Nations, 2013'],
+  ['Crossovers and turning points','signpost','One language sets you in a corridor for life. Two languages open every door along the way.','Frank Smith','psycholinguist'],
+  ['Chapter 4 review','departures','Education is the most powerful weapon which you can use to change the world.','Nelson Mandela',''],
+  ['The body paragraphs','canal-cafe','We are what we repeatedly do. Excellence, then, is not an act, but a habit.','Will Durant','on Aristotle'],
+  ['Chapter 5 review','singapore','The difficulty lies not so much in developing new ideas as in escaping from old ones.','John Maynard Keynes','economist'],
+  ['Writing a Complete Answer','everest','Plans are worthless, but planning is everything.','Dwight D. Eisenhower',''],
+  ['Self-editing','mont-blanc','Ever tried. Ever failed. No matter. Try again. Fail again. Fail better.','Samuel Beckett','<i>Worstward Ho</i>'],
+  ['Course review','bangkok','The limits of my language mean the limits of my world.','Ludwig Wittgenstein','<i>Tractatus Logico-Philosophicus</i>']];
+ const pages=[...document.querySelectorAll('.page')],figs=[];
+ P.forEach(([h,img,q,who,what])=>{
+  const pg=pages.find(p=>{const e=p.querySelector('h1,h2,h3');return e&&e.textContent.trim()===h});if(!pg)return;
+  const f=document.createElement('figure');f.className='oe-pic'+(img==='bangkok'?' tall':'');f.setAttribute('aria-label','Quote');
+  f.innerHTML=`<img src="img/quotes/${img}.webp" alt="" loading="lazy" decoding="async"><blockquote>“${q}”</blockquote><span class="rule"></span><figcaption><b>${who}</b>${what?' · '+what:''}</figcaption>`;
+  const num=pg.querySelector(':scope>.pgnum');num?pg.insertBefore(f,num):pg.appendChild(f);figs.push(f);
+  f.querySelector('img').addEventListener('load',()=>sched())});
+ const bottom=pg=>{let b=pg.getBoundingClientRect().top;[...pg.children].forEach(c=>{if(c.classList.contains('pgnum'))return;const cs=getComputedStyle(c);if(cs.position==='absolute'||cs.display==='none')return;const r=c.getBoundingClientRect();b=Math.max(b,r.bottom+parseFloat(cs.marginBottom||0))});return b};
+ function check(){figs.forEach(f=>{const pg=f.closest('.page'),sp=pg.closest('.spread');
+   if(!sp||!sp.classList.contains('active')||getComputedStyle(sp).display!=='grid'){f.classList.remove('fit');return}
+   const other=[...sp.querySelectorAll(':scope>.page')].find(p=>p!==pg);if(!other){f.classList.remove('fit');return}
+   f.classList.add('fit');
+   const mine=bottom(pg)-pg.getBoundingClientRect().top,theirs=bottom(other)-other.getBoundingClientRect().top;
+   if(mine>theirs+8)f.classList.remove('fit')})}
+ let t=0;function sched(){cancelAnimationFrame(t);t=requestAnimationFrame(()=>setTimeout(check,30))}
+ new MutationObserver(sched).observe(document.body,{attributes:true,attributeFilter:['class'],subtree:true});
+ addEventListener('resize',sched);sched();
+})();
+</script>
 </body>
 </html>
