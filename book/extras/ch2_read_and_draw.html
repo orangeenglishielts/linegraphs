@@ -88,6 +88,14 @@ td.fit{color:var(--green-ink)} td.avoid{color:var(--red-ink)}
 .checks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
 .checks input{margin-top:5px;accent-color:var(--green)}
 .model{background:var(--green-soft);border-radius:12px;padding:14px 16px;font-size:15px}
+.why{background:var(--surface);border-left:4px solid var(--orange);border-radius:8px;padding:10px 14px;font-size:14px}
+.exbox{border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:0 0 14px;background:var(--surface)}
+.exbox summary{cursor:pointer;font-weight:700;color:var(--orange-ink)}
+.exday{width:100%;max-width:440px;display:block;margin:10px auto}
+.exday polyline{fill:none;stroke:var(--orange);stroke-width:3;stroke-linejoin:round}.exday circle{fill:var(--orange)}
+.exday .gl{stroke:var(--line)}.exday .ax{font:11px var(--f-ui,sans-serif);fill:var(--muted)}
+.wbank{display:grid;gap:6px;font-size:14px;margin:4px 0 12px}.wbank b{margin-right:6px}
+.model em{font-style:normal;color:var(--orange-ink);font-weight:700}
 .model mark{background:transparent;color:var(--green-ink);font-weight:700}
 .wc{font-variant-numeric:tabular-nums}
 .recap{background:var(--orange);color:#1f1f1f;border-radius:16px;padding:22px 20px;display:grid;gap:8px}
@@ -182,9 +190,16 @@ footer{border-top:1px solid var(--line);text-align:center;padding-block:20px 32p
 <section class="write" id="s-write">
  <h2>Describe your day</h2>
  <p>Write a short paragraph about your line for someone who can’t see it. Select the main features, describe the changes with the words from this page, and compare different parts of the day.</p>
+<p class="why"><b>Why?</b> It’s your own line, so you already know the story and can focus on the language. You practise the same three skills as Task 1: choosing the main features, describing the changes and comparing. (In the exam you won’t write about yourself or your feelings, of course. This is just a warm-up.)</p>
+<details class="exbox"><summary>Stuck? See an example day with feelings words</summary>
+<svg class="exday" viewBox="0 0 340 190" role="img" aria-label="Example line: 3 at 6 am, 5 at 9 am, 7 at 12 pm, 4 at 3 pm, 6 at 6 pm, 8 at 9 pm, 5 at 12 am"><line x1="34" x2="324" y1="164.0" y2="164.0" class="gl"/><text x="26" y="168.0" text-anchor="end" class="ax">0</text><line x1="34" x2="324" y1="96.0" y2="96.0" class="gl"/><text x="26" y="100.0" text-anchor="end" class="ax">5</text><line x1="34" x2="324" y1="28.0" y2="28.0" class="gl"/><text x="26" y="32.0" text-anchor="end" class="ax">10</text><polyline points="34.0,123.2 81.0,96.0 128.0,68.8 175.0,109.6 222.0,82.4 269.0,55.2 316.0,96.0"/><circle cx="34.0" cy="123.2" r="3.5"/><text x="34.0" y="113.2" text-anchor="middle" font-size="17">😴</text><text x="34.0" y="182" text-anchor="middle" class="ax">6 am</text><circle cx="81.0" cy="96.0" r="3.5"/><text x="81.0" y="86.0" text-anchor="middle" font-size="17">🙂</text><text x="81.0" y="182" text-anchor="middle" class="ax">9 am</text><circle cx="128.0" cy="68.8" r="3.5"/><text x="128.0" y="58.8" text-anchor="middle" font-size="17">😄</text><text x="128.0" y="182" text-anchor="middle" class="ax">12 pm</text><circle cx="175.0" cy="109.6" r="3.5"/><text x="175.0" y="99.6" text-anchor="middle" font-size="17">😩</text><text x="175.0" y="182" text-anchor="middle" class="ax">3 pm</text><circle cx="222.0" cy="82.4" r="3.5"/><text x="222.0" y="72.4" text-anchor="middle" font-size="17">🙂</text><text x="222.0" y="182" text-anchor="middle" class="ax">6 pm</text><circle cx="269.0" cy="55.2" r="3.5"/><text x="269.0" y="45.2" text-anchor="middle" font-size="17">😊</text><text x="269.0" y="182" text-anchor="middle" class="ax">9 pm</text><circle cx="316.0" cy="96.0" r="3.5"/><text x="316.0" y="86.0" text-anchor="middle" font-size="17">🥱</text><text x="316.0" y="182" text-anchor="middle" class="ax">12 am</text></svg>
+<div class="wbank"><div><b>😩 Low</b> exhausted, groggy, drained, stressed, grumpy, bored</div><div><b>🙂 In the middle</b> okay, calm, relaxed, fine</div><div><b>😄 High</b> cheerful, content, energetic, delighted, on top of the world</div></div>
+<div class="model"><p>At 6 am I felt <em>groggy</em> 😴 and my happiness was <mark>low</mark>, at just 3. It <mark>rose steadily</mark> through the morning and <mark>reached a first peak</mark> of 7 at lunchtime 😄, when I met a friend and felt <em>cheerful</em>. After lunch it <mark>dropped sharply</mark> to 4, as I felt <em>drained</em> 😩 in the afternoon. In the evening it <mark>recovered</mark>, <mark>climbing</mark> to its <mark>highest point</mark> of 8 at 9 pm, when I was <em>relaxed and content</em> 😊. This was <mark>more than double</mark> the 6 am level. By midnight it had <mark>fallen back</mark> to 5, because I was <em>sleepy</em> 🥱.</p>
+<p class="small" style="margin:8px 0 0">Green words describe the line. <em>Orange words</em> describe the feeling. Use both, and give a number for each point.</p></div>
+</details>
  <label for="rd-ta" class="small">Your description</label>
  <textarea id="rd-ta" placeholder="My happiness was lowest at 6 am, when…"></textarea>
- <div class="row"><button type="button" class="btn show">Show an example</button><button type="button" class="btn ghost cpy">Copy my answer</button><span class="small wc"></span><span class="small cpmsg" aria-live="polite"></span></div>
+ <div class="row"><button type="button" class="btn show">Show another example</button><button type="button" class="btn ghost cpy">Copy my answer</button><span class="small wc"></span><span class="small cpmsg" aria-live="polite"></span></div>
  <div class="after" hidden>
   <div class="model"><p>The graph shows how happy one person felt at different times on a normal day. My happiness was at its <mark>lowest</mark> point at 6 am, when I woke up, but it <mark>rose sharply</mark> after breakfast, reaching 7 by 9 am. It then <mark>remained stable</mark> until lunchtime before <mark>dipping</mark> slightly in the afternoon. In the evening, it <mark>climbed steadily</mark> and <mark>peaked</mark> at 9 at 9 pm, <mark>more than three times as high as</mark> at the start of the day, before <mark>falling back</mark> to 6 at midnight.</p></div>
   <ul class="checks" style="margin-top:12px">
