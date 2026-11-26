@@ -87,7 +87,7 @@ const gloss={
 const retrieval={
  'c4-s1':[{q:'How long for the check?',opts:[{t:'About 3 minutes',ok:1,why:'2 + 15 + 3 = 20.'},{t:'No time',why:'Always check.'}]}],
  'c4-s2':[{q:'A plan is written in…',opts:[{t:'notes',ok:1,why:'Fast.'},{t:'full sentences',why:'Too slow.'}]}],
- 'c4-s3':[{q:'Does Task 1 need a conclusion?',opts:[{t:'No',ok:1,why:'The overview sums up.'},{t:'Yes',why:'Four parts only.'}]}],
+ 'c4-s3':[{q:'Does Task 1 need a conclusion?',opts:[{t:'No',ok:1,why:'Your overview already gives the main trends.'},{t:'Yes',why:'Four parts only.'}]}],
  'c4-s4':[{q:'4% → 22% is a rise of…',opts:[{t:'18 percentage points',ok:1,why:'22 − 4.'},{t:'18%',why:'Use percentage points.'}]}],
  'c4-s5':[{q:'Which region had the lowest figure in 2025?',opts:[{t:'The East',ok:1,why:'19%.'},{t:'The West',why:'27%.'}]}]
 };
