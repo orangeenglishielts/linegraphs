@@ -38,19 +38,20 @@
         var dx = a ? Math.round(a.currentRect.x - a.previousRect.x) : 0;
         var afterTap = lastTap && e.startTime >= lastTap ? Math.round(e.startTime - lastTap) : -1;
         var size = Math.round(e.value * 1000) / 1000;
+        var tapBand = afterTap < 0 ? 'no tap' : afterTap <= 500 ? 'within 0.5s' : afterTap <= 1500 ? '0.5 to 1.5s' : 'over 1.5s';
         var info = [moved, 'tap=' + (afterTap < 0 ? 'none' : afterTap + 'ms'), 'load=' + Math.round(e.startTime) + 'ms',
           'size=' + size, 'dy=' + dy, 'dx=' + dx, innerWidth + 'x' + innerHeight, embedded ? 'thinkific' : 'direct', page()].join('|').slice(0, 100);
         try {
           if (window.gtag) gtag('event', 'layout_shift', {
             shift_info: info, shift_moved: moved, shift_also: also, shift_size: size,
-            ms_after_tap: afterTap, ms_after_load: Math.round(e.startTime), shift_page: page(),
+            shift_tap: tapBand, ms_after_tap: afterTap, ms_after_load: Math.round(e.startTime), shift_page: page(),
             embedded: embedded ? 'thinkific' : 'direct', value: Math.round(e.value * 1000)
           });
         } catch (err) {}
         try {
           if (window.oeClarity && oeClarity.tag) {
             oeClarity.tag('shift_moved', moved);
-            oeClarity.tag('shift_after_tap', afterTap < 0 ? 'no tap' : afterTap <= 500 ? 'within 0.5s' : afterTap <= 1500 ? '0.5 to 1.5s' : 'over 1.5s');
+            oeClarity.tag('shift_after_tap', tapBand);
             if (oeClarity.event) oeClarity.event('layout_shift');
           }
         } catch (err) {}
