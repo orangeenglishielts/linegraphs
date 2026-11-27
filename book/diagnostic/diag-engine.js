@@ -58,7 +58,10 @@ const css=`
 @keyframes dqpop{0%{transform:scale(1)}40%{transform:scale(1.03)}100%{transform:scale(1)}}
 @keyframes dqshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 @media (prefers-reduced-motion:no-preference){.pop{animation:dqpop .3s}.shake{animation:dqshake .3s}}
-@media (max-width:380px){.dq-card{font-size:15px}.dq-two{grid-template-columns:1fr}}`;
+@media (max-width:380px){.dq-card{font-size:15px}.dq-two{grid-template-columns:1fr}}
+.dq-miss{color:var(--red-ink,#B3261E)!important;font-weight:600}
+svg.chart{touch-action:manipulation}svg.chart,.hit{-webkit-tap-highlight-color:transparent}
+@media (max-width:480px){svg.chart{width:calc(100% + 24px);max-width:none;margin-inline:-12px}}`;
 document.head.insertAdjacentHTML('beforeend','<style>'+css+'</style>');
 
 const X=k=>44+k*64, Y=v=>200-v*1.6;
@@ -126,11 +129,24 @@ window.render=function(){
     grade=()=>st.placed.length===q.ans.length&&st.placed.every((k,n)=>q.tiles[k]===q.ans[n]);
   }
   else if(q.t==='tapg'){
-    const hits=root.querySelectorAll('.hit'),N=q.ans.length;
+    const hits=[...root.querySelectorAll('.hit')],N=q.ans.length,svg=root.querySelector('svg.chart');
     const tog=h=>{if(answered)return;const id=h.dataset.id,n=st.sel.indexOf(id);if(n>=0)st.sel.splice(n,1);else{st.sel.push(id);if(st.sel.length>N)st.sel.shift()}
       hits.forEach(x=>x.classList.toggle('sel',st.sel.includes(x.dataset.id)));ready(st.sel.length===N)};
-    hits.forEach(h=>{h.onclick=()=>tog(h);h.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog(h)}}});
-    body.innerHTML=`<p class="small" style="margin:0">${N===1?'Tap one part of a line.':`Tap ${N===2?'two':N} ${q.mode==='line'?'lines':'parts of the lines'}.`} Tap again to undo.</p>`;
+    hits.forEach(h=>{h.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog(h)}}});
+    const hint=`${N===1?'Tap one part of a line.':`Tap ${N===2?'two':N} ${q.mode==='line'?'lines':'parts of the lines'}.`} Tap again to undo.`;
+    body.innerHTML=`<p class="small dq-taphint" aria-live="polite" style="margin:0">${hint}</p>`;
+    // A tap anywhere on the graph selects the nearest line within reach (about 30px either side on any screen),
+    // so a near miss on a phone still counts. Too far from every line: say so instead of doing nothing.
+    const hintEl=body.querySelector('.dq-taphint');let missT;
+    const segs=h=>{if(h.tagName.toLowerCase()==='line')return [[+h.getAttribute('x1'),+h.getAttribute('y1'),+h.getAttribute('x2'),+h.getAttribute('y2')]];
+      const p=h.getAttribute('points').trim().split(/\s+/).map(t=>t.split(',').map(Number));return p.slice(1).map((b,i)=>[p[i][0],p[i][1],b[0],b[1]])};
+    const dist=(px,py,[x1,y1,x2,y2])=>{const dx=x2-x1,dy=y2-y1,t=Math.max(0,Math.min(1,((px-x1)*dx+(py-y1)*dy)/(dx*dx+dy*dy||1)));return Math.hypot(px-x1-t*dx,py-y1-t*dy)};
+    if(svg)svg.addEventListener('click',e=>{if(answered)return;const m=svg.getScreenCTM();if(!m||!m.a)return;
+      const px=(e.clientX-m.e)/m.a,py=(e.clientY-m.f)/m.d;let best=null,bd=1e9;
+      hits.forEach(h=>segs(h).forEach(sg=>{const d=dist(px,py,sg);if(d<bd){bd=d;best=h}}));
+      clearTimeout(missT);
+      if(best&&bd<=Math.max(11,30/m.a)){hintEl.classList.remove('dq-miss');hintEl.textContent=hint;tog(best)}
+      else{hintEl.textContent='Tap closer to a line.';hintEl.classList.add('dq-miss');missT=setTimeout(()=>{hintEl.classList.remove('dq-miss');hintEl.textContent=hint},2500)}});
     grade=()=>{hits.forEach(h=>{const id=h.dataset.id;h.classList.remove('sel');if(q.ans.includes(id))h.classList.add('right');else if(st.sel.includes(id))h.classList.add('wrong')});return st.sel.length===N&&st.sel.every(x=>q.ans.includes(x))};
   }
   else if(q.t==='spot'){
