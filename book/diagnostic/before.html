@@ -52,6 +52,9 @@ h3{font:700 15px/1.3 var(--f-display); margin:0 0 6px}
 .chart-title{font:700 15px/1.3 var(--f-display); margin:4px 0 6px; text-align:center}
 .chart text{font-family:var(--f-body); fill:var(--muted)}
 a.btn{display:inline-block;text-decoration:none}
+.dq-big{font-size:18px;padding:16px 26px;width:100%;max-width:360px;background:#C4521E;color:#fff}
+.dq-hero{border:2px solid var(--orange)}
+.dq-vid summary{cursor:pointer;font-weight:700;color:var(--orange-ink);padding:4px 0}
 .btn{font:600 16px/1 var(--f-ui); background:var(--orange); color:#1d1d1d; border:0; border-radius:999px; padding:14px 22px; cursor:pointer}
 .btn:hover{filter:brightness(1.05)} .btn:focus-visible,.opt:focus-visible,input:focus-visible{outline:3px solid var(--green); outline-offset:2px}
 .btn.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line)}
@@ -192,12 +195,21 @@ let G = [];
 
 function start(){
   app.innerHTML = `
+  <section class="card dq-hero">
+    <div class="eyebrow">Step 1 · Task 1 diagnostic</div>
+    <h2 style="margin:6px 0 6px">12 quick tasks, about 8 minutes</h2>
+    <p style="margin:0 0 14px">Find out which Task 1 skill to work on first. You get instant feedback on every answer.</p>
+    <button class="btn dq-big" id="go1">Start the diagnostic →</button>
+    <p class="small dq-tk" hidden style="margin:12px 0 0">Do the 12 quick tasks first, then click <b>I’ve finished this lesson</b> to move on.</p>
+  </section>
   <section class="card">
-    <div class="eyebrow" style="margin-bottom:10px">Welcome</div>
-    <video controls playsinline preload="none" poster="welcome-poster.jpg" aria-label="Welcome video from Lindsey" style="display:block; width:100%; height:auto; aspect-ratio:16/9; border-radius:10px; background:#000">
-      <source src="welcome.mp4" type="video/mp4">
-    </video>
-    <p class="small" style="margin:8px 0 0">A short welcome from Lindsey before you start. Subtitles are included.</p>
+    <details class="dq-vid">
+      <summary>▶ Watch my welcome first (1 min)</summary>
+      <video controls playsinline preload="none" poster="welcome-poster.jpg" aria-label="Welcome video from Lindsey" style="display:block; width:100%; height:auto; aspect-ratio:16/9; border-radius:10px; background:#000; margin-top:10px">
+        <source src="welcome.mp4" type="video/mp4">
+      </video>
+    </details>
+    <p class="small dq-cap" style="margin:8px 0 0;cursor:pointer">A short welcome from Lindsey before you start. Subtitles are included.</p>
   </section>
   <section class="card">
     <div class="eyebrow">Your task</div>
@@ -205,9 +217,12 @@ function start(){
     ${chartSVG()}
     <div class="meta"><span>12 quick tasks</span><span>About 8 minutes</span><span>Instant feedback</span></div>
     <p class="hand">Tip from the examiner's chair: look at the whole graph for 30 seconds before you answer anything.</p>
-    <div class="row" style="justify-content:flex-start"><button class="btn" id="go">Start the diagnostic</button></div>
+    <div class="row" style="justify-content:flex-start"><button class="btn" id="go">Start the diagnostic →</button></div>
   </section>`;
   document.getElementById("go").onclick = render;
+  var g1=document.getElementById("go1");if(g1)g1.onclick=render;
+  try{if(window.self!==window.top)document.querySelectorAll('.dq-tk').forEach(function(p){p.hidden=false})}catch(e){document.querySelectorAll('.dq-tk').forEach(function(p){p.hidden=false})}
+  var cap=document.querySelector('.dq-cap');if(cap)cap.onclick=function(){var d=document.querySelector('.dq-vid'),v=d&&d.querySelector('video');if(d)d.open=true;if(v){try{v.play()}catch(e){}}};
 }
 
 function result(){
