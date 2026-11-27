@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IELTS Vocabulary Practice | Orange English</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#FBF7F0;--ink:#292929;--muted:#6b645c;--accent:#B4501A;--accent-soft:#fbe3d3;--ok:#2f7d4f;--ok-soft:#dff1e5;--bad:#b3261e;--bad-soft:#fbe0de;--line:#e8dfd2;--card:#fff}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Inter,system-ui,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:16px}
+  .top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:4px}
+  h1{font:600 1.3rem/1.2 Fraunces,Georgia,serif;margin:0}
+  .label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .tabs{display:flex;gap:6px}
+  .tabs button{border:1.5px solid var(--accent);background:transparent;color:var(--accent);border-radius:999px;padding:6px 12px;font:600 .85rem Inter,sans-serif;cursor:pointer}
+  .tabs button[aria-pressed="true"]{background:var(--accent);color:#fff}
+  .instr{color:var(--muted);font-size:.92rem;margin:6px 0 12px}
+  .bank{display:flex;flex-wrap:wrap;gap:8px;min-height:44px;padding:10px;border:1.5px dashed var(--line);border-radius:12px;background:#fffdf9;margin-bottom:12px}
+  .chip{background:var(--card);border:1.5px solid var(--ink);border-radius:999px;padding:7px 13px;font-weight:600;font-size:.93rem;cursor:grab;user-select:none;touch-action:manipulation}
+  .chip.sel{background:var(--ink);color:#fff}
+  .rows{display:grid;gap:8px}
+  .row{display:grid;grid-template-columns:minmax(150px,38%) 1fr;gap:10px;align-items:stretch;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px}
+  .slot{border:1.5px dashed #c9bfb1;border-radius:10px;min-height:42px;display:flex;align-items:center;padding:4px 8px;cursor:pointer}
+  .slot.hover{border-color:var(--accent);background:var(--accent-soft)}
+  .slot .chip{cursor:pointer}
+  .slot.empty::before{content:"Drop or tap here";color:#a89f93;font-size:.85rem}
+  .meaning{display:flex;align-items:center;font-size:.95rem}
+  .row.ok{border-color:var(--ok);background:var(--ok-soft)}
+  .row.bad{border-color:var(--bad);background:var(--bad-soft)}
+  .fixrow{grid-template-columns:minmax(150px,38%) 1fr}
+  .fixrow .phrase{font-weight:600;display:flex;align-items:center}
+  .fixrow .meaning{border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer;background:#fffdf9}
+  .fixrow .meaning.sel{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink) inset}
+  .actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+  .btn{border:0;border-radius:10px;padding:10px 16px;font:600 .95rem Inter,sans-serif;cursor:pointer;background:var(--accent);color:#fff}
+  .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .result{font-weight:600}
+  .foot{margin-top:14px;font-size:.78rem;color:var(--muted)}
+  @media (max-width:520px){.row,.fixrow{grid-template-columns:1fr}.wrap{padding:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div><div class="label" id="lbl">IELTS vocabulary</div><h1 id="title">Vocabulary practice</h1></div>
+    <div class="tabs" role="group" aria-label="Activity type">
+      <button id="tMatch" aria-pressed="true">Match</button>
+      <button id="tFix" aria-pressed="false">Fix the table</button>
+    </div>
+  </div>
+  <p class="instr" id="instr"></p>
+  <div id="app"></div>
+  <div class="actions">
+    <button class="btn" id="check">Check answers</button>
+    <button class="btn ghost" id="reset">Try again</button>
+    <span class="result" id="result" aria-live="polite"></span>
+  </div>
+  <div class="foot">Practice material by Orange English. Not official IELTS material.</div>
+</div>
+<script>
+const SETS = {
+  s1:["Speaking · Technology",[["time-saving","helps you do something faster"],["digital literacy","the ability to use technology well and safely"],["automation","machines doing work that people used to do"],["over-reliance on","depending on something too much"],["user-friendly","easy to use"]]],
+  s2:["Speaking · Health",[["a sedentary lifestyle","a life with very little physical activity"],["a balanced diet","eating a healthy mix of different foods"],["stay active","keep moving and exercising regularly"],["burnout","extreme tiredness caused by working too hard for too long"],["preventive healthcare","care that stops illness before it starts"]]],
+  s3:["Speaking · Education",[["transferable skills","skills you can use in many different jobs"],["pick up (a skill)","learn something informally, without a course"],["hands-on experience","learning by actually doing something"],["at your own pace","as fast or slowly as suits you"],["professional development","training that helps you progress in your job"]]],
+  s4:["Speaking · Environment",[["carbon footprint","the amount of CO2 your activities produce"],["single-use plastics","plastic items you use once and throw away"],["cut down on","use or do less of something"],["eco-friendly alternatives","options that are less harmful to the environment"],["raise awareness","help people understand a problem"]]],
+  s5:["Speaking · Work",[["work-life balance","a healthy mix of work and free time"],["job security","knowing you're unlikely to lose your job"],["career progression","moving up to better positions over time"],["flexible working","being able to choose when or where you work"],["fulfilling","making you feel satisfied and useful"]]],
+  s6:["Speaking · Travel",[["broaden your horizons","experience new things and ideas"],["off the beaten track","far from the usual tourist places"],["overtourism","too many tourists in one place"],["cultural heritage","the traditions, buildings and history of a place"],["boost the local economy","bring more money and jobs to an area"]]],
+  s7:["Speaking · Social media",[["keep in touch with","stay in contact with someone"],["misinformation","false or misleading information"],["privacy concerns","worries about who can see your personal data"],["scroll mindlessly","look through content without really paying attention"],["a reliable source","somewhere you can trust for accurate information"]]],
+  s8:["Speaking · Money",[["value for money","worth the price you paid"],["impulse buying","buying something suddenly, without planning"],["splash out on","spend a lot of money on something special"],["on a tight budget","with very little money to spend"],["financial literacy","understanding how to manage money"]]],
+  s9:["Speaking · Cities",[["traffic congestion","too many vehicles on the roads"],["green spaces","parks and areas with grass and trees"],["pedestrian-friendly","safe and pleasant for people walking"],["vibrant","full of life and energy"],["the cost of living","how much money you need for basic things"]]],
+  s10:["Speaking · Food",[["home-cooked","made at home, not bought ready-made"],["convenience food","food that is quick and easy to prepare"],["a staple","a basic food that people eat regularly"],["locally sourced","produced near where it is sold"],["eat on the go","eat while travelling or doing something else"]]],
+  s11:["Speaking · Culture",[["pass down","give from one generation to the next"],["cultural identity","the feeling of belonging to a culture"],["a sense of belonging","feeling that you are part of a group"],["customs","traditional ways of doing things"],["the generation gap","differences between younger and older people"]]],
+  s12:["Speaking · Friends",[["get on well with","have a good relationship with"],["mutual trust","trust that goes both ways"],["lose touch","stop being in contact"],["dependable","someone you can rely on"],["go out of your way","make a special effort to help"]]],
+  s13:["Speaking · Leisure",[["unwind","relax after work or stress"],["a creative outlet","an activity that lets you express yourself"],["get into (something)","start to become interested in something"],["screen time","time spent looking at phones, computers or TV"],["a sense of achievement","the good feeling of finishing something difficult"]]],
+  s14:["Speaking · Success",[["set yourself a goal","decide on something you want to achieve"],["perseverance","continuing even when something is difficult"],["a setback","a problem that delays your progress"],["overcome obstacles","deal successfully with difficulties"],["self-discipline","the ability to make yourself do things"]]],
+  s15:["Speaking · Animals",[["natural habitat","the place where an animal normally lives"],["endangered species","animals at risk of disappearing"],["animal welfare","the health and happiness of animals"],["biodiversity","the variety of plants and animals in an area"],["a loyal companion","an animal or person who stays by your side"]]],
+  w1:["Writing Task 2 · AI and employment",[["the workforce","all the people who work in a country or company"],["automation","machines or software doing work people used to do"],["repetitive tasks","the same simple actions done again and again"],["technological advancement","progress in technology"],["reskilling","learning new skills for a different job"]]],
+  w2:["Writing Task 2 · Education",[["financial literacy","understanding how to manage money"],["academic achievement","success in school subjects and exams"],["independent living","being able to look after yourself"],["transferable skills","skills that are useful in many situations"],["the school curriculum","the subjects and content taught at school"]]],
+  w3:["Writing Task 2 · Climate change",[["environmental impact","the effect something has on the environment"],["collective action","people acting together towards the same goal"],["carbon emissions","CO2 released into the air"],["government regulation","rules made and enforced by the government"],["sustainable consumption","buying and using things in a way that protects the planet"]]],
+  w4:["Writing Task 2 · Remote working",[["remote working","working away from the office, usually at home"],["productivity","how much work someone gets done"],["commuting costs","money spent travelling to and from work"],["professional isolation","feeling cut off from colleagues"],["flexible arrangements","agreements that allow changes to where or when people work"]]],
+  w5:["Writing Task 2 · Social media",[["excessive screen time","too much time looking at screens"],["self-esteem","how much you value yourself"],["online safety","protecting yourself from risks on the internet"],["digital literacy","the ability to use and judge online information"],["parental supervision","parents checking what their children do"]]],
+  w6:["Writing Task 2 · Healthcare",[["preventive healthcare","care that stops illness before it starts"],["public health","the health of the population as a whole"],["chronic illness","a long-lasting health condition"],["medical intervention","treatment given by doctors"],["healthcare expenditure","money spent on healthcare"]]],
+  w7:["Writing Task 2 · Housing",[["a housing shortage","not enough homes for the people who need them"],["affordable accommodation","housing that people on average incomes can pay for"],["urban development","building and planning in cities"],["population density","how many people live in an area"],["the property market","the buying and selling of homes"]]],
+  w8:["Writing Task 2 · Tourism",[["tourism revenue","money earned from tourists"],["cultural heritage","a place's traditions, buildings and history"],["overcrowding","too many people in one place"],["local infrastructure","roads, transport and services in an area"],["sustainable tourism","tourism that doesn't damage places or communities"]]],
+  w9:["Writing Task 2 · Online learning",[["accessibility","how easy something is to reach or use"],["independent learning","studying without a teacher guiding every step"],["learner engagement","how involved and interested students are"],["face-to-face interaction","meeting and talking in person"],["blended learning","a mix of online and classroom study"]]],
+  w10:["Writing Task 2 · Advertising",[["consumer behaviour","how and why people buy things"],["disposable income","money left after paying for essentials"],["impulse purchases","things bought suddenly without planning"],["persuasive techniques","methods used to convince people"],["material possessions","things people own"]]],
+  w11:["Writing Task 2 · Ageing populations",[["life expectancy","how long people are expected to live"],["an ageing population","a population with a growing share of older people"],["the pension system","how money is provided to retired people"],["healthcare provision","the healthcare services available"],["the retirement age","the age at which people stop working"]]],
+  w12:["Writing Task 2 · Transport",[["traffic congestion","too many vehicles on the roads"],["transport infrastructure","roads, railways and stations"],["accessibility","how easy it is for everyone to use something"],["public investment","money the government spends on public projects"],["rural communities","people living in the countryside"]]],
+  w13:["Writing Task 2 · Globalisation",[["cultural identity","a sense of belonging to a culture"],["globalisation","the world becoming more connected"],["cultural exchange","sharing ideas and customs between cultures"],["traditional customs","long-established ways of doing things"],["cultural diversity","many different cultures existing together"]]],
+  w14:["Writing Task 2 · Food waste",[["food waste","food that is thrown away"],["surplus food","extra food that hasn't been sold or eaten"],["the supply chain","all the steps from producer to consumer"],["food redistribution","giving unused food to people who need it"],["consumer awareness","how much shoppers know about an issue"]]],
+  w15:["Writing Task 2 · Purpose of education",[["employability","how attractive you are to employers"],["personal development","growing as a person"],["critical thinking","judging ideas carefully and logically"],["vocational training","training for a specific job or trade"],["intellectual curiosity","a desire to learn and understand"]]]
+};
+
+const params = new URLSearchParams(location.search);
+const key = SETS[params.get("set")] ? params.get("set") : "s1";
+const [setTitle, items] = SETS[key];
+let mode = params.get("mode") === "fix" ? "fix" : "match";
+const $ = id => document.getElementById(id);
+$("lbl").textContent = setTitle.split(" · ")[0] + " vocabulary";
+$("title").textContent = setTitle.split(" · ")[1];
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+let selected = null;      // match mode: selected chip element
+let fixOrder = [];        // fix mode: meaning index shown in each row
+let fixSel = null;
+
+function render(){
+  $("result").textContent = "";
+  $("tMatch").setAttribute("aria-pressed", mode==="match");
+  $("tFix").setAttribute("aria-pressed", mode==="fix");
+  const app = $("app"); app.innerHTML = "";
+  selected = null; fixSel = null;
+  if(mode==="match"){
+    $("instr").textContent = "Drag each phrase to its meaning. On a phone, tap a phrase and then tap the meaning.";
+    const bank = document.createElement("div"); bank.className="bank"; bank.id="bank";
+    shuffle(items.map((_,i)=>i)).forEach(i=>bank.appendChild(makeChip(i)));
+    makeDropTarget(bank);
+    app.appendChild(bank);
+    const rows = document.createElement("div"); rows.className="rows";
+    shuffle(items.map((_,i)=>i)).forEach(i=>{
+      const row=document.createElement("div"); row.className="row"; row.dataset.ans=i;
+      const slot=document.createElement("div"); slot.className="slot empty"; makeDropTarget(slot);
+      const m=document.createElement("div"); m.className="meaning"; m.textContent=items[i][1];
+      row.append(slot,m); rows.appendChild(row);
+    });
+    app.appendChild(rows);
+  } else {
+    $("instr").textContent = "Some meanings are in the wrong row. Tap two meanings to swap them, then check.";
+    // derange 3 of the 5 rows so the table has errors
+    const idx = items.map((_,i)=>i);
+    const pick = shuffle(idx).slice(0,3);
+    fixOrder = idx.slice();
+    fixOrder[pick[0]] = pick[1]; fixOrder[pick[1]] = pick[2]; fixOrder[pick[2]] = pick[0];
+    const rows = document.createElement("div"); rows.className="rows";
+    items.forEach((it,r)=>{
+      const row=document.createElement("div"); row.className="row fixrow";
+      const p=document.createElement("div"); p.className="phrase"; p.textContent=it[0];
+      const m=document.createElement("div"); m.className="meaning"; m.tabIndex=0; m.setAttribute("role","button");
+      m.textContent=items[fixOrder[r]][1]; m.dataset.row=r;
+      m.addEventListener("click",()=>fixTap(m));
+      m.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fixTap(m)}});
+      row.append(p,m); rows.appendChild(row);
+    });
+    app.appendChild(rows);
+  }
+}
+
+function makeChip(i){
+  const c=document.createElement("div"); c.className="chip"; c.textContent=items[i][0]; c.dataset.i=i;
+  c.draggable=true; c.tabIndex=0; c.setAttribute("role","button");
+  c.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",i);selected=c;});
+  c.addEventListener("click",e=>{e.stopPropagation();
+    if(selected===c){c.classList.remove("sel");selected=null;return}
+    document.querySelectorAll(".chip.sel").forEach(x=>x.classList.remove("sel"));
+    c.classList.add("sel"); selected=c;});
+  c.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();c.click()}});
+  return c;
+}
+function placeInto(target){
+  if(!selected) return;
+  const chip=selected; chip.classList.remove("sel"); selected=null;
+  if(target.classList.contains("slot")){
+    const existing=target.querySelector(".chip");
+    if(existing && existing!==chip) $("bank").appendChild(existing);
+    target.appendChild(chip);
+  } else target.appendChild(chip);
+  document.querySelectorAll(".slot").forEach(s=>s.classList.toggle("empty",!s.querySelector(".chip")));
+  document.querySelectorAll(".row").forEach(r=>r.classList.remove("ok","bad"));
+  $("result").textContent="";
+}
+function makeDropTarget(el){
+  el.addEventListener("dragover",e=>{e.preventDefault();el.classList.add("hover")});
+  el.addEventListener("dragleave",()=>el.classList.remove("hover"));
+  el.addEventListener("drop",e=>{e.preventDefault();el.classList.remove("hover");placeInto(el)});
+  el.addEventListener("click",()=>placeInto(el));
+}
+function fixTap(m){
+  document.querySelectorAll(".fixrow").forEach(r=>r.classList.remove("ok","bad")); $("result").textContent="";
+  if(!fixSel){fixSel=m;m.classList.add("sel");return}
+  if(fixSel===m){m.classList.remove("sel");fixSel=null;return}
+  const a=+fixSel.dataset.row,b=+m.dataset.row;
+  [fixOrder[a],fixOrder[b]]=[fixOrder[b],fixOrder[a]];
+  fixSel.textContent=items[fixOrder[a]][1]; m.textContent=items[fixOrder[b]][1];
+  fixSel.classList.remove("sel"); fixSel=null;
+}
+$("check").addEventListener("click",()=>{
+  let right=0;
+  if(mode==="match"){
+    document.querySelectorAll(".row").forEach(r=>{
+      const chip=r.querySelector(".chip"); const ok=chip && chip.dataset.i===r.dataset.ans;
+      r.classList.toggle("ok",!!ok); r.classList.toggle("bad",!!chip && !ok); if(ok) right++;
+    });
+  } else {
+    document.querySelectorAll(".fixrow").forEach((r,i)=>{const ok=fixOrder[i]===i;r.classList.toggle("ok",ok);r.classList.toggle("bad",!ok);if(ok)right++;});
+  }
+  $("result").textContent = right===items.length ? "All 5 correct. Well done!" : `${right} of ${items.length} correct. Try the red ones again.`;
+});
+$("reset").addEventListener("click",render);
+$("tMatch").addEventListener("click",()=>{mode="match";render()});
+$("tFix").addEventListener("click",()=>{mode="fix";render()});
+render();
+</script>
+</body>
+</html>
