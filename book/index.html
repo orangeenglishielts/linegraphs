@@ -239,6 +239,9 @@ body{background:var(--desk)}
 /* ---------- the book ---------- */
 .book-wrap{max-width:1240px;margin:0 auto;padding:6px max(18px,env(safe-area-inset-right,0px)) 0 max(18px,env(safe-area-inset-left,0px))}
 .book{position:relative}
+/* While the book is still being built (slow phones), hold the space so the footer does not show first and then jump, and say what is happening */
+.book:empty{min-height:100vh}
+.book:empty::before{content:"Opening your book…";display:block;padding:72px 18px 0;text-align:center;font:600 16px/1.4 var(--ui);color:var(--soft)}
 .spread{display:none}
 .spread.active{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);position:relative}
 .page{position:relative;background:var(--page);padding:44px 46px 40px;min-height:640px;min-width:0}
@@ -3085,5 +3088,6 @@ if(window.OESync&&OESync.mountPanel){
    if(row)row.parentNode.insertBefore(n,row.nextSibling);else if(num)pg.insertBefore(n,num);else pg.appendChild(n);});
 })();
 </script>
+<script src="../site-images/oe-shift.js"></script>
 </body>
 </html>

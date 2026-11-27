@@ -42,6 +42,8 @@ header .wrap{padding-block:22px 26px}
 h1{font:800 clamp(26px,6vw,34px)/1.15 var(--f-display); margin:10px 0 8px; text-wrap:balance}
 header p{margin:0; color:#d9d2cc; max-width:52ch}
 .dq-about{display:none}
+#app:empty{min-height:100vh}
+#app:empty::before{content:"Loading…";display:block;padding:56px 0 0;text-align:center;font-weight:600;color:var(--muted,#6b645c)}
 @media (max-width:600px){header .wrap{padding-block:14px 16px} h1{font-size:22px; margin:6px 0 0} header .dq-intro{display:none} .dq-about{display:block; margin:14px 0 0; padding-top:12px; border-top:1px solid var(--line); color:var(--muted,#6b645c)}}
 @media (max-width:340px){header .wrap{padding-block:10px 12px} h1{font-size:20px} .dq-hero h2{font-size:19px}}
 main .wrap{padding-block:24px 48px; display:grid; gap:20px}
@@ -287,5 +289,6 @@ start();
 }catch(e){}})();
 </script>
 <script src="../../site-images/oe-clarity.js" data-ask="auto"></script>
+<script src="../../site-images/oe-shift.js"></script>
 </body>
 </html>
