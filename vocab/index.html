@@ -10,7 +10,7 @@
 <style>
   :root{--bg:#FBF7F0;--ink:#292929;--muted:#6b645c;--accent:#B4501A;--accent-soft:#fbe3d3;--ok:#2f7d4f;--ok-soft:#dff1e5;--bad:#b3261e;--bad-soft:#fbe0de;--line:#e8dfd2;--card:#fff}
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 Inter,system-ui,sans-serif}
+  html,body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font:15px/1.4 Inter,system-ui,sans-serif}
   .wrap{max-width:1100px;margin:0 auto;padding:12px 14px}
   .top{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-bottom:8px}
   h1{font:600 1.15rem/1.2 Fraunces,Georgia,serif;margin:0}
@@ -97,9 +97,11 @@ const SETS = {
 };
 
 const params = new URLSearchParams(location.search);
-const key = SETS[params.get("set")] ? params.get("set") : "s1";
+const pathSet = (location.pathname.match(/\/([sw]\d{1,2})\/?(index\.html)?$/)||[])[1];
+const key = SETS[params.get("set")] ? params.get("set") : (SETS[pathSet] ? pathSet : "s1");
 const [setTitle, items] = SETS[key];
-let mode = params.get("mode") === "fix" ? "fix" : "match";
+const num = parseInt(key.slice(1),10);
+let mode = params.get("mode") ? (params.get("mode")==="fix" ? "fix" : "match") : (num % 2 === 0 ? "fix" : "match");
 const $ = id => document.getElementById(id);
 $("lbl").textContent = setTitle.split(" · ")[0] + " vocabulary";
 $("title").textContent = setTitle.split(" · ")[1];
@@ -205,7 +207,7 @@ $("reset").addEventListener("click",render);
 $("tMatch").addEventListener("click",()=>{mode="match";render()});
 $("tFix").addEventListener("click",()=>{mode="fix";render()});
 render();
-function sendHeight(){try{parent.postMessage({oeVocabHeight:document.documentElement.scrollHeight,set:key},"*")}catch(e){}}
+function sendHeight(){var h=Math.ceil(document.querySelector(".wrap").getBoundingClientRect().height)+8;try{parent.postMessage({oeVocabHeight:h,set:key},"*");parent.postMessage({oeH5P:1,height:h},"*")}catch(e){}}
 new ResizeObserver(sendHeight).observe(document.body); sendHeight();
 </script>
 </body>
