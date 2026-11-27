@@ -2065,7 +2065,11 @@ A.tapgraph=(el,o)=>{el.classList.add('oe-try');const ch=C.CHARTS[o.chart];
     const n=found.size;fb.innerHTML=`<p><b>${n} of ${G} ${o.found||'key features found'}.</b> ${n===G?(o.okMsg||'This is the main story: air travel peaked, the lines crossed, and train travel finished well ahead.'):(o.missMsg||'The main story is the air travel peak, the crossover and where the lines finished.')}</p>`+html;
     if(!init){Object.keys(o.groups).forEach(gk=>track(o.id,gk,found.has(gk),o._spread));gate(o.id)}paint()};
   pts.forEach(g=>{g.setAttribute('role','button');const t=()=>{if(st.done)return;const k=g.dataset.key,i=st.sel.indexOf(k);if(i>=0)st.sel.splice(i,1);else if(st.sel.length<N)st.sel.push(k);else{fb.innerHTML=`<p class="m">You already have ${N===3?'three':N===2?'two':N}. Tap one of them to deselect it first.</p>`;return}fb.innerHTML='';S.set('a-'+o.id,st);paint()};
-    g.addEventListener('click',t);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}})});
+    g._tap=t;g.addEventListener('click',t);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}})});
+  // A tap that just misses a point still counts: pick the nearest point within about 30px. Too far from every point: say so.
+  {const svg=pts[0]&&pts[0].ownerSVGElement;if(svg){svg.style.touchAction='manipulation';svg.addEventListener('click',e=>{if(st.done||(e.target.closest&&e.target.closest('.pt')))return;
+    let best=null,bd=1e9;pts.forEach(g=>{const d=$('circle.dot',g);if(!d)return;const r=d.getBoundingClientRect(),dist=Math.hypot(e.clientX-(r.left+r.width/2),e.clientY-(r.top+r.height/2));if(dist<bd){bd=dist;best=g}});
+    if(best&&bd<=30)best._tap();else fb.innerHTML='<p class="m">Tap closer to a point.</p>'})}}
   $('.chk',el).onclick=()=>check(false);
   $('.rst',el).onclick=()=>{st={sel:[],done:0};S.set('a-'+o.id,st);pts.forEach(g=>g.classList.remove('ok','no','miss','sel'));fb.innerHTML='';paint()};
   paint();if(st.done)check(true)};
