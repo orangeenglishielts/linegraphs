@@ -253,6 +253,20 @@ function result(){
 }
 start();
 </script>
+<script>
+/* Google Analytics (cookie-free, same property as the book), added 27 Nov 2026: diagnostic views, starts and completions */
+(function(){try{
+  var ID='G-3NFGSQZVRJ',cid;try{cid=localStorage.getItem('oe_ga_cid');if(!cid){cid=Math.floor(Math.random()*1e9)+'.'+Math.floor(Date.now()/1000);localStorage.setItem('oe_ga_cid',cid);}}catch(e){cid=Math.floor(Math.random()*1e9)+'.'+Math.floor(Date.now()/1000);}
+  window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments);};
+  gtag('js',new Date());gtag('config',ID,{client_storage:'none',client_id:cid,anonymize_ip:true});
+  var sc=document.createElement('script');sc.async=true;sc.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(sc);
+  var emb=(function(){try{return window.self!==window.top}catch(e){return true}})()?'thinkific':'direct';
+  function ev(n,p){var o={diagnostic:'before',embedded:emb};for(var k in (p||{}))o[k]=p[k];try{gtag('event',n,o);}catch(e){}}
+  ev('diagnostic_view');
+  var started=false;document.addEventListener('click',function(e){if(started)return;if(e.target.closest&&e.target.closest('.dq-card,.dq-chip,[data-k],#chk')){started=true;ev('diagnostic_start');}},true);
+  var orig=window.result;if(typeof orig==='function'){window.result=function(){var r=orig.apply(this,arguments);try{var t=0;for(var a in score)t+=score[a];ev('diagnostic_complete',{score:t,kf:score.KF,cmp:score.CMP,gr:score.GR,org:score.ORG});}catch(e){}return r;};}
+}catch(e){}})();
+</script>
 <script src="../../site-images/oe-clarity.js" data-ask="auto"></script>
 </body>
 </html>
