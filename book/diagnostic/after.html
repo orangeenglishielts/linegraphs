@@ -41,6 +41,9 @@ header .wrap{padding-block:22px 26px}
 .brand{font:700 13px/1 var(--f-display); letter-spacing:.12em; text-transform:uppercase; color:var(--orange)}
 h1{font:800 clamp(26px,6vw,34px)/1.15 var(--f-display); margin:10px 0 8px; text-wrap:balance}
 header p{margin:0; color:#d9d2cc; max-width:52ch}
+.dq-about{display:none}
+@media (max-width:600px){header .wrap{padding-block:14px 16px} h1{font-size:22px; margin:6px 0 0} header .dq-intro{display:none} .dq-about{display:block; margin:14px 0 0; padding-top:12px; border-top:1px solid var(--line); color:var(--muted,#6b645c)}}
+@media (max-width:340px){header .wrap{padding-block:10px 12px} h1{font-size:20px} .dq-hero h2{font-size:19px}}
 main .wrap{padding-block:24px 48px; display:grid; gap:20px}
 .card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px}
 h2{font:700 20px/1.25 var(--f-display); margin:0 0 8px; text-wrap:balance}
@@ -98,7 +101,7 @@ footer{color:var(--muted); font-size:13px; text-align:center}
 <header><div class="wrap">
   <div class="brand">Mastering Line Graphs · Final diagnostic</div>
   <h1>How far have you come?</h1>
-  <p>12 quick tasks on a new line graph, testing the same four skills as your first diagnostic. Then see your two scores side by side.</p>
+  <p class="dq-intro">12 quick tasks on a new line graph, testing the same four skills as your first diagnostic. Then see your two scores side by side.</p>
 <p style="margin:12px 0 0"><a href="../#review-6" style="color:#F88B48;font-weight:600">Back to the course review →</a></p>
 </div></header>
 
@@ -200,6 +203,7 @@ function start(){
     <h2 style="margin:6px 0 6px">12 quick tasks, about 8 minutes</h2>
     <p style="margin:0 0 14px">See how far you’ve come since the first diagnostic. You get instant feedback on every answer.</p>
     <button class="btn dq-big" id="go1">Start the diagnostic →</button>
+    <p class="small dq-about">${(document.querySelector("header .dq-intro")||{}).textContent||""}</p>
     <p class="small dq-tk" hidden style="margin:12px 0 0">Do the 12 quick tasks first, then click <b>I’ve finished this lesson</b> to move on.</p>
   </section>
   <section class="card">

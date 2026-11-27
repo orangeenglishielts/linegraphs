@@ -69,6 +69,7 @@
       '.oe-cq button{flex:0 0 auto;font:600 14.5px/1.2 Inter,system-ui,sans-serif;border-radius:999px;padding:10px 16px;min-height:40px;cursor:pointer;border:1.5px solid #fff;background:transparent;color:#fff}' +
       '.oe-cq button.y{background:#F88B48;border-color:#F88B48;color:#292929}' +
       '.oe-cq button:focus-visible{outline:2px solid #fff;outline-offset:2px}' +
+      '@media (max-width:480px){.oe-cq{left:8px;right:8px;padding:10px 12px;font-size:13px;line-height:1.35;gap:8px;border-radius:14px}.oe-cq p{flex-basis:100%}.oe-cq button{font-size:13.5px;padding:8px 14px;min-height:36px}}' +
       '@media print{.oe-cq{display:none}}';
     d.head.appendChild(st);
     bar = d.createElement('div');
